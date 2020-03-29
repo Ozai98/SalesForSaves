@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
-import ch.qos.logback.core.boolex.Matcher;
-
 /**
  *
  * @author German le yo

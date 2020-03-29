@@ -6,21 +6,15 @@ import java.sql.SQLException;
 import javax.annotation.PostConstruct;
 
 import com.j256.ormlite.dao.Dao;
-import com.j256.ormlite.dao.DaoManager;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.http.MediaType;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import database.DatabaseController;
-import database.models.Usuario;
+import database.models.*;
+import database.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 import services.Services;
 
 /**
@@ -29,9 +23,8 @@ import services.Services;
  */
 @RestController
 @EnableAutoConfiguration
+@RequestMapping("/usuario")
 public class UsuarioController {
-
-    public static final String ROUTE = "usuario";
 
     private Dao<Usuario, Integer> userDao;
 
@@ -40,12 +33,12 @@ public class UsuarioController {
         userDao = DatabaseController.getInstance().userDao();
     }
 
-	@PostMapping(value = ROUTE + "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response crear(String nombre, String correo, String password)
+    @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public UserResponse crear(String nombre, String correo, String password)
     {
 
         // Verifing email
-        if(!Services.validateEmail(correo)) return new Response(false, null, "bad email");
+        if(!Services.validateEmail(correo)) return new UserResponse(false, null, "bad email");
 
 
         // Creating new user
@@ -56,27 +49,27 @@ public class UsuarioController {
         try{
             // Saving new user
             userDao.create(newUser);
-            return new Response(true, newUser, "user created");
+            return new UserResponse(true, newUser, "user created");
         }catch(SQLException ex){
             // Error saving
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new UserResponse(false, null, ex);
         }
     }    
 }
 
-class Response{
+class UserResponse{
     public final boolean ok;
     public final Usuario usuario;
     public final String msg;
 
-    public Response(boolean ok, Usuario usuario, String msg){
+    public UserResponse(boolean ok, Usuario usuario, String msg){
         this.ok = ok;
         this.usuario = usuario;
         this.msg = msg;
     }
 
-    public Response(boolean ok, Usuario usuario, Exception ex){
+    public UserResponse(boolean ok, Usuario usuario, Exception ex){
         this.ok = ok;
         this.usuario = usuario;
         this.msg = ex.getCause().getMessage();

@@ -1,6 +1,9 @@
 database\DatabaseController.class
-controllers\UsuarioController.class
-savesforsales\Index.class
-controllers\Response.class
+database\models\Proveedor.class
 database\models\Usuario.class
 services\Services.class
+controllers\UserResponse.class
+controllers\UsuarioController.class
+controllers\ProveedorResponse.class
+savesforsales\Index.class
+controllers\ProveedorController.class

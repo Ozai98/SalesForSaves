@@ -11,6 +11,7 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
+import database.models.Proveedor;
 
 import database.models.Usuario;
 
@@ -24,24 +25,31 @@ public class DatabaseController {
     private static DatabaseController instance;
 
     private final ConnectionSource connection;
-    private final Dao<Usuario, Integer> userDao;
+    private final Dao<Usuario, Integer> userDao;    
+    private final Dao<Proveedor, Integer> proveedorDao;
+
 
     private DatabaseController() throws SQLException {
         connection = new JdbcConnectionSource(DB_CONNECTION);
-        userDao = DaoManager.createDao(connection, Usuario.class);
+        userDao = DaoManager.createDao(connection, Usuario.class);        
+        proveedorDao = DaoManager.createDao(connection, Proveedor.class);
     }
 
     public static DatabaseController getInstance(){
         if(instance == null) try {
             instance = new DatabaseController();
         } catch (SQLException e) {
-            e.printStackTrace();
+            services.Services.handleError(e);
         }
         return instance;
     } 
 
     public Dao<Usuario, Integer> userDao(){
         return userDao;
+    }
+    
+    public Dao<Proveedor, Integer> proveedorDao(){
+        return proveedorDao;
     }
 
 }

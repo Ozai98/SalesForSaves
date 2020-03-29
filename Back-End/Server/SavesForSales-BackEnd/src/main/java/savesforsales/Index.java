@@ -4,6 +4,7 @@ package savesforsales;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import controllers.ProveedorController;
 import controllers.UsuarioController;
 import services.Services;
 
@@ -11,10 +12,10 @@ import services.Services;
  *
  * @author German le yo
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages="controllers")
 public class Index {
     public static void main(String[] args){
        Services.startServices();
-       SpringApplication.run(UsuarioController.class, args);
+       SpringApplication.run(Index.class, args);
     }
 }
