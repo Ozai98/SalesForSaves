@@ -27,12 +27,13 @@ public class DatabaseController {
     private final ConnectionSource connection;
     private final Dao<Usuario, Integer> userDao;    
     private final Dao<Proveedor, Integer> proveedorDao;
-
+    private final Dao<Producto, Integer> productoDao;
 
     private DatabaseController() throws SQLException {
         connection = new JdbcConnectionSource(DB_CONNECTION);
         userDao = DaoManager.createDao(connection, Usuario.class);        
         proveedorDao = DaoManager.createDao(connection, Proveedor.class);
+        productoDao = DaoManager.createDao(connection, Producto.class);
     }
 
     public static DatabaseController getInstance(){
@@ -52,4 +53,7 @@ public class DatabaseController {
         return proveedorDao;
     }
 
+    public Dao<Producto, Integer> productoDao(){
+        return productoDao;
+    }
 }
