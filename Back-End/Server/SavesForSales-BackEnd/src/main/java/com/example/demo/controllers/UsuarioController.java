@@ -1,5 +1,5 @@
 
-package controllers;
+package com.example.demo.controllers;
 
 import java.sql.SQLException;
 
@@ -12,10 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import database.models.*;
-import database.*;
+import com.example.demo.database.models.Usuario;
+import com.example.demo.database.DatabaseController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import services.Services;
+import com.example.demo.services.Services;
 
 /**
  *

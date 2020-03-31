@@ -1,5 +1,5 @@
 
-package services;
+package com.example.demo.services;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

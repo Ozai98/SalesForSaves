@@ -1,4 +1,4 @@
-package database.models;
+package com.example.demo.database.models;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
  *
  * @author German le yo
  */
-@DatabaseTable(tableName = "proveedor")
+@DatabaseTable(tableName = "Proveedor")
 public class Proveedor{
 
     @DatabaseField(generatedId = true)
