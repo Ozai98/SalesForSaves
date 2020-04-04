@@ -28,5 +28,14 @@ public class ProductoController{
 	public Producto getProducto(@PathVariable String proveedor, @PathVariable Long id){
 
 	}
-	
+	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
+
+	class ProductResponse{
+		public final boolean ok;
+		public final Producto producto;
+		public final Producto[] productos;
+		public final String msg;
+
+	}
 }
