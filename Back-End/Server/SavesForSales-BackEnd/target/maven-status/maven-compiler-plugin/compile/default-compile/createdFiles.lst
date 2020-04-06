@@ -1,9 +1,11 @@
+com\example\demo\controllers\ProductoController.class
 com\example\demo\controllers\ProveedorResponse.class
 com\example\demo\controllers\UsuarioController.class
 com\example\demo\database\models\Proveedor.class
 com\example\demo\controllers\ProveedorController.class
 com\example\demo\services\Services.class
 com\example\demo\controllers\UserResponse.class
+com\example\demo\database\models\Producto.class
 com\example\demo\savesforsales\Index.class
 com\example\demo\database\models\Usuario.class
 com\example\demo\database\DatabaseController.class
