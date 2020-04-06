@@ -26,6 +26,7 @@ public class ProductoController{
             product.setProveedor(proveedor);
             return new Producto[]{product, product, product};
 	}
+        
 	@GetMapping("/{id}/{proveedor}")
 	public Producto getProducto(@PathVariable String proveedor, @PathVariable Long id){
             Producto product = new Producto();
