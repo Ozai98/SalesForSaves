@@ -32,5 +32,14 @@ public class ProductoController{
             product.setProveedor(proveedor);
             return product;
 	}
-	
+	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+
+
+	class ProductResponse{
+		public final boolean ok;
+		public final Producto producto;
+		public final Producto[] productos;
+		public final String msg;
+
+	}
 }
