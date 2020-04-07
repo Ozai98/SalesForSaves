@@ -55,23 +55,24 @@ public class UsuarioController {
             Services.handleError(ex);
             return new UserResponse(false, null, ex);
         }
-    }    
+    }   
+    
+    public static class UserResponse{
+        public final boolean ok;
+        public final Usuario usuario;
+        public final String msg;
+
+        public UserResponse(boolean ok, Usuario usuario, String msg){
+            this.ok = ok;
+            this.usuario = usuario;
+            this.msg = msg;
+        }
+
+        public UserResponse(boolean ok, Usuario usuario, Exception ex){
+            this.ok = ok;
+            this.usuario = usuario;
+            this.msg = ex.getCause().getMessage();
+        }
+    }
 }
 
-class UserResponse{
-    public final boolean ok;
-    public final Usuario usuario;
-    public final String msg;
-
-    public UserResponse(boolean ok, Usuario usuario, String msg){
-        this.ok = ok;
-        this.usuario = usuario;
-        this.msg = msg;
-    }
-
-    public UserResponse(boolean ok, Usuario usuario, Exception ex){
-        this.ok = ok;
-        this.usuario = usuario;
-        this.msg = ex.getCause().getMessage();
-    }
-}
