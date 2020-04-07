@@ -12,15 +12,15 @@ public class Producto{
 	private int precio;
 	@DatabaseField
 	private String name;
-	@DatabaseField
-	private int proveedor;
+	@DatabaseField(foreign = true, columnName = "proveedor_id")
+	Proveedor proveedor;
 
 	public int getId(){return id;}
 	public int getPrecio(){return precio;}
 	public String getName(){return name;}
-	public int getProveedor(){return proveedor;}
+	public Proveedor getProveedor(){return proveedor;}
 
 	public void setPrecio(int p){precio=p;}
 	public void setName(String n){name=n;}
-	public void setProveedor(int p){proveedor=p;}
+	public void setProveedor(Proveedor p){proveedor=p;}
 }
