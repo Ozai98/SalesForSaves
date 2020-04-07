@@ -15,6 +15,7 @@ import com.example.demo.database.models.Proveedor;
 import com.example.demo.database.models.Usuario;
 import com.example.demo.services.Services;
 import com.example.demo.database.models.Producto;
+import com.example.demo.savesforsales.Index;
 
 /**
  *
@@ -22,8 +23,8 @@ import com.example.demo.database.models.Producto;
  */
 public class DatabaseController {
 
-    private static final String DB_CONNECTION = "jdbc:mysql://fO2PgMO03q:hpVY4ehAVj@remotemysql.com:3306/fO2PgMO03q?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    //private static final String DB_CONNECTION = "jdbc:mysql://root:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://fO2PgMO03q:hpVY4ehAVj@remotemysql.com:3306/fO2PgMO03q?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String LOCAL_DB_CONNECTION = "jdbc:mysql://root:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     
     private static DatabaseController instance;
 
@@ -32,8 +33,8 @@ public class DatabaseController {
     private final Dao<Proveedor, Integer> proveedorDao;
     private final Dao<Producto, Integer> productoDao;
 
-    private DatabaseController() throws SQLException {
-        connection = new JdbcConnectionSource(DB_CONNECTION);
+    private DatabaseController(String dbConnection) throws SQLException {
+        connection = new JdbcConnectionSource(dbConnection);
         userDao = DaoManager.createDao(connection, Usuario.class);        
         proveedorDao = DaoManager.createDao(connection, Proveedor.class);
         productoDao = DaoManager.createDao(connection, Producto.class);
@@ -41,7 +42,8 @@ public class DatabaseController {
 
     public static DatabaseController getInstance(){
         if(instance == null) try {
-            instance = new DatabaseController();
+            if(Index.REMOTE) instance = new DatabaseController(REMOTE_DB_CONNECTION);
+            else instance = new DatabaseController(LOCAL_DB_CONNECTION);
         } catch (SQLException e) {
             Services.handleError(e);
         }

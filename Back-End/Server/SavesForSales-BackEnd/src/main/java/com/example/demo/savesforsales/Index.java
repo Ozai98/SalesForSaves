@@ -17,6 +17,8 @@ import com.example.demo.services.Services;
 @Controller
 public class Index {
 
+    public static boolean REMOTE = false;
+    
     @RequestMapping("/")
     @ResponseBody
     String home() {

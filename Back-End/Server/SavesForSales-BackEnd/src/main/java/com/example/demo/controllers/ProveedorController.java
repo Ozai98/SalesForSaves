@@ -40,16 +40,15 @@ public class ProveedorController {
         // Verifing email
         if(!Services.validateEmail(correo)) return new ProveedorResponse(false, null, "bad email");
 
-
-        // Creating new user
+        // Creating new provider
         Proveedor newProvider = new Proveedor();
         newProvider.setNombre(nombre);
         newProvider.setCorreo(correo);
         newProvider.setPassword(Services.cryptPassword(password));
         try{
-            // Saving new user
+            // Saving new provider
             proveedorDao.create(newProvider);
-            return new ProveedorResponse(true, newProvider, "provider created created");
+            return new ProveedorResponse(true, newProvider, "provider created");
         }catch(SQLException ex){
             // Error saving
             Services.handleError(ex);
