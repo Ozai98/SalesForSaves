@@ -13,14 +13,14 @@ public class Producto{
 	@DatabaseField
 	private String name;
 	@DatabaseField
-	private String proveedor;
+	private int proveedor;
 
 	public int getId(){return id;}
 	public int getPrecio(){return precio;}
 	public String getName(){return name;}
-	public String getProveedor(){return proveedor;}
+	public int getProveedor(){return proveedor;}
 
 	public void setPrecio(int p){precio=p;}
 	public void setName(String n){name=n;}
-	public void setProveedor(String p){proveedor=p;}
+	public void setProveedor(int p){proveedor=p;}
 }
