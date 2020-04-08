@@ -46,6 +46,20 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Usuario` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `SavesForSales`.`Usuario`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Producto` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `nombre` VARCHAR(45) NOT NULL,
+  `precio` INT NOT NULL,
+  `proveedor` INT NOT NULL,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`proveedor`) REFERENCES Proveedor (`id`),	
+  UNIQUE INDEX `Correo_UNIQUE` (`correo` ASC) VISIBLE)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -1,0 +1,51 @@
+{
+	"info": {
+		"_postman_id": "9154df7c-1222-4c17-b3d4-f8a23e14e790",
+		"name": "Producto",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get all",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "savesforsales-back.herokuapp.com/producto/123",
+					"host": [
+						"savesforsales-back",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"producto",
+						"123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get by id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "savesforsales-back.herokuapp.com/producto/123321/proveedor",
+					"host": [
+						"savesforsales-back",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"producto",
+						"123321",
+						"proveedor"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
