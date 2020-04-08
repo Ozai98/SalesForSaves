@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 
@@ -12,6 +13,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Producto;
+import com.example.demo.services.Services;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,52 +34,44 @@ public class ProductoController{
 
 
 
-	@GetMapping("/{proveedor}")
-	public Producto[] getProductos(@PathVariable String proveedor){
-            Producto product = new Producto();
-            product.setProveedor(proveedor);
-            return new Producto[]{product, product, product};
+	@GetMapping("/{nombre}")
+	public ProductosResponse getProductos(@PathVariable String nombre){
+        try {
+			List<Producto> result = productoDao.queryBuilder().where().eq("name", nombre).query();
+			return new ProductosResponse(true, (Producto[]) result.toArray(), "");
+		} catch (SQLException ex) {
+			Services.handleError(ex);
+			return new ProductosResponse(false, null, ex);
+		}
 	}
         
 	@GetMapping("/{id}/{proveedor}")
-	public ProductResponse getProducto(@PathVariable String proveedor, @PathVariable Integer id){
+	public ProductoResponse getProducto(@PathVariable String proveedor, @PathVariable Integer id){
 			Producto product;
 		try {
 			product = productoDao.queryForId(id);
-			return  ProductResponse.producto(true, product, "");
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return  ProductResponse.producto(false, null, "");
+			return new ProductoResponse(true, product, "");
+		} catch (SQLException ex) {
+			Services.handleError(ex);
+			return new ProductoResponse(false, null, ex);
 		}
 			
 			
 	}
-	public interface ProductResponse{
-		static ProductResponse producto(boolean ok, Producto p, String msg){
-			return new ProductoResp(ok, p, msg);
+	public static class ProductoResponse extends Response<Producto>{
+		public ProductoResponse(boolean ok, Producto product, String msg){
+            super(ok, product, msg);
 		}
-		static ProductResponse productos(boolean o, Producto p[], String s){
-			return new ProductosResp(o, p, s);
-		}
+		public ProductoResponse(boolean ok, Producto product, Exception msg){
+            super(ok, product, msg);
+		} 
 	}
-	public static class ProductoResp implements ProductResponse{
-		public final boolean ok;
-		public final Producto producto;
-		public final String msg;
-		public ProductoResp(boolean ok, Producto product, String msg){
-            this.ok = ok;
-            this.producto = product;
-			this.msg = msg;
+	public static class ProductosResponse extends Response<Producto[]>{
+		ProductosResponse(boolean ok, Producto p[], String s){
+			super(ok, p, s);
 		}
-	}
-	public static class ProductosResp implements ProductResponse{
-		public final boolean ok;
-		public final Producto productos[];
-		public final String msg;
-		ProductosResp(boolean o, Producto p[], String s){
-			this.ok = o;
-			this.productos = p;
-			this.msg = s;
+		ProductosResponse(boolean ok, Producto p[], Exception s){
+			super(ok, p, s);
 		}
 	}
 }
