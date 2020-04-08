@@ -1,0 +1,50 @@
+{
+	"info": {
+		"_postman_id": "771456c0-9ebe-4fd9-96a7-313014e07a74",
+		"name": "Usuario",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "German",
+							"type": "text"
+						},
+						{
+							"key": "correo",
+							"value": "german@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "0000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "savesforsales-back.herokuapp.com/usuario/crear",
+					"host": [
+						"savesforsales-back",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"usuario",
+						"crear"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
