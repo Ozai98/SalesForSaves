@@ -1,9 +1,5 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import LoginComponent from "../components/login.vue";
-import RegComponent from "../components/register.vue";
-
 
 Vue.use(VueRouter);
 
@@ -11,22 +7,32 @@ const routes = [
   {
     path: "/",
     name: "Home",
-    component: Home,
+    component: () => import("@/views/Home.vue")
   },
   {
-    path: "/login",
-    name: "login",
-    component: LoginComponent
-},
-{
-    path: "/register",
-    name: "register",
-    component: RegComponent
-}
+    path: "/ProfileMain",
+    name: "ProfilePage",
+    component: () => import("@/views/ProfilePage.vue")
+  },
+  {
+    path: "/Login",
+    name: "Login",
+    component: () => import("@/components/Login.vue")
+  },
+  {
+    path: "/Register",
+    name: "Register",
+    component: () => import("@/components/Register.vue")
+  },
+  {
+    path: "/EditProfile",
+    name: "EditProfile",
+    component: () => import("@/components/EditProfile.vue")
+  }
 ];
 
 const router = new VueRouter({
-  routes,
+  routes
 });
 
 export default router;

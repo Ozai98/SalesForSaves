@@ -1,35 +1,37 @@
 <template>
-<div id="back">
-  <div id="login">
-    <div id="tittle">INICIAR SESION!</div>
-    <div id="user">
-      <input
-        type="text"
-        name="username"
-        v-model="input.username"
-        placeholder="E-mail   |"
-      />
-    </div>
-    <div id="pass">
-      <input
-        type="password"
-        name="password"
-        v-model="input.password"
-        placeholder="Contraseña    |"
-      />
-    </div>
-    <div id="bot">
-      <button tipe="button" name="log" v-on:click="login()">ENTRAR</button>
-    </div>
-    <div id="regtext">
-      O<br />
-      si no tienes una cuenta puedes registrarte
-    </div>
-    <div id="bot2">
-      <button tipe="button" v-on:click="jump()" name="sin">REGISTRARME!</button>
+  <div id="back">
+    <div id="login">
+      <div id="title">INICIAR SESION!</div>
+      <div id="user">
+        <input
+          type="text"
+          name="username"
+          v-model="input.username"
+          placeholder="E-mail   |"
+        />
+      </div>
+      <div id="pass">
+        <input
+          type="password"
+          name="password"
+          v-model="input.password"
+          placeholder="Contraseña    |"
+        />
+      </div>
+      <div id="bot">
+        <button type="button" name="log" v-on:click="login()">ENTRAR</button>
+      </div>
+      <div id="regtext">
+        O
+        <br />si no tienes una cuenta puedes registrarte
+      </div>
+      <div id="bot2">
+        <button tipe="button" v-on:click="jump()" name="sin">
+          REGISTRARME!
+        </button>
+      </div>
     </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -80,7 +82,7 @@ export default {
   margin-top: -301px; /*half height*/
   border-radius: 23px;
 }
-#tittle {
+#title {
   font: 53px Oswald, Oswald;
   color: #a1ffca;
   position: relative;
@@ -154,10 +156,10 @@ button[name="sin"] {
   font: 40px Oswald, Oswald;
 }
 #back {
-    position: absolute;
-    top: 0%;
-    left: 0%;
-  height:100%;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 100%;
   width: 100%;
   background-color: #ff8e43;
 }
