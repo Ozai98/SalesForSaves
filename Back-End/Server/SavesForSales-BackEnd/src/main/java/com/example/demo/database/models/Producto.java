@@ -12,7 +12,7 @@ public class Producto{
 	private int precio;
 	@DatabaseField
 	private String name;
-	@DatabaseField(foreign = true, columnName = "proveedor_id")
+	@DatabaseField(foreign = true, columnName = "id")
 	Proveedor proveedor;
 
 	public int getId(){return id;}

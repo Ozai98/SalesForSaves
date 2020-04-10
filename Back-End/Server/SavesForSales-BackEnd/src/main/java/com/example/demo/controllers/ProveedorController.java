@@ -34,11 +34,11 @@ public class ProveedorController {
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ProveedorResponse crear(String nombre, String correo, String password)
+    public Response<Proveedor> crear(String nombre, String correo, String password)
     {
 
         // Verifing email
-        if(!Services.validateEmail(correo)) return new ProveedorResponse(false, null, "bad email");
+        if(!Services.validateEmail(correo)) return new Response(false, null, "bad email");
 
         // Creating new provider
         Proveedor newProvider = new Proveedor();
@@ -48,30 +48,12 @@ public class ProveedorController {
         try{
             // Saving new provider
             proveedorDao.create(newProvider);
-            return new ProveedorResponse(true, newProvider, "provider created");
+            return new Response(true, newProvider, "provider created");
         }catch(SQLException ex){
             // Error saving
             Services.handleError(ex);
-            return new ProveedorResponse(false, null, ex);
+            return new Response(false, null, ex);
         }
     }
     
-}
-
-class ProveedorResponse{
-    public final boolean ok;
-    public final Proveedor proveedor;
-    public final String msg;
-
-    public ProveedorResponse(boolean ok, Proveedor proveedor, String msg){
-        this.ok = ok;
-        this.proveedor = proveedor;
-        this.msg = msg;
-    }
-
-    public ProveedorResponse(boolean ok, Proveedor proveedor, Exception ex){
-        this.ok = ok;
-        this.proveedor = proveedor;
-        this.msg = ex.getCause().getMessage();
-    }
 }

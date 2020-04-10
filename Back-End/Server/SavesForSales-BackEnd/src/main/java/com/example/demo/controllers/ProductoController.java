@@ -23,55 +23,36 @@ import com.example.demo.database.DatabaseController;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/producto")
-public class ProductoController{
+public class ProductoController {
 
-	private Dao<Producto, Integer> productoDao;
+    private Dao<Producto, Integer> productoDao;
 
     @PostConstruct
     public void init() {
         productoDao = DatabaseController.getInstance().productoDao();
     }
 
-
-
-	@GetMapping("/{nombre}")
-	public ProductosResponse getProductos(@PathVariable String nombre){
+    @GetMapping("/{nombre}")
+    public Response<Producto> getProductos(@PathVariable String nombre) {
         try {
-			List<Producto> result = productoDao.queryBuilder().where().eq("name", nombre).query();
-			return new ProductosResponse(true, (Producto[]) result.toArray(), "");
-		} catch (SQLException ex) {
-			Services.handleError(ex);
-			return new ProductosResponse(false, null, ex);
-		}
-	}
-        
-	@GetMapping("/{id}/{proveedor}")
-	public ProductoResponse getProducto(@PathVariable String proveedor, @PathVariable Integer id){
-			Producto product;
-		try {
-			product = productoDao.queryForId(id);
-			return new ProductoResponse(true, product, "");
-		} catch (SQLException ex) {
-			Services.handleError(ex);
-			return new ProductoResponse(false, null, ex);
-		}
-			
-			
-	}
-	public static class ProductoResponse extends Response<Producto>{
-		public ProductoResponse(boolean ok, Producto product, String msg){
-            super(ok, product, msg);
-		}
-		public ProductoResponse(boolean ok, Producto product, Exception msg){
-            super(ok, product, msg);
-		} 
-	}
-	public static class ProductosResponse extends Response<Producto[]>{
-		ProductosResponse(boolean ok, Producto p[], String s){
-			super(ok, p, s);
-		}
-		ProductosResponse(boolean ok, Producto p[], Exception s){
-			super(ok, p, s);
-		}
-	}
+            List<Producto> result = productoDao.queryBuilder().where().eq("name", nombre).query();
+            return new Response(true, (Producto[]) result.toArray(), "");
+        } catch (SQLException ex) {
+            Services.handleError(ex);
+            return new Response(false, null, ex);
+        }
+    }
+
+    @GetMapping("/{id}/{proveedor}")
+    public Response<Producto> getProducto(@PathVariable String proveedor, @PathVariable Integer id) {
+        Producto product;
+        try {
+            product = productoDao.queryForId(id);
+            return new Response(true, product, "");
+        } catch (SQLException ex) {
+            Services.handleError(ex);
+            return new Response(false, null, ex);
+        }
+
+    }
 }
