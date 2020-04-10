@@ -17,7 +17,7 @@ export default {
     };
   },
   mounted() {
-    this.$router.replace("Login");
+    this.$router.replace("Home");
   },
   methods: {
     setAuthenticated(status) {

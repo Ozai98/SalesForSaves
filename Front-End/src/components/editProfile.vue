@@ -118,10 +118,9 @@ label {
   background-color: white;
   font-family: "Oswald", sans-serif;
   text-align: center;
-  border-radius: 56px 56px 0 0;
-  margin-top: 50px;
+  border-radius: 56px 56px 56px 56px;
+  margin: 50px 0 50px 20%;
   position: absolute;
   width: 60%;
-  margin-left: 20%;
 }
 </style>

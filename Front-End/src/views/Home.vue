@@ -1,51 +1,54 @@
 <template>
   <div class="home">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <div class="titulo">
-          <h1>SALES FOR SAVES</h1>
+      <h1>SALES FOR SAVES</h1>
     </div>
-
-
-        <searchbar class="search-bar"></searchbar>
+    <SearchBar class="search-bar"></SearchBar>
   </div>
-
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
-import searchbar from '@/components/search-bar.vue';
+import SearchBar from "@/components/search-bar.vue";
 
 export default {
-  name: 'Home',
+  name: "Home",
   components: {
-    HelloWorld,
-    searchbar
+    SearchBar
   }
-}
+};
 </script>
 
 <style>
+*{
+  margin: 0;
+  padding: 0;
 
-.titulo{
-  background-color: #A1FFCA;
-  display: flex;
+}
+.titulo {
   font-family: Oswald;
-  font-size: 65px;
+  font-size: 100px;
+  margin: 10% 10%;
 }
 
-.search-bar input[type=text] {
 
-  padding: 6px;
-  border: none;
-  margin-top: 8px;
-  font-size: 17px;
-}
 .search-bar button {
-
   padding: 6px 10px;
   background: #ddd;
   font-size: 17px;
   border: none;
   cursor: pointer;
+}
+.home {
+  background-color: #a1ffca;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
 }
 </style>
