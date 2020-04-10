@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Producto;
+import com.example.demo.database.models.Proveedor;
 import com.example.demo.services.Services;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,10 +27,12 @@ import com.example.demo.database.DatabaseController;
 public class ProductoController {
 
     private Dao<Producto, Integer> productoDao;
+    private Dao<Proveedor, Integer> proveedorDao;
 
     @PostConstruct
     public void init() {
         productoDao = DatabaseController.getInstance().productoDao();
+        proveedorDao = DatabaseController.getInstance().proveedorDao();
     }
 
     @GetMapping("/{nombre}")
@@ -48,11 +51,29 @@ public class ProductoController {
         Producto product;
         try {
             product = productoDao.queryForId(id);
-            return new Response(true, product, "");
+            return new Response<Producto>(true, product, "");
         } catch (SQLException ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Producto>(false, null, ex);
         }
 
+    }
+
+    @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Producto> crear(String nombre, int precio, Integer id ){
+        if(precio <= 0) return new Response<Producto>(false, null, "precio invalido");
+        Producto nProducto = new Producto();
+        nProducto.setName(nombre);
+        nProducto.setPrecio(precio);
+        Proveedor creador;
+        try {
+            creador = proveedorDao.queryForId(id);
+            nProducto.setProveedor(creador);
+            productoDao.create(nProducto);
+            return new Response<Producto>(true, nProducto, "Se creo el producto");
+        } catch (SQLException e) {
+            return new Response<Producto>(false, null, e);
+        }
+        
     }
 }
