@@ -35,45 +35,44 @@ public class ProductoController {
         proveedorDao = DatabaseController.getInstance().proveedorDao();
     }
 
-    @GetMapping("/{nombre}")
-    public Response<Producto> getProductos(@PathVariable String nombre) {
+    @GetMapping("/search/{nombre}")
+    public Response<Producto[]> searchProductos(@PathVariable String nombre) {
         try {
             List<Producto> result = productoDao.queryBuilder().where().eq("name", nombre).query();
-            return new Response(true, (Producto[]) result.toArray(), "");
+            return new Response(true, (Producto[]) result.toArray(), "Ok");
         } catch (SQLException ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
         }
     }
 
-    @GetMapping("/{id}/{proveedor}")
-    public Response<Producto> getProducto(@PathVariable String proveedor, @PathVariable Integer id) {
+    @GetMapping("/get-by-id/{id}")
+    public Response<Producto> getProducto( @PathVariable Integer id) {
         Producto product;
         try {
             product = productoDao.queryForId(id);
-            return new Response<Producto>(true, product, "");
+            return new Response(true, product, "");
         } catch (SQLException ex) {
             Services.handleError(ex);
-            return new Response<Producto>(false, null, ex);
+            return new Response(false, null, ex);
         }
 
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Producto> crear(String nombre, int precio, Integer id ){
+    public Response<Producto> crear(String nombre, int precio, int id_proveedor){
         if(precio <= 0) return new Response<Producto>(false, null, "precio invalido");
         Producto nProducto = new Producto();
         nProducto.setName(nombre);
         nProducto.setPrecio(precio);
         Proveedor creador;
         try {
-            creador = proveedorDao.queryForId(id);
+            creador = proveedorDao.queryForId(id_proveedor);
             nProducto.setProveedor(creador);
             productoDao.create(nProducto);
-            return new Response<Producto>(true, nProducto, "Se creo el producto");
+            return new Response<Producto>(true, nProducto, "Ok");
         } catch (SQLException e) {
             return new Response<Producto>(false, null, e);
         }
-        
     }
 }
