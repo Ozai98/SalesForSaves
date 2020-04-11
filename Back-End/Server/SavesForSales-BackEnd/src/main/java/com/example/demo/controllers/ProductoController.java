@@ -42,7 +42,7 @@ public class ProductoController {
             return new Response(true, (Producto[]) result.toArray(), "");
         } catch (SQLException ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Producto>(false, null, ex);
         }
     }
 
