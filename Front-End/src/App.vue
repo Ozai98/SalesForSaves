@@ -19,7 +19,7 @@ export default {
     };
   },
   mounted() {
-    this.$router.replace("SearchView");
+    this.$router.replace("Home");
   },
   components: {
     NavBar
