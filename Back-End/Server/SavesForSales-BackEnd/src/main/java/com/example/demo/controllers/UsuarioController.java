@@ -93,8 +93,8 @@ public class UsuarioController {
         }
     }
     
-    @PostMapping(value = "/get-by-id", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Usuario> getById(int id) {
+    @GetMapping("/get-by-id/{id}")
+    public Response<Usuario> getById(@PathVariable int id) {
         try{
             Usuario user = userDao.queryForId(id);
             if(user == null) return new Response(false, null, "User no Found");
