@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.DatabaseController;
+import com.j256.ormlite.stmt.Where;
 
 @RestController
 @EnableAutoConfiguration
@@ -29,6 +30,17 @@ public class ProductoController {
     private Dao<Producto, Integer> productoDao;
     private Dao<Proveedor, Integer> proveedorDao;
 
+    private Producto normalizeProducto(Producto producto){
+        try{
+            proveedorDao.refresh(producto.getProveedor());
+            ProveedorController.normalizeProveedor(producto.getProveedor());
+        }catch(SQLException ex){
+            Services.handleError(ex);
+        }
+        
+        return producto;
+    }
+    
     @PostConstruct
     public void init() {
         productoDao = DatabaseController.getInstance().productoDao();
@@ -38,8 +50,10 @@ public class ProductoController {
     @GetMapping("/search/{nombre}")
     public Response<Producto[]> searchProductos(@PathVariable String nombre) {
         try {
-            List<Producto> result = productoDao.queryBuilder().where().eq("name", nombre).query();
-            return new Response(true, (Producto[]) result.toArray(), "Ok");
+            List<Producto> result =  productoDao.queryBuilder().where().like("nombre", "%" + nombre + "%").query();
+            Producto[] response = new Producto[result.size()]; int i = 0;
+            for(Producto producto: result) response[i++] = normalizeProducto(producto);
+            return new Response(true, response, "Ok");
         } catch (SQLException ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
@@ -48,10 +62,10 @@ public class ProductoController {
 
     @GetMapping("/get-by-id/{id}")
     public Response<Producto> getProducto( @PathVariable Integer id) {
-        Producto product;
         try {
-            product = productoDao.queryForId(id);
-            return new Response(true, product, "");
+            Producto product = productoDao.queryForId(id);
+            if(product == null) return new Response(false, null, "Product no Found");
+            return new Response(true, normalizeProducto(product), "Ok: " + product.getProveedor().getId());
         } catch (SQLException ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
@@ -61,18 +75,19 @@ public class ProductoController {
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Producto> crear(String nombre, int precio, int id_proveedor){
-        if(precio <= 0) return new Response<Producto>(false, null, "precio invalido");
+        if(precio <= 0) return new Response(false, null, "precio invalido");
         Producto nProducto = new Producto();
-        nProducto.setName(nombre);
+        nProducto.setNombre(nombre);
         nProducto.setPrecio(precio);
         Proveedor creador;
         try {
             creador = proveedorDao.queryForId(id_proveedor);
+            if(creador == null) return new Response(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
             nProducto.setProveedor(creador);
             productoDao.create(nProducto);
-            return new Response<Producto>(true, nProducto, "Ok");
+            return new Response(true, nProducto, "Ok. " + creador.getNombre());
         } catch (SQLException e) {
-            return new Response<Producto>(false, null, e);
+            return new Response(false, null, e);
         }
     }
 }

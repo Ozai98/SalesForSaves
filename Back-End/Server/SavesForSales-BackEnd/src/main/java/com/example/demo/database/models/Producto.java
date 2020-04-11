@@ -3,7 +3,7 @@ package com.example.demo.database.models;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName="productos")
+@DatabaseTable(tableName="Producto")
 public class Producto{
 	
 	@DatabaseField(generatedId = true)
@@ -11,16 +11,18 @@ public class Producto{
 	@DatabaseField
 	private int precio;
 	@DatabaseField
-	private String name;
-	@DatabaseField(foreign = true, columnName = "id")
+	private String nombre;
+	@DatabaseField(foreign = true, columnName = "proveedor")
 	Proveedor proveedor;
 
+        public Producto(){}
+        
 	public int getId(){return id;}
 	public int getPrecio(){return precio;}
-	public String getName(){return name;}
+	public String getNombre(){return nombre;}
 	public Proveedor getProveedor(){return proveedor;}
 
 	public void setPrecio(int p){precio=p;}
-	public void setName(String n){name=n;}
+	public void setNombre(String n){nombre=n;}
 	public void setProveedor(Proveedor p){proveedor=p;}
 }

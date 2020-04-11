@@ -32,7 +32,7 @@ public class ProveedorController {
 
     private Dao<Proveedor, Integer> proveedorDao;
 
-    private static Proveedor normalizeProveedor(Proveedor proveedor){
+    public static Proveedor normalizeProveedor(Proveedor proveedor){
         proveedor.setPassword("");
         return proveedor;
     }
