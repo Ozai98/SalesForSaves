@@ -1,21 +1,20 @@
 <template>
-  <div class="container">
-    <div class="profile">
-      <link
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
-        rel="stylesheet"
-      />
-      <h1 class="highText">Información de perfil</h1>
+  <div id="container">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <div id="profile">
+      <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
         <img src="@/assets/13440.jpg" alt="profile pic" />
       </div>
       <br />
       <label for="unField">Nombre</label>
-      <p id="unField" class="highText">{{UserName}}</p>
+      <p id="unField" class="highText">{{ UserName }}</p>
       <label for="mailField">Correo</label>
-      <p id="mailField" class="highText">{{Mail}}</p>
+      <p id="mailField" class="highText">{{ Mail }}</p>
       <button class="editBtn">EDITAR</button>
-      <h1>Esto es una prueba lalala</h1>
     </div>
   </div>
 </template>
@@ -25,7 +24,8 @@ export default {
   name: "ProfileView",
   props: {
     UserName: String,
-    Mail: String
+    Mail: String,
+    Alt: Boolean
   }
 };
 </script>
@@ -43,26 +43,27 @@ label {
   color: #888888;
 }
 
-.profile {
+#profile {
   background-color: white;
   font-family: "Oswald", sans-serif;
   text-align: center;
-  border-radius: 25px 25px 0 0;
+  border-radius: 25px 25px 25px 25px;
   position: absolute;
-  height: 95%;
+  height: 80%;
   width: 60%;
-  margin-left: 20%;
-  bottom: 0;
+  margin: 50px 0 0 20%;
+  margin-bottom: 50px;
 }
 .profilePicFrame {
   border-color: #ff8e43;
   border-width: 1px;
   border-style: solid;
   display: inline-block;
-  width: 200px;
-  height: 200px;
+  width: 270px;
+  height: 270px;
   overflow: hidden;
   border-radius: 50%;
+  margin: 50px 0 20px 0;
 }
 .profilePicFrame img {
   width: auto;
@@ -74,12 +75,15 @@ label {
   font-size: 53px;
 }
 
-.container {
+#container {
+  margin-top: 118px;
   background-color: #a1ffca;
   position: absolute;
+  top: 0;
+  left: 0;
   height: 100%;
   width: 100%;
-  bottom: 0;
+  overflow: auto;
 }
 .editBtn {
   min-width: 120px;
@@ -90,5 +94,7 @@ label {
   border-width: 1px;
   border-color: #ff8e43;
   font-family: "Oswald", sans-serif;
+  margin: 20px 0 10px 0;
+  border-radius: 16px;
 }
 </style>
