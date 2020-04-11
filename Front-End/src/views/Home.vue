@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div id="home">
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -13,7 +13,7 @@
 
 <script>
 // @ is an alias to /src
-import SearchBar from "@/components/search-bar.vue";
+import SearchBar from "@/components/SearchBar.vue";
 
 export default {
   name: "Home",
@@ -24,17 +24,15 @@ export default {
 </script>
 
 <style>
-*{
+* {
   margin: 0;
   padding: 0;
-
 }
 .titulo {
   font-family: Oswald;
   font-size: 100px;
   margin: 10% 10%;
 }
-
 
 .search-bar button {
   padding: 6px 10px;
@@ -43,12 +41,13 @@ export default {
   border: none;
   cursor: pointer;
 }
-.home {
+#home {
+  margin-top: 5%;
   background-color: #a1ffca;
   position: absolute;
-  width: 100%;
+  top: 0%;
+  left: 0%;
   height: 100%;
-  top: 0;
-  left: 0;
+  width: 100%;
 }
 </style>

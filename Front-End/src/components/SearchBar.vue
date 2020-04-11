@@ -18,9 +18,8 @@ export default {
 #searchIcon {
   width: 18px;
   height: 18px;
-  padding-top: 2px;
+  padding-top: 3px;
   margin: 0;
-
 }
 #search {
   width: 550px;

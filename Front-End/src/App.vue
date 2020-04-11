@@ -1,10 +1,12 @@
 <template>
   <div id="app">
+    <NavBar idPage="SearchBar"></NavBar>
     <router-view />
   </div>
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "App",
   data() {
@@ -17,7 +19,10 @@ export default {
     };
   },
   mounted() {
-    this.$router.replace("Home");
+    this.$router.replace("SearchView");
+  },
+  components: {
+    NavBar
   },
   methods: {
     setAuthenticated(status) {
@@ -34,5 +39,12 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
+}
+#navBar {
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  height: 5%;
+  width: 5%;
 }
 </style>

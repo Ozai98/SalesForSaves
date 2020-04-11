@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ProfileData UserName="JuasJuas" Mail="juas@mail.com"></ProfileData>
+    <ProfileData UserName="Daniel Pallares" Mail="juas@mail.com"></ProfileData>
   </div>
 </template>
 

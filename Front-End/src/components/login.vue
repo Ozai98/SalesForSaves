@@ -160,6 +160,7 @@ button[name="sin"] {
   top: 0%;
   left: 0%;
   height: 100%;
+  margin-top: 118px;
   width: 100%;
   background-color: #ff8e43;
 }

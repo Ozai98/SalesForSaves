@@ -171,6 +171,7 @@ body {
   background-color: #ff8e43;
 }
 #back {
+  margin-top: 118px;
   position: absolute;
   top: 0%;
   left: 0%;
