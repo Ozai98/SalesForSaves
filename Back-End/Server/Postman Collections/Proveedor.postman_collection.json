@@ -31,15 +31,107 @@
 					]
 				},
 				"url": {
-					"raw": "savesforsales-back.herokuapp.com/proveedor/crear",
+					"raw": "localhost:8080/proveedor/crear",
 					"host": [
-						"savesforsales-back",
-						"herokuapp",
-						"com"
+						"localhost"
 					],
+					"port": "8080",
 					"path": [
 						"proveedor",
 						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LogIn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "correo",
+							"value": "proveedor1@p.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "0000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/proveedor/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"proveedor",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get By id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/proveedor/get-by-id/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"proveedor",
+						"get-by-id",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "nombre",
+							"value": "Cambio de nombre",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "new pass",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/proveedor/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"proveedor",
+						"update"
 					]
 				}
 			},
