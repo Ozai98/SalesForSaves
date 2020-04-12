@@ -70,12 +70,9 @@ export default {
     },
     u() {
 
-      console.log('A request in login');
       request.makeRequest('/producto/get-by-id/3').then(result => {
-        console.log(result);
         nombre = result.data.clase.nombre;
-        console.log('Here', nombre); 
-      }).catch(err => console.log('catching ', err));
+      });
 
       //axios
       //.get('http://savesforsales-back.herokuapp.com/producto/get-by-id/3')
