@@ -8,6 +8,7 @@
           name="username"
           v-model="input.username"
           placeholder="E-mail   |"
+          class="field"
         />
       </div>
       <div id="pass">
@@ -16,10 +17,20 @@
           name="password"
           v-model="input.password"
           placeholder="Contraseña    |"
+          class="field"
         />
       </div>
       <div id="bot">
-        <button type="button" name="log" v-on:click="login()">ENTRAR</button>
+        <button
+          type="button"
+          name="log"
+          v-on:click="
+            login();
+            jumpProfile();
+          "
+        >
+          ENTRAR
+        </button>
       </div>
       <div id="regtext">
         O
@@ -46,8 +57,11 @@ export default {
     };
   },
   methods: {
-    jump() {
-      this.$router.replace({ name: "register" });
+    jumpReg() {
+      this.$router.replace({ name: "Register" });
+    },
+    jumpProfile() {
+      this.$router.replace({ name: "ProfilePage" });
     },
     login() {
       if (this.input.username != "" && this.input.password != "") {
@@ -90,6 +104,12 @@ export default {
   -webkit-text-stroke-color: #ff8e43;
   -webkit-text-stroke-width: 1px;
 }
+
+.field {
+  outline: none;
+  font-family: Verdana, sans-serif;
+}
+
 #user {
   position: absolute;
   top: 28%;
@@ -160,7 +180,6 @@ button[name="sin"] {
   top: 0%;
   left: 0%;
   height: 100%;
-  margin-top: 118px;
   width: 100%;
   background-color: #ff8e43;
 }

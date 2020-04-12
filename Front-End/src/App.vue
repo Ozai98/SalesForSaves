@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <NavBar idPage="SearchBar"></NavBar>
     <router-view />
   </div>
 </template>
@@ -19,7 +18,7 @@ export default {
     };
   },
   mounted() {
-    this.$router.replace("Home");
+    this.$router.replace("home");
   },
   components: {
     NavBar

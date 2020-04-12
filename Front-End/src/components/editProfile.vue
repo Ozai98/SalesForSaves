@@ -1,10 +1,7 @@
 <template>
   <div id="container">
+    <NavBar idPage="EditProfile"></NavBar>
     <div id="profile">
-      <link
-        href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
-        rel="stylesheet"
-      />
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
         <img src="@/assets/13440.jpg" alt="profile pic" />
@@ -26,18 +23,27 @@
       <br />
       <input id="passX2" type="password" class="field" />
       <br />
-      <button id="saveBtn">GUARDAR</button>
+      <button id="saveBtn"@click="jumpProfile()">GUARDAR</button>
     </div>
   </div>
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "ProfileView",
   props: {
     UserName: String,
     Mail: String,
     Alt: Boolean
+  },
+  components: {
+    NavBar
+  },
+  methods:{
+    jumpProfile(){
+      this.$router.replace({ name: "ProfilePage" });
+    }
   }
 };
 </script>
@@ -106,7 +112,6 @@ label {
 }
 
 #container {
-  margin-top: 118px;
   background-color: #a1ffca;
   position: absolute;
   top: 0%;

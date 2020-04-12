@@ -1,9 +1,6 @@
 <template>
   <div id="home">
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-    />
+    <NavBar idPage="MainHome"></NavBar>
     <div class="titulo">
       <h1>SALES FOR SAVES</h1>
     </div>
@@ -14,11 +11,13 @@
 <script>
 // @ is an alias to /src
 import SearchBar from "@/components/SearchBar.vue";
+import NavBar from "@/components/NavBar.vue";
 
 export default {
   name: "Home",
   components: {
-    SearchBar
+    SearchBar,
+    NavBar
   }
 };
 </script>
@@ -42,7 +41,6 @@ export default {
   cursor: pointer;
 }
 #home {
-  margin-top: 5%;
   background-color: #a1ffca;
   position: absolute;
   top: 0%;

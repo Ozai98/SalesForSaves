@@ -1,9 +1,6 @@
 <template>
   <div id="container">
-    <link
-      href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&display=swap"
-      rel="stylesheet"
-    />
+    <NavBar idPage="ProfileData"></NavBar>
     <div id="profile">
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
@@ -14,19 +11,29 @@
       <p id="unField" class="highText">{{ UserName }}</p>
       <label for="mailField">Correo</label>
       <p id="mailField" class="highText">{{ Mail }}</p>
-      <button class="editBtn">EDITAR</button>
+      <button class="editBtn" @click="jumpEdit()">EDITAR</button>
     </div>
   </div>
 </template>
 
 <script>
+import NavBar from "@/components/NavBar.vue";
 export default {
   name: "ProfileView",
   props: {
     UserName: String,
     Mail: String,
     Alt: Boolean
+  },
+  components: {
+    NavBar
+  },
+  methods:{
+    jumpEdit(){
+      this.$router.replace({ name: "EditProfile" });
+    }
   }
+
 };
 </script>
 
@@ -49,9 +56,9 @@ label {
   text-align: center;
   border-radius: 25px 25px 25px 25px;
   position: absolute;
-  height: 80%;
+  height: 100%;
   width: 60%;
-  margin: 50px 0 0 20%;
+  margin: 100px 0 0 20%;
   margin-bottom: 50px;
 }
 .profilePicFrame {
@@ -76,7 +83,6 @@ label {
 }
 
 #container {
-  margin-top: 118px;
   background-color: #a1ffca;
   position: absolute;
   top: 0;

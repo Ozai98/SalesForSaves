@@ -1,6 +1,6 @@
 <template>
   <div class="SearchView">
-    <NavBar></NavBar>
+    <NavBar idPage="ProductSearch"></NavBar>
     <div class="contenedor">
       <!-- se maneja un v-for aqui xd -->
       <producto class="producto"></producto>
@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import producto from "@/components/producto.vue";
+import producto from "@/components/Producto.vue";
 import NavBar from "@/components/NavBar.vue";
 export default {
   name: "SearchView",

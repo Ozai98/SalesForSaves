@@ -1,7 +1,7 @@
 <template>
   <div class="search-bar">
     <button id="btn" type="submit">
-      <img src="@/assets/search.svg" id="searchIcon" />
+      <img src="@/assets/search.svg" id="searchIcon" @click="jumpSearch()" />
     </button>
     <p id="space">|</p>
     <input type="text" placeholder="Search.." name="search" id="search" />
@@ -10,7 +10,12 @@
 
 <script>
 export default {
-  name: "SearchBar"
+  name: "SearchBar",
+  methods: {
+    jumpSearch() {
+      this.$router.replace({ name: "SearchProduct" });
+    }
+  }
 };
 </script>
 
