@@ -18,6 +18,7 @@ import com.example.demo.database.models.Producto;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.services.Services;
 import java.util.List;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -28,6 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @EnableAutoConfiguration
 @RequestMapping("/usuario")
+@CrossOrigin
 public class UsuarioController {
 
     private Dao<Usuario, Integer> userDao;

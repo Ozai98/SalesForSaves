@@ -23,7 +23,7 @@ import com.example.demo.savesforsales.Index;
  */
 public class DatabaseController {
 
-    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://fO2PgMO03q:hpVY4ehAVj@remotemysql.com:3306/fO2PgMO03q?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://uuUzs923vR:YyK3Ok7ska@remotemysql.com:3306/uuUzs923vR?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String LOCAL_DB_CONNECTION = "jdbc:mysql://root:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     
     private static DatabaseController instance;

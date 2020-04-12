@@ -21,9 +21,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.DatabaseController;
 import com.j256.ormlite.stmt.Where;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @EnableAutoConfiguration
+@CrossOrigin
 @RequestMapping("/producto")
 public class ProductoController {
 

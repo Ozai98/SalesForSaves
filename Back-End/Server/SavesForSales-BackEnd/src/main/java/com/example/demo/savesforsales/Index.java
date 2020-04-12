@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.services.Services;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
  *
@@ -15,9 +16,10 @@ import com.example.demo.services.Services;
  */
 @SpringBootApplication(scanBasePackages="com.example.demo.controllers")
 @Controller
+@CrossOrigin
 public class Index {
 
-    public static boolean REMOTE = false;
+    public static boolean REMOTE = true;
     
     @RequestMapping("/")
     @ResponseBody
