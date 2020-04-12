@@ -46,6 +46,10 @@
 </template>
 
 <script>
+import axios from "axios";
+
+var nombre:"";
+var clave:"";
 export default {
   name: "Login",
   data() {
@@ -63,8 +67,14 @@ export default {
     jumpProfile() {
       this.$router.replace({ name: "ProfilePage" });
     },
+    u() {
+      axios
+      .get('http://savesforsales-back.herokuapp.com/producto/get-by-id/3')
+      .then(result => {nombre=result.data.clase.nombre;})
+      
+    },
     login() {
-      if (this.input.username != "" && this.input.password != "") {
+      /*if (this.input.username != "" && this.input.password != "") {
         if (
           this.input.username == this.$parent.mockAccount.username &&
           this.input.password == this.$parent.mockAccount.password
@@ -76,7 +86,8 @@ export default {
         }
       } else {
         console.log("A username and password must be present");
-      }
+      }*/
+      this.u();
     }
   }
 };
