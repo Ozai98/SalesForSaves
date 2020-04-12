@@ -48,8 +48,7 @@
 <script>
 import axios from "axios";
 
-var nombre:"";
-var clave:"";
+var enter;
 export default {
   name: "Login",
   data() {
@@ -67,18 +66,17 @@ export default {
     jumpProfile() {
       this.$router.replace({ name: "ProfilePage" });
     },
-    u() {
+    get_data() {
+      /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
       axios
-      .get('http://savesforsales-back.herokuapp.com/producto/get-by-id/3')
-      .then(result => {nombre=result.data.clase.nombre;})
-      
+      .post('http://savesforsales-back.herokuapp.com/usuario/login',this.input)
+      .then(result => {enter=result.data.ok;})
+
     },
     login() {
-      /*if (this.input.username != "" && this.input.password != "") {
-        if (
-          this.input.username == this.$parent.mockAccount.username &&
-          this.input.password == this.$parent.mockAccount.password
-        ) {
+      this.get_data();
+      if (this.input.username != "" && this.input.password != "") {
+        if (enter) {
           this.$emit("authenticated", true);
           this.$router.replace({ name: "secure" });
         } else {
@@ -86,8 +84,8 @@ export default {
         }
       } else {
         console.log("A username and password must be present");
-      }*/
-      this.u();
+      }
+      
     }
   }
 };

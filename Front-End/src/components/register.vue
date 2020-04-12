@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "Register",
   data() {
@@ -65,8 +66,8 @@ export default {
         this.input2.name != ""
       ) {
         if (this.input2.password == this.input2.password2) {
-          console.log("Que onda, si sirvo");
-          /* extra filtros y registro a la base de datos*/
+            axios
+            .post('http://savesforsales-back.herokuapp.com/usuario/crear',this.input2)
         } else {
           console.log("Contraseña incorrecta");
         }
