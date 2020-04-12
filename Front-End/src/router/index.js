@@ -17,17 +17,17 @@ const routes = [
   {
     path: "/Login",
     name: "Login",
-    component: () => import("@/components/Login.vue")
+    component: () => import("@/components/login.vue")
   },
   {
     path: "/Register",
     name: "Register",
-    component: () => import("@/components/Register.vue")
+    component: () => import("@/components/register.vue")
   },
   {
     path: "/EditProfile",
     name: "EditProfile",
-    component: () => import("@/components/EditProfile.vue")
+    component: () => import("@/components/editProfile.vue")
   },
   {
     path: "/SearchProduct",

@@ -37,7 +37,7 @@
         <br />si no tienes una cuenta puedes registrarte
       </div>
       <div id="bot2">
-        <button tipe="button" v-on:click="jump()" name="sin">
+        <button tipe="button" v-on:click="jumpReg()" name="sin">
           REGISTRARME!
         </button>
       </div>
