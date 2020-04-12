@@ -17,6 +17,7 @@ import com.example.demo.database.models.Proveedor;
 import com.example.demo.services.Services;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.DatabaseController;
@@ -61,7 +62,7 @@ public class ProductoController {
             return new Response(false, null, ex);
         }
     }
-
+    @CrossOrigin(origins = "*")
     @GetMapping("/get-by-id/{id}")
     public Response<Producto> getProducto( @PathVariable Integer id) {
         try {
