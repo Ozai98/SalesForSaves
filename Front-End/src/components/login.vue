@@ -47,9 +47,10 @@
 
 <script>
 import axios from "axios";
+import * as request from "../services/request.service.js";
 
-var nombre:"";
-var clave:"";
+var nombre="";
+var clave="";
 export default {
   name: "Login",
   data() {
@@ -68,9 +69,17 @@ export default {
       this.$router.replace({ name: "ProfilePage" });
     },
     u() {
-      axios
-      .get('http://savesforsales-back.herokuapp.com/producto/get-by-id/3')
-      .then(result => {nombre=result.data.clase.nombre;})
+
+      console.log('A request in login');
+      request.makeRequest('/producto/get-by-id/3').then(result => {
+        console.log(result);
+        nombre = result.data.clase.nombre;
+        console.log('Here', nombre); 
+      }).catch(err => console.log('catching ', err));
+
+      //axios
+      //.get('http://savesforsales-back.herokuapp.com/producto/get-by-id/3')
+      //.then(result => {nombre=result.data.clase.nombre;})
       
     },
     login() {
