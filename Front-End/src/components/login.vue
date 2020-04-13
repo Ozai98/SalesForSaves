@@ -81,7 +81,7 @@ export default {
             request.makeRequest('/producto/3').then(result => console.log(result.data))
       
     },
-    login() {
+    login() {}
       
       if (this.input.username != "" && this.input.password != "") {
         this.get_data();
