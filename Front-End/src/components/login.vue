@@ -47,7 +47,7 @@
 
 <script>
 import axios from "axios";
-import * as request from "../services/request.service.js";
+import * as request from "../services/request.service";
 
 var enter;
 export default {
@@ -70,9 +70,6 @@ export default {
     get_data() {
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
       /*
-      axios
-      .post('http://savesforsales-back.herokuapp.com/usuario/login')
-      .then(result => {enter=result.data.ok;})*/
    
 
       //request.makeRequest('/usuario/login',this.input).then(result => console.log(result.data))

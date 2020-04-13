@@ -37,12 +37,40 @@ export default {
     Mail: String,
     Alt: Boolean
   },
+  data() {
+    return {
+      input3: {
+        name: "",
+        username: "",
+        password: "",
+        password2: ""
+      }
+    };
+  },
   components: {
     NavBar
   },
   methods:{
     jumpProfile(){
       this.$router.replace({ name: "ProfilePage" });
+    },
+    register() {
+      if (
+        this.input3.username != "" &&
+        this.input3.password != "" &&
+        this.input3.password2 != "" &&
+        this.input3.name != ""
+      ) {
+        if (this.input3.password == this.input3.password2) {
+            if(!(request.makeRequest('/usuario/update',input2).then(result => console.log(result.data.ok)))){
+                console.log("No se pudo registrar el usuario");
+            }
+        } else {
+          console.log("Contraseña incorrecta");
+        }
+      } else {
+        console.log("Faltan datos");
+      }
     }
   }
 };

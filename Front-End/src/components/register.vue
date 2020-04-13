@@ -45,6 +45,7 @@
 
 <script>
 import axios from "axios";
+import * as request from "../services/request.service";
 export default {
   name: "Register",
   data() {
@@ -66,8 +67,9 @@ export default {
         this.input2.name != ""
       ) {
         if (this.input2.password == this.input2.password2) {
-            axios
-            .post('http://savesforsales-back.herokuapp.com/usuario/crear',this.input2)
+            if(!(request.makeRequest('/usuario/crear',input2).then(result => console.log(result.data.ok)))){
+                console.log("No se pudo registrar el usuario");
+            }
         } else {
           console.log("Contraseña incorrecta");
         }
