@@ -1,7 +1,7 @@
 <template>
   <div id="navBar">
     <div id="nav1" v-if="idPage == 'MainHome'">
-      <UserIcon isLogged="true"></UserIcon>
+      <UserIcon v-bind:isLogged=true></UserIcon>
     </div>
     <div id="nav2" v-if="idPage == 'ProductSearch'">
       <UserIcon></UserIcon>

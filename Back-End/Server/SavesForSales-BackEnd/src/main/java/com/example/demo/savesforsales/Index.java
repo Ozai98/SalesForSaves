@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.example.demo.services.Services;
+import java.util.Collections;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 /**
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class Index {
 
-    public static boolean REMOTE = true;
+    public static boolean REMOTE = false;
     
     @RequestMapping("/")
     @ResponseBody
@@ -29,6 +30,8 @@ public class Index {
 
     public static void main(String[] args){
        Services.startServices();
-       SpringApplication.run(Index.class, args);
+       SpringApplication app = new SpringApplication(Index.class);
+       app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
+        app.run(args);
     }
 }
