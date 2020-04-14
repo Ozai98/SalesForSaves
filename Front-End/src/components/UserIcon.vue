@@ -1,6 +1,6 @@
 <template>
   <div id="iconFrame">
-    <router-link :to="linkTo">
+    <router-link to="{name: login}">
       <img id="userIcon" src="@/assets/user.svg" />
     </router-link>
   </div>
@@ -9,11 +9,7 @@
 <script>
 export default {
   name: "UserIcon",
-  data() {
-    return {
-      linkTo: "/Login"
-    };
-  },
+  
   props: {
     isLogged: Boolean
   },
