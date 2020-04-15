@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import * as request from "../services/request.service";
 export default {
   name: "Register",
@@ -67,9 +66,15 @@ export default {
         this.input2.name != ""
       ) {
         if (this.input2.password == this.input2.password2) {
-            if(!(request.makeRequest('/usuario/crear',input2).then(result => console.log(result.data.ok)))){
+
+            request.crearUsuario(this.input2.name, this.input2.username, this.input2.password, (data) => {
+                if(data.ok) console.log("Usuario registrado correctamente");
+                else console.log("No se pudo registrar el usuario");
+            });
+
+            /*if(!(request.makeRequest('/usuario/crear',input2).then(result => console.log(result.data.ok)))){
                 console.log("No se pudo registrar el usuario");
-            }
+            }*/
         } else {
           console.log("Contraseña incorrecta");
         }

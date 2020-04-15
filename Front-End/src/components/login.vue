@@ -46,7 +46,6 @@
 </template>
 
 <script>
-import axios from "axios";
 import * as request from "../services/request.service";
 
 var enter;
@@ -69,13 +68,12 @@ export default {
     },
     get_data() {
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
-      /*
-   
-
-      //request.makeRequest('/usuario/login',this.input).then(result => console.log(result.data))
-      /*.then(result => {enter=result.data.ok;});*/
-
-            request.makeRequest('/producto/3').then(result => console.log(result.data))
+      request.loginUsuario('email1', '0000', (data) => {
+        console.log('Login info recived');
+        console.log(data);
+        if(data.ok) console.log('Usuario logeado');
+        else console.log('Error logeando usuario');
+      });
       
     },
     login() {
@@ -91,7 +89,6 @@ export default {
       } else {
         console.log("A username and password must be present");
       }
-      
     }
   }
 };
