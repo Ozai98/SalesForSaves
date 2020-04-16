@@ -16,6 +16,8 @@ import com.example.demo.database.models.Usuario;
 import com.example.demo.database.DatabaseController;
 import com.example.demo.database.models.Producto;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 import com.example.demo.services.Services;
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -70,6 +72,7 @@ public class UsuarioController {
     
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Usuario> login(String correo, String password){
+        System.out.printf("Trying to login. Correo: %s. Pass: %s\n", correo, password);
         try{
             List<Usuario> users = userDao.queryForEq("correo", correo);
             if(users.isEmpty()) return new Response(false, null, "User no found");

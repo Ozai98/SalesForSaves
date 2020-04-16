@@ -1,4 +1,3 @@
-const axios = require('axios');
 //const SERVER_URL = 'http://savesforsales-back.herokuapp.com';
 const SERVER_URL = 'http://localhost:8083';
 
@@ -9,23 +8,27 @@ const REQUEST_TYPES = {
 
 function generalRequest(path, body, requestType, callback) {
 
-    var promise;
-    switch (requestType) {
-        case REQUEST_TYPES.GET:
-            promise = axios.get(SERVER_URL + path);
-            break;
-        case REQUEST_TYPES.POST:
-            promise = axios.post(SERVER_URL + path, body);
-            break;
-    }
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-    promise.then((result) => {
-        callback(result.data);
-    }).catch((err) => {
-        console.log('error occurred on HTTP request');
-        console.log(err);
-        callback({ ok: false, msg: 'An error occurred while sending info', err });
-    });
+    var urlencoded = new URLSearchParams();
+
+    for (const key in body) urlencoded.append(key, body[key]);
+
+    var requestOptions = {
+        method: requestType,
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+    };
+
+    fetch(SERVER_URL + path, requestOptions)
+        .then(response => response.json())
+        .then(result => callback(result))
+        .catch(error => {
+            console.log(error);
+            callback({ ok: false, msg: 'An error ocurred while sending HTTP request' })
+        });
 }
 
 function loginUsuario(correo, password, callback) {
@@ -36,10 +39,29 @@ function crearUsuario(nombre, correo, password, callback) {
     generalRequest('/usuario/crear', { nombre, correo, password }, REQUEST_TYPES.POST, callback);
 }
 
+function getUserByEmail(correo, callback) {
+    generalRequest('/usuario/get-by-email', { correo }, REQUEST_TYPES.POST, callback);
+}
+
+function getUserById(id, callback) {
+    generalRequest('/usuario/get-by-id/' + id, undefined, REQUEST_TYPES.GET, callback);
+}
+
+// Los parametros que recive son opcionales. Solo envien los valores a actualizar
+function updateUser(id, nombre, password, callback) {
+    generalRequest('/usuario/update', { id, nombre, password }, REQUEST_TYPES.POST, callback);
+}
+
+
+
+
 module.exports = {
     SERVER_URL,
     REQUEST_TYPES,
     generalRequest,
     loginUsuario,
     crearUsuario,
+    getUserByEmail,
+    getUserById,
+    updateUser
 }
