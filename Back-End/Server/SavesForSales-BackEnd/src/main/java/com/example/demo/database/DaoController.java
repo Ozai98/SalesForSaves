@@ -21,29 +21,29 @@ import com.example.demo.savesforsales.Index;
  *
  * @author German le yo
  */
-public class DatabaseController {
+public class DaoController {
 
-    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://uuUzs923vR:YyK3Ok7ska@remotemysql.com:3306/uuUzs923vR?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://root:0000@34.230.31.178:3306/SavesForSales";//?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     private static final String LOCAL_DB_CONNECTION = "jdbc:mysql://root:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     
-    private static DatabaseController instance;
+    private static DaoController instance;
 
     private final ConnectionSource connection;
     private final Dao<Usuario, Integer> userDao;    
     private final Dao<Proveedor, Integer> proveedorDao;
     private final Dao<Producto, Integer> productoDao;
 
-    private DatabaseController(String dbConnection) throws SQLException {
+    private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
         userDao = DaoManager.createDao(connection, Usuario.class);        
         proveedorDao = DaoManager.createDao(connection, Proveedor.class);
         productoDao = DaoManager.createDao(connection, Producto.class);
     }
 
-    public static DatabaseController getInstance(){
+    public static DaoController getInstance(){
         if(instance == null) try {
-            if(Index.REMOTE) instance = new DatabaseController(REMOTE_DB_CONNECTION);
-            else instance = new DatabaseController(LOCAL_DB_CONNECTION);
+            if(Index.REMOTE) instance = new DaoController(REMOTE_DB_CONNECTION);
+            else instance = new DaoController(LOCAL_DB_CONNECTION);
         } catch (SQLException e) {
             Services.handleError(e);
         }

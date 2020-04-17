@@ -20,7 +20,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.example.demo.database.DatabaseController;
+import com.example.demo.database.DaoController;
+import com.example.demo.database.ProductoRepository;
+import com.example.demo.database.ProductoRepositoryDao;
+import com.example.demo.database.ProveedorRepository;
+import com.example.demo.database.ProveedorRepositoryDao;
+import com.example.demo.database.UsuarioRepository;
 import com.j256.ormlite.stmt.Where;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -30,34 +35,41 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/producto")
 public class ProductoController {
 
-    private Dao<Producto, Integer> productoDao;
-    private Dao<Proveedor, Integer> proveedorDao;
+    private ProductoRepository prodcutoRepository;
+    private ProveedorRepository proveedorRepository;
 
     private Producto normalizeProducto(Producto producto){
         try{
-            proveedorDao.refresh(producto.getProveedor());
-            ProveedorController.normalizeProveedor(producto.getProveedor());
-        }catch(SQLException ex){
+            proveedorRepository.refresh(producto.getProveedor());
+        }catch(Exception ex){
             Services.handleError(ex);
-        }
-        
+        }            
+        ProveedorController.normalizeProveedor(producto.getProveedor());
         return producto;
     }
     
     @PostConstruct
     public void init() {
-        productoDao = DatabaseController.getInstance().productoDao();
-        proveedorDao = DatabaseController.getInstance().proveedorDao();
+        setProductoRepository(new ProductoRepositoryDao());
+        setProveedorRepository(new ProveedorRepositoryDao());
+    }
+    
+    public void setProductoRepository(ProductoRepository repository){
+        this.prodcutoRepository = repository;
+    }
+    
+    public void setProveedorRepository(ProveedorRepository repository){
+        this.proveedorRepository = repository;
     }
 
     @GetMapping("/search/{nombre}")
     public Response<Producto[]> searchProductos(@PathVariable String nombre) {
         try {
-            List<Producto> result =  productoDao.queryBuilder().where().like("nombre", "%" + nombre + "%").query();
+            List<Producto> result =  prodcutoRepository.search(nombre);
             Producto[] response = new Producto[result.size()]; int i = 0;
             for(Producto producto: result) response[i++] = normalizeProducto(producto);
             return new Response(true, response, "Ok");
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -66,10 +78,10 @@ public class ProductoController {
     @GetMapping("/get-by-id/{id}")
     public Response<Producto> getProducto( @PathVariable Integer id) {
         try {
-            Producto product = productoDao.queryForId(id);
+            Producto product = prodcutoRepository.getById(id);
             if(product == null) return new Response(false, null, "Product no Found");
             return new Response(true, normalizeProducto(product), "Ok: " + product.getProveedor().getId());
-        } catch (SQLException ex) {
+        } catch (Exception ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -84,12 +96,12 @@ public class ProductoController {
         nProducto.setPrecio(precio);
         Proveedor creador;
         try {
-            creador = proveedorDao.queryForId(id_proveedor);
+            creador = proveedorRepository.getById(id_proveedor);
             if(creador == null) return new Response(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
             nProducto.setProveedor(creador);
-            productoDao.create(nProducto);
+            prodcutoRepository.create(nProducto);
             return new Response(true, nProducto, "Ok. " + creador.getNombre());
-        } catch (SQLException e) {
+        } catch (Exception e) {
             return new Response(false, null, e);
         }
     }

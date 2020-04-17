@@ -1,11 +1,7 @@
 
 package com.example.demo.controllers;
 
-import java.sql.SQLException;
-
 import javax.annotation.PostConstruct;
-
-import com.j256.ormlite.dao.Dao;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
@@ -13,10 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Usuario;
-import com.example.demo.database.DatabaseController;
-import com.example.demo.database.models.Producto;
+import com.example.demo.database.UsuarioRepository;
+import com.example.demo.database.UsuarioRepositoryDao;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.demo.services.Services;
 import java.util.List;
@@ -34,8 +29,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 @CrossOrigin
 public class UsuarioController {
 
-    private Dao<Usuario, Integer> userDao;
-
+    private UsuarioRepository usuarioRepository;
+    
     private static Usuario normalizeUser(Usuario usuario){
         usuario.setPassword("");
         return usuario;
@@ -43,7 +38,11 @@ public class UsuarioController {
     
     @PostConstruct
     public void init() {
-        userDao = DatabaseController.getInstance().userDao();
+        setUsuarioRepository(new UsuarioRepositoryDao());
+    }
+    
+    public void setUsuarioRepository(UsuarioRepository repository){
+        this.usuarioRepository = repository;
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -61,9 +60,9 @@ public class UsuarioController {
         newUser.setPassword(Services.cryptPassword(password));
         try{
             // Saving new user
-            userDao.create(newUser);
+            usuarioRepository.create(newUser);
             return new Response(true, normalizeUser(newUser), "user created");
-        }catch(SQLException ex){
+        }catch(Exception ex){
             // Error saving
             Services.handleError(ex);
             return new Response(false, null, ex);
@@ -74,13 +73,13 @@ public class UsuarioController {
     public Response<Usuario> login(String correo, String password){
         System.out.printf("Trying to login. Correo: %s. Pass: %s\n", correo, password);
         try{
-            List<Usuario> users = userDao.queryForEq("correo", correo);
+            List<Usuario> users = usuarioRepository.getByEmail(correo);
             if(users.isEmpty()) return new Response(false, null, "User no found");
             Usuario usr = users.get(0);
             if(usr.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response(false, null, "Bad Password");
             
             return new Response(true, normalizeUser(usr), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -89,10 +88,10 @@ public class UsuarioController {
     @PostMapping(value = "/get-by-email", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Usuario> getByCorreo(String correo) {
         try{
-            List<Usuario> users = userDao.queryForEq("correo", correo);
+            List<Usuario> users = usuarioRepository.getByEmail(correo);
             if(users.isEmpty()) return new Response(false, null, "User no found");
             return new Response(true, normalizeUser(users.get(0)), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -101,10 +100,10 @@ public class UsuarioController {
     @GetMapping("/get-by-id/{id}")
     public Response<Usuario> getById(@PathVariable int id) {
         try{
-            Usuario user = userDao.queryForId(id);
+            Usuario user = usuarioRepository.getById(id);
             if(user == null) return new Response(false, null, "User no Found");
             return new Response(true, normalizeUser(user), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -113,13 +112,13 @@ public class UsuarioController {
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Usuario> updateUser(int id, String nombre, String password) {
         try{
-            Usuario user = userDao.queryForId(id);
+            Usuario user = usuarioRepository.getById(id);
             if(user == null) return new Response(false, null, "User no Found");
             if(nombre != null) user.setNombre(nombre);
             if(password != null) user.setPassword(Services.cryptPassword(password));
-            userDao.update(user);
+            usuarioRepository.update(user);
             return new Response(true, normalizeUser(user), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }

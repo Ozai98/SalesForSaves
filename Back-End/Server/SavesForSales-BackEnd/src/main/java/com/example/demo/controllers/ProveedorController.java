@@ -5,16 +5,14 @@ import java.sql.SQLException;
 
 import javax.annotation.PostConstruct;
 
-import com.j256.ormlite.dao.Dao;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Proveedor;
-import com.example.demo.database.DatabaseController;
-import com.example.demo.database.models.Usuario;
+import com.example.demo.database.ProveedorRepository;
+import com.example.demo.database.ProveedorRepositoryDao;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.services.Services;
 import java.util.List;
@@ -32,7 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/proveedor")
 public class ProveedorController {
 
-    private Dao<Proveedor, Integer> proveedorDao;
+    private ProveedorRepository proveedorRepository;
 
     public static Proveedor normalizeProveedor(Proveedor proveedor){
         proveedor.setPassword("");
@@ -41,7 +39,11 @@ public class ProveedorController {
     
     @PostConstruct
     public void init() {
-        proveedorDao = DatabaseController.getInstance().proveedorDao();
+        setProveedorRepository(new ProveedorRepositoryDao());
+    }
+    
+    public void setProveedorRepository(ProveedorRepository proveedorRepository){
+        this.proveedorRepository = proveedorRepository;
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -58,9 +60,9 @@ public class ProveedorController {
         newProvider.setPassword(Services.cryptPassword(password));
         try{
             // Saving new provider
-            proveedorDao.create(newProvider);
+            proveedorRepository.create(newProvider);
             return new Response(true, normalizeProveedor(newProvider), "provider created");
-        }catch(SQLException ex){
+        }catch(Exception ex){
             // Error saving
             Services.handleError(ex);
             return new Response(false, null, ex);
@@ -70,12 +72,12 @@ public class ProveedorController {
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Proveedor> login(String correo, String password){
         try{
-            List<Proveedor> proveedores = proveedorDao.queryForEq("correo", correo);
+            List<Proveedor> proveedores = proveedorRepository.getByEmail(correo);
             if(proveedores.isEmpty()) return new Response(false, null, "User no found");
             Proveedor proveedor = proveedores.get(0);
             if(proveedor.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response(false, null, "Bad Password");
             return new Response(true, normalizeProveedor(proveedor), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -84,10 +86,10 @@ public class ProveedorController {
     @GetMapping("/get-by-id/{id}")
     public Response<Proveedor> getById(@PathVariable int id) {
         try{
-            Proveedor proveedor = proveedorDao.queryForId(id);
+            Proveedor proveedor = proveedorRepository.getById(id);
             if(proveedor == null) return new Response(false, null, "Proveedor no Found");
             return new Response(true, normalizeProveedor(proveedor), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }
@@ -96,13 +98,13 @@ public class ProveedorController {
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Proveedor> updateProveedor(int id, String nombre, String password) {
         try{
-            Proveedor proveedor = proveedorDao.queryForId(id);
+            Proveedor proveedor = proveedorRepository.getById(id);
             if(proveedor == null) return new Response(false, null, "Proveedor no Found");
             if(nombre != null) proveedor.setNombre(nombre);
             if(password != null) proveedor.setPassword(Services.cryptPassword(password));
-            proveedorDao.update(proveedor);
+            proveedorRepository.update(proveedor);
             return new Response(true, normalizeProveedor(proveedor), "Ok");
-        }catch(SQLException ex){
+        }catch(Exception ex){
              Services.handleError(ex);
             return new Response(false, null, ex);
         }

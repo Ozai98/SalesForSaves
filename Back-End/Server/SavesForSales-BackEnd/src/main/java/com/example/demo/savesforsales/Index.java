@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public class Index {
 
-    public static boolean REMOTE = false;
+    public static boolean REMOTE = true;
     
     @RequestMapping("/")
     @ResponseBody
