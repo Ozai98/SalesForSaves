@@ -18,6 +18,9 @@ import NavBar from "@/components/NavBar.vue";
 // import services from "@/services/request.service.js";
 export default {
   name: "App",
+  components: {
+    NavBar
+  },
   data() {
     return {
       idPage: "MainHome"
