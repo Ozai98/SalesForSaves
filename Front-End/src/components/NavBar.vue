@@ -1,13 +1,13 @@
 <template>
   <div id="navBar">
     <div id="nav1" v-if="idPage == 'MainHome'">
-      <UserIcon v-bind:isLogged=true></UserIcon>
+      <UserIcon v-bind:isLogged="true"></UserIcon>
     </div>
     <div id="nav2" v-if="idPage == 'ProductSearch'">
       <UserIcon></UserIcon>
-      <div class="titulo">
-        <h1 @click="jumpHome()">SALES FOR SAVES</h1>
-      </div>
+      <!-- <div class="logoCont">
+        <img src="@/assets/imgs/pageIcon.svg" alt="logo" />
+      </div> -->
       <SearchBar class="search-bar"></SearchBar>
     </div>
     <div id="nav3" v-if="idPage == 'Login'"></div>
@@ -30,8 +30,8 @@ export default {
     UserIcon,
     SearchBar
   },
-  methods:{
-    jumpHome(){
+  methods: {
+    jumpHome() {
       this.$router.replace({ name: "Home" });
     }
   }
@@ -40,29 +40,23 @@ export default {
 
 <style scoped>
 #navBar {
-  position: absolute;
-  height: 170px;
-  top: 0;
-  left: 0;
+  height: 10%;
   width: 100%;
-  display: inline-block;
 }
 #nav1 {
   background-color: #a1ffca;
-  height: 100%;
 }
 #nav2 {
   background-color: #a1ffca;
-  height: 100%;
 }
 #nav3 {
   background-color: #ff8e43;
-  height: 100%;
 }
 #nav4 {
   background-color: #a1ffca;
   font-family: "Oswald", sans-serif;
 }
+
 #nav4 h1 {
   position: absolute;
   top: 20px;
@@ -72,5 +66,4 @@ export default {
 #nav4 h1:hover {
   cursor: pointer;
 }
-
 </style>

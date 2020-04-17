@@ -4,7 +4,7 @@
     <div id="SellProduct">
       <h1 class="highText">¿Que quieres vender?</h1>
       <div class="ProductPicFrame" >
-        <img src="@/assets/photo-camera.svg" alt="profile pic" />
+        <img src="public/photo-camera.svg" alt="profile pic" />
       </div>
       <br />
       <label for="unField">Nombre</label>

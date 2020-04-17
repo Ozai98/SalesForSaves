@@ -1,10 +1,25 @@
 <template>
-  <div class="search-bar">
-    <button id="btn" type="submit">
-      <img src="@/assets/search.svg" id="searchIcon" @click="jumpSearch()" />
+  <div class="search-bar base-border">
+    <button
+      id="SearchBtn"
+      type="submit"
+      class="center-content circular-frame soft-el"
+    >
+      <img
+        src="@/assets/imgs/search.svg"
+        class="small-img"
+        @click="jumpSearch()"
+      />
     </button>
-    <p id="space">|</p>
-    <input type="text" placeholder="Search.." name="search" id="search" />
+    <div class="space"></div>
+    <input
+      type="text"
+      placeholder="Encuentra aquí lo que necesites"
+      name="search"
+      id="search"
+      class="body-text soft-el"
+      @keyup.enter="jumpSearch()"
+    />
   </div>
 </template>
 
@@ -20,43 +35,29 @@ export default {
 </script>
 
 <style>
-#searchIcon {
-  width: 18px;
-  height: 18px;
-  padding-top: 3px;
-  margin: 0;
-}
 #search {
-  width: 550px;
-  padding: 0;
-  border: none;
+  width: 90%;
+  font-size: 0.8vw;
 }
-#search:focus {
-  border: none;
-  outline: none;
-}
-#btn {
+
+#SearchBtn {
   background-color: white;
-  border-radius: 56px;
+  width: 2vw;
+  height: 2vw;
 }
-#btn:focus {
-  outline: none;
-}
-#space {
-  color: #ff8e43;
-  display: inline-block;
-  font-size: 22px;
+
+#SearchBtn:hover {
+  cursor: pointer;
 }
 
 .search-bar {
-  border-style: solid;
   border-radius: 56px;
-  border-color: #ff8e43;
-  border-width: 1px;
-  font-size: 16px;
   font-family: "Verdana", sans-serif;
-  width: 600px;
+  width: 40vw;
+  margin-top: 4vw;
+  height: 2vw;
   background-color: white;
-  margin-left: 35%;
+  display: flex;
+  flex-flow: row;
 }
 </style>

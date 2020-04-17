@@ -1,46 +1,30 @@
 <template>
-  <div id="iconFrame">
-    <router-link to="{name: login}">
-      <img id="userIcon" src="@/assets/user.svg" />
-    </router-link>
-  </div>
+  <router-link :to="{ name: 'Login' }">
+    <div id="iconFrame" class="base-border circular-frame center-content">
+      <img id="userIcon" src="@/assets/imgs/user.svg" />
+    </div>
+  </router-link>
 </template>
 
 <script>
 export default {
   name: "UserIcon",
-  
   props: {
     isLogged: Boolean
-  },
-  methods: {
-    checkLog: function() {
-      if (this.$isLogged == true) {
-        this.$linkTo = "/ProfileMain";
-      } else {
-        this.$linkTo = "/Login";
-      }
-    }
   }
 };
 </script>
 <style scoped>
 #iconFrame {
-  border-color: #ff8e43;
-  border-width: 1px;
-  border-style: solid;
-  overflow: hidden;
-  border-radius: 50%;
   background-color: white;
   position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 32px;
-  height: 32px;
+  width: 2vw;
+  height: 2vw;
+  top: 0.5vw;
+  right: 0.5vw;
 }
 #userIcon {
-  padding-top: 5px;
-  width: 20px;
-  height: 20px;
+  width: 1.2vw;
+  height: 1.2vw;
 }
 </style>

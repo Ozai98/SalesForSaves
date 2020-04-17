@@ -1,6 +1,6 @@
 <template>
   <div class="carta" style="width: 18rem;">
-    <img src="@/assets/banano.jpg" class="imagen" />
+    <img src="@/assets/imgs/banano.jpg" class="imagen" />
     <div class="card-body">
       <p class="tiempo">
         hace 20 minutos

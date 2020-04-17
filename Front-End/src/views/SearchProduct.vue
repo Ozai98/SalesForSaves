@@ -1,21 +1,24 @@
 <template>
   <div class="SearchView">
-    <NavBar idPage="ProductSearch"></NavBar>
     <div class="contenedor">
       <!-- se maneja un v-for aqui xd -->
-      <producto class="producto"></producto>
+      <Producto class="producto"></Producto>
+      <Producto class="producto"></Producto>
+      <Producto class="producto"></Producto>
+      <Producto class="producto"></Producto>
+      <Producto class="producto"></Producto>
+      <Producto class="producto"></Producto>
+      <Producto class="producto"></Producto>
     </div>
   </div>
 </template>
 
 <script>
-import producto from "@/components/producto.vue";
-import NavBar from "@/components/NavBar.vue";
+import Producto from "@/components/Producto.vue";
 export default {
   name: "SearchView",
   components: {
-    NavBar,
-    producto,
+    Producto,
   }
 };
 </script>
@@ -31,17 +34,6 @@ export default {
   margin: 0%;
   text-align: center;
 }
-
-.search-bar {
-  margin: auto;
-}
-.search-bar button {
-  padding: 6px 10px;
-  background: #ddd;
-  font-size: 17px;
-  border: none;
-  cursor: pointer;
-}
 .navegacion {
   background-color: #a1ffca;
   position: fixed;
@@ -55,5 +47,6 @@ export default {
   display: flex;
   justify-content: space-around;
   margin-top: 15%;
+  background-color: white;
 }
 </style>

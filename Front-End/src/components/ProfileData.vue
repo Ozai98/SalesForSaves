@@ -4,7 +4,7 @@
     <div id="profile">
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
-        <img src="@/assets/13440.jpg" alt="profile pic" />
+        <img src="@/assets/imgs/13440.jpg" alt="profile pic" />
       </div>
       <br />
       <label for="unField">Nombre</label>

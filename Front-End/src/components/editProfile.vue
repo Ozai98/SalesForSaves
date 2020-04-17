@@ -4,7 +4,7 @@
     <div id="profile">
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
-        <img src="@/assets/13440.jpg" alt="profile pic" />
+        <img src="@/assets/imgs/13440.jpg" alt="profile pic" />
       </div>
       <br />
       <label for="unField">Nombre</label>
@@ -62,7 +62,7 @@ export default {
         this.input3.name != ""
       ) {
         if (this.input3.password == this.input3.password2) {
-            if(!(request.makeRequest('/usuario/update',input2).then(result => console.log(result.data.ok)))){
+            if(!(request.makeRequest('/usuario/update',input2).then(result => console.log( result.data.ok)))){
                 console.log("No se pudo registrar el usuario");
             }
         } else {
