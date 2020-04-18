@@ -30,7 +30,7 @@
         <input
           type="password"
           name="password2"
-          v-model="input2.password"
+          v-model="input2.password2"
           placeholder="Contraseña    |"
         />
       </div>
@@ -66,8 +66,7 @@ export default {
         this.input2.name != ""
       ) {
         if (this.input2.password == this.input2.password2) {
-
-            request.crearUsuario(this.input2.name, this.input2.username, this.input2.password, (data) => {
+            request.crearUsuario(this.input2.name, this.input2.username, this.input2.password, 'testing', (data) => {
                 if(data.ok) console.log("Usuario registrado correctamente");
                 else console.log("No se pudo registrar el usuario");
             });
