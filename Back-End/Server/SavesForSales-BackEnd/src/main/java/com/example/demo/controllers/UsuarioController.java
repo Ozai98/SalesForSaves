@@ -46,7 +46,7 @@ public class UsuarioController {
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Usuario> crear(String nombre, String correo, String password)
+    public Response<Usuario> crear(String nombre, String correo, String password, String avatar)
     {
 
         // Verifing email
@@ -54,10 +54,14 @@ public class UsuarioController {
 
 
         // Creating new user
+        
+        if(avatar == null) avatar = "";
+        
         Usuario newUser = new Usuario();
         newUser.setNombre(nombre);
         newUser.setCorreo(correo);
         newUser.setPassword(Services.cryptPassword(password));
+        newUser.setAvatar(avatar);
         try{
             // Saving new user
             usuarioRepository.create(newUser);
@@ -110,12 +114,13 @@ public class UsuarioController {
     }
     
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Usuario> updateUser(int id, String nombre, String password) {
+    public Response<Usuario> updateUser(Integer id, String nombre, String password, String avatar) {
         try{
             Usuario user = usuarioRepository.getById(id);
             if(user == null) return new Response(false, null, "User no Found");
             if(nombre != null) user.setNombre(nombre);
             if(password != null) user.setPassword(Services.cryptPassword(password));
+            if(avatar != null) user.setAvatar(avatar);
             usuarioRepository.update(user);
             return new Response(true, normalizeUser(user), "Ok");
         }catch(Exception ex){

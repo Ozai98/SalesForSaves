@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "771456c0-9ebe-4fd9-96a7-313014e07a74",
+		"_postman_id": "a02a6070-4851-44c4-802b-b17a11861b05",
 		"name": "Usuario",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -20,26 +20,119 @@
 						},
 						{
 							"key": "correo",
-							"value": "german@gmail.com",
+							"value": "german3@gmail.com",
 							"type": "text"
 						},
 						{
 							"key": "password",
 							"value": "0000",
 							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "LeAvatar.png",
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
 				"url": {
-					"raw": "savesforsales-back.herokuapp.com/usuario/crear",
+					"raw": "localhost:8083/usuario/crear",
 					"host": [
-						"savesforsales-back",
-						"herokuapp",
-						"com"
+						"localhost"
 					],
+					"port": "8083",
 					"path": [
 						"usuario",
 						"crear"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "German2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1111",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "le nuevo avatar.png",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/usuario/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"usuario",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get-by-id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "nombre",
+							"value": "German2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1111",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "le nuevo avatar.png",
+							"type": "text"
+						},
+						{
+							"key": "id",
+							"value": "5",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/usuario/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"usuario",
+						"update"
 					]
 				}
 			},
