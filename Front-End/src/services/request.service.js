@@ -33,12 +33,12 @@ function generalRequest(path, body, requestType, callback) {
         });
 }
 
+//-------------------------------------------------------------------
+//----------------------USUARIO--------------------------------------
+//-------------------------------------------------------------------
+
 function loginUsuario(correo, password, callback) {
-    generalRequest(
-        "/usuario/login", { correo, password },
-        REQUEST_TYPES.POST,
-        callback
-    );
+    generalRequest("/usuario/login", { correo, password }, REQUEST_TYPES.POST, callback);
 }
 
 function crearUsuario(nombre, correo, password, avatar, callback) {
@@ -46,30 +46,58 @@ function crearUsuario(nombre, correo, password, avatar, callback) {
 }
 
 function getUserByEmail(correo, callback) {
-    generalRequest(
-        "/usuario/get-by-email", { correo },
-        REQUEST_TYPES.POST,
-        callback
-    );
+    generalRequest("/usuario/get-by-email", { correo }, REQUEST_TYPES.POST, callback);
 }
 
 function getUserById(id, callback) {
-    generalRequest(
-        "/usuario/get-by-id/" + id,
-        undefined,
-        REQUEST_TYPES.GET,
-        callback
-    );
+    generalRequest("/usuario/get-by-id/" + id, undefined, REQUEST_TYPES.GET, callback);
 }
 
 // Los parametros que recive son opcionales. Solo envien los valores a actualizar
-function updateUser(id, nombre, password, callback) {
-    generalRequest(
-        "/usuario/update", { id, nombre, password },
-        REQUEST_TYPES.POST,
-        callback
-    );
+function updateUser(id, nombre, password, avatar, callback) {
+    generalRequest( "/usuario/update", { id, nombre, password, avatar }, REQUEST_TYPES.POST, callback);
 }
+
+//-------------------------------------------------------------------
+//----------------------PROVEEDOR------------------------------------
+//-------------------------------------------------------------------
+
+
+function loginProveedor(correo, password, callback) {
+    generalRequest( "/proveedor/login", { correo, password }, REQUEST_TYPES.POST, callback);
+}
+
+function crearProveedor(nombre, correo, password, avatar, callback) {
+    generalRequest("/proveedor/crear", { nombre, correo, password, avatar }, REQUEST_TYPES.POST, callback);
+}
+
+function getProveedorById(id, callback) {
+    generalRequest("/proveedor/get-by-id/" + id, undefined, REQUEST_TYPES.GET, callback );
+}
+
+// Los parametros que recive son opcionales. Solo envien los valores a actualizar
+function updateProveedor(id, nombre, password, avatar, callback) {
+    generalRequest( "/proveedor/update", { id, nombre, password, avatar },REQUEST_TYPES.POST,callback);
+}
+
+//-------------------------------------------------------------------
+//----------------------PRODUCTO-------------------------------------
+//-------------------------------------------------------------------
+
+// Parametro es una cadena que se desesa buscar
+function buscarProducto(parametro, callback){
+    generalRequest( "/producto/search/" + parametro, undefined, REQUEST_TYPES.GET, callback);
+}
+
+function getProductoById(id, callback){
+    generalRequest( "/producto/get-by-id/" + id, undefined, REQUEST_TYPES.GET, callback);
+}
+
+// El parametro imagen es opcional. Pueden pasar undefined o null
+function crearProducto(nombre, precio, id_proveedor, imagen, callback){
+    generalRequest( "/producto/crear", {nombre, precio, id_proveedor, imagen}, REQUEST_TYPES.POST, callback);
+}
+
 
 module.exports = {
     SERVER_URL,
@@ -79,5 +107,12 @@ module.exports = {
     crearUsuario,
     getUserByEmail,
     getUserById,
-    updateUser
+    updateUser,
+    loginProveedor,
+    crearProveedor,
+    getProveedorById,
+    updateProveedor,
+    buscarProducto,
+    getProductoById,
+    crearProducto,
 };

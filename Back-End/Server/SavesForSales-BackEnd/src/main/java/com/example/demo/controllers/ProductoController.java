@@ -1,11 +1,8 @@
 package com.example.demo.controllers;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
-
-import com.j256.ormlite.dao.Dao;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
@@ -17,16 +14,12 @@ import com.example.demo.database.models.Proveedor;
 import com.example.demo.services.Services;
 
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.example.demo.database.DaoController;
 import com.example.demo.database.ProductoRepository;
 import com.example.demo.database.ProductoRepositoryDao;
 import com.example.demo.database.ProveedorRepository;
 import com.example.demo.database.ProveedorRepositoryDao;
-import com.example.demo.database.UsuarioRepository;
-import com.j256.ormlite.stmt.Where;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
@@ -89,11 +82,15 @@ public class ProductoController {
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Producto> crear(String nombre, int precio, int id_proveedor){
+    public Response<Producto> crear(String nombre, Integer precio, Integer id_proveedor, String imagen){
         if(precio <= 0) return new Response(false, null, "precio invalido");
+        
+        if(imagen == null) imagen = "";
+        
         Producto nProducto = new Producto();
         nProducto.setNombre(nombre);
         nProducto.setPrecio(precio);
+        nProducto.setImagen(imagen);
         Proveedor creador;
         try {
             creador = proveedorRepository.getById(id_proveedor);

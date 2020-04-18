@@ -47,17 +47,20 @@ public class ProveedorController {
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Proveedor> crear(String nombre, String correo, String password)
+    public Response<Proveedor> crear(String nombre, String correo, String password, String avatar)
     {
 
         // Verifing email
         if(!Services.validateEmail(correo)) return new Response(false, null, "bad email");
 
         // Creating new provider
+        if(avatar == null) avatar = "";
+        
         Proveedor newProvider = new Proveedor();
         newProvider.setNombre(nombre);
         newProvider.setCorreo(correo);
         newProvider.setPassword(Services.cryptPassword(password));
+        newProvider.setAvatar(avatar);
         try{
             // Saving new provider
             proveedorRepository.create(newProvider);
@@ -84,7 +87,7 @@ public class ProveedorController {
     }
     
     @GetMapping("/get-by-id/{id}")
-    public Response<Proveedor> getById(@PathVariable int id) {
+    public Response<Proveedor> getById(@PathVariable Integer id) {
         try{
             Proveedor proveedor = proveedorRepository.getById(id);
             if(proveedor == null) return new Response(false, null, "Proveedor no Found");
@@ -96,12 +99,13 @@ public class ProveedorController {
     }
     
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Proveedor> updateProveedor(int id, String nombre, String password) {
+    public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar) {
         try{
             Proveedor proveedor = proveedorRepository.getById(id);
             if(proveedor == null) return new Response(false, null, "Proveedor no Found");
             if(nombre != null) proveedor.setNombre(nombre);
             if(password != null) proveedor.setPassword(Services.cryptPassword(password));
+            if(avatar != null) proveedor.setAvatar(avatar);
             proveedorRepository.update(proveedor);
             return new Response(true, normalizeProveedor(proveedor), "Ok");
         }catch(Exception ex){
