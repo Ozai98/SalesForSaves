@@ -3,7 +3,7 @@
     <div id="nav1" v-if="idPage == 'MainHome'">
       <UserIcon v-bind:isLogged="true"></UserIcon>
     </div>
-    <div id="nav2" v-if="idPage == 'ProductSearch'">
+    <div id="nav2" v-if="idPage == 'SearchProduct'">
       <UserIcon></UserIcon>
       <!-- <div class="logoCont">
         <img src="@/assets/imgs/pageIcon.svg" alt="logo" />
@@ -23,8 +23,7 @@ import SearchBar from "@/components/SearchBar.vue";
 export default {
   name: "NavBar",
   props: {
-    idPage: String,
-    isLogged: Boolean
+    idPage: String
   },
   components: {
     UserIcon,
