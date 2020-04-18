@@ -27,12 +27,10 @@ export default {
     };
   },
   computed:{
-    page(){
-      return this.$store.getters.returnView();
+    page(id) {
+      id = this.$store.getters.returnView;
+      return id;
     }
-  },
-  components: {
-    NavBar
   },
   mounted() {
     this.$router.replace("home");

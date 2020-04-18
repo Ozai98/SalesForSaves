@@ -29,6 +29,7 @@ export default {
   methods: {
     jumpSearch() {
       this.$router.replace({ name: "SearchProduct" });
+      this.$store.dispatch("changeViewState", "SearchProduct");
     }
   }
 };
