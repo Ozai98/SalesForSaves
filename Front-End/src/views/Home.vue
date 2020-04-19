@@ -23,7 +23,6 @@ export default {
 .titulo {
   font-size: 6vw;
 }
-
 #home {
   background-color: #a1ffca;
   width: 100%;

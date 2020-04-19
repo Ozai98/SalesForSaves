@@ -18,18 +18,17 @@ import NavBar from "@/components/NavBar.vue";
 // import services from "@/services/request.service.js";
 export default {
   name: "App",
-  components: {
-    NavBar
-  },
   data() {
     return {
       idPage: "MainHome"
     };
   },
-  computed:{
-    page(id) {
-      id = this.$store.getters.returnView;
-      return id;
+  components: {
+    NavBar
+  },
+  computed: {
+    page() {
+      return this.$store.getters.returnView;
     }
   },
   mounted() {
@@ -96,4 +95,31 @@ export default {
   margin-top: 0.2vw;
   margin-right: 0.2vw;
 }
+.logo {
+  width: 2.5vw;
+  height: 2.5vw;
+  position: absolute;
+  top: 1vw;
+  left: 1vw;
+  background-color: white;
+}
+.logo:hover {
+  cursor: pointer;
+}
+.button-base{
+  outline: none;
+  border-width: 1px;
+  border-style: solid;
+  border-color: #ff8e43;
+}
+
+.input-el {
+  border-radius: 56px;
+  height: 2vw;
+  background-color: white;
+  display: flex;
+  flex-flow: row;
+  font-size: 0.8vw;
+}
+
 </style>

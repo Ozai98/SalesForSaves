@@ -5,7 +5,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currentView: "MainHome",
+    currentView: "Home",
     isLogged: false,
     user: { id: "", name: "", imgURL: "", mail: "" }
   },
@@ -33,9 +33,9 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    changeViewState({ state, commit }, newView) {
-      commit("CHANGE_VIEW_DISPLAYING", state, newView);
-      console.log
+    changeViewState({ commit }, newView) {
+      commit("CHANGE_VIEW_DISPLAYING", newView);
+      console.log(newView);
     },
     changeLogState({ state, commit }) {
       commit("CHANGE_LOG_STATE", state);

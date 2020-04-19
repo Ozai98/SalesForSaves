@@ -8,7 +8,7 @@
           name="username"
           v-model="input.username"
           placeholder="E-mail   |"
-          class="field"
+          class="soft-el "
         />
       </div>
       <div id="pass">
@@ -37,7 +37,7 @@
         <br />si no tienes una cuenta puedes registrarte
       </div>
       <div id="bot2">
-        <button type="button" v-on:click="jumpReg()" name="sin">
+        <button type="button" v-on:click="jumpScreen('Register')" name="sin">
           REGISTRARME!
         </button>
       </div>
@@ -60,9 +60,6 @@ export default {
     };
   },
   methods: {
-    jumpReg() {
-      this.$router.replace({ name: "Register" });
-    },
     jumpProfile() {
       this.$router.replace({ name: "ProfilePage" });
     },

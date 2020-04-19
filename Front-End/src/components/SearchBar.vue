@@ -1,5 +1,5 @@
 <template>
-  <div class="search-bar base-border">
+  <div class="search-bar base-border input-el">
     <button
       id="SearchBtn"
       type="submit"
@@ -8,7 +8,7 @@
       <img
         src="@/assets/imgs/search.svg"
         class="small-img"
-        @click="jumpSearch()"
+        @click="jumpScreen('SearchProduct')"
       />
     </button>
     <div class="space"></div>
@@ -18,27 +18,20 @@
       name="search"
       id="search"
       class="body-text soft-el"
-      @keyup.enter="jumpSearch()"
+      @keyup.enter="jumpSearch('SearchProduct')"
     />
   </div>
 </template>
 
 <script>
 export default {
-  name: "SearchBar",
-  methods: {
-    jumpSearch() {
-      this.$router.replace({ name: "SearchProduct" });
-      this.$store.dispatch("changeViewState", "SearchProduct");
-    }
-  }
+  name: "SearchBar"
 };
 </script>
 
 <style>
 #search {
   width: 90%;
-  font-size: 0.8vw;
 }
 
 #SearchBtn {
@@ -52,13 +45,7 @@ export default {
 }
 
 .search-bar {
-  border-radius: 56px;
-  font-family: "Verdana", sans-serif;
   width: 40vw;
-  margin-top: 4vw;
-  height: 2vw;
-  background-color: white;
-  display: flex;
-  flex-flow: row;
+  margin-top: 2vw;
 }
 </style>
