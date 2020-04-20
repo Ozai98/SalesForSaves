@@ -1,5 +1,5 @@
 <template>
-  <div id="back">
+  <div id="back" class="center-content">
     <div id="login">
       <div id="title">INICIAR SESION!</div>
       <div id="user">
@@ -93,23 +93,18 @@ export default {
 
 <style scoped>
 #login {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  background-color: white;
+  justify-items: center;
   text-align: center;
-  width: 658px;
-  height: 602px;
-  border: 1px solid #cccccc;
-  background-color: #ffffff;
-  margin-left: -329px; /*half width*/
-  margin-top: -301px; /*half height*/
+  width: 30vw;
+  height: 30vw;
   border-radius: 23px;
+  display: grid;
+  grid-template-columns: 1fr;
 }
 #title {
   font: 53px Oswald, Oswald;
   color: #a1ffca;
-  position: relative;
-  top: 5%;
   -webkit-text-stroke-color: #ff8e43;
   -webkit-text-stroke-width: 1px;
 }
@@ -117,41 +112,29 @@ export default {
 .field {
   outline: none;
   font-family: Verdana, sans-serif;
+    height: 2vw;
+  width: 25vw;
+  color: #ff8e43;
+  font-size: 0.8vw;
 }
 
-#user {
-  position: absolute;
-  top: 28%;
-  left: 50%;
-  margin-left: -254px;
-}
-#pass {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  margin-left: -254px;
+.label {
+  margin: auto;
+  font-size: 0.6vw;
+  margin-right: 10px;
+  margin-left: 10px;
 }
 #bot {
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  margin-left: -140px;
   font: 40px Oswald, Oswald;
 }
 #regtext {
   margin-right: auto;
   margin-left: auto;
-  margin-top: 51%;
-  width: 50%;
+
   color: #ff8e43;
   font: Italic 14px Verdana, Verdana;
 }
-#bot2 {
-  position: absolute;
-  top: 77%;
-  left: 50%;
-  margin-left: -140px;
-}
+
 input {
   height: 50px;
   width: 504px;
@@ -185,9 +168,6 @@ button[name="sin"] {
   font: 40px Oswald, Oswald;
 }
 #back {
-  position: absolute;
-  top: 0%;
-  left: 0%;
   height: 100%;
   width: 100%;
   background-color: #ff8e43;
