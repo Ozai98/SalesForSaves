@@ -1,35 +1,74 @@
 <template>
-  <div id="container">
-    <NavBar idPage="ProfileData"></NavBar>
-    <div id="SellProduct">
+  <div id="container" class="container center-content">
+    <div id="sellProduct" class="center-content">
       <h1 class="highText">¿Que quieres vender?</h1>
-      <div class="ProductPicFrame" >
-        <img src="public/photo-camera.svg" alt="profile pic" />
-      </div>
-      <br />
-      <label for="unField">Nombre</label>
-      <p id="unField" class="highText">{{ UserName }}</p>
-      <label for="mailField">Correo</label>
-      <p id="mailField" class="highText">{{ Mail }}</p>
-      <button class="editBtn" @click="jumpEdit()">EDITAR</button>
+      <form action="requestHandler.crearProducto()" class="center-content">
+        <div id="productPicFrame" class="base-border center-content">
+          <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
+        </div>
+        <label class="body-text desc">Nombre</label>
+        <div class="input-el prodField base-border body-text">
+          <input type="text" class="soft-el spacer" />
+        </div>
+        <label class="body-text desc">Cantidad</label>
+        <div class="input-el prodField base-border body-text">
+          <input type="number" class="soft-el spacer" />
+          <div class="space"></div>
+          <p class="center-content">kg</p>
+        </div>
+        <label class="body-text desc">Precio por kg</label>
+        <div class="input-el prodField base-border body-text center-content">
+          <p class="center-content">$</p>
+          <div
+            class="space center-content"
+            style="margin: 0 0.5vw 0 0.5vw;"
+          ></div>
+          <input type="number" class="soft-el spacer" />
+        </div>
+        <label class="body-text desc">Ubicación</label>
+        <div class="input-el prodField base-border body-text">
+          <input type="text" class="soft-el spacer" />
+        </div>
+        <button
+          type="submit"
+          class="editBtn button-base accessBtn"
+          @click="jumpEdit()"
+        >
+          EDITAR
+        </button>
+      </form>
     </div>
   </div>
 </template>
 
 <script>
-import NavBar from "@/components/NavBar.vue";
 export default {
-  name: "SellProduct",
-  components: {
-    NavBar
-  }
+  name: "SellProduct"
 };
 </script>
 
 <style scoped>
-.productPicFrame {
-  height: 450px;
-  width: 600px;
+#sellProduct {
+  background-color: white;
+  border-radius: 25px 25px 25px 25px;
+  max-height: 80vh;
+  width: 60%;
+}
+#productPicFrame {
+  width: 30vw;
+  height: 20vw;
+  overflow: hidden;
+  margin: auto;
+}
+#productPicFrame img {
+  width: 70%;
+  height: 70%;
 }
 
+.spacer {
+  margin-left: 2vw;
+}
+.prodField {
+  width: 13vw;
+}
 </style>

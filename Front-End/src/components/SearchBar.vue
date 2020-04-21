@@ -4,6 +4,7 @@
       id="SearchBtn"
       type="submit"
       class="center-content circular-frame soft-el"
+      @click="requestHandler.buscarProducto(search.value)"
     >
       <img
         src="@/assets/imgs/search.svg"

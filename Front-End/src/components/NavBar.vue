@@ -1,5 +1,6 @@
 <template>
   <div id="navBar">
+    <p id="sellLink" @click="jumpScreen('SellProduct')">VENDER</p>
     <div id="nav1" v-if="idPage == 'Home'">
       <UserIcon v-bind:isLogged="true"></UserIcon>
     </div>
@@ -21,8 +22,14 @@
         @click="jumpScreen('Home')"
       />
     </div>
-    <div id="nav4" v-if="idPage == 'ProfileData' || idPage == 'EditProfile'">
-      <h1 @click="jumpHome()">SALES FOR SAVES</h1>
+    <div id="nav4" v-else>
+      <UserIcon v-bind:isLogged="true"></UserIcon>
+      <img
+        class="logo "
+        src="@/assets/imgs/pageIcon.svg"
+        alt="logo"
+        @click="jumpScreen('Home')"
+      />
     </div>
   </div>
 </template>
@@ -58,8 +65,16 @@ export default {
   width: 100%;
   height: 100%;
 }
-#nav4 {
-  background-color: #a1ffca;
+#sellLink {
+  position: absolute;
+  top: 0.3vw;
+  right: 4vw;
+  font-family: "Oswald", sans-serif;
+  font-weight: bold;
+  font-size: 1.5vw;
+}
+#sellLink:hover {
+  cursor: pointer;
 }
 
 #nav4 h1 {

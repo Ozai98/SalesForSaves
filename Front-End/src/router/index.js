@@ -11,24 +11,24 @@ const router = new VueRouter({
       component: () => import("@/views/Home.vue")
     },
     {
-      path: "/ProfilePage",
-      name: "ProfilePage",
-      component: () => import("@/views/ProfilePage.vue")
+      path: "/ProfileView",
+      name: "ProfileView",
+      component: () => import("@/views/ProfileView.vue")
     },
     {
       path: "/Login",
       name: "Login",
-      component: () => import("@/components/Login.vue")
+      component: () => import("@/views/Login.vue")
     },
     {
       path: "/Register",
       name: "Register",
-      component: () => import("@/components/Register.vue")
+      component: () => import("@/views/Register.vue")
     },
     {
       path: "/EditProfile",
       name: "EditProfile",
-      component: () => import("@/components/EditProfile.vue")
+      component: () => import("@/views/EditProfile.vue")
     },
     {
       path: "/SearchProduct",

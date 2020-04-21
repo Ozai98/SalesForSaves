@@ -39,11 +39,11 @@
           type="password"
           name="password2"
           v-model="newUser.password2"
-          class="soft-el body-text"
+          class="soft-el body-text input"
           id="rep"
         />
       </div>
-      <button class="button-base" v-on:click="register()">
+      <button class="button-base accessBtn" id="regBtn" v-on:click="register()">
         REGISTRARSE!
       </button>
     </div>
@@ -103,45 +103,35 @@ export default {
   justify-items: center;
   text-align: center;
   width: 30vw;
-  height: 40vw;
+  height: 30vw;
   border-radius: 23px;
   display: grid;
   grid-template-columns: 1fr;
 }
 
-.field {
-  height: 2vw;
-  width: 25vw;
-  color: #ff8e43;
-  font-size: 0.8vw;
-}
 .label {
   margin: auto;
   font-size: 0.6vw;
   margin-right: 10px;
   margin-left: 10px;
 }
-.input {
-  width: 19vw;
-}
+
 #rep {
-  width: 15vw;
+  width: 17vw;
 }
+
 #title {
   font-size: 4vw;
   color: #a1ffca;
   -webkit-text-stroke-color: #ff8e43;
   -webkit-text-stroke-width: 1px;
 }
-button {
+
+#regBtn {
   background-color: #a1ffca;
   color: #ff8e43;
-  border-radius: 16px;
-  height: 78px;
-  width: 254px;
-  cursor: pointer;
-  font: 40px Oswald, Oswald;
 }
+
 #back {
   height: 100%;
   width: 100%;
