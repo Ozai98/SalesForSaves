@@ -5,36 +5,39 @@
       <div class="profilePicFrame">
         <img src="@/assets/imgs/ProfilePhoto.jpg" alt="profile pic" />
       </div>
-      <label class="desc" for="unField">Nombre</label>
+      <label class="desc body-text" for="unField">Nombre</label>
 
       <input
         type="text"
         id="unField"
-        :value="UserName"
+        v-model="newUserInfo.name"
         class="input-el field base-border body-text soft-el2"
       />
 
-      <label class="desc" for="mailField">Correo</label>
+      <label class="desc body-text" for="mailField">Correo</label>
 
       <input
         type="text"
         id="mailField"
+        v-model="newUserInfo.mail"
         class="input-el field base-border body-text soft-el2"
       />
 
-      <label class="desc" for="pass">Contraseña</label>
+      <label class="desc body-text" for="pass">Contraseña</label>
 
       <input
         type="password"
         id="pass"
+        v-model="newUserInfo.password"
         class="input-el field base-border body-text soft-el2"
       />
 
-      <label class="desc" for="passX2">Confirmar contraseña</label>
+      <label class="desc body-text" for="passX2">Confirmar contraseña</label>
 
       <input
         id="passX2"
         type="password"
+        v-model="newUserInfo.password2"
         class="input-el field base-border body-text soft-el2"
       />
 
@@ -50,6 +53,8 @@
 </template>
 
 <script>
+
+import request from "@/services/request.service.js";
 export default {
   name: "ProfileView",
   props: {
@@ -59,13 +64,32 @@ export default {
   },
   data() {
     return {
-      input3: {
+      newUserInfo: {
         name: "",
         username: "",
         password: "",
         password2: ""
       }
     };
+  },
+  methods: {
+    updateUser(){
+      if (
+        this.newUserInfo.username != "" &&
+        this.newUserInfo.password != "" &&
+        this.newUserInfo.password2 != "" &&
+        this.newUserInfo.name != ""
+      ){
+        if (this.newUser.password == this.newUser.password2) {
+          let fun_request;
+          if (this.isProvider) {
+            fun_request = request.crearProveedor;
+          } else {
+            fun_request = request.crearUsuario;
+          }
+        }
+      }
+    }
   }
 };
 </script>
@@ -74,7 +98,7 @@ export default {
 #profile {
   background-color: white;
   border-radius: 25px 25px 25px 25px;
-  max-height: 90vh;
+  height: 85vh;
   width: 60%;
 }
 .profilePicFrame {

@@ -9,7 +9,6 @@ Vue.config.productionTip = false;
 Vue.mixin({
   methods: {
     jumpScreen: function(newScreen) {
-      console.log("Funciona");
       this.$router.replace({ name: newScreen });
       this.$store.dispatch("changeViewState", newScreen);
     }

@@ -27,7 +27,7 @@
           <button
             type="button"
             name="log"
-            v-on:click="login(), jumpScreen('ProfileView')"
+            v-on:click="login()"
             class="accessBtn button-base"
           >
             ENTRAR
@@ -54,8 +54,6 @@
 
 <script>
 import * as request from "../services/request.service";
-
-var enter;
 export default {
   name: "Login",
   data() {
@@ -69,22 +67,24 @@ export default {
   methods: {
     get_data() {
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
-      request.loginUsuario("email1", "0000", data => {
-        console.log("Login info recived");
-        console.log(data);
-        if (data.ok) console.log("Usuario logeado");
-        else console.log("Error logeando usuario");
-      });
+      request.loginUsuario(
+        this.userLog.username,
+        this.userLog.password,
+        data => {
+          console.log("Login info received");
+          console.log(data);
+          if (data.ok) {
+            console.log("Usuario logeado");
+            this.$store.dispatch("storeUser", data.clase);
+            this.$store.dispatch("changeLogState");
+            this.jumpScreen("ProfileView");
+          } else console.log("Error logeando usuario");
+        }
+      );
     },
     login() {
       if (this.userLog.username != "" && this.userLog.password != "") {
         this.get_data();
-        if (enter) {
-          this.$emit("authenticated", true);
-          this.$router.replace({ name: "secure" });
-        } else {
-          console.log("The username and / or password is incorrect");
-        }
       } else {
         console.log("A username and password must be present");
       }
