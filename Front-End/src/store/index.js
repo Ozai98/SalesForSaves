@@ -22,13 +22,13 @@ export default new Vuex.Store({
       state.user.imgURL = "";
       state.user.mail = "";
     },
-    STORE_USER(state, id, name, imgURL, mail) {
-      state.user.id = id;
-      state.user.name = name;
-      state.user.imgURL = imgURL;
-      state.user.mail = mail;
+    STORE_USER(state, user) {
+      state.user.id = user.id;
+      state.user.name = user.nombre;
+      state.user.imgURL = user.avatar;
+      state.user.mail = user.correo;
     },
-    RESTART_LOGIN(state){
+    RESTART_LOGIN(state) {
       state.isLogged = false;
     }
   },
@@ -45,6 +45,9 @@ export default new Vuex.Store({
     },
     restartLogin({ state, commit }) {
       commit("RESTART_LOGIN", state);
+    },
+    storeUser({ commit }, user) {
+      commit("STORE_USER", user);
     }
   },
   getters: {
@@ -55,7 +58,7 @@ export default new Vuex.Store({
       return state.currentView;
     },
     returnUser: state => {
-      if (state.user.id === "") {
+      if (!state.isLogged) {
         return "There is no logged user";
       } else {
         return state.user;

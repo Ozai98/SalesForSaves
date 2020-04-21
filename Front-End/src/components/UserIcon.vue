@@ -4,6 +4,7 @@
       v-if="this.$store.getters.returnLogState"
       id="userIcon"
       src="@/assets/imgs/ProfilePhoto.jpg"
+      @click="jumpScreen('ProfileView')"
     />
     <img
       v-else

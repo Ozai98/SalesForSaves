@@ -43,6 +43,10 @@
           id="rep"
         />
       </div>
+      <label for="ProviderCheck" class="body-text desc">
+        ¿Desea vender productos como proveedor?
+      </label>
+      <input type="checkBox" id="providerCheck" v-model="isProvider" />
       <button class="button-base accessBtn" id="regBtn" v-on:click="register()">
         REGISTRARSE!
       </button>
@@ -61,7 +65,8 @@ export default {
         username: "",
         password: "",
         password2: ""
-      }
+      },
+      isProvider: false
     };
   },
   methods: {
@@ -73,19 +78,22 @@ export default {
         this.newUser.name != ""
       ) {
         if (this.newUser.password == this.newUser.password2) {
-          request.crearUsuario(
+          let fun_request;
+          if (this.isProvider) {
+            fun_request = request.crearProveedor;
+          } else {
+            fun_request = request.crearUsuario;
+          }
+          fun_request(
             this.newUser.name,
             this.newUser.username,
             this.newUser.password,
+            null,
             data => {
               if (data.ok) console.log("Usuario registrado correctamente");
               else console.log("No se pudo registrar el usuario");
             }
           );
-
-          /*if(!(request.makeRequest('/usuario/crear',newUser).then(result => console.log(result.data.ok)))){
-                console.log("No se pudo registrar el usuario");
-            }*/
         } else {
           console.log("Contraseña incorrecta");
         }

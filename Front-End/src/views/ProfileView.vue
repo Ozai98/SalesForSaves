@@ -6,9 +6,9 @@
         <img src="@/assets/imgs/ProfilePhoto.jpg" alt="profile pic" />
       </div>
       <label class="body-text desc" for="unField">Nombre</label>
-      <p id="unField" class="highText">{{ UserName }}</p>
+      <p id="unField" class="highText">{{ name }}</p>
       <label class="body-text desc" for="mailField">Correo</label>
-      <p id="mailField" class="highText">{{ Mail }}</p>
+      <p id="mailField" class="highText">{{ correo }}</p>
       <button
         id="editBtn"
         class="button-base accessBtn"
@@ -23,10 +23,11 @@
 <script>
 export default {
   name: "ProfileView",
-  props: {
-    UserName: String,
-    Mail: String,
-    Alt: Boolean
+  data() {
+    return {
+      name: this.$store.getters.returnUser.name,
+      correo: this.$store.getters.returnUser.mail
+    };
   }
 };
 </script>
