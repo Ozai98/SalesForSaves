@@ -99,13 +99,14 @@ public class ProveedorController {
     }
     
     @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar) {
+    public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
         try{
             Proveedor proveedor = proveedorRepository.getById(id);
             if(proveedor == null) return new Response(false, null, "Proveedor no Found");
             if(nombre != null) proveedor.setNombre(nombre);
             if(password != null) proveedor.setPassword(Services.cryptPassword(password));
             if(avatar != null) proveedor.setAvatar(avatar);
+            if(ubicacion != null) proveedor.setUbicacion(ubicacion);
             proveedorRepository.update(proveedor);
             return new Response(true, normalizeProveedor(proveedor), "Ok");
         }catch(Exception ex){

@@ -23,8 +23,8 @@ import com.example.demo.savesforsales.Index;
  */
 public class DaoController {
 
-    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://sfsback:0000@190.157.224.51:3306/SavesForSales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
-    private static final String LOCAL_DB_CONNECTION = "jdbc:mysql://root:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String REMOTE_DB_CONNECTION = "jdbc:mysql://sfsback:0000@190.157.224.51/SavesForSales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+    private static final String LOCAL_DB_CONNECTION = "jdbc:mysql://sfsback:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
     
     private static DaoController instance;
 

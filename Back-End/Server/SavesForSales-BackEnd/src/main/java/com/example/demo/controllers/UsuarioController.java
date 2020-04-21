@@ -75,7 +75,6 @@ public class UsuarioController {
     
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Usuario> login(String correo, String password){
-        System.out.printf("Trying to login. Correo: %s. Pass: %s\n", correo, password);
         try{
             List<Usuario> users = usuarioRepository.getByEmail(correo);
             if(users.isEmpty()) return new Response(false, null, "User no found");

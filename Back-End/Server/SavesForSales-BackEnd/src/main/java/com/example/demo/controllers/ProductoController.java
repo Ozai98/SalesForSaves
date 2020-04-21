@@ -20,6 +20,7 @@ import com.example.demo.database.ProductoRepository;
 import com.example.demo.database.ProductoRepositoryDao;
 import com.example.demo.database.ProveedorRepository;
 import com.example.demo.database.ProveedorRepositoryDao;
+import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
@@ -82,7 +83,7 @@ public class ProductoController {
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Producto> crear(String nombre, Integer precio, Integer id_proveedor, String imagen){
+    public Response<Producto> crear(String nombre, Double precio, Integer id_proveedor, String imagen, Double cantidad){
         if(precio <= 0) return new Response(false, null, "precio invalido");
         
         if(imagen == null) imagen = "";
@@ -91,13 +92,15 @@ public class ProductoController {
         nProducto.setNombre(nombre);
         nProducto.setPrecio(precio);
         nProducto.setImagen(imagen);
+        nProducto.setCantidad(cantidad);
+        nProducto.setFechaPublicacion(new Date());
         Proveedor creador;
         try {
             creador = proveedorRepository.getById(id_proveedor);
             if(creador == null) return new Response(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
             nProducto.setProveedor(creador);
             prodcutoRepository.create(nProducto);
-            return new Response(true, nProducto, "Ok. " + creador.getNombre());
+            return new Response(true, normalizeProducto(nProducto), "Ok. " + creador.getNombre());
         } catch (Exception e) {
             return new Response(false, null, e);
         }

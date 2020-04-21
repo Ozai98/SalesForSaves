@@ -75,9 +75,14 @@ function getUserById(id, callback) {
 
 // Los parametros que recive son opcionales. Solo envien los valores a actualizar
 function updateUser(id, nombre, password, avatar, callback) {
+  var body = {id};
+  if(nombre) body.nombre = nombre;
+  if(password) body.password = password;
+  if(avatar) body.avatar = avatar;
+
   generalRequest(
     "/usuario/update",
-    { id, nombre, password, avatar },
+    body,
     REQUEST_TYPES.POST,
     callback
   );
@@ -115,10 +120,15 @@ function getProveedorById(id, callback) {
 }
 
 // Los parametros que recive son opcionales. Solo envien los valores a actualizar
-function updateProveedor(id, nombre, password, avatar, callback) {
+function updateProveedor(id, nombre, password, ubicacion, avatar, callback) {
+  var body = {id};
+  if(nombre) body.nombre = nombre;
+  if(password) body.password = password;
+  if(avatar) body.avatar = avatar;
+  if(ubicacion) body.ubicacion = ubicacion;
   generalRequest(
     "/proveedor/update",
-    { id, nombre, password, avatar },
+    body,
     REQUEST_TYPES.POST,
     callback
   );
@@ -148,10 +158,10 @@ function getProductoById(id, callback) {
 }
 
 // El parametro imagen es opcional. Pueden pasar undefined o null
-function crearProducto(nombre, precio, id_proveedor, imagen, callback) {
+function crearProducto(nombre, precio, cantidad, id_proveedor, imagen, callback) {
   generalRequest(
     "/producto/crear",
-    { nombre, precio, id_proveedor, imagen },
+    { nombre, precio, cantidad, id_proveedor, imagen },
     REQUEST_TYPES.POST,
     callback
   );

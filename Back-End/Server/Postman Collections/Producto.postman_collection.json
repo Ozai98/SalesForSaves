@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9154df7c-1222-4c17-b3d4-f8a23e14e790",
+		"_postman_id": "6a1e94f4-b77c-4915-9bd7-10094e65c7d5",
 		"name": "Producto",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -27,15 +27,25 @@
 							"key": "id_proveedor",
 							"value": "1",
 							"type": "text"
+						},
+						{
+							"key": "imagen",
+							"value": "mi imagen.png",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "3.3",
+							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/producto/crear",
+					"raw": "localhost:8083/producto/crear",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
 						"producto",
 						"crear"
@@ -70,11 +80,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/producto/search/pruEba",
+					"raw": "localhost:8083/producto/search/pruEba",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
 						"producto",
 						"search",

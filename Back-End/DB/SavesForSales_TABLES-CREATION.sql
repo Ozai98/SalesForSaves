@@ -21,6 +21,9 @@ DROP SCHEMA IF EXISTS `SavesForSales` ;
 CREATE SCHEMA IF NOT EXISTS `SavesForSales` DEFAULT CHARACTER SET utf8 ;
 USE `SavesForSales` ;
 
+CREATE USER IF NOT EXISTS 'sfsback'@'localhost' IDENTIFIED BY '0000';
+GRANT ALL PRIVILEGES ON *.* TO 'sfsback'@'localhost';
+FLUSH PRIVILEGES;
 -- -----------------------------------------------------
 -- Table `SavesForSales`.`Proveedor`
 -- -----------------------------------------------------
@@ -29,7 +32,8 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Proveedor` (
   `nombre` VARCHAR(45) NOT NULL,
   `correo` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
-  `avatar` VARCHAR(45) NULL DEFAULT NULL,
+  `avatar` VARCHAR(45) DEFAULT NULL,
+  `ubicacion` varchar(100) DEFAULT NULL, 
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -52,10 +56,12 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SavesForSales`.`Producto` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `precio` INT NOT NULL,
+  `precio` DOUBLE NOT NULL,
   `nombre` VARCHAR(45) NOT NULL,
   `proveedor` INT NULL DEFAULT NULL,
   `imagen` VARCHAR(45) NULL,
+  `cantidad` DOUBLE NOT NULL,
+  `fecha_publicación` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX (`proveedor` ASC),
   CONSTRAINT ``

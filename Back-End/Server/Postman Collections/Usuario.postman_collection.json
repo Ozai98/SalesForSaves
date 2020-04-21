@@ -70,7 +70,7 @@
 						},
 						{
 							"key": "avatar",
-							"value": "le nuevo avatar.png",
+							"value": "le nuevo avatar2.png",
 							"type": "text"
 						},
 						{
@@ -96,8 +96,11 @@
 		},
 		{
 			"name": "get-by-id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
-				"method": "POST",
+				"method": "GET",
 				"header": [],
 				"body": {
 					"mode": "urlencoded",
@@ -125,14 +128,15 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/usuario/update",
+					"raw": "localhost:8083/usuario/get-by-id/6",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
 						"usuario",
-						"update"
+						"get-by-id",
+						"6"
 					]
 				}
 			},

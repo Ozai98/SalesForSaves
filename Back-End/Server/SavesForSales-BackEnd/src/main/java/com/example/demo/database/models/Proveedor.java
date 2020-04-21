@@ -20,6 +20,8 @@ public class Proveedor{
     private String password;
     @DatabaseField
     private String avatar;
+    @DatabaseField
+    private String ubicacion;
 
     public Proveedor(){
         nombre = correo = password = "";
@@ -45,7 +47,13 @@ public class Proveedor{
     public String getAvatar() {
         return avatar;
     }
+    
+    public String getUbicacion() {
+        return ubicacion;
+    }
 
+    // ---------------- SETTERS---------------
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -60,6 +68,10 @@ public class Proveedor{
 
     public void setAvatar(String avatar) {
         this.avatar = avatar;
+    }
+    
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 
     // ---------------------------

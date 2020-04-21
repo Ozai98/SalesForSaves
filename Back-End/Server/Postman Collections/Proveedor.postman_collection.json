@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d6c228fb-b826-44aa-97aa-1d2b894f86f0",
+		"_postman_id": "d341bb8c-180c-4369-8d74-2a2395cb9962",
 		"name": "Proveedor",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -31,11 +31,11 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/proveedor/crear",
+					"raw": "localhost:8083/proveedor/crear",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
 						"proveedor",
 						"crear"
@@ -84,11 +84,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/proveedor/get-by-id/1",
+					"raw": "localhost:8083/proveedor/get-by-id/1",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
 						"proveedor",
 						"get-by-id",
@@ -114,21 +114,33 @@
 						{
 							"key": "nombre",
 							"value": "Cambio de nombre",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "password",
 							"value": "new pass",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "avatar",
+							"value": "my avatar",
+							"type": "text"
+						},
+						{
+							"key": "ubicacion",
+							"value": "My house man :D",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/proveedor/update",
+					"raw": "localhost:8083/proveedor/update",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
 						"proveedor",
 						"update"
