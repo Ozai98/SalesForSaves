@@ -22,7 +22,9 @@ public class Producto{
         @DatabaseField
         private Date fecha_publicacion;
         
-        public Producto(){}
+        public Producto(){
+            id = -1;
+        }
         
 	public int getId(){return id;}
 	public double getPrecio(){return precio;}
@@ -32,7 +34,8 @@ public class Producto{
         public double getCantidad(){return cantidad;}
         public Date getFechaPublicacion(){return fecha_publicacion;}
 
-	public void setPrecio(double p){precio=p;}
+	public void setId(int id){this.id=id;}
+        public void setPrecio(double p){precio=p;}
 	public void setNombre(String n){nombre=n;}
 	public void setProveedor(Proveedor p){proveedor=p;}
         public void setImagen(String i){imagen=i;}

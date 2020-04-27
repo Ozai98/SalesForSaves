@@ -23,6 +23,7 @@ public class Usuario{
 
     public Usuario(){
         nombre = correo = password = "";
+        id = -1;
     }
 
     // ---- GETS AND SETS ---------
@@ -44,6 +45,10 @@ public class Usuario{
 
     public String getAvatar() {
         return avatar;
+    }
+    
+    public void setId(int id){
+        this.id=id;
     }
 
     public void setNombre(String nombre) {

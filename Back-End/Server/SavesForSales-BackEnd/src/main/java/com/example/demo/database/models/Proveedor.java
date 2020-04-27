@@ -25,6 +25,7 @@ public class Proveedor{
 
     public Proveedor(){
         nombre = correo = password = "";
+        id = -1;
     }
 
     // ---- GETS AND SETS ---------
@@ -53,6 +54,10 @@ public class Proveedor{
     }
 
     // ---------------- SETTERS---------------
+    
+    public void setId(int id){
+        this.id=id;
+    }
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
