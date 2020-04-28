@@ -32,9 +32,8 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
     
     private static Usuario normalizeUser(Usuario usuario){
-        Usuario toReturn = new Usuario(usuario);
-        toReturn.setPassword("");
-        return toReturn;
+        usuario.setPassword("");
+        return usuario;
     }
     
     @PostConstruct

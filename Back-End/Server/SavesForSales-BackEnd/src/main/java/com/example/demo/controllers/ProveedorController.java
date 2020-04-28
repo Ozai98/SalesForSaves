@@ -33,9 +33,8 @@ public class ProveedorController {
     private ProveedorRepository proveedorRepository;
 
     public static Proveedor normalizeProveedor(Proveedor proveedor){
-        Proveedor toReturn = new Proveedor(proveedor);
-        toReturn.setPassword("");
-        return toReturn;
+        proveedor.setPassword("");
+        return proveedor;
     }
     
     @PostConstruct

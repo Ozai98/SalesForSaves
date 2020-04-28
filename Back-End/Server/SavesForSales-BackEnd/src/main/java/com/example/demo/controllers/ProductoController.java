@@ -33,14 +33,13 @@ public class ProductoController {
     private ProveedorRepository proveedorRepository;
 
     private Producto normalizeProducto(Producto producto){
-        Producto toReturn = new Producto(producto);
         try{
-            proveedorRepository.refresh(toReturn.getProveedor());
+            proveedorRepository.refresh(producto.getProveedor());
         }catch(Exception ex){
             Services.handleError(ex);
         }            
-        toReturn.setProveedor(ProveedorController.normalizeProveedor(toReturn.getProveedor()));
-        return toReturn;
+        ProveedorController.normalizeProveedor(producto.getProveedor());
+        return producto;
     }
     
     @PostConstruct
