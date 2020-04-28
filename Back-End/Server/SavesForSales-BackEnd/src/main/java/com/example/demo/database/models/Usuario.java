@@ -22,8 +22,16 @@ public class Usuario{
     private String avatar;
 
     public Usuario(){
-        nombre = correo = password = "";
+        nombre = correo = password = avatar = "";
         id = -1;
+    }
+    
+    public Usuario(Usuario usr){
+        this.id = usr.id;
+        this.nombre = usr.nombre;
+        this.correo = usr.correo;
+        this.password = usr.password;
+        this.avatar = usr.avatar;
     }
 
     // ---- GETS AND SETS ---------

@@ -32,8 +32,9 @@ public class UsuarioController {
     private UsuarioRepository usuarioRepository;
     
     private static Usuario normalizeUser(Usuario usuario){
-        usuario.setPassword("");
-        return usuario;
+        Usuario toReturn = new Usuario(usuario);
+        toReturn.setPassword("");
+        return toReturn;
     }
     
     @PostConstruct
@@ -65,6 +66,8 @@ public class UsuarioController {
         try{
             // Saving new user
             usuarioRepository.create(newUser);
+            System.out.println("Pass: ");
+            System.out.println(newUser.getPassword());
             return new Response(true, normalizeUser(newUser), "user created");
         }catch(Exception ex){
             // Error saving

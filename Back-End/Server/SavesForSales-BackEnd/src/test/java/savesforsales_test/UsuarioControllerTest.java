@@ -65,11 +65,11 @@ public class UsuarioControllerTest {
     public void LoginTest(){
         Response<Usuario> res = controller.login(defaultUser.getCorreo(), defaultUser.getPassword());
         
-        /*Assert.assertTrue(res.msg, res.ok);
+        Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.clase.getNombre(), defaultUser.getNombre());
         Assert.assertEquals(res.clase.getAvatar(), defaultUser.getAvatar());
         Assert.assertEquals(res.clase.getId(), defaultUser.getId());    
-        */
+        
         res = controller.login(defaultUser.getCorreo(), "Bad Password");
         Assert.assertFalse(res.msg, res.ok);
         

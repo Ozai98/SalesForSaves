@@ -24,6 +24,17 @@ public class Producto{
         
         public Producto(){
             id = -1;
+            precio = -1;
+        }
+        
+        public Producto(Producto prod){
+            this.id = prod.id;
+            this.precio = prod.precio;
+            this.nombre = prod.nombre;
+            this.proveedor = prod.proveedor;
+            this.imagen = prod.imagen;
+            this.cantidad = prod.cantidad;
+            this.fecha_publicacion = prod.fecha_publicacion;
         }
         
 	public int getId(){return id;}

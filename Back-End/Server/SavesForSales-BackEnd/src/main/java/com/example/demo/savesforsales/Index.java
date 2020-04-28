@@ -28,10 +28,10 @@ public class Index {
       return "Bienvenido al servidor de backend de SavesForSales";
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
        Services.startServices();
        SpringApplication app = new SpringApplication(Index.class);
        app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
-        app.run(args);
+       app.run(args);
     }
 }

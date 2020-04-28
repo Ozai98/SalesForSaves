@@ -28,8 +28,8 @@ public class MockUsuarioRepository implements UsuarioRepository{
     
     @Override
     public void create(Usuario usr) throws Exception {
-        usr.setId(idCounter.getAndIncrement());
-        mockTable.put(usr.getId(), usr);
+        usr.setId(idCounter.getAndIncrement());       
+        mockTable.put(usr.getId(), new Usuario(usr));
     }
 
     @Override

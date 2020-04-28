@@ -24,8 +24,17 @@ public class Proveedor{
     private String ubicacion;
 
     public Proveedor(){
-        nombre = correo = password = "";
+        nombre = correo = password = avatar = ubicacion = "";
         id = -1;
+    }
+    
+    public Proveedor(Proveedor prov){
+        this.id = prov.id;
+        this.nombre = prov.nombre;
+        this.correo = prov.correo;
+        this.password = prov.password;
+        this.avatar = prov.avatar;
+        this.ubicacion = prov.ubicacion;
     }
 
     // ---- GETS AND SETS ---------
