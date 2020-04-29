@@ -105,4 +105,8 @@ public class ProductoController {
             return new Response(false, null, e);
         }
     }
+
+    public Response<Producto> searchProductos() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

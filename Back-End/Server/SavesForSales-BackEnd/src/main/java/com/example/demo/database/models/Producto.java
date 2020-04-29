@@ -8,7 +8,7 @@ import java.util.Date;
 public class Producto{
 	
 	@DatabaseField(generatedId = true)
-	private int id;
+	public int id;
 	@DatabaseField
 	private double precio;
 	@DatabaseField
