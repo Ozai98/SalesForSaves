@@ -5,6 +5,7 @@
  */
 package com.example.demo.database;
 
+import com.example.demo.database.models.Historico;
 import java.sql.SQLException;
 
 import com.j256.ormlite.dao.Dao;
@@ -32,12 +33,14 @@ public class DaoController {
     private final Dao<Usuario, Integer> userDao;    
     private final Dao<Proveedor, Integer> proveedorDao;
     private final Dao<Producto, Integer> productoDao;
+    private final Dao<Historico, Integer> historicoDao;
 
     private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
         userDao = DaoManager.createDao(connection, Usuario.class);        
         proveedorDao = DaoManager.createDao(connection, Proveedor.class);
         productoDao = DaoManager.createDao(connection, Producto.class);
+        historicoDao = DaoManager.createDao(connection, Historico.class);
     }
 
     public static DaoController getInstance(){
@@ -60,5 +63,9 @@ public class DaoController {
 
     public Dao<Producto, Integer> productoDao(){
         return productoDao;
+    }
+    
+    public Dao<Historico, Integer> historicoDao(){
+        return historicoDao;
     }
 }

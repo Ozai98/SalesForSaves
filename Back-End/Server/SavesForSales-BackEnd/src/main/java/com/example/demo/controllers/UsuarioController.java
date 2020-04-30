@@ -31,7 +31,7 @@ public class UsuarioController {
 
     private UsuarioRepository usuarioRepository;
     
-    private static Usuario normalizeUser(Usuario usuario){
+    public static Usuario normalizeUser(Usuario usuario){
         usuario.setPassword("");
         return usuario;
     }

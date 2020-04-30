@@ -1,0 +1,83 @@
+{
+	"info": {
+		"_postman_id": "d58a0b82-f670-487c-864a-cbd607a0ace2",
+		"name": "Historico",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "reservar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idUser",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "idProducto",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "cantidad",
+							"value": "0.57",
+							"type": "text"
+						},
+						{
+							"key": "fechaReserva",
+							"value": "2020-04-30T14:00:00.000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historico/reservar",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historico",
+						"reservar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "comprar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idHistorico",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historico/buyed-product",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historico",
+						"buyed-product"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

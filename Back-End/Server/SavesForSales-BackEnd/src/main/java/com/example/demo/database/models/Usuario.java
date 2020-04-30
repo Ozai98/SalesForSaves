@@ -24,6 +24,14 @@ public class Usuario{
     public Usuario(){
         nombre = correo = password = "";
     }
+    
+    public Usuario(Usuario other){
+        id = other.id;
+        nombre = other.nombre;
+        correo = other.correo;
+        password = other.password;
+        avatar= other.avatar;
+    }
 
     // ---- GETS AND SETS ---------
 
@@ -46,6 +54,8 @@ public class Usuario{
         return avatar;
     }
 
+    public void setId(int id){this.id = id;}
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
