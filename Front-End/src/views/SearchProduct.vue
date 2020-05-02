@@ -8,6 +8,20 @@
     <Producto class="producto"></Producto>
     <Producto class="producto"></Producto>
     <Producto class="producto"></Producto>
+        <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+        <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
+    <Producto class="producto"></Producto>
   </div>
 </template>
 

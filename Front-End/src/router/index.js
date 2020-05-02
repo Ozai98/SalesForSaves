@@ -11,6 +11,11 @@ const router = new VueRouter({
       component: () => import("@/views/Home.vue")
     },
     {
+      path: "/Hystory",
+      name: "Hystory",
+      component: () => import("@/views/Hystory.vue")
+    },
+    {
       path: "/ProfileView",
       name: "ProfileView",
       component: () => import("@/views/ProfileView.vue")

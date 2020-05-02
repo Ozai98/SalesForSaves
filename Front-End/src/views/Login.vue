@@ -41,7 +41,8 @@
           <button
             class="accessBtn button-base"
             type="button"
-            v-on:click="jumpScreen('Register')"
+            
+            v-on:click="jumpScreen('Hystory')" 
             name="sin"
           >
             REGISTRARME!
