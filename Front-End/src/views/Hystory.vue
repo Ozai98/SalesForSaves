@@ -1,36 +1,30 @@
 <template>
-
-  
   <div class="contenedor-nogrid">
     <center>
-    <p class="tituloH" >TU HISTORIAL</p>
-    <!-- se maneja un v-for aqui xd -->
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
-    <Cosa class="j"></Cosa>
+      <p class="tituloH">TU HISTORIAL</p>
+      <!-- se maneja un v-for aqui xd -->
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
+      <Cosa class="j"></Cosa>
     </center>
   </div>
-  
 </template>
 
 <script>
-import Producto from "@/components/Producto.vue";
 import Cosa from "../components/Hystorial-product";
 export default {
   name: "HView",
   components: {
-    Producto
-    ,Cosa
-
+    Cosa
   }
 };
 </script>
@@ -48,9 +42,7 @@ export default {
   height: 90%;
   background-color: white;
 }
-.j{
-
+.j {
   margin: 1vw;
 }
-
 </style>
