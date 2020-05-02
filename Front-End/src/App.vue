@@ -34,7 +34,6 @@ export default {
   mounted() {
     this.$router.replace("home");
     this.$store.dispatch("resetUser");
-    this.$store.dispatch("restartLogin");
   }
 };
 </script>
@@ -154,9 +153,9 @@ export default {
 .accessBtn {
   border-radius: 16px;
   height: 3vw;
-  width: 9.5vw;
+  padding: 0 0.2vw;
   cursor: pointer;
-  font-size: 1.5vw;
+  font-size: 1.2vw;
   font-family: "Oswald", sans-serif;
   margin: 0.5vw 0 0.5vw 0;
   font-weight: bold;

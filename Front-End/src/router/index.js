@@ -38,7 +38,10 @@ const router = new VueRouter({
     {
       path: "/SearchProduct",
       name: "SearchProduct",
-      component: () => import("@/views/SearchProduct.vue")
+      component: () => import("@/views/SearchProduct.vue"),
+      props: {
+        searchedValue: String
+      }
     },
     {
       path: "/SellProduct",

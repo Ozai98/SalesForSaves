@@ -23,6 +23,14 @@
             class="soft-el body-text input"
           />
         </div>
+        <label for="ProviderCheck" class="body-text desc">
+          Si eres proveedor dale a la cajita
+        </label>
+        <input
+          type="checkBox"
+          id="providerCheck"
+          @change="userLog.isProvider = !userLog.isProvider"
+        />
         <div>
           <button
             type="button"
@@ -61,27 +69,40 @@ export default {
     return {
       userLog: {
         username: "",
-        password: ""
+        password: "",
+        isProvider: false
       }
     };
   },
   methods: {
     get_data() {
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
-      request.loginUsuario(
-        this.userLog.username,
-        this.userLog.password,
-        data => {
-          console.log("Login info received");
-          console.log(data);
-          if (data.ok) {
-            console.log("Usuario logeado");
-            this.$store.dispatch("storeUser", data.clase);
-            this.$store.dispatch("changeLogState");
-            this.jumpScreen("ProfileView");
-          } else console.log("Error logeando usuario");
-        }
-      );
+      let fun_request;
+      console.log(this.userLog.isProvider);
+      if (this.userLog.isProvider) {
+        fun_request = request.loginProveedor;
+      } else {
+        fun_request = request.loginUsuario;
+      }
+      console.log(this.userLog);
+      fun_request(this.userLog.username, this.userLog.password, data => {
+        console.log("Login info received");
+        console.log(data);
+        if (data.ok) {
+          console.log("Usuario logeado");
+          console.log(data.clase);
+          let builder = {
+            id: data.clase.id,
+            nombre: data.clase.nombre,
+            correo: data.clase.correo,
+            avatar: data.clase.avatar,
+            isProvider: this.userLog.isProvider
+          };
+          this.$store.dispatch("storeUser", builder);
+          this.$store.dispatch("changeLogState");
+          this.jumpScreen("ProfileView");
+        } else console.log("Error logeando usuario");
+      });
     },
     login() {
       if (this.userLog.username != "" && this.userLog.password != "") {
