@@ -20,11 +20,11 @@ export default {
       leftUnits: Number
     }
   },
-  methods:{
-    getSinceDate(){
+  methods: {
+    getSinceDate() {
       let current = new Date();
       let diff = current - this.product.time;
-      let days = diff /(1000 * 3600 * 24);
+      let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
     }
   }
@@ -52,7 +52,6 @@ export default {
   height: auto;
   vertical-align: middle;
   border-style: none;
-
 }
 #tiempo {
   font-weight: lighter;

@@ -1,6 +1,12 @@
 <template>
   <div id="navBar">
-    <p id="sellLink" @click="jumpScreen('SellProduct')">VENDER</p>
+    <p
+      v-if="this.$store.getters.returnUser.isProvider"
+      id="sellLink"
+      @click="jumpScreen('SellProduct')"
+    >
+      VENDER
+    </p>
     <div id="nav1" v-if="idPage == 'Home'">
       <UserIcon></UserIcon>
     </div>

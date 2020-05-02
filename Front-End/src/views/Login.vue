@@ -24,7 +24,7 @@
           />
         </div>
         <label for="ProviderCheck" class="body-text desc">
-          Si eres proveedor dale a la cajita 
+          Si eres proveedor dale a la cajita
         </label>
         <input
           type="checkBox"
@@ -89,7 +89,15 @@ export default {
         console.log(data);
         if (data.ok) {
           console.log("Usuario logeado");
-          this.$store.dispatch("storeUser", data.clase);
+          console.log(data.clase);
+          let builder = {
+            id: data.clase.id,
+            nombre: data.clase.nombre,
+            correo: data.clase.correo,
+            avatar: data.clase.avatar,
+            isProvider: this.userLog.isProvider
+          };
+          this.$store.dispatch("storeUser", builder);
           this.$store.dispatch("changeLogState");
           this.jumpScreen("ProfileView");
         } else console.log("Error logeando usuario");
