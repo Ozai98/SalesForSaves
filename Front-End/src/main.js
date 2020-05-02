@@ -9,8 +9,10 @@ Vue.config.productionTip = false;
 Vue.mixin({
   methods: {
     jumpScreen: function(newScreen) {
-      this.$router.replace({ name: newScreen });
-      this.$store.dispatch("changeViewState", newScreen);
+      if (store.getters.returnView != newScreen) {
+        this.$router.replace({ name: newScreen });
+        this.$store.dispatch("changeViewState", newScreen);
+      }else console.log("Misma página");
     }
   }
 });

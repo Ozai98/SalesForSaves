@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     currentView: "Home",
     isLogged: false,
-    user: { id: "", name: "", imgURL: "", mail: "" }
+    user: { id: -1, name: "", imgURL: "", mail: "" },
+    searchedValue: ""
   },
   mutations: {
     CHANGE_VIEW_DISPLAYING(state, newView) {
@@ -17,7 +18,7 @@ export default new Vuex.Store({
       state.isLogged = !state.isLogged;
     },
     RESET_USER(state) {
-      state.user.id = "";
+      state.user.id = -1;
       state.user.name = "";
       state.user.imgURL = "";
       state.user.mail = "";
@@ -30,12 +31,14 @@ export default new Vuex.Store({
     },
     RESTART_LOGIN(state) {
       state.isLogged = false;
+    },
+    UPDATE_SEARCH(state, newVal){
+      state.searchedValue = newVal;
     }
   },
   actions: {
     changeViewState({ commit }, newView) {
       commit("CHANGE_VIEW_DISPLAYING", newView);
-      console.log(newView);
     },
     changeLogState({ state, commit }) {
       commit("CHANGE_LOG_STATE", state);
@@ -48,6 +51,9 @@ export default new Vuex.Store({
     },
     storeUser({ commit }, user) {
       commit("STORE_USER", user);
+    },
+    updateSearch({ commit }, val) {
+      commit("UPDATE_SEARCH", val);
     }
   },
   getters: {
@@ -62,6 +68,13 @@ export default new Vuex.Store({
         return "There is no logged user";
       } else {
         return state.user;
+      }
+    },
+    returnSearchedValue: state => {
+      if (state.searchedValue == ""){
+        return "There is no searched value";
+      } else {
+        return state.searchedValue;
       }
     }
   },
