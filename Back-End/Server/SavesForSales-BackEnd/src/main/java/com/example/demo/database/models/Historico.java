@@ -5,7 +5,6 @@
  */
 package com.example.demo.database.models;
 
-import com.example.demo.controllers.UsuarioController;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;
