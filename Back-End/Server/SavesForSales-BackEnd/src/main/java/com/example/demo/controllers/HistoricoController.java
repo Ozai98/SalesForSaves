@@ -14,13 +14,18 @@ import com.example.demo.database.UsuarioRepositoryDao;
 import com.example.demo.database.models.Historico;
 import com.example.demo.database.models.Producto;
 import com.example.demo.database.models.Usuario;
+import com.example.demo.services.Services;
+
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
+
 import javax.annotation.PostConstruct;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -93,6 +98,21 @@ public class HistoricoController {
         }catch (Exception e) {
             return new Response(false, null, e);
         }
+    }
+
+    @GetMapping(value = "/buyed/{id}")
+    public Response<Historico []> searchHistorico(int id){
+        try {
+            Usuario usr = usuarioRepository.getById(id);
+            List<Historico> result = historicoRepository.getForUser(usr);
+            Historico[] response = new Historico[result.size()]; int i = 0;
+            for(Historico historico: result) response[i++] = normalizeHistorico(historico);
+            return new Response<Historico []>(true, response, "ok");
+        } catch (Exception ex) {
+            Services.handleError(ex);
+            return new Response(false, null, ex);
+        }
+        
     }
     
     @PostMapping(value = "/buyed-product", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
