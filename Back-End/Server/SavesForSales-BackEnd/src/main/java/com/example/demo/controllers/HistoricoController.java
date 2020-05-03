@@ -113,8 +113,7 @@ public class HistoricoController {
     @GetMapping(value = "/buyed/{id}")
     public Response<Historico []> searchHistorico(@PathVariable Integer id){
         try {
-            Usuario usr = usuarioRepository.getById(id);
-            List<Historico> result = historicoRepository.getForUser(usr);
+            List<Historico> result = historicoRepository.getForUser(id);
             Historico[] response = new Historico[result.size()]; int i = 0;
             for(Historico historico: result) response[i++] = normalizeHistorico(historico);
             return new Response<Historico []>(true, response, "ok");
