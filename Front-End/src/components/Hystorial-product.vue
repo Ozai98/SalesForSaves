@@ -3,17 +3,34 @@
     <img src="@/assets/imgs/banano.jpg" class="imagenH" />
     <div class="card-bodyH">
       <p class="tiempoH">
-        hace 20 minutos
+        <!--Hace {{ getSinceDate() }} días-->
       </p>
-      <h5 class="precioH">$500/kg</h5>
-      <h6 id="nombreh">Banano ultraverga</h6>
-      <p class="tiendaH"> en la tienda norte</p>
+      <h5 class="precioH">{{Historical_product.price}}/kg</h5>
+      <h6 id="nombreh">{{Historical_product.name}}</h6>
+      <p class="tiendaH"> {{Historical_product.proveedor}}</p>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    Historical_product: {
+      time: Date,
+      price: Number,
+      name: String,
+      proveedor: String
+    }
+  },
+  methods: {
+    getSinceDate() {
+      let current = new Date();
+      let diff = current - this.Historical_product.time;
+      let days = diff / (1000 * 3600 * 24);
+      return Math.floor(days);
+    }
+  }
+};
 </script>
 
 <style>

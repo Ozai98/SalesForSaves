@@ -2,11 +2,11 @@
   <div class="contenedor-nogrid">
     <center>
       <p class="tituloH">TU HISTORIAL  {{id}} </p>
-      <!--<div id="products" v-for="prod in dataProd" :key="prod.name">
-         <Producto :product="prod"></Producto>
+      <!--<div id="j" v-for="hist in dataH" :key="hist.nombre">
+         <Hystorial-product :Historical_product="hist"></Hystorial-product>
       </div>-->
+        {{dataH}}
       
-      <Cosa class="j"></Cosa>
     </center>
   </div>
 </template>
@@ -25,20 +25,21 @@ export default {
     
     methods: {
     Backbb() {
+      console.log("si me llamaron");
       this.dataH = [];
-      request.getHistoricbyId(id, data => {
+      request.getHistoricbyId(this.id, data => {
         if (data.ok) {
           console.log(data);
           console.log("pos si sirvio el historial");
-          /*
+          
           for (const hist of data.clase) {
             this.dataH.push({
               precio:hist.producto.precio,
               tiempo:hist.tiempo_reserva,
-              proveedor:hist.producto.
-              nombre
+              proveedor:hist.producto.proveedor.nombre,
+              nombre:hist.producto.nombre
             });
-          }*/
+          }
           console.log(this.dataProd);
         } else console.log("hijole no se va a podeeer");console.log(data);
       });
@@ -46,6 +47,9 @@ export default {
   },
   components: {
     Cosa
+  },
+    mounted() {
+    this.Backbb();
   }
 };
 </script>
@@ -63,7 +67,7 @@ export default {
   height: 90%;
   background-color: white;
 }
-.j {
+#j {
   margin: 1vw;
 }
 </style>
