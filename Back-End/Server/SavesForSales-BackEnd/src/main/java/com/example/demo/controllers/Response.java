@@ -12,6 +12,10 @@ public class Response<T> {
 	Response(boolean ok, T clase, Exception ex){
 		this.ok = ok;
 		this.clase = clase;
-		this.msg = ex.getCause().getMessage();
+                StringBuilder msg = new StringBuilder();
+                msg.append("Error");
+                for(Throwable current = ex; current != null; current = current.getCause()) msg.append(" caused By ").append(current.getMessage());
+                this.msg = msg.toString();
+                ex.printStackTrace();
 	}
 }

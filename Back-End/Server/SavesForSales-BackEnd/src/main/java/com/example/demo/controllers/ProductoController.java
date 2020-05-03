@@ -29,10 +29,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/producto")
 public class ProductoController {
 
-    private ProductoRepository prodcutoRepository;
+    private ProductoRepository productoRepository;
     private ProveedorRepository proveedorRepository;
 
-    private Producto normalizeProducto(Producto producto){
+    public static Producto normalizeProducto(Producto producto, ProveedorRepository proveedorRepository){
         try{
             proveedorRepository.refresh(producto.getProveedor());
         }catch(Exception ex){
@@ -49,7 +49,7 @@ public class ProductoController {
     }
     
     public void setProductoRepository(ProductoRepository repository){
-        this.prodcutoRepository = repository;
+        this.productoRepository = repository;
     }
     
     public void setProveedorRepository(ProveedorRepository repository){
@@ -59,9 +59,9 @@ public class ProductoController {
     @GetMapping("/search/{nombre}")
     public Response<Producto[]> searchProductos(@PathVariable String nombre) {
         try {
-            List<Producto> result =  prodcutoRepository.search(nombre);
+            List<Producto> result =  productoRepository.search(nombre);
             Producto[] response = new Producto[result.size()]; int i = 0;
-            for(Producto producto: result) response[i++] = normalizeProducto(producto);
+            for(Producto producto: result) response[i++] = normalizeProducto(producto, proveedorRepository);
             return new Response(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
@@ -72,9 +72,9 @@ public class ProductoController {
     @GetMapping("/get-by-id/{id}")
     public Response<Producto> getProducto( @PathVariable Integer id) {
         try {
-            Producto product = prodcutoRepository.getById(id);
+            Producto product = productoRepository.getById(id);
             if(product == null) return new Response(false, null, "Product no Found");
-            return new Response(true, normalizeProducto(product), "Ok: " + product.getProveedor().getId());
+            return new Response(true, normalizeProducto(product, proveedorRepository), "Ok: " + product.getProveedor().getId());
         } catch (Exception ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
@@ -99,8 +99,8 @@ public class ProductoController {
             creador = proveedorRepository.getById(id_proveedor);
             if(creador == null) return new Response(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
             nProducto.setProveedor(creador);
-            prodcutoRepository.create(nProducto);
-            return new Response(true, normalizeProducto(nProducto), "Ok. " + creador.getNombre());
+            productoRepository.create(nProducto);
+            return new Response(true, normalizeProducto(nProducto, proveedorRepository), "Ok. " + creador.getNombre());
         } catch (Exception e) {
             return new Response(false, null, e);
         }

@@ -27,6 +27,15 @@ public class Proveedor{
         nombre = correo = password = "";
     }
 
+    public Proveedor(Proveedor other){
+        id = other.id;
+        nombre = other.nombre;
+        correo = other.correo;
+        password = other.password;
+        avatar = other.avatar;
+        ubicacion = other.ubicacion;
+    }
+    
     // ---- GETS AND SETS ---------
 
     public int getId() {
@@ -53,6 +62,8 @@ public class Proveedor{
     }
 
     // ---------------- SETTERS---------------
+    
+    public void setId(int id){this.id = id;}
     
     public void setNombre(String nombre) {
         this.nombre = nombre;
