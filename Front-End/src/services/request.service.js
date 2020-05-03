@@ -139,7 +139,12 @@ function buscarProducto(parametro, callback) {
     callback
   );
 }
-
+function getHistoricbyId(id){
+  generalRequest("historico/buyed/"+ id,
+  undefined,
+  REQUEST_TYPES.GET,
+  callback);
+}
 function getProductoById(id, callback) {
   generalRequest(
     "/producto/get-by-id/" + id,

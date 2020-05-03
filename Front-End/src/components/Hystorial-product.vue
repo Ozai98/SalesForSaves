@@ -1,13 +1,13 @@
 <template>
-  <div class="recuento">
+  <div class="recuentoH">
     <img src="@/assets/imgs/banano.jpg" class="imagenH" />
-    <div class="card-body">
-      <p class="tiempo">
+    <div class="card-bodyH">
+      <p class="tiempoH">
         hace 20 minutos
       </p>
-      <h5 class="precio">$500/kg</h5>
+      <h5 class="precioH">$500/kg</h5>
       <h6 id="nombreh">Banano ultraverga</h6>
-      <p class="tienda"> en la tienda norte</p>
+      <p class="tiendaH"> en la tienda norte</p>
     </div>
   </div>
 </template>
@@ -17,7 +17,7 @@ export default {};
 </script>
 
 <style>
-.recuento {
+.recuentoH {
   border: 1px solid #ff8e43;
   overflow: hidden;
   border-radius: 15px;
@@ -26,7 +26,7 @@ export default {};
   max-height: 10vw;
   max-width: 70vw;
 }
-.card-body {
+.card-bodyH {
   float: left;
   padding-left: 1vw;
   width: 50vw;
@@ -43,20 +43,20 @@ export default {};
   border-style: none;
 
 }
-.tiempo {
+.tiempoH {
   font-weight: lighter;
   font-size: 1vw;
   margin-left: 85%;
   grid-row: 1;
 }
-.precio {
+.precioH {
   font-size: 2vw;
   font-weight: bold;
   color: #ff8e43;
   text-align: left;
   grid-row: 2;
 }
-.tienda {
+.tiendaH {
     font-weight: lighter;
   font-size: 1vw;
   margin-left: 80%;

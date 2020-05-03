@@ -30,7 +30,7 @@ public class HistoricoRepositoryDao implements HistoricoRepository{
 
     @Override
     public List<Historico> getForUser(Usuario usr) throws SQLException {
-        return historicoDao.queryBuilder().where().eq("Usuario_id", usr.getId()).query();
+        return historicoDao.queryBuilder().where().eq("usuario", usr.getId()).query();
     }
 
     @Override

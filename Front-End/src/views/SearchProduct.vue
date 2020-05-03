@@ -39,7 +39,7 @@ export default {
             });
           }
           console.log(this.dataProd);
-        } else console.log("Error al encontrar producto");
+        } else console.log("Error al encontrar producto");console.log(data);
       });
     }
   },
