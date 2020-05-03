@@ -16,6 +16,13 @@
       >
         EDITAR
       </button>
+      <button
+        id="editBtnH"
+        class="button-base accessBtn"
+        @click="jumpScreen('Hystory')"
+      >
+        HISTORIAL
+      </button>
       <button id="" class="button-base accessBtn" @click="logout()">
         Cerrar Sesión
       </button>
@@ -60,6 +67,12 @@ export default {
 #editBtn {
   min-width: 120px;
   min-height: 40px;
+  color: #ff8e43;
+}
+#editBtnH {
+  min-width: 120px;
+  min-height: 40px;
+  
   color: #ff8e43;
 }
 </style>
