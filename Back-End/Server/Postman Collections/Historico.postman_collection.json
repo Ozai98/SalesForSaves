@@ -15,7 +15,7 @@
 					"urlencoded": [
 						{
 							"key": "idUser",
-							"value": "1",
+							"value": "0",
 							"type": "text"
 						},
 						{
@@ -59,7 +59,7 @@
 					"urlencoded": [
 						{
 							"key": "idHistorico",
-							"value": "1",
+							"value": "4",
 							"type": "text"
 						}
 					]
@@ -73,6 +73,64 @@
 					"path": [
 						"historico",
 						"buyed-product"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get reserved",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idUser",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historico/get-user-reserved",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historico",
+						"get-user-reserved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get historic",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idUser",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historico/get-user-historic",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historico",
+						"get-user-historic"
 					]
 				}
 			},
