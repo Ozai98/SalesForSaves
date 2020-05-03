@@ -9,6 +9,8 @@ import com.example.demo.database.HistoricoRepository;
 import com.example.demo.database.HistoricoRepositoryDao;
 import com.example.demo.database.ProductoRepository;
 import com.example.demo.database.ProductoRepositoryDao;
+import com.example.demo.database.ProveedorRepository;
+import com.example.demo.database.ProveedorRepositoryDao;
 import com.example.demo.database.UsuarioRepository;
 import com.example.demo.database.UsuarioRepositoryDao;
 import com.example.demo.database.models.Historico;
@@ -46,9 +48,12 @@ public class HistoricoController {
     private HistoricoRepository historicoRepository;
     private UsuarioRepository usuarioRepository;
     private ProductoRepository productoRepository;
+    private ProveedorRepository proveedorRepository;
     
-    public static Historico normalizeHistorico(Historico historico){
+    public Historico normalizeHistorico(Historico historico) throws Exception{
         historico.setUsuario(UsuarioController.normalizeUser(historico.getUsuario()));
+        productoRepository.refresh(historico.getProducto());
+        ProductoController.normalizeProducto(historico.getProducto(), proveedorRepository);
         return historico;
     }
     
@@ -57,6 +62,7 @@ public class HistoricoController {
         setHistoricoRepository(new HistoricoRepositoryDao());
         setUsuarioRepository(new UsuarioRepositoryDao());
         setProductoRepository(new ProductoRepositoryDao());
+        setProveedorRepository(new ProveedorRepositoryDao());
     }
     
     public void setHistoricoRepository(HistoricoRepository repository){
@@ -69,6 +75,9 @@ public class HistoricoController {
     
     public void setProductoRepository(ProductoRepository repository){
         this.productoRepository = repository;
+    }
+    public void setProveedorRepository(ProveedorRepository proveedorRepository) {
+        this.proveedorRepository = proveedorRepository;
     }
     
     @PostMapping(value = "/reservar", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
