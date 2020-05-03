@@ -9,8 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Usuario;
-import com.example.demo.database.UsuarioRepository;
-import com.example.demo.database.UsuarioRepositoryDao;
+import com.example.demo.database.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.services.Services;
@@ -29,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @CrossOrigin
 public class UsuarioController {
 
-    private UsuarioRepository usuarioRepository;
+    private Repository<Usuario> usuarioRepository;
     
     public static Usuario normalizeUser(Usuario usuario){
         usuario.setPassword("");
@@ -38,10 +37,10 @@ public class UsuarioController {
     
     @PostConstruct
     public void init() {
-        setUsuarioRepository(new UsuarioRepositoryDao());
+        setUsuarioRepository(Repository.Usuario());
     }
     
-    public void setUsuarioRepository(UsuarioRepository repository){
+    public void setUsuarioRepository(Repository<Usuario> repository){
         this.usuarioRepository = repository;
     }
 
@@ -50,7 +49,7 @@ public class UsuarioController {
     {
 
         // Verifing email
-        if(!Services.validateEmail(correo)) return new Response(false, null, "bad email");
+        if(!Services.validateEmail(correo)) return new Response<Usuario>(false, null, "bad email");
 
 
         // Creating new user
@@ -65,38 +64,38 @@ public class UsuarioController {
         try{
             // Saving new user
             usuarioRepository.create(newUser);
-            return new Response(true, normalizeUser(newUser), "user created");
+            return new Response<Usuario>(true, normalizeUser(newUser), "user created");
         }catch(Exception ex){
             // Error saving
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Usuario>(false, null, ex);
         }
     }  
     
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Usuario> login(String correo, String password){
         try{
-            List<Usuario> users = usuarioRepository.getByEmail(correo);
-            if(users.isEmpty()) return new Response(false, null, "User no found");
+            List<Usuario> users = usuarioRepository.search(correo);
+            if(users.isEmpty()) return new Response<Usuario>(false, null, "User no found");
             Usuario usr = users.get(0);
-            if(usr.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response(false, null, "Bad Password");
+            if(usr.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response<Usuario>(false, null, "Bad Password");
             
-            return new Response(true, normalizeUser(usr), "Ok");
+            return new Response<Usuario>(true, normalizeUser(usr), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Usuario>(false, null, ex);
         }
     }
     
     @PostMapping(value = "/get-by-email", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Usuario> getByCorreo(String correo) {
         try{
-            List<Usuario> users = usuarioRepository.getByEmail(correo);
-            if(users.isEmpty()) return new Response(false, null, "User no found");
-            return new Response(true, normalizeUser(users.get(0)), "Ok");
+            List<Usuario> users = usuarioRepository.search(correo);
+            if(users.isEmpty()) return new Response<Usuario>(false, null, "User no found");
+            return new Response<Usuario>(true, normalizeUser(users.get(0)), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Usuario>(false, null, ex);
         }
     }
     
@@ -104,11 +103,11 @@ public class UsuarioController {
     public Response<Usuario> getById(@PathVariable int id) {
         try{
             Usuario user = usuarioRepository.getById(id);
-            if(user == null) return new Response(false, null, "User no Found");
-            return new Response(true, normalizeUser(user), "Ok");
+            if(user == null) return new Response<Usuario>(false, null, "User no Found");
+            return new Response<Usuario>(true, normalizeUser(user), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Usuario>(false, null, ex);
         }
     }
     
@@ -116,15 +115,15 @@ public class UsuarioController {
     public Response<Usuario> updateUser(Integer id, String nombre, String password, String avatar) {
         try{
             Usuario user = usuarioRepository.getById(id);
-            if(user == null) return new Response(false, null, "User no Found");
+            if(user == null) return new Response<Usuario>(false, null, "User no Found");
             if(nombre != null) user.setNombre(nombre);
             if(password != null) user.setPassword(Services.cryptPassword(password));
             if(avatar != null) user.setAvatar(avatar);
             usuarioRepository.update(user);
-            return new Response(true, normalizeUser(user), "Ok");
+            return new Response<Usuario>(true, normalizeUser(user), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Usuario>(false, null, ex);
         }
     }
 }

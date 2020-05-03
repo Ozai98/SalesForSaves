@@ -6,7 +6,6 @@
 package com.example.demo.database;
 
 import com.example.demo.database.models.Historico;
-import com.example.demo.database.models.Usuario;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,7 +14,7 @@ import java.util.List;
  *
  * @author German le yo
  */
-public class HistoricoRepositoryDao implements HistoricoRepository{
+public class HistoricoRepositoryDao implements Repository<Historico>{
     
      private Dao<Historico, Integer> historicoDao;
     
@@ -29,8 +28,8 @@ public class HistoricoRepositoryDao implements HistoricoRepository{
     }
 
     @Override
-    public List<Historico> getForUser(Usuario usr) throws SQLException {
-        return historicoDao.queryBuilder().where().eq("Usuario_id", usr.getId()).query();
+    public <G> List<Historico> search(G usr) throws SQLException {
+        return historicoDao.queryBuilder().where().eq("Usuario_id", usr).query();
     }
 
     @Override
@@ -41,5 +40,11 @@ public class HistoricoRepositoryDao implements HistoricoRepository{
     @Override
     public void update(Historico hist) throws SQLException{
         historicoDao.update(hist);
+    }
+
+    @Override
+    public void refresh(Historico obj) throws Exception {
+        historicoDao.refresh(obj);
+
     }
 }

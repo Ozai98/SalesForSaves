@@ -1,8 +1,6 @@
 
 package com.example.demo.controllers;
 
-import java.sql.SQLException;
-
 import javax.annotation.PostConstruct;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -11,8 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Proveedor;
-import com.example.demo.database.ProveedorRepository;
-import com.example.demo.database.ProveedorRepositoryDao;
+import com.example.demo.database.Repository;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.services.Services;
 import java.util.List;
@@ -30,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/proveedor")
 public class ProveedorController {
 
-    private ProveedorRepository proveedorRepository;
+    private Repository<Proveedor> proveedorRepository;
 
     public static Proveedor normalizeProveedor(Proveedor proveedor){
         proveedor.setPassword("");
@@ -39,10 +37,10 @@ public class ProveedorController {
     
     @PostConstruct
     public void init() {
-        setProveedorRepository(new ProveedorRepositoryDao());
+        setProveedorRepository(Repository.Proveedor());
     }
     
-    public void setProveedorRepository(ProveedorRepository proveedorRepository){
+    public void setProveedorRepository(Repository<Proveedor> proveedorRepository){
         this.proveedorRepository = proveedorRepository;
     }
 
@@ -51,7 +49,7 @@ public class ProveedorController {
     {
 
         // Verifing email
-        if(!Services.validateEmail(correo)) return new Response(false, null, "bad email");
+        if(!Services.validateEmail(correo)) return new Response<Proveedor>(false, null, "bad email");
 
         // Creating new provider
         if(avatar == null) avatar = "";
@@ -64,25 +62,25 @@ public class ProveedorController {
         try{
             // Saving new provider
             proveedorRepository.create(newProvider);
-            return new Response(true, normalizeProveedor(newProvider), "provider created");
+            return new Response<Proveedor>(true, normalizeProveedor(newProvider), "provider created");
         }catch(Exception ex){
             // Error saving
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Proveedor>(false, null, ex);
         }
     }
     
     @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Proveedor> login(String correo, String password){
         try{
-            List<Proveedor> proveedores = proveedorRepository.getByEmail(correo);
-            if(proveedores.isEmpty()) return new Response(false, null, "User no found");
+            List<Proveedor> proveedores = proveedorRepository.search(correo);
+            if(proveedores.isEmpty()) return new Response<Proveedor>(false, null, "User no found");
             Proveedor proveedor = proveedores.get(0);
-            if(proveedor.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response(false, null, "Bad Password");
-            return new Response(true, normalizeProveedor(proveedor), "Ok");
+            if(proveedor.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response<Proveedor>(false, null, "Bad Password");
+            return new Response<Proveedor>(true, normalizeProveedor(proveedor), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Proveedor>(false, null, ex);
         }
     }
     
@@ -90,11 +88,11 @@ public class ProveedorController {
     public Response<Proveedor> getById(@PathVariable Integer id) {
         try{
             Proveedor proveedor = proveedorRepository.getById(id);
-            if(proveedor == null) return new Response(false, null, "Proveedor no Found");
-            return new Response(true, normalizeProveedor(proveedor), "Ok");
+            if(proveedor == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
+            return new Response<Proveedor>(true, normalizeProveedor(proveedor), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Proveedor>(false, null, ex);
         }
     }
     
@@ -102,16 +100,16 @@ public class ProveedorController {
     public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
         try{
             Proveedor proveedor = proveedorRepository.getById(id);
-            if(proveedor == null) return new Response(false, null, "Proveedor no Found");
+            if(proveedor == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
             if(nombre != null) proveedor.setNombre(nombre);
             if(password != null) proveedor.setPassword(Services.cryptPassword(password));
             if(avatar != null) proveedor.setAvatar(avatar);
             if(ubicacion != null) proveedor.setUbicacion(ubicacion);
             proveedorRepository.update(proveedor);
-            return new Response(true, normalizeProveedor(proveedor), "Ok");
+            return new Response<Proveedor>(true, normalizeProveedor(proveedor), "Ok");
         }catch(Exception ex){
              Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Proveedor>(false, null, ex);
         }
     }
     

@@ -16,10 +16,8 @@ import com.example.demo.services.Services;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import com.example.demo.database.ProductoRepository;
-import com.example.demo.database.ProductoRepositoryDao;
-import com.example.demo.database.ProveedorRepository;
-import com.example.demo.database.ProveedorRepositoryDao;
+import com.example.demo.database.Repository;
+
 import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
@@ -29,10 +27,18 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/producto")
 public class ProductoController {
 
-    private ProductoRepository productoRepository;
-    private ProveedorRepository proveedorRepository;
+    private Repository<Producto> productoRepository;
+    private Repository<Proveedor> proveedorRepository;
 
-    public static Producto normalizeProducto(Producto producto, ProveedorRepository proveedorRepository){
+    
+    
+    @PostConstruct
+    public void init() {
+        setProductoRepository(Repository.Producto());
+        setProveedorRepository(Repository.Proveedor());
+    }
+
+    public Producto normalizeProducto(Producto producto){
         try{
             proveedorRepository.refresh(producto.getProveedor());
         }catch(Exception ex){
@@ -42,17 +48,11 @@ public class ProductoController {
         return producto;
     }
     
-    @PostConstruct
-    public void init() {
-        setProductoRepository(new ProductoRepositoryDao());
-        setProveedorRepository(new ProveedorRepositoryDao());
-    }
-    
-    public void setProductoRepository(ProductoRepository repository){
+    public void setProductoRepository(Repository<Producto> repository){
         this.productoRepository = repository;
     }
     
-    public void setProveedorRepository(ProveedorRepository repository){
+    public void setProveedorRepository(Repository<Proveedor> repository){
         this.proveedorRepository = repository;
     }
 
@@ -61,11 +61,11 @@ public class ProductoController {
         try {
             List<Producto> result =  productoRepository.search(nombre);
             Producto[] response = new Producto[result.size()]; int i = 0;
-            for(Producto producto: result) response[i++] = normalizeProducto(producto, proveedorRepository);
-            return new Response(true, response, "Ok");
+            for(Producto producto: result) response[i++] = normalizeProducto(producto);
+            return new Response<Producto []>(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Producto []>(false, null, ex);
         }
     }
     @CrossOrigin(origins = "*")
@@ -73,18 +73,18 @@ public class ProductoController {
     public Response<Producto> getProducto( @PathVariable Integer id) {
         try {
             Producto product = productoRepository.getById(id);
-            if(product == null) return new Response(false, null, "Product no Found");
-            return new Response(true, normalizeProducto(product, proveedorRepository), "Ok: " + product.getProveedor().getId());
+            if(product == null) return new Response<Producto>(false, null, "Product no Found");
+            return new Response<Producto>(true, normalizeProducto(product), "Ok: " + product.getProveedor().getId());
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Producto>(false, null, ex);
         }
 
     }
 
     @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Producto> crear(String nombre, Double precio, Integer id_proveedor, String imagen, Double cantidad){
-        if(precio <= 0) return new Response(false, null, "precio invalido");
+        if(precio <= 0) return new Response<Producto>(false, null, "precio invalido");
         
         if(imagen == null) imagen = "";
         
@@ -97,12 +97,12 @@ public class ProductoController {
         Proveedor creador;
         try {
             creador = proveedorRepository.getById(id_proveedor);
-            if(creador == null) return new Response(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
+            if(creador == null) return new Response<Producto>(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
             nProducto.setProveedor(creador);
             productoRepository.create(nProducto);
-            return new Response(true, normalizeProducto(nProducto, proveedorRepository), "Ok. " + creador.getNombre());
+            return new Response<Producto>(true, normalizeProducto(nProducto), "Ok. " + creador.getNombre());
         } catch (Exception e) {
-            return new Response(false, null, e);
+            return new Response<Producto>(false, null, e);
         }
     }
 }

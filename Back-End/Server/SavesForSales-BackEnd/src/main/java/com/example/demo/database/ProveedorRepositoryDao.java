@@ -10,11 +10,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author German le yo
- */
-public class ProveedorRepositoryDao implements ProveedorRepository{
+public class ProveedorRepositoryDao implements Repository<Proveedor>{
  
     private Dao<Proveedor, Integer> proveedorDao;
     
@@ -28,7 +24,7 @@ public class ProveedorRepositoryDao implements ProveedorRepository{
     }
 
     @Override
-    public List<Proveedor> getByEmail(String email)  throws SQLException{
+    public <G> List<Proveedor> search(G email)  throws SQLException{
         return proveedorDao.queryForEq("correo", email);
     }
 
