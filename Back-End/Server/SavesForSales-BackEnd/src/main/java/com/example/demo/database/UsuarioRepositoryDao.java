@@ -41,5 +41,10 @@ public class UsuarioRepositoryDao implements UsuarioRepository{
     public void update(Usuario usr)  throws SQLException{
         userDao.update(usr);
     }
+
+    @Override
+    public void refresh(Usuario usr) throws SQLException {
+        userDao.refresh(usr);
+    }
     
 }

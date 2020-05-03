@@ -37,5 +37,10 @@ public class ProductoRepositoryDao implements ProductoRepository{
     public Producto getById(int ID) throws Exception {
         return productoDao.queryForId(ID);
     }
+
+    @Override
+    public void refresh(Producto prod) throws Exception {
+        productoDao.refresh(prod);
+    }
     
 }

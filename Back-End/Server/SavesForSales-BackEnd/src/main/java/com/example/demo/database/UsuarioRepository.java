@@ -18,5 +18,6 @@ public interface UsuarioRepository {
     List<Usuario> getByEmail(String email) throws Exception;
     Usuario getById(int ID) throws Exception;
     void update(Usuario usr) throws Exception;
+    void refresh(Usuario usr) throws Exception;
     
 }

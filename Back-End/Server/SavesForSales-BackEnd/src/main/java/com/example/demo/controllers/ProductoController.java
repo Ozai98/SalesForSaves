@@ -33,6 +33,7 @@ public class ProductoController {
     private ProveedorRepository proveedorRepository;
 
     public static Producto normalizeProducto(Producto producto, ProveedorRepository proveedorRepository){
+        
         try{
             proveedorRepository.refresh(producto.getProveedor());
         }catch(Exception ex){
@@ -56,13 +57,18 @@ public class ProductoController {
         this.proveedorRepository = repository;
     }
 
-    @GetMapping("/search/{nombre}")
-    public Response<Producto[]> searchProductos(@PathVariable String nombre) {
+    @GetMapping(value={"/search/{nombre}", "/search"})
+    public Response<Producto[]> searchProductos(@PathVariable(required = false) String nombre) {
         try {
-            List<Producto> result =  productoRepository.search(nombre);
+             List<Producto> result;
+            
+            if(nombre == null || nombre.isEmpty()) result = productoRepository.search("");
+            else result =  productoRepository.search(nombre);
+
             Producto[] response = new Producto[result.size()]; int i = 0;
             for(Producto producto: result) response[i++] = normalizeProducto(producto, proveedorRepository);
             return new Response(true, response, "Ok");
+            
         } catch (Exception ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);

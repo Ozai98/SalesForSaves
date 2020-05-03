@@ -18,5 +18,6 @@ public interface ProductoRepository {
     void create(Producto prod) throws Exception;
     List<Producto> search(String param) throws Exception;
     Producto getById(int ID) throws Exception;
+    void refresh(Producto prod) throws Exception;
     
 }

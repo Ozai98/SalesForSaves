@@ -16,7 +16,7 @@ import java.util.List;
 public interface HistoricoRepository {
     
     void create(Historico historico) throws Exception;
-    List<Historico> getForUser(Usuario usr) throws Exception;
+    List<Historico> getForUserAndState(Integer usrId, String state) throws Exception;
     Historico getById(int ID) throws Exception;
     void update(Historico hist)throws Exception;
 }
