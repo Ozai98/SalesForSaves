@@ -1,18 +1,18 @@
 <template>
   <div class="contenedor-nogrid">
     <center>
-      <p class="tituloH">TU HISTORIAL  {{id}} </p>
-      <!--<div id="j" v-for="hist in dataH" :key="hist.nombre">
-         <Hystorial-product :Historical_product="hist"></Hystorial-product>
-      </div>-->
-        {{dataH}}
+      <p class="tituloH">TU HISTORIAL </p>
+      <div id="j" v-for="historial in dataH" :key="historial.nombre">
+         <Hystorial :Historical_product="historial"></Hystorial>
+      </div>
+
       
     </center>
   </div>
 </template>
 
 <script>
-import Cosa from "../components/Hystorial-product";
+import Hystorial from "../components/Hystorial-product";
 import request from "@/services/request.service.js";
 export default {
   name: "HView",
@@ -34,10 +34,10 @@ export default {
           
           for (const hist of data.clase) {
             this.dataH.push({
+              tiempo:hist.tiempoReserva,
               precio:hist.producto.precio,
-              tiempo:hist.tiempo_reserva,
-              proveedor:hist.producto.proveedor.nombre,
-              nombre:hist.producto.nombre
+              nombre:hist.producto.nombre,
+              proveedor:hist.producto.proveedor.nombre   
             });
           }
           console.log(this.dataProd);
@@ -46,7 +46,7 @@ export default {
     }
   },
   components: {
-    Cosa
+    Hystorial
   },
     mounted() {
     this.Backbb();

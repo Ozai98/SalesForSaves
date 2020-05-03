@@ -140,7 +140,7 @@ function buscarProducto(parametro, callback) {
   );
 }
 function getHistoricbyId(id , callback) {
-  generalRequest("historico/buyed/"+ id,
+  generalRequest("/historico/buyed/"+ id,
   undefined,
   REQUEST_TYPES.GET,
   callback);
@@ -186,5 +186,6 @@ module.exports = {
   updateProveedor,
   buscarProducto,
   getProductoById,
-  crearProducto
+  crearProducto,
+  getHistoricbyId
 };

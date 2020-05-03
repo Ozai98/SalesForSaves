@@ -3,10 +3,10 @@
     <img src="@/assets/imgs/banano.jpg" class="imagenH" />
     <div class="card-bodyH">
       <p class="tiempoH">
-        <!--Hace {{ getSinceDate() }} días-->
+        Hace {{ getSinceDate() }} días
       </p>
-      <h5 class="precioH">{{Historical_product.price}}/kg</h5>
-      <h6 id="nombreh">{{Historical_product.name}}</h6>
+      <h5 class="precioH">{{Historical_product.precio}}/kg</h5>
+      <h6 id="nombreh">{{Historical_product.nombre}}</h6>
       <p class="tiendaH"> {{Historical_product.proveedor}}</p>
     </div>
   </div>
@@ -16,9 +16,9 @@
 export default {
   props: {
     Historical_product: {
-      time: Date,
-      price: Number,
-      name: String,
+      tiempo: Date,
+      precio: Number,
+      nombre: String,
       proveedor: String
     }
   },
