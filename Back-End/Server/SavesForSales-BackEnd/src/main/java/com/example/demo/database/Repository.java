@@ -8,6 +8,7 @@ public interface Repository<T> {
 	T getById(int id) throws Exception;
 	void update(T obj) throws Exception;
 	void refresh(T obj) throws Exception;
+	
 	static UsuarioRepositoryDao Usuario(){
 		return new UsuarioRepositoryDao();
 	}
