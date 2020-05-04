@@ -7,8 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
 import com.example.demo.database.models.Cliente;
-import com.example.demo.database.models.Proveedor;
-import com.example.demo.database.models.Usuario;
 
 import org.apache.tomcat.util.codec.binary.Base64;
 
@@ -44,7 +42,7 @@ public class Services {
         return emailPattern.matcher(email).matches();
     }
 
-    public static Cliente normalize(Cliente usr){
+    public static <T extends Cliente> T normalize(T usr) {
         usr.setPassword("");
         return usr;
     }
