@@ -21,7 +21,7 @@ public class ClienteController<T extends Cliente > {
 		newUser.setAvatar(avatar);
 		try{
 			// Saving new user
-			repository.create((T) newUser);
+			repository.create(newUser);
 			return new Response<T>(true, (T) Services.normalize(newUser), "user created");
 		}catch(Exception ex){
 			// Error saving
