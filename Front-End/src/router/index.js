@@ -44,6 +44,11 @@ const router = new VueRouter({
       }
     },
     {
+      path: "/Reservas",
+      name: "Reservas",
+      component: ()=> import("@/views/Reservas.vue")
+    },
+    {
       path: "/SellProduct",
       name: "SellProduct",
       component: () => import("@/views/SellProduct.vue")
