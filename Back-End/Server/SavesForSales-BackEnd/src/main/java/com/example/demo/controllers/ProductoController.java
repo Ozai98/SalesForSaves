@@ -44,7 +44,7 @@ public class ProductoController {
         }catch(Exception ex){
             Services.handleError(ex);
         }            
-        ProveedorController.normalizeProveedor(producto.getProveedor());
+        Services.normalize(producto.getProveedor());
         return producto;
     }
     

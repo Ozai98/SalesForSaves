@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * @author German le yo
  */
 @DatabaseTable(tableName = "Proveedor")
-public class Proveedor{
+public class Proveedor implements Cliente{
 
     @DatabaseField(generatedId = true)
     private int id;

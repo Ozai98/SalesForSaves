@@ -26,91 +26,53 @@ import org.springframework.web.bind.annotation.PathVariable;
 @EnableAutoConfiguration
 @CrossOrigin
 @RequestMapping("/proveedor")
-public class ProveedorController {
+public class ProveedorController extends ClienteController<Proveedor>{
 
-    private Repository<Proveedor> proveedorRepository;
+	private Repository<Proveedor> proveedorRepository;
+	
+	@PostConstruct
+	public void init() {
+		setProveedorRepository(Repository.Proveedor());
+	}
+	
+	public void setProveedorRepository(Repository<Proveedor> proveedorRepository){
+		this.proveedorRepository = proveedorRepository;
+	}
 
-    public static Proveedor normalizeProveedor(Proveedor proveedor){
-        proveedor.setPassword("");
-        return proveedor;
-    }
-    
-    @PostConstruct
-    public void init() {
-        setProveedorRepository(Repository.Proveedor());
-    }
-    
-    public void setProveedorRepository(Repository<Proveedor> proveedorRepository){
-        this.proveedorRepository = proveedorRepository;
-    }
-
-    @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Proveedor> crear(String nombre, String correo, String password, String avatar)
-    {
-
-        // Verifing email
-        if(!Services.validateEmail(correo)) return new Response<Proveedor>(false, null, "bad email");
-
-        // Creating new provider
-        if(avatar == null) avatar = "";
-        
-        Proveedor newProvider = new Proveedor();
-        newProvider.setNombre(nombre);
-        newProvider.setCorreo(correo);
-        newProvider.setPassword(Services.cryptPassword(password));
-        newProvider.setAvatar(avatar);
-        try{
-            // Saving new provider
-            proveedorRepository.create(newProvider);
-            return new Response<Proveedor>(true, normalizeProveedor(newProvider), "provider created");
-        }catch(Exception ex){
-            // Error saving
-            Services.handleError(ex);
-            return new Response<Proveedor>(false, null, ex);
-        }
-    }
-    
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Proveedor> login(String correo, String password){
-        try{
-            List<Proveedor> proveedores = proveedorRepository.search(correo);
-            if(proveedores.isEmpty()) return new Response<Proveedor>(false, null, "User no found");
-            Proveedor proveedor = proveedores.get(0);
-            if(proveedor.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response<Proveedor>(false, null, "Bad Password");
-            return new Response<Proveedor>(true, normalizeProveedor(proveedor), "Ok");
-        }catch(Exception ex){
-             Services.handleError(ex);
-            return new Response<Proveedor>(false, null, ex);
-        }
-    }
-    
-    @GetMapping("/get-by-id/{id}")
-    public Response<Proveedor> getById(@PathVariable Integer id) {
-        try{
-            Proveedor proveedor = proveedorRepository.getById(id);
-            if(proveedor == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
-            return new Response<Proveedor>(true, normalizeProveedor(proveedor), "Ok");
-        }catch(Exception ex){
-             Services.handleError(ex);
-            return new Response<Proveedor>(false, null, ex);
-        }
-    }
-    
-    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
-        try{
-            Proveedor proveedor = proveedorRepository.getById(id);
-            if(proveedor == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
-            if(nombre != null) proveedor.setNombre(nombre);
-            if(password != null) proveedor.setPassword(Services.cryptPassword(password));
-            if(avatar != null) proveedor.setAvatar(avatar);
-            if(ubicacion != null) proveedor.setUbicacion(ubicacion);
-            proveedorRepository.update(proveedor);
-            return new Response<Proveedor>(true, normalizeProveedor(proveedor), "Ok");
-        }catch(Exception ex){
-             Services.handleError(ex);
-            return new Response<Proveedor>(false, null, ex);
-        }
-    }
-    
+	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<Proveedor> crear(String nombre, String correo, String password, String avatar)
+	{
+		return super.crear(nombre, correo, password, avatar, new Proveedor());
+	}
+	
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<Proveedor> login(String correo, String password){
+		return super.login(correo, password);
+	}
+	/**
+	@GetMapping("/get-by-id/{id}")
+	
+	public Response<Proveedor> getById(@PathVariable Integer id) {
+		try{
+			Proveedor proveedor = proveedorRepository.getById(id);
+			if(proveedor == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
+			return new Response<Proveedor>(true, Services.normalize(proveedor), "Ok");
+		}catch(Exception ex){
+			 Services.handleError(ex);
+			return new Response<Proveedor>(false, null, ex);
+		}
+	}*/
+	
+	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
+		try{
+			Proveedor proveedor = proveedorRepository.getById(id);
+			if(ubicacion != null) proveedor.setUbicacion(ubicacion);
+			return super.update(nombre, password, avatar, proveedor);
+		}catch(Exception ex){
+			 Services.handleError(ex);
+			return new Response<Proveedor>(false, null, ex);
+		}
+	}
+	
 }

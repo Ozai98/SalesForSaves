@@ -21,6 +21,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,8 +43,11 @@ public class HistoricoController {
     private Repository<Usuario> usuarioRepository;
     private Repository<Producto> productoRepository;
     
-    public static Historico normalizeHistorico(Historico historico){
-        historico.setUsuario(UsuarioController.normalizeUser(historico.getUsuario()));
+    public Historico normalizeHistorico(Historico historico) throws Exception {
+        productoRepository.refresh(historico.getProducto());
+        usuarioRepository.refresh(historico.getUsuario());
+        Services.normalize(historico.getUsuario());
+        Services.normalize(historico.getProducto().getProveedor());
         return historico;
     }
     
@@ -96,7 +100,7 @@ public class HistoricoController {
     }
 
     @GetMapping(value = "/buyed/{id}")
-    public Response<Historico []> searchHistorico(int id){
+    public Response<Historico []> searchHistorico(@PathVariable Integer id){
         try {
             List<Historico> result = historicoRepository.search(id);
             Historico[] response = new Historico[result.size()]; int i = 0;

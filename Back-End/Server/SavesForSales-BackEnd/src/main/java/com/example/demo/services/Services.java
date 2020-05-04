@@ -6,6 +6,10 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
+import com.example.demo.database.models.Cliente;
+import com.example.demo.database.models.Proveedor;
+import com.example.demo.database.models.Usuario;
+
 import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
@@ -38,6 +42,11 @@ public class Services {
 
     public static boolean validateEmail(String email){
         return emailPattern.matcher(email).matches();
+    }
+
+    public static Cliente normalize(Cliente usr){
+        usr.setPassword("");
+        return usr;
     }
 
 } 
