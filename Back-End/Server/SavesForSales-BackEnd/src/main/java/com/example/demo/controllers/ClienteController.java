@@ -10,12 +10,11 @@ public class ClienteController<T extends Cliente > {
 
 	private Repository<T> repository;
 	
-	public Response<T> crear(String nombre, String correo, String password, String avatar, T c){
+	public Response<T> crear(String nombre, String correo, String password, String avatar, T newUser){
 		if(!Services.validateEmail(correo)) return new Response<T>(false, null, "bad email");
 		
 		if(avatar == null) avatar = "";
 		
-		T newUser = c;
 		newUser.setNombre(nombre);
 		newUser.setCorreo(correo);
 		newUser.setPassword(Services.cryptPassword(password));
