@@ -82,11 +82,11 @@ public class HistoricoController {
     }
     
     @PostMapping(value = "/reservar", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Historico> reservar(Integer idUser, Integer idProducto, Double cantidad, @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date fechaReserva){
+    public Response<Historico> reservar(Integer idUser, Integer idProducto, Double cantidad){
         
-        if(idUser == null || idProducto == null || cantidad == null || fechaReserva == null) 
-            return new Response(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cantidad: %b, missing fechaReserva: %b",
-                    idUser == null, idProducto == null, cantidad == null, fechaReserva == null));
+        if(idUser == null || idProducto == null || cantidad == null){ 
+            return new Response(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cantidad: %b",
+                    idUser == null, idProducto == null, cantidad == null));}
         
         try{
             Usuario usr = usuarioRepository.getById(idUser);
@@ -97,7 +97,7 @@ public class HistoricoController {
             Historico nuevo = new Historico();
             nuevo.setCantidad(cantidad);
             nuevo.setEstado(RESERVA_STATE);
-            nuevo.setTiempoReserva(fechaReserva);
+            nuevo.setTiempoReserva(new Date());
             nuevo.setUsuario(usr);
             nuevo.setProducto(prod);
 

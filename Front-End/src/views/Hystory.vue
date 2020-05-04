@@ -37,7 +37,8 @@ export default {
               tiempo:hist.tiempoReserva,
               precio:hist.producto.precio,
               nombre:hist.producto.nombre,
-              proveedor:hist.producto.proveedor.nombre   
+              proveedor:hist.producto.proveedor.nombre,
+              cantidad: hist.cantidad   
             });
           }
           console.log(this.dataProd);

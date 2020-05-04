@@ -100,7 +100,7 @@ export default {
           };
           this.$store.dispatch("storeUser", builder);
           this.$store.dispatch("changeLogState");
-          this.jumpScreen("ProfileView");
+          this.jumpScreen("Home");
         } else console.log("Error logeando usuario");
       });
     },

@@ -8,6 +8,7 @@
       <h5 class="precioH">{{Historical_product.precio}}/kg</h5>
       <h6 id="nombreh">{{Historical_product.nombre}}</h6>
       <p class="tiendaH"> {{Historical_product.proveedor}}</p>
+      <p class="cantidadH">{{Historical_product.cantidad}} unidades</p>
     </div>
   </div>
 </template>
@@ -19,7 +20,8 @@ export default {
       tiempo: Date,
       precio: Number,
       nombre: String,
-      proveedor: String
+      proveedor: String,
+      cantidad: Number
     }
   },
   methods: {
@@ -64,6 +66,7 @@ export default {
   font-weight: lighter;
   font-size: 1vw;
   margin-left: 85%;
+  grid-column: 1/3;
   grid-row: 1;
 }
 .precioH {
@@ -71,12 +74,20 @@ export default {
   font-weight: bold;
   color: #ff8e43;
   text-align: left;
+  grid-column: 1;
   grid-row: 2;
 }
 .tiendaH {
     font-weight: lighter;
   font-size: 1vw;
   margin-left: 80%;
+  grid-column: 1/3;
+  grid-row: 4;
+}
+.cantidadH{
+      font-weight: lighter;
+  font-size: 2vw;
+  grid-column: 1;
   grid-row: 4;
 }
 #nombreh {
@@ -84,5 +95,6 @@ export default {
   font-size: 2vw;
   text-align: center;
   grid-row: 3;
+  grid-column: 1/3;
 }
 </style>

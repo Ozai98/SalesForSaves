@@ -4,7 +4,7 @@
       <h1>SALES FOR SAVES</h1>
     </div>
     <SearchBar
-      @search="jumpScreen('Reservas')"
+      @search="jumpScreen('SearchProduct')"
       id="search-bar"
     ></SearchBar>
   </div>

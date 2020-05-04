@@ -2,8 +2,10 @@
   <div id="container">
     <div id="sDiv"></div>
     <SearchBar id="s-el" @search="bringFromBack()"></SearchBar>
-    <div id="products" v-for="prod in dataProd" :key="prod.name">
-      <Producto :product="prod"></Producto>
+    <div id="products">
+      <div  v-for="prod in dataProd" :key="prod.name">
+        <Producto :product="prod"></Producto>
+      </div>
     </div>
   </div>
 </template>
@@ -24,6 +26,7 @@ export default {
     SearchBar
   },
   methods: {
+
     bringFromBack() {
       this.dataProd = [];
       request.buscarProducto(this.$store.getters.returnSearchedValue, data => {
@@ -35,11 +38,12 @@ export default {
               time: new Date(prod.fechaPublicacion),
               price: prod.precio,
               name: prod.nombre,
-              leftUnits: prod.cantidad
+              leftUnits: prod.cantidad,
+              id: prod.id
             });
           }
           console.log(this.dataProd);
-        } else console.log("Error al encontrar producto");console.log(data);
+        } else console.log("Error al encontrar producto");
       });
     }
   },
@@ -51,7 +55,7 @@ export default {
 
 <style>
 #container {
-  display: flexbox;
+
   height: 90%;
   background-color: white;
 }
@@ -63,6 +67,7 @@ export default {
   margin: auto;
 }
 #products {
+
   padding: 2vw;
   display: grid;
   grid-gap: 2vw;

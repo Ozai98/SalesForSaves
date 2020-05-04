@@ -30,7 +30,7 @@ function generalRequest(path, body, requestType, callback) {
       console.log(error);
       callback({
         ok: false,
-        msg: "An error ocurred while sending HTTP request"
+        msg: "An error ocurred while sending HTTP request eje"
       });
     });
 }
@@ -139,12 +139,7 @@ function buscarProducto(parametro, callback) {
     callback
   );
 }
-function getHistoricbyId(id , callback) {
-  generalRequest("/historico/buyed/"+ id,
-  undefined,
-  REQUEST_TYPES.GET,
-  callback);
-}
+
 function getProductoById(id, callback) {
   generalRequest(
     "/producto/get-by-id/" + id,
@@ -170,6 +165,28 @@ function crearProducto(
     callback
   );
 }
+//-------------------------------------------------------------------
+//----------------------HISTORICO-------------------------------------
+//-------------------------------------------------------------------
+function getHistoricbyId(id , callback) {
+  generalRequest("/historico/buyed/"+ id,
+  undefined,
+  REQUEST_TYPES.GET,
+  callback);
+}
+
+function newReserve(idUser,idProducto,cantidad,callback){
+  generalRequest("/historico/reservar/",
+    {idUser,idProducto,cantidad},
+    REQUEST_TYPES.POST,
+    callback
+  ); 
+
+}
+
+
+
+
 
 module.exports = {
   SERVER_URL,
@@ -187,5 +204,6 @@ module.exports = {
   buscarProducto,
   getProductoById,
   crearProducto,
+  newReserve,
   getHistoricbyId
 };

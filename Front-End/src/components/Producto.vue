@@ -1,5 +1,5 @@
 <template>
-  <div class="carta">
+  <div class="carta"@click="jumpReserva(product.id)">
     <img src="@/assets/imgs/banano.jpg" class="imagen" />
     <div class="card-body">
       <p id="tiempo">Hace {{ getSinceDate() }} días</p>
@@ -17,10 +17,16 @@ export default {
       time: Date,
       price: Number,
       name: String,
-      leftUnits: Number
+      leftUnits: Number,
+      id: Number
     }
   },
   methods: {
+        jumpReserva(id2){
+      console.log('me oprimieron');
+      //this.jumpScreen('Reservas');
+      this.$router.push({ name:'Reservas', params:{id: id2}})
+    },
     getSinceDate() {
       let current = new Date();
       let diff = current - this.product.time;

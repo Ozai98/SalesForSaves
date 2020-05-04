@@ -8,7 +8,7 @@ export default new Vuex.Store({
     currentView: "Home",
     isLogged: false,
     user: { id: -1, name: null, imgURL: null, mail: null, isProvider: false },
-    searchedValue: ""
+    searchedValue: "",
   },
   mutations: {
     CHANGE_VIEW_DISPLAYING(state, newView) {

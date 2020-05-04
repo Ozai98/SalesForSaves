@@ -6,45 +6,113 @@
         <div class="card-bodyR">
           <p class="tiempoR">
           </p>
-            <p class="nombreR">NOMBRE MAS LARGO QUE EL HISTORIAL DE FRACASOS DE MI VIDA</p>
-            <p class="const1R">PRECIO :</p> 
-            <p class="precioR"> 500/kg</p>
+            <p class="nombreR">{{cotiza.nombre}}</p>
+            <p class="const1R">PRECIO : </p> 
+            <p class="precioR"> ${{cotiza.price}}/kg</p>
             <p class="const2R">PROVEEDOR :</p>
-            <p class="tiendaR">CALI MIO Y TUYO</p>
+            <p class="tiendaR">{{cotiza.proveedor}}</p>
             <p class="const3R">CANTIDAD DISPONIBLE :</p>
-            <p class="cantidadR"> 22 UNIDADES</p>
+            <p class="cantidadR"> {{cotiza.quantity}} UNIDADES</p>
         </div>
     </div>
     <div class="calculatorR">
-        <label class="input">
+        <label class="inputR">
             CANTIDAD:    
         </label> 
         <input
-          v-model="cotiza.quantity"
+          v-model="to_buy"
           type="number"
           class="inputR"
         />
         <div>
+        <label class="inputR">PRECIO FINAL: </label>
         <label class="inputR"></label>
+        </div>
+        <div id="bot2">
+          <button
+            class="button-base"
+            type="button"
+            
+            v-on:click="Reservar()" 
+          >
+            RESERVAR
+          </button>
         </div>
     </div>
   </div>
 </template>
+
+
+
 <script>
 import request from "@/services/request.service.js";
+import Producto from "@/components/Producto.vue";
 export default {
   name: "SellProduct",
   data() {
     return {
+        to_buy: Number,
       cotiza: {
         quantity: 0,
         price: 0,
-
+        nombre: "",
+        proveedor:"",
+        id:null
       }
-    };
+    };},
+components: {
+    Producto,
+  },
+  methods: {
+    bringFromBackR() {
+      request.getProductoById(this.$route.params.id, data => {
+        if (data.ok) {
+          console.log(data);
+          console.log("Producto encontrado");
+              this.cotiza.quantity=data.clase.cantidad,
+              this.cotiza.price=data.clase.precio,
+              this.cotiza.nombre=data.clase.nombre,
+              this.cotiza.proveedor=data.clase.proveedor.nombre,
+              this.cotiza.id=data.clase.id
+          console.log(this.dataProd);
+        } else console.log("Error al encontrar producto");console.log(data);
+      });
+    }
+  ,
+  Reservar() {
+      if(!(this.to_buy>this.cotiza.quantity)){
+            request.newReserve(this.$store.getters.returnUser.id,
+            Number(this.cotiza.id),
+            this.cotiza.quantity,
+            data => {
+                if (data.ok) {
+                    console.log(data);
+                    console.log("Reserva creada");
+                    console.log(this.data);
+                } else {console.log("Error al crear reserva");console.log(data);
+                console.log(this.$store.getters.returnUser.id+" "+this.cotiza.id+" "+this.cotiza.quantity);
+                }
+            }
+            
+            );
+      }
+      else{
+          console.log("a<b por tanto A jamas va a querer a B como B quiere a A");
+      }
+
+  }},
+  mounted() {
+    this.bringFromBackR();
   }
+
+
+  
 };
 </script>
+
+
+
+
 <style>
 #container {
   height: 90%;
@@ -141,11 +209,26 @@ export default {
   margin: 1vw;
 }
 .inputR{
-    border: 1px solid #ff8e43;
+    
+    font-size: 2vw;
+    margin: 2vw;
 }
 .calculatorR{
     width: 55vw;
     height: 10vw;
     float:right;
+}
+button {
+  background-color: #ffffff;
+  color: #ff8e43;
+  width: 20vw;
+  height: 10vw;
+  border-radius: 16px;
+  padding: 0 0.2vw;
+  cursor: pointer;
+  font-size: 1.2vw;
+  font-family: "Oswald", sans-serif;
+  margin: 3vw 0 0.5vw 0;
+  font-weight: bold;
 }
 </style>
