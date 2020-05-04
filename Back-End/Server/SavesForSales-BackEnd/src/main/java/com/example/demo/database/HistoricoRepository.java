@@ -6,7 +6,6 @@
 package com.example.demo.database;
 
 import com.example.demo.database.models.Historico;
-import com.example.demo.database.models.Usuario;
 import java.util.List;
 
 /**
@@ -16,7 +15,7 @@ import java.util.List;
 public interface HistoricoRepository {
     
     void create(Historico historico) throws Exception;
-    List<Historico> getForUser(Usuario usr) throws Exception;
+    List<Historico> getForUser(int usr) throws Exception;
     Historico getById(int ID) throws Exception;
     void update(Historico hist)throws Exception;
 }
