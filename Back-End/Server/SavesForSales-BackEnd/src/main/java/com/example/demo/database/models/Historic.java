@@ -55,7 +55,7 @@ public class Historic {
     
     public void setId(int id){this.id = id;}
     public void setUser(User usr){user = usr;}
-    public void setproduct(Product prod){product = prod;}
+    public void setProduct(Product prod){product = prod;}
     public void setTimeReserve(Date time){timeReserve = time;}
     public void setBuyDate(Date date){buyDate = date;}
     public void setCuantity(double cuantity){this.cuantity = cuantity;}

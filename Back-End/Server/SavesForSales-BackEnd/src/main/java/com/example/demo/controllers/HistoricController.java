@@ -9,7 +9,6 @@ package com.example.demo.controllers;
 import com.example.demo.database.Repository;
 import com.example.demo.database.models.Historic;
 import com.example.demo.database.models.Product;
-import com.example.demo.database.models.Provider;
 import com.example.demo.database.models.User;
 import com.example.demo.services.Services;
 
@@ -18,7 +17,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -43,13 +41,12 @@ public class HistoricController {
     private Repository<Historic> historicoRepository;
     private Repository<User> usuarioRepository;
     private Repository<Product> productoRepository;
-    private Repository<Provider> proveedorRepository;
     
     public Historic normalizeHistorico(Historic historico) throws Exception {
-        productoRepository.refresh(historico.getProducto());
-        usuarioRepository.refresh(historico.getUsuario());
-        Services.normalize(historico.getUsuario());
-        Services.normalize(historico.getProducto().getProveedor());
+        productoRepository.refresh(historico.getProduct());
+        usuarioRepository.refresh(historico.getUser());
+        Services.normalize(historico.getUser());
+        Services.normalize(historico.getProduct().getProvider());
         return historico;
     }
     
@@ -58,7 +55,6 @@ public class HistoricController {
         setHistoricoRepository(Repository.Historico());
         setUsuarioRepository(Repository.Usuario());
         setProductoRepository(Repository.Producto());
-        setProveedorRepository(Repository.Proveedor());
     }
     
     public void setHistoricoRepository(Repository<Historic> repository){
@@ -72,15 +68,12 @@ public class HistoricController {
     public void setProductoRepository(Repository<Product> repository){
         this.productoRepository = repository;
     }
-    public void setProveedorRepository(Repository<Provider> proveedorRepository) {
-        this.proveedorRepository = proveedorRepository;
-    }
     
     @PostMapping(value = "/reservar", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic> reservar(Integer idUser, Integer idProducto, Double cantidad){
         
         if(idUser == null || idProducto == null || cantidad == null){ 
-            return new Response(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cantidad: %b",
+            return new Response<Historic>(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cantidad: %b",
                     idUser == null, idProducto == null, cantidad == null));}
         
         try{
@@ -90,11 +83,11 @@ public class HistoricController {
             if(prod == null) return new Response<Historic>(false, null, "Producto no Found");
             
             Historic nuevo = new Historic();
-            nuevo.setCantidad(cantidad);
-            nuevo.setEstado(RESERVA_STATE);
-            nuevo.setTiempoReserva(new Date());
-            nuevo.setUsuario(usr);
-            nuevo.setProducto(prod);
+            nuevo.setCuantity(cantidad);
+            nuevo.setState(RESERVA_STATE);
+            nuevo.setTimeReserve(new Date());
+            nuevo.setUser(usr);
+            nuevo.setProduct(prod);
 
             historicoRepository.create(nuevo);
             
@@ -128,11 +121,11 @@ public class HistoricController {
             
             if(hist == null) return new Response<Historic>(false, null, "Historico no Found");
             
-            if(hist.getTiempoReserva().before(new Date())) return new Response<Historic>(false, null, String.format("Expired reservation date"));
-            if(hist.getEstado().compareTo(RESERVA_STATE) != 0) return new Response<Historic>(false, null, "Not a reserved element");
+            if(hist.getTimeReserve().before(new Date())) return new Response<Historic>(false, null, String.format("Expired reservation date"));
+            if(hist.getState().compareTo(RESERVA_STATE) != 0) return new Response<Historic>(false, null, "Not a reserved element");
 
-            hist.setEstado(HISTORICO_STATE);
-            hist.setFechaCompra(new Date());
+            hist.setState(HISTORICO_STATE);
+            hist.setBuyDate(new Date());
             historicoRepository.update(hist);
             
             return new Response<Historic>(true, normalizeHistorico(hist), "Buyed product");
