@@ -5,17 +5,17 @@
  */
 package com.example.demo.database;
 
-import com.example.demo.database.models.Historico;
+import com.example.demo.database.models.Historic;
 import java.sql.SQLException;
 
 import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
-import com.example.demo.database.models.Proveedor;
-import com.example.demo.database.models.Usuario;
+import com.example.demo.database.models.Provider;
+import com.example.demo.database.models.User;
 import com.example.demo.services.Services;
-import com.example.demo.database.models.Producto;
+import com.example.demo.database.models.Product;
 import com.example.demo.savesforsales.Index;
 
 /**
@@ -30,17 +30,17 @@ public class DaoController {
     private static DaoController instance;
 
     private final ConnectionSource connection;
-    private final Dao<Usuario, Integer> userDao;    
-    private final Dao<Proveedor, Integer> proveedorDao;
-    private final Dao<Producto, Integer> productoDao;
-    private final Dao<Historico, Integer> historicoDao;
+    private final Dao<User, Integer> userDao;    
+    private final Dao<Provider, Integer> proveedorDao;
+    private final Dao<Product, Integer> productoDao;
+    private final Dao<Historic, Integer> historicoDao;
 
     private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
-        userDao = DaoManager.createDao(connection, Usuario.class);        
-        proveedorDao = DaoManager.createDao(connection, Proveedor.class);
-        productoDao = DaoManager.createDao(connection, Producto.class);
-        historicoDao = DaoManager.createDao(connection, Historico.class);
+        userDao = DaoManager.createDao(connection, User.class);        
+        proveedorDao = DaoManager.createDao(connection, Provider.class);
+        productoDao = DaoManager.createDao(connection, Product.class);
+        historicoDao = DaoManager.createDao(connection, Historic.class);
     }
 
     public static DaoController getInstance(){
@@ -53,19 +53,19 @@ public class DaoController {
         return instance;
     } 
 
-    public Dao<Usuario, Integer> userDao(){
+    public Dao<User, Integer> userDao(){
         return userDao;
     }
     
-    public Dao<Proveedor, Integer> proveedorDao(){
+    public Dao<Provider, Integer> proveedorDao(){
         return proveedorDao;
     }
 
-    public Dao<Producto, Integer> productoDao(){
+    public Dao<Product, Integer> productoDao(){
         return productoDao;
     }
     
-    public Dao<Historico, Integer> historicoDao(){
+    public Dao<Historic, Integer> historicoDao(){
         return historicoDao;
     }
 }
