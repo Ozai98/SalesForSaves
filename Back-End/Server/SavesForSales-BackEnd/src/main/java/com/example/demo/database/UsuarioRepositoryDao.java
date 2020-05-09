@@ -10,11 +10,8 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author German le yo
- */
-public class UsuarioRepositoryDao implements UsuarioRepository{
+
+public class UsuarioRepositoryDao implements Repository<Usuario>{
 
     private Dao<Usuario, Integer> userDao;
     
@@ -28,7 +25,7 @@ public class UsuarioRepositoryDao implements UsuarioRepository{
     }
 
     @Override
-    public List<Usuario> getByEmail(String email)  throws SQLException{
+    public <G> List<Usuario> search(G email)  throws SQLException{
         return userDao.queryForEq("correo", email);
     }
 
@@ -40,6 +37,12 @@ public class UsuarioRepositoryDao implements UsuarioRepository{
     @Override
     public void update(Usuario usr)  throws SQLException{
         userDao.update(usr);
+    }
+
+    @Override
+    public void refresh(Usuario obj) throws Exception {
+        userDao.refresh(obj);
+
     }
     
 }

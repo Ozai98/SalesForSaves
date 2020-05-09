@@ -5,20 +5,14 @@
  */
 package com.example.demo.controllers;
 
-import com.example.demo.database.HistoricoRepository;
-import com.example.demo.database.HistoricoRepositoryDao;
-import com.example.demo.database.ProductoRepository;
-import com.example.demo.database.ProductoRepositoryDao;
-import com.example.demo.database.ProveedorRepository;
-import com.example.demo.database.ProveedorRepositoryDao;
-import com.example.demo.database.UsuarioRepository;
-import com.example.demo.database.UsuarioRepositoryDao;
+
+import com.example.demo.database.Repository;
 import com.example.demo.database.models.Historico;
 import com.example.demo.database.models.Producto;
+import com.example.demo.database.models.Proveedor;
 import com.example.demo.database.models.Usuario;
 import com.example.demo.services.Services;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -46,38 +40,39 @@ public class HistoricoController {
     private static final String RESERVA_STATE = "RESERVA";
     private static final String HISTORICO_STATE = "HISTORICO";
     
-    private HistoricoRepository historicoRepository;
-    private UsuarioRepository usuarioRepository;
-    private ProductoRepository productoRepository;
-    private ProveedorRepository proveedorRepository;
+    private Repository<Historico> historicoRepository;
+    private Repository<Usuario> usuarioRepository;
+    private Repository<Producto> productoRepository;
+    private Repository<Proveedor> proveedorRepository;
     
-    public Historico normalizeHistorico(Historico historico) throws Exception{
-        historico.setUsuario(UsuarioController.normalizeUser(historico.getUsuario()));
+    public Historico normalizeHistorico(Historico historico) throws Exception {
         productoRepository.refresh(historico.getProducto());
-        ProductoController.normalizeProducto(historico.getProducto(), proveedorRepository);
+        usuarioRepository.refresh(historico.getUsuario());
+        Services.normalize(historico.getUsuario());
+        Services.normalize(historico.getProducto().getProveedor());
         return historico;
     }
     
     @PostConstruct
     public void init() {
-        setHistoricoRepository(new HistoricoRepositoryDao());
-        setUsuarioRepository(new UsuarioRepositoryDao());
-        setProductoRepository(new ProductoRepositoryDao());
-        setProveedorRepository(new ProveedorRepositoryDao());
+        setHistoricoRepository(Repository.Historico());
+        setUsuarioRepository(Repository.Usuario());
+        setProductoRepository(Repository.Producto());
+        setProveedorRepository(Repository.Proveedor());
     }
     
-    public void setHistoricoRepository(HistoricoRepository repository){
+    public void setHistoricoRepository(Repository<Historico> repository){
         this.historicoRepository = repository;
     }
     
-    public void setUsuarioRepository(UsuarioRepository repository){
+    public void setUsuarioRepository(Repository<Usuario> repository){
         this.usuarioRepository = repository;
     }
     
-    public void setProductoRepository(ProductoRepository repository){
+    public void setProductoRepository(Repository<Producto> repository){
         this.productoRepository = repository;
     }
-    public void setProveedorRepository(ProveedorRepository proveedorRepository) {
+    public void setProveedorRepository(Repository<Proveedor> proveedorRepository) {
         this.proveedorRepository = proveedorRepository;
     }
     
@@ -90,9 +85,9 @@ public class HistoricoController {
         
         try{
             Usuario usr = usuarioRepository.getById(idUser);
-            if(usr == null) return new Response(false, null, "Usuario no Found");
+            if(usr == null) return new Response<Historico>(false, null, "Usuario no Found");
             Producto prod = productoRepository.getById(idProducto);
-            if(prod == null) return new Response(false, null, "Producto no Found");
+            if(prod == null) return new Response<Historico>(false, null, "Producto no Found");
             
             Historico nuevo = new Historico();
             nuevo.setCantidad(cantidad);
@@ -103,47 +98,47 @@ public class HistoricoController {
 
             historicoRepository.create(nuevo);
             
-            return new Response(true, normalizeHistorico(nuevo), "Reserved product");
+            return new Response<Historico>(true, normalizeHistorico(nuevo), "Reserved product");
             
         }catch (Exception e) {
-            return new Response(false, null, e);
+            return new Response<Historico>(false, null, e);
         }
     }
 
     @GetMapping(value = "/buyed/{id}")
     public Response<Historico []> searchHistorico(@PathVariable Integer id){
         try {
-            List<Historico> result = historicoRepository.getForUser(id);
+            List<Historico> result = historicoRepository.search(id);
             Historico[] response = new Historico[result.size()]; int i = 0;
             for(Historico historico: result) response[i++] = normalizeHistorico(historico);
             return new Response<Historico []>(true, response, "ok");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Historico []>(false, null, ex);
         }
         
     }
     
     @PostMapping(value = "/buyed-product", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historico> buyedProduct(Integer idHistorico){
-        if(idHistorico == null) return new Response(false, null, String.format("Missing parameters. missing idHistorico: %b" , idHistorico == null));
+        if(idHistorico == null) return new Response<Historico>(false, null, String.format("Missing parameters. missing idHistorico: %b" , idHistorico == null));
         
         try{
             Historico hist = historicoRepository.getById(idHistorico);
             
-            if(hist == null) return new Response(false, null, "Historico no Found");
+            if(hist == null) return new Response<Historico>(false, null, "Historico no Found");
             
-            if(hist.getTiempoReserva().before(new Date())) return new Response(false, null, String.format("Expired reservation date"));
-            if(hist.getEstado().compareTo(RESERVA_STATE) != 0) return new Response(false, null, "Not a reserved element");
+            if(hist.getTiempoReserva().before(new Date())) return new Response<Historico>(false, null, String.format("Expired reservation date"));
+            if(hist.getEstado().compareTo(RESERVA_STATE) != 0) return new Response<Historico>(false, null, "Not a reserved element");
 
             hist.setEstado(HISTORICO_STATE);
             hist.setFechaCompra(new Date());
             historicoRepository.update(hist);
             
-            return new Response(true, normalizeHistorico(hist), "Buyed product");
+            return new Response<Historico>(true, normalizeHistorico(hist), "Buyed product");
             
         }catch (Exception e) {
-            return new Response(false, null, e);
+            return new Response<Historico>(false, null, e);
         }
     }
     

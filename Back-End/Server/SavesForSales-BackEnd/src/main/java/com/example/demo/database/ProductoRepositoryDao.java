@@ -6,16 +6,14 @@
 package com.example.demo.database;
 
 import com.example.demo.database.models.Producto;
-import com.example.demo.database.models.Proveedor;
 import com.j256.ormlite.dao.Dao;
-import java.sql.SQLException;
 import java.util.List;
 
 /**
  *
  * @author German le yo
  */
-public class ProductoRepositoryDao implements ProductoRepository{
+public class ProductoRepositoryDao implements Repository<Producto>{
 
     private Dao<Producto, Integer> productoDao;
 
@@ -29,7 +27,7 @@ public class ProductoRepositoryDao implements ProductoRepository{
     }
 
     @Override
-    public List<Producto> search(String param) throws Exception {
+    public <G> List<Producto> search(G param) throws Exception {
         return productoDao.queryBuilder().where().like("nombre", "%" + param + "%").query();
     }
 
@@ -37,9 +35,17 @@ public class ProductoRepositoryDao implements ProductoRepository{
     public Producto getById(int ID) throws Exception {
         return productoDao.queryForId(ID);
     }
+
     @Override
-    public void refresh(Producto p) throws Exception {
-        productoDao.refresh(p);
+    public void update(Producto obj) throws Exception {
+        productoDao.update(obj);
+
+    }
+
+    @Override
+    public void refresh(Producto obj) throws Exception {
+        productoDao.refresh(obj);
+
     }
     
 }
