@@ -15,36 +15,36 @@ import java.util.List;
  */
 public class ProductRepositoryDao implements Repository<Product>{
 
-    private Dao<Product, Integer> productoDao;
+    private Dao<Product, Integer> productDao;
 
     public ProductRepositoryDao(){
-        this.productoDao = DaoController.getInstance().productoDao();
+        this.productDao = DaoController.getInstance().productDao();
     }
     
     @Override
     public void create(Product prod) throws Exception {
-        productoDao.create(prod);
+        productDao.create(prod);
     }
 
     @Override
     public <G> List<Product> search(G param) throws Exception {
-        return productoDao.queryBuilder().where().like("nombre", "%" + param + "%").query();
+        return productDao.queryBuilder().where().like("nombre", "%" + param + "%").query();
     }
 
     @Override
     public Product getById(int ID) throws Exception {
-        return productoDao.queryForId(ID);
+        return productDao.queryForId(ID);
     }
 
     @Override
     public void update(Product obj) throws Exception {
-        productoDao.update(obj);
+        productDao.update(obj);
 
     }
 
     @Override
     public void refresh(Product obj) throws Exception {
-        productoDao.refresh(obj);
+        productDao.refresh(obj);
 
     }
     

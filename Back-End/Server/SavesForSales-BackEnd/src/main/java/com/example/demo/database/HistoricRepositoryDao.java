@@ -16,35 +16,35 @@ import java.util.List;
  */
 public class HistoricRepositoryDao implements Repository<Historic>{
     
-     private Dao<Historic, Integer> historicoDao;
+     private Dao<Historic, Integer> historicDao;
     
     public HistoricRepositoryDao(){
-        this.historicoDao = DaoController.getInstance().historicoDao();
+        this.historicDao = DaoController.getInstance().historicDao();
     }
     
     @Override
-    public void create(Historic historico) throws SQLException{
-        historicoDao.create(historico);
+    public void create(Historic historic) throws SQLException{
+        historicDao.create(historic);
     }
 
     @Override
     public <G> List<Historic> search(G usr) throws SQLException {
-        return historicoDao.queryBuilder().where().eq("usuario", usr).query();
+        return historicDao.queryBuilder().where().eq("usuario", usr).query();
     }
 
     @Override
     public Historic getById(int ID) throws SQLException {
-        return historicoDao.queryForId(ID);
+        return historicDao.queryForId(ID);
     }
 
     @Override
     public void update(Historic hist) throws SQLException{
-        historicoDao.update(hist);
+        historicDao.update(hist);
     }
 
     @Override
     public void refresh(Historic obj) throws Exception {
-        historicoDao.refresh(obj);
+        historicDao.refresh(obj);
 
     }
 }

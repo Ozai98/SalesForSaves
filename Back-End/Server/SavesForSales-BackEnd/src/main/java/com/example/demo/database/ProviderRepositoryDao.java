@@ -12,35 +12,35 @@ import java.util.List;
 
 public class ProviderRepositoryDao implements Repository<Provider>{
  
-    private Dao<Provider, Integer> proveedorDao;
+    private Dao<Provider, Integer> providerDao;
     
     public ProviderRepositoryDao(){
-        this.proveedorDao = DaoController.getInstance().proveedorDao();
+        this.providerDao = DaoController.getInstance().providerDao();
     }
     
     @Override
     public void create(Provider usr) throws SQLException{
-        proveedorDao.create(usr);
+        providerDao.create(usr);
     }
 
     @Override
     public <G> List<Provider> search(G email)  throws SQLException{
-        return proveedorDao.queryForEq("correo", email);
+        return providerDao.queryForEq("correo", email);
     }
 
     @Override
     public Provider getById(int ID)  throws SQLException{
-        return proveedorDao.queryForId(ID);
+        return providerDao.queryForId(ID);
     }
 
     @Override
     public void update(Provider usr)  throws SQLException{
-        proveedorDao.update(usr);
+        providerDao.update(usr);
     }
 
     @Override
     public void refresh(Provider prov) throws Exception {
-        proveedorDao.refresh(prov);
+        providerDao.refresh(prov);
     }
     
 }

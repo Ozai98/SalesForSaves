@@ -9,16 +9,16 @@ public interface Repository<T> {
 	void update(T obj) throws Exception;
 	void refresh(T obj) throws Exception;
 	
-	static UserRepositoryDao Usuario(){
+	static UserRepositoryDao User(){
 		return new UserRepositoryDao();
 	}
-	static ProviderRepositoryDao Proveedor(){
+	static ProviderRepositoryDao Provider(){
 		return new ProviderRepositoryDao();
 	}
-	static ProductRepositoryDao Producto(){
+	static ProductRepositoryDao Product(){
 		return new ProductRepositoryDao();
 	}
-	static HistoricRepositoryDao Historico(){
+	static HistoricRepositoryDao Historic(){
 		return new HistoricRepositoryDao();
 	}
 }

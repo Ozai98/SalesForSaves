@@ -28,7 +28,7 @@ public class ProviderController extends ClientController<Provider>{
 	
 	@PostConstruct
 	public void init() {
-		setProviderRepository(Repository.Proveedor());
+		setProviderRepository(Repository.Provider());
 	}
 	
 	public void setProviderRepository(Repository<Provider> providerRepository){

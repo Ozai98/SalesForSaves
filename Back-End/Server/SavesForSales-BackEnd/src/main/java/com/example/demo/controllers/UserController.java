@@ -28,7 +28,7 @@ public class UserController extends ClientController<User> {
 
 	@PostConstruct
 	public void init() {
-		setUsuarioRepository(Repository.Usuario());
+		setUsuarioRepository(Repository.User());
 	}
 
 	public void setUsuarioRepository(Repository<User> repository) {

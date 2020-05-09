@@ -36,12 +36,12 @@ public class UsuarioControllerTest {
     @Order(1)
     public void UserCreationTest(){
         User tstUser = new User();
-        tstUser.setNombre("User creation Test Name");
-        tstUser.setCorreo("UserCeation@Test.Email");        
+        tstUser.setName("User creation Test Name");
+        tstUser.setMail("UserCeation@Test.Email");        
         tstUser.setPassword("User creation Test password");
         
         UserController controller = new UserController();
         controller.init();
-        //Assert.assertEquals(true, controller.crear(tstUser.getNombre(), tstUser.getCorreo(), tstUser.getPassword()).ok);
+        //Assert.assertEquals(true, controller.crear(tstUser.getName(), tstUser.getMail(), tstUser.getPassword()).ok);
     }
 }

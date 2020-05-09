@@ -52,9 +52,9 @@ public class HistoricController {
     
     @PostConstruct
     public void init() {
-        setHistoricoRepository(Repository.Historico());
-        setUsuarioRepository(Repository.Usuario());
-        setProductoRepository(Repository.Producto());
+        setHistoricoRepository(Repository.Historic());
+        setUsuarioRepository(Repository.User());
+        setProductoRepository(Repository.Product());
     }
     
     public void setHistoricoRepository(Repository<Historic> repository){

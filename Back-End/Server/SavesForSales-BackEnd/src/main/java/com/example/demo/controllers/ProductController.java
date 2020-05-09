@@ -34,8 +34,8 @@ public class ProductController {
     
     @PostConstruct
     public void init() {
-        setProductoRepository(Repository.Producto());
-        setProveedorRepository(Repository.Proveedor());
+        setProductoRepository(Repository.Product());
+        setProveedorRepository(Repository.Provider());
     }
 
     public Product normalizeProducto(Product product){

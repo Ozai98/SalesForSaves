@@ -31,16 +31,16 @@ public class DaoController {
 
     private final ConnectionSource connection;
     private final Dao<User, Integer> userDao;    
-    private final Dao<Provider, Integer> proveedorDao;
-    private final Dao<Product, Integer> productoDao;
-    private final Dao<Historic, Integer> historicoDao;
+    private final Dao<Provider, Integer> providerDao;
+    private final Dao<Product, Integer> productDao;
+    private final Dao<Historic, Integer> historicDao;
 
     private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
         userDao = DaoManager.createDao(connection, User.class);        
-        proveedorDao = DaoManager.createDao(connection, Provider.class);
-        productoDao = DaoManager.createDao(connection, Product.class);
-        historicoDao = DaoManager.createDao(connection, Historic.class);
+        providerDao = DaoManager.createDao(connection, Provider.class);
+        productDao = DaoManager.createDao(connection, Product.class);
+        historicDao = DaoManager.createDao(connection, Historic.class);
     }
 
     public static DaoController getInstance(){
@@ -57,15 +57,15 @@ public class DaoController {
         return userDao;
     }
     
-    public Dao<Provider, Integer> proveedorDao(){
-        return proveedorDao;
+    public Dao<Provider, Integer> providerDao(){
+        return providerDao;
     }
 
-    public Dao<Product, Integer> productoDao(){
-        return productoDao;
+    public Dao<Product, Integer> productDao(){
+        return productDao;
     }
     
-    public Dao<Historic, Integer> historicoDao(){
-        return historicoDao;
+    public Dao<Historic, Integer> historicDao(){
+        return historicDao;
     }
 }
