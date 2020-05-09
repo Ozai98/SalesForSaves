@@ -14,22 +14,22 @@ import java.util.Date;
  * @author German le yo
  */
 
-@DatabaseTable(tableName = "Historico")
+@DatabaseTable(tableName = "Historic")
 public class Historic {
     @DatabaseField(generatedId = true)
     private int id;
-    @DatabaseField(foreign = true, columnName = "usuario")
-    User usuario;
-    @DatabaseField(foreign = true, columnName = "producto")
-    Product producto;
+    @DatabaseField(foreign = true, columnName = "user")
+    User user;
+    @DatabaseField(foreign = true, columnName = "product")
+    Product product;
     @DatabaseField
-    private Date tiempo_reserva;
+    private Date timeReserve;
     @DatabaseField
-    private Date fecha_compra;
+    private Date buyDate;
     @DatabaseField
-    private double cantidad;
+    private double cuantity;
     @DatabaseField
-    String estado;
+    String state;
     
     public Historic(){
         id = -1;
@@ -37,28 +37,28 @@ public class Historic {
     
     public Historic(Historic other){
         id = other.id;
-        usuario = new User(other.usuario);
-        producto = new Product(other.producto);
-        tiempo_reserva = other.tiempo_reserva;
-        fecha_compra = other.fecha_compra;
-        cantidad = other.cantidad;
-        estado = other.estado;
+        user = new User(other.user);
+        product = new Product(other.product);
+        timeReserve = other.timeReserve;
+        buyDate = other.buyDate;
+        cuantity = other.cuantity;
+        state = other.state;
     }
     
     public int getId(){return id;}
-    public User getUsuario(){return usuario;}
-    public Product getProducto(){return producto;}
-    public Date getTiempoReserva(){return tiempo_reserva;}
-    public Date getFechaCompra(){return fecha_compra;}
-    public double getCantidad(){return cantidad;}
-    public String getEstado(){return estado;}
+    public User getUser(){return user;}
+    public Product getProduct(){return product;}
+    public Date getTimeReserve(){return timeReserve;}
+    public Date getBuyDate(){return buyDate;}
+    public double getCuantity(){return cuantity;}
+    public String getState(){return state;}
     
     public void setId(int id){this.id = id;}
-    public void setUsuario(User usr){usuario = usr;}
-    public void setProducto(Product prod){producto = prod;}
-    public void setTiempoReserva(Date tiempo){tiempo_reserva = tiempo;}
-    public void setFechaCompra(Date fecha){fecha_compra = fecha;}
-    public void setCantidad(double cantidad){this.cantidad = cantidad;}
-    public void setEstado(String state){estado = state;}
+    public void setUser(User usr){user = usr;}
+    public void setproduct(Product prod){product = prod;}
+    public void setTimeReserve(Date time){timeReserve = time;}
+    public void setBuyDate(Date date){buyDate = date;}
+    public void setCuantity(double cuantity){this.cuantity = cuantity;}
+    public void setState(String state){this.state = state;}
     
 }

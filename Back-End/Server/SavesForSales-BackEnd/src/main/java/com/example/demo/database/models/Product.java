@@ -4,50 +4,50 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;
 
-@DatabaseTable(tableName="Producto")
+@DatabaseTable(tableName="Product")
 public class Product{
 	
 	@DatabaseField(generatedId = true)
 	private int id;
 	@DatabaseField
-	private double precio;
+	private double price;
 	@DatabaseField
-	private String nombre;
-	@DatabaseField(foreign = true, columnName = "proveedor")
-	Provider proveedor;
+	private String name;
+	@DatabaseField(foreign = true, columnName = "provider")
+	Provider provider;
         @DatabaseField
-        private String imagen;
+        private String image;
         @DatabaseField
-        private double cantidad;
+        private double cuantity;
         @DatabaseField
-        private Date fecha_publicacion;
+        private Date publicationDate;
         
         public Product(){}
         
         public Product(Product other){
             id = other.id;
-            precio = other.precio;
-            nombre = other.nombre;
-            proveedor = new Provider(other.proveedor);
-            imagen = other.imagen;
-            cantidad = other.cantidad;
-            fecha_publicacion = other.fecha_publicacion;
+            price = other.price;
+            name = other.name;
+            provider = new Provider(other.provider);
+            image = other.image;
+            cuantity = other.cuantity;
+            publicationDate = other.publicationDate;
             
         }
         
 	public int getId(){return id;}
-	public double getPrecio(){return precio;}
-	public String getNombre(){return nombre;}
-	public Provider getProveedor(){return proveedor;}
-        public String getImagen(){return imagen;}
-        public double getCantidad(){return cantidad;}
-        public Date getFechaPublicacion(){return fecha_publicacion;}
+	public double getPrice(){return price;}
+	public String getName(){return name;}
+	public Provider getProvider(){return provider;}
+        public String getImage(){return image;}
+        public double getCuantity(){return cuantity;}
+        public Date getPublicationDate(){return publicationDate;}
 
         public void setId(int id){this.id = id;}
-	public void setPrecio(double p){precio=p;}
-	public void setNombre(String n){nombre=n;}
-	public void setProveedor(Provider p){proveedor=p;}
-        public void setImagen(String i){imagen=i;}
-        public void setCantidad(double c){cantidad = c;}
-        public void setFechaPublicacion(Date d){fecha_publicacion = d;}
+	public void setPrice(double p){price=p;}
+	public void setName(String n){name=n;}
+	public void setProvider(Provider p){provider=p;}
+        public void setImage(String i){image=i;}
+        public void setCuantity(double c){cuantity = c;}
+        public void setPublicationDate(Date d){publicationDate = d;}
 }
