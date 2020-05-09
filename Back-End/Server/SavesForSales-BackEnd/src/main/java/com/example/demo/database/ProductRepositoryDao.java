@@ -5,7 +5,7 @@
  */
 package com.example.demo.database;
 
-import com.example.demo.database.models.Producto;
+import com.example.demo.database.models.Product;
 import com.j256.ormlite.dao.Dao;
 import java.util.List;
 
@@ -13,37 +13,37 @@ import java.util.List;
  *
  * @author German le yo
  */
-public class ProductoRepositoryDao implements Repository<Producto>{
+public class ProductRepositoryDao implements Repository<Product>{
 
-    private Dao<Producto, Integer> productoDao;
+    private Dao<Product, Integer> productoDao;
 
-    public ProductoRepositoryDao(){
+    public ProductRepositoryDao(){
         this.productoDao = DaoController.getInstance().productoDao();
     }
     
     @Override
-    public void create(Producto prod) throws Exception {
+    public void create(Product prod) throws Exception {
         productoDao.create(prod);
     }
 
     @Override
-    public <G> List<Producto> search(G param) throws Exception {
+    public <G> List<Product> search(G param) throws Exception {
         return productoDao.queryBuilder().where().like("nombre", "%" + param + "%").query();
     }
 
     @Override
-    public Producto getById(int ID) throws Exception {
+    public Product getById(int ID) throws Exception {
         return productoDao.queryForId(ID);
     }
 
     @Override
-    public void update(Producto obj) throws Exception {
+    public void update(Product obj) throws Exception {
         productoDao.update(obj);
 
     }
 
     @Override
-    public void refresh(Producto obj) throws Exception {
+    public void refresh(Product obj) throws Exception {
         productoDao.refresh(obj);
 
     }

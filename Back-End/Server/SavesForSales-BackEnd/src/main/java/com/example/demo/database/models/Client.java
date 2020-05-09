@@ -1,6 +1,6 @@
 package com.example.demo.database.models;
 
-public interface Cliente {
+public interface Client {
 	public int getId();
     public String getNombre();
     public String getCorreo();

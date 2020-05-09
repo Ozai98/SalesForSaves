@@ -5,7 +5,7 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;
 
 @DatabaseTable(tableName="Producto")
-public class Producto{
+public class Product{
 	
 	@DatabaseField(generatedId = true)
 	private int id;
@@ -14,7 +14,7 @@ public class Producto{
 	@DatabaseField
 	private String nombre;
 	@DatabaseField(foreign = true, columnName = "proveedor")
-	Proveedor proveedor;
+	Provider proveedor;
         @DatabaseField
         private String imagen;
         @DatabaseField
@@ -22,13 +22,13 @@ public class Producto{
         @DatabaseField
         private Date fecha_publicacion;
         
-        public Producto(){}
+        public Product(){}
         
-        public Producto(Producto other){
+        public Product(Product other){
             id = other.id;
             precio = other.precio;
             nombre = other.nombre;
-            proveedor = new Proveedor(other.proveedor);
+            proveedor = new Provider(other.proveedor);
             imagen = other.imagen;
             cantidad = other.cantidad;
             fecha_publicacion = other.fecha_publicacion;
@@ -38,7 +38,7 @@ public class Producto{
 	public int getId(){return id;}
 	public double getPrecio(){return precio;}
 	public String getNombre(){return nombre;}
-	public Proveedor getProveedor(){return proveedor;}
+	public Provider getProveedor(){return proveedor;}
         public String getImagen(){return imagen;}
         public double getCantidad(){return cantidad;}
         public Date getFechaPublicacion(){return fecha_publicacion;}
@@ -46,7 +46,7 @@ public class Producto{
         public void setId(int id){this.id = id;}
 	public void setPrecio(double p){precio=p;}
 	public void setNombre(String n){nombre=n;}
-	public void setProveedor(Proveedor p){proveedor=p;}
+	public void setProveedor(Provider p){proveedor=p;}
         public void setImagen(String i){imagen=i;}
         public void setCantidad(double c){cantidad = c;}
         public void setFechaPublicacion(Date d){fecha_publicacion = d;}

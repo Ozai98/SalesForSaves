@@ -15,13 +15,13 @@ import java.util.Date;
  */
 
 @DatabaseTable(tableName = "Historico")
-public class Historico {
+public class Historic {
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign = true, columnName = "usuario")
-    Usuario usuario;
+    User usuario;
     @DatabaseField(foreign = true, columnName = "producto")
-    Producto producto;
+    Product producto;
     @DatabaseField
     private Date tiempo_reserva;
     @DatabaseField
@@ -31,14 +31,14 @@ public class Historico {
     @DatabaseField
     String estado;
     
-    public Historico(){
+    public Historic(){
         id = -1;
     }
     
-    public Historico(Historico other){
+    public Historic(Historic other){
         id = other.id;
-        usuario = new Usuario(other.usuario);
-        producto = new Producto(other.producto);
+        usuario = new User(other.usuario);
+        producto = new Product(other.producto);
         tiempo_reserva = other.tiempo_reserva;
         fecha_compra = other.fecha_compra;
         cantidad = other.cantidad;
@@ -46,16 +46,16 @@ public class Historico {
     }
     
     public int getId(){return id;}
-    public Usuario getUsuario(){return usuario;}
-    public Producto getProducto(){return producto;}
+    public User getUsuario(){return usuario;}
+    public Product getProducto(){return producto;}
     public Date getTiempoReserva(){return tiempo_reserva;}
     public Date getFechaCompra(){return fecha_compra;}
     public double getCantidad(){return cantidad;}
     public String getEstado(){return estado;}
     
     public void setId(int id){this.id = id;}
-    public void setUsuario(Usuario usr){usuario = usr;}
-    public void setProducto(Producto prod){producto = prod;}
+    public void setUsuario(User usr){usuario = usr;}
+    public void setProducto(Product prod){producto = prod;}
     public void setTiempoReserva(Date tiempo){tiempo_reserva = tiempo;}
     public void setFechaCompra(Date fecha){fecha_compra = fecha;}
     public void setCantidad(double cantidad){this.cantidad = cantidad;}

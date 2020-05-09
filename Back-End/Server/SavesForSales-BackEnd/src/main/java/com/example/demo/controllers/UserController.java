@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.database.models.Usuario;
+import com.example.demo.database.models.User;
 import com.example.demo.database.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -22,26 +22,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EnableAutoConfiguration
 @RequestMapping("/usuario")
 @CrossOrigin
-public class UsuarioController extends ClienteController<Usuario> {
+public class UserController extends ClientController<User> {
 
-	private Repository<Usuario> usuarioRepository;
+	private Repository<User> usuarioRepository;
 
 	@PostConstruct
 	public void init() {
 		setUsuarioRepository(Repository.Usuario());
 	}
 
-	public void setUsuarioRepository(Repository<Usuario> repository) {
+	public void setUsuarioRepository(Repository<User> repository) {
 		this.usuarioRepository = repository;
 	}
 
 	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Usuario> crear(String nombre, String correo, String password, String avatar) {
-		return super.crear(nombre, correo, password, avatar, new Usuario());
+	public Response<User> crear(String nombre, String correo, String password, String avatar) {
+		return super.crear(nombre, correo, password, avatar, new User());
 	}
 
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Usuario> login(String correo, String password) {
+	public Response<User> login(String correo, String password) {
 		return super.login(correo, password);
 	}
 
@@ -67,14 +67,14 @@ public class UsuarioController extends ClienteController<Usuario> {
 	 */
 
 	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Usuario> updateUser(Integer id, String nombre, String password, String avatar) {
-		Usuario user;
+	public Response<User> updateUser(Integer id, String nombre, String password, String avatar) {
+		User user;
 		try {
 			user = usuarioRepository.getById(id);
 			return super.update(nombre, password, avatar, user);
 		} catch (Exception ex) {
 			Services.handleError(ex);
-			return new Response<Usuario>(false, null, ex);
+			return new Response<User>(false, null, ex);
 		}
 		
 	}

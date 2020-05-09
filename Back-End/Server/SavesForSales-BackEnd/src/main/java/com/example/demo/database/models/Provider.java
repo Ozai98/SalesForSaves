@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * @author German le yo
  */
 @DatabaseTable(tableName = "Proveedor")
-public class Proveedor implements Cliente{
+public class Provider implements Client{
 
     @DatabaseField(generatedId = true)
     private int id;
@@ -23,11 +23,11 @@ public class Proveedor implements Cliente{
     @DatabaseField
     private String ubicacion;
 
-    public Proveedor(){
+    public Provider(){
         nombre = correo = password = "";
     }
 
-    public Proveedor(Proveedor other){
+    public Provider(Provider other){
         id = other.id;
         nombre = other.nombre;
         correo = other.correo;

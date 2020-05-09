@@ -3,10 +3,10 @@ package com.example.demo.controllers;
 import java.util.List;
 
 import com.example.demo.database.Repository;
-import com.example.demo.database.models.Cliente;
+import com.example.demo.database.models.Client;
 import com.example.demo.services.Services;
 
-public class ClienteController<T extends Cliente > {
+public class ClientController<T extends Client > {
 
 	private Repository<T> repository;
 	

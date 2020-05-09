@@ -8,7 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.database.models.Proveedor;
+import com.example.demo.database.models.Provider;
 import com.example.demo.database.Repository;
 
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,27 +22,27 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @EnableAutoConfiguration
 @CrossOrigin
 @RequestMapping("/proveedor")
-public class ProveedorController extends ClienteController<Proveedor>{
+public class ProviderController extends ClientController<Provider>{
 
-	private Repository<Proveedor> proveedorRepository;
+	private Repository<Provider> proveedorRepository;
 	
 	@PostConstruct
 	public void init() {
 		setProveedorRepository(Repository.Proveedor());
 	}
 	
-	public void setProveedorRepository(Repository<Proveedor> proveedorRepository){
+	public void setProveedorRepository(Repository<Provider> proveedorRepository){
 		this.proveedorRepository = proveedorRepository;
 	}
 
 	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Proveedor> crear(String nombre, String correo, String password, String avatar)
+	public Response<Provider> crear(String nombre, String correo, String password, String avatar)
 	{
-		return super.crear(nombre, correo, password, avatar, new Proveedor());
+		return super.crear(nombre, correo, password, avatar, new Provider());
 	}
 	
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Proveedor> login(String correo, String password){
+	public Response<Provider> login(String correo, String password){
 		return super.login(correo, password);
 	}
 	/**
@@ -60,14 +60,14 @@ public class ProveedorController extends ClienteController<Proveedor>{
 	}*/
 	
 	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Proveedor> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
+	public Response<Provider> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
 		try{
-			Proveedor proveedor = proveedorRepository.getById(id);
+			Provider proveedor = proveedorRepository.getById(id);
 			if(ubicacion != null) proveedor.setUbicacion(ubicacion);
 			return super.update(nombre, password, avatar, proveedor);
 		}catch(Exception ex){
 			 Services.handleError(ex);
-			return new Response<Proveedor>(false, null, ex);
+			return new Response<Provider>(false, null, ex);
 		}
 	}
 	

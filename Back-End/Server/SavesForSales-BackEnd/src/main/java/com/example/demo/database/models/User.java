@@ -8,7 +8,7 @@ import com.j256.ormlite.table.DatabaseTable;
  * @author German le yo
  */
 @DatabaseTable(tableName = "Usuario")
-public class Usuario implements Cliente{
+public class User implements Client{
 
 	@DatabaseField(generatedId = true)
 	private int id;
@@ -21,11 +21,11 @@ public class Usuario implements Cliente{
 	@DatabaseField
 	private String avatar;
 
-	public Usuario(){
+	public User(){
 		nombre = correo = password = "";
 	}
 	
-	public Usuario(Usuario other){
+	public User(User other){
 		id = other.id;
 		nombre = other.nombre;
 		correo = other.correo;
