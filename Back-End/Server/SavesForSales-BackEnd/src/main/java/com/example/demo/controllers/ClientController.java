@@ -10,13 +10,13 @@ public class ClientController<T extends Client > {
 
 	private Repository<T> repository;
 	
-	public Response<T> crear(String nombre, String correo, String password, String avatar, T newUser){
-		if(!Services.validateEmail(correo)) return new Response<T>(false, null, "bad email");
+	public Response<T> create(String name, String mail, String password, String avatar, T newUser){
+		if(!Services.validateEmail(mail)) return new Response<T>(false, null, "bad email");
 		
 		if(avatar == null) avatar = "";
 		
-		newUser.setNombre(nombre);
-		newUser.setCorreo(correo);
+		newUser.setName(name);
+		newUser.setMail(mail);
 		newUser.setPassword(Services.cryptPassword(password));
 		newUser.setAvatar(avatar);
 		try{
@@ -30,22 +30,22 @@ public class ClientController<T extends Client > {
 		}
 	}
 	
-	public Response<T> login(String correo, String password){
+	public Response<T> login(String mail, String password){
 		try{
-			List<T> clientes = repository.search(correo);
-			if(clientes.isEmpty()) return new Response<T>(false, null, "User no found");
-			T proveedor =  clientes.get(0);
-			if(proveedor.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response<T>(false, null, "Bad Password");
-			return new Response<T>(true, Services.normalize(proveedor), "Ok");
+			List<T> clients = repository.search(mail);
+			if(clients.isEmpty()) return new Response<T>(false, null, "User no found");
+			T provider =  clients.get(0);
+			if(provider.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response<T>(false, null, "Bad Password");
+			return new Response<T>(true, Services.normalize(provider), "Ok");
 		}catch(Exception ex){
 			 Services.handleError(ex);
 			return new Response<T>(false, null, ex);
 		}
 	}
 
-	public Response<T> update(String nombre, String password, String avatar, T user) throws Exception {
+	public Response<T> update(String name, String password, String avatar, T user) throws Exception {
 		if(user == null) return new Response<T>(false, null, "User no Found");
-		if(nombre != null) user.setNombre(nombre);
+		if(name != null) user.setName(name);
 		if(password != null) user.setPassword(Services.cryptPassword(password));
 		if(avatar != null) user.setAvatar(avatar);
 		repository.update((T)user);
