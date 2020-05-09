@@ -21,38 +21,38 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin
-@RequestMapping("/proveedor")
+@RequestMapping("/provider")
 public class ProviderController extends ClientController<Provider>{
 
-	private Repository<Provider> proveedorRepository;
+	private Repository<Provider> providerRepository;
 	
 	@PostConstruct
 	public void init() {
-		setProveedorRepository(Repository.Proveedor());
+		setProviderRepository(Repository.Proveedor());
 	}
 	
-	public void setProveedorRepository(Repository<Provider> proveedorRepository){
-		this.proveedorRepository = proveedorRepository;
+	public void setProviderRepository(Repository<Provider> providerRepository){
+		this.providerRepository = providerRepository;
 	}
 
-	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Provider> crear(String nombre, String correo, String password, String avatar)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<Provider> create(String name, String mail, String password, String avatar)
 	{
-		return super.crear(nombre, correo, password, avatar, new Provider());
+		return super.create(name, mail, password, avatar, new Provider());
 	}
 	
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Provider> login(String correo, String password){
-		return super.login(correo, password);
+	public Response<Provider> login(String mail, String password){
+		return super.login(mail, password);
 	}
 	/**
 	@GetMapping("/get-by-id/{id}")
 	
 	public Response<Proveedor> getById(@PathVariable Integer id) {
 		try{
-			Proveedor proveedor = proveedorRepository.getById(id);
-			if(proveedor == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
-			return new Response<Proveedor>(true, Services.normalize(proveedor), "Ok");
+			Proveedor provider = providerRepository.getById(id);
+			if(provider == null) return new Response<Proveedor>(false, null, "Proveedor no Found");
+			return new Response<Proveedor>(true, Services.normalize(provider), "Ok");
 		}catch(Exception ex){
 			 Services.handleError(ex);
 			return new Response<Proveedor>(false, null, ex);
@@ -60,11 +60,11 @@ public class ProviderController extends ClientController<Provider>{
 	}*/
 	
 	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<Provider> updateProveedor(Integer id, String nombre, String password, String avatar, String ubicacion) {
+	public Response<Provider> updateProvider(Integer id, String name, String password, String avatar, String ubication) {
 		try{
-			Provider proveedor = proveedorRepository.getById(id);
-			if(ubicacion != null) proveedor.setUbicacion(ubicacion);
-			return super.update(nombre, password, avatar, proveedor);
+			Provider provider = providerRepository.getById(id);
+			if(ubication != null) provider.setUbication(ubication);
+			return super.update(name, password, avatar, provider);
 		}catch(Exception ex){
 			 Services.handleError(ex);
 			return new Response<Provider>(false, null, ex);

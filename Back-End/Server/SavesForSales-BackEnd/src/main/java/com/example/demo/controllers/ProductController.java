@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin
-@RequestMapping("/producto")
+@RequestMapping("/product")
 public class ProductController {
 
-    private Repository<Product> productoRepository;
-    private Repository<Provider> proveedorRepository;
+    private Repository<Product> productRepository;
+    private Repository<Provider> providerRepository;
 
     
     
@@ -38,30 +38,30 @@ public class ProductController {
         setProveedorRepository(Repository.Proveedor());
     }
 
-    public Product normalizeProducto(Product producto){
+    public Product normalizeProducto(Product product){
         try{
-            proveedorRepository.refresh(producto.getProveedor());
+            providerRepository.refresh(product.getProvider());
         }catch(Exception ex){
             Services.handleError(ex);
         }            
-        Services.normalize(producto.getProveedor());
-        return producto;
+        Services.normalize(product.getProvider());
+        return product;
     }
     
     public void setProductoRepository(Repository<Product> repository){
-        this.productoRepository = repository;
+        this.productRepository = repository;
     }
     
     public void setProveedorRepository(Repository<Provider> repository){
-        this.proveedorRepository = repository;
+        this.providerRepository = repository;
     }
 
-    @GetMapping("/search/{nombre}")
-    public Response<Product[]> searchProductos(@PathVariable String nombre) {
+    @GetMapping("/search/{name}")
+    public Response<Product[]> searchProducts(@PathVariable String name) {
         try {
-            List<Product> result =  productoRepository.search(nombre);
+            List<Product> result =  productRepository.search(name);
             Product[] response = new Product[result.size()]; int i = 0;
-            for(Product producto: result) response[i++] = normalizeProducto(producto);
+            for(Product product: result) response[i++] = normalizeProducto(product);
             return new Response<Product []>(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
@@ -70,11 +70,11 @@ public class ProductController {
     }
     @CrossOrigin(origins = "*")
     @GetMapping("/get-by-id/{id}")
-    public Response<Product> getProducto( @PathVariable Integer id) {
+    public Response<Product> getProduct( @PathVariable Integer id) {
         try {
-            Product product = productoRepository.getById(id);
+            Product product = productRepository.getById(id);
             if(product == null) return new Response<Product>(false, null, "Product no Found");
-            return new Response<Product>(true, normalizeProducto(product), "Ok: " + product.getProveedor().getId());
+            return new Response<Product>(true, normalizeProducto(product), "Ok: " + product.getProvider().getId());
         } catch (Exception ex) {
             Services.handleError(ex);
             return new Response<Product>(false, null, ex);
@@ -82,25 +82,25 @@ public class ProductController {
 
     }
 
-    @PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Product> crear(String nombre, Double precio, Integer id_proveedor, String imagen, Double cantidad){
-        if(precio <= 0) return new Response<Product>(false, null, "precio invalido");
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double cuantity){
+        if(price <= 0) return new Response<Product>(false, null, "price invalido");
         
-        if(imagen == null) imagen = "";
+        if(image == null) image = "";
         
-        Product nProducto = new Product();
-        nProducto.setNombre(nombre);
-        nProducto.setPrecio(precio);
-        nProducto.setImagen(imagen);
-        nProducto.setCantidad(cantidad);
-        nProducto.setFechaPublicacion(new Date());
-        Provider creador;
+        Product nProduct = new Product();
+        nProduct.setName(name);
+        nProduct.setPrice(price);
+        nProduct.setImage(image);
+        nProduct.setCuantity(cuantity);
+        nProduct.setPublicationDate(new Date());
+        Provider creator;
         try {
-            creador = proveedorRepository.getById(id_proveedor);
-            if(creador == null) return new Response<Product>(false, null, "id_proveedor don't match with any provider id: " + id_proveedor);
-            nProducto.setProveedor(creador);
-            productoRepository.create(nProducto);
-            return new Response<Product>(true, normalizeProducto(nProducto), "Ok. " + creador.getNombre());
+            creator = providerRepository.getById(idProvider);
+            if(creator == null) return new Response<Product>(false, null, "idProvider don't match with any provider id: " + idProvider);
+            nProduct.setProvider(creator);
+            productRepository.create(nProduct);
+            return new Response<Product>(true, normalizeProducto(nProduct), "Ok. " + creator.getName());
         } catch (Exception e) {
             return new Response<Product>(false, null, e);
         }

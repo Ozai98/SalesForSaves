@@ -32,22 +32,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @EnableAutoConfiguration
 @CrossOrigin
-@RequestMapping("/historico")
+@RequestMapping("/historic")
 public class HistoricController {
     
     private static final String RESERVA_STATE = "RESERVA";
     private static final String HISTORICO_STATE = "HISTORICO";
     
-    private Repository<Historic> historicoRepository;
-    private Repository<User> usuarioRepository;
-    private Repository<Product> productoRepository;
+    private Repository<Historic> historicRepository;
+    private Repository<User> userRepository;
+    private Repository<Product> productRepository;
     
-    public Historic normalizeHistorico(Historic historico) throws Exception {
-        productoRepository.refresh(historico.getProduct());
-        usuarioRepository.refresh(historico.getUser());
-        Services.normalize(historico.getUser());
-        Services.normalize(historico.getProduct().getProvider());
-        return historico;
+    public Historic normalizeHistorico(Historic historic) throws Exception {
+        productRepository.refresh(historic.getProduct());
+        userRepository.refresh(historic.getUser());
+        Services.normalize(historic.getUser());
+        Services.normalize(historic.getProduct().getProvider());
+        return historic;
     }
     
     @PostConstruct
@@ -58,38 +58,38 @@ public class HistoricController {
     }
     
     public void setHistoricoRepository(Repository<Historic> repository){
-        this.historicoRepository = repository;
+        this.historicRepository = repository;
     }
     
     public void setUsuarioRepository(Repository<User> repository){
-        this.usuarioRepository = repository;
+        this.userRepository = repository;
     }
     
     public void setProductoRepository(Repository<Product> repository){
-        this.productoRepository = repository;
+        this.productRepository = repository;
     }
     
-    @PostMapping(value = "/reservar", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Historic> reservar(Integer idUser, Integer idProducto, Double cantidad){
+    @PostMapping(value = "/reserve", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Historic> reserve(Integer idUser, Integer idProducto, Double cuantity){
         
-        if(idUser == null || idProducto == null || cantidad == null){ 
-            return new Response<Historic>(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cantidad: %b",
-                    idUser == null, idProducto == null, cantidad == null));}
+        if(idUser == null || idProducto == null || cuantity == null){ 
+            return new Response<Historic>(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cuantity: %b",
+                    idUser == null, idProducto == null, cuantity == null));}
         
         try{
-            User usr = usuarioRepository.getById(idUser);
+            User usr = userRepository.getById(idUser);
             if(usr == null) return new Response<Historic>(false, null, "Usuario no Found");
-            Product prod = productoRepository.getById(idProducto);
+            Product prod = productRepository.getById(idProducto);
             if(prod == null) return new Response<Historic>(false, null, "Producto no Found");
             
             Historic nuevo = new Historic();
-            nuevo.setCuantity(cantidad);
+            nuevo.setCuantity(cuantity);
             nuevo.setState(RESERVA_STATE);
             nuevo.setTimeReserve(new Date());
             nuevo.setUser(usr);
             nuevo.setProduct(prod);
 
-            historicoRepository.create(nuevo);
+            historicRepository.create(nuevo);
             
             return new Response<Historic>(true, normalizeHistorico(nuevo), "Reserved product");
             
@@ -99,11 +99,11 @@ public class HistoricController {
     }
 
     @GetMapping(value = "/buyed/{id}")
-    public Response<Historic []> searchHistorico(@PathVariable Integer id){
+    public Response<Historic []> searchHistoric(@PathVariable Integer id){
         try {
-            List<Historic> result = historicoRepository.search(id);
+            List<Historic> result = historicRepository.search(id);
             Historic[] response = new Historic[result.size()]; int i = 0;
-            for(Historic historico: result) response[i++] = normalizeHistorico(historico);
+            for(Historic historic: result) response[i++] = normalizeHistorico(historic);
             return new Response<Historic []>(true, response, "ok");
         } catch (Exception ex) {
             Services.handleError(ex);
@@ -117,7 +117,7 @@ public class HistoricController {
         if(idHistorico == null) return new Response<Historic>(false, null, String.format("Missing parameters. missing idHistorico: %b" , idHistorico == null));
         
         try{
-            Historic hist = historicoRepository.getById(idHistorico);
+            Historic hist = historicRepository.getById(idHistorico);
             
             if(hist == null) return new Response<Historic>(false, null, "Historico no Found");
             
@@ -126,7 +126,7 @@ public class HistoricController {
 
             hist.setState(HISTORICO_STATE);
             hist.setBuyDate(new Date());
-            historicoRepository.update(hist);
+            historicRepository.update(hist);
             
             return new Response<Historic>(true, normalizeHistorico(hist), "Buyed product");
             

@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.CrossOrigin;
  */
 @RestController
 @EnableAutoConfiguration
-@RequestMapping("/usuario")
+@RequestMapping("/user")
 @CrossOrigin
 public class UserController extends ClientController<User> {
 
-	private Repository<User> usuarioRepository;
+	private Repository<User> userRepository;
 
 	@PostConstruct
 	public void init() {
@@ -32,24 +32,24 @@ public class UserController extends ClientController<User> {
 	}
 
 	public void setUsuarioRepository(Repository<User> repository) {
-		this.usuarioRepository = repository;
+		this.userRepository = repository;
 	}
 
-	@PostMapping(value = "/crear", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<User> crear(String nombre, String correo, String password, String avatar) {
-		return super.crear(nombre, correo, password, avatar, new User());
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<User> create(String name, String mail, String password, String avatar) {
+		return super.create(name, mail, password, avatar, new User());
 	}
 
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<User> login(String correo, String password) {
-		return super.login(correo, password);
+	public Response<User> login(String mail, String password) {
+		return super.login(mail, password);
 	}
 
 	/**
 	 * @PostMapping(value = "/get-by-email", consumes =
 	 *                    MediaType.APPLICATION_FORM_URLENCODED_VALUE) public
-	 *                    Response<Usuario> getByCorreo(String correo) { try{
-	 *                    List<Usuario> users = usuarioRepository.search(correo);
+	 *                    Response<Usuario> getByCorreo(String mail) { try{
+	 *                    List<Usuario> users = userRepository.search(mail);
 	 *                    if(users.isEmpty()) return new Response<Usuario>(false,
 	 *                    null, "User no found"); return new Response<Usuario>(true,
 	 *                    Services.normalize(users.get(0)), "Ok"); }catch(Exception
@@ -59,7 +59,7 @@ public class UserController extends ClientController<User> {
 
 	/**
 	 * @GetMapping("/get-by-id/{id}") public Response<Usuario> getById(@PathVariable
-	 * int id) { try{ Usuario user = usuarioRepository.getById(id); if(user == null)
+	 * int id) { try{ Usuario user = userRepository.getById(id); if(user == null)
 	 * return new Response<Usuario>(false, null, "User no Found"); return new
 	 * Response<Usuario>(true, Services.normalize(user), "Ok"); }catch(Exception
 	 * ex){ Services.handleError(ex); return new Response<Usuario>(false, null, ex);
@@ -67,11 +67,11 @@ public class UserController extends ClientController<User> {
 	 */
 
 	@PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<User> updateUser(Integer id, String nombre, String password, String avatar) {
+	public Response<User> updateUser(Integer id, String name, String password, String avatar) {
 		User user;
 		try {
-			user = usuarioRepository.getById(id);
-			return super.update(nombre, password, avatar, user);
+			user = userRepository.getById(id);
+			return super.update(name, password, avatar, user);
 		} catch (Exception ex) {
 			Services.handleError(ex);
 			return new Response<User>(false, null, ex);
