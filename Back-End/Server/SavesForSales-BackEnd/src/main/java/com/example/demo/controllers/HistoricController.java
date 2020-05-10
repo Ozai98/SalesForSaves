@@ -82,16 +82,16 @@ public class HistoricController {
             Product prod = productRepository.getById(idProducto);
             if(prod == null) return new Response<Historic>(false, null, "Producto no Found");
             
-            Historic nuevo = new Historic();
-            nuevo.setCuantity(cuantity);
-            nuevo.setState(RESERVA_STATE);
-            nuevo.setTimeReserve(new Date());
-            nuevo.setUser(usr);
-            nuevo.setProduct(prod);
+            Historic newH = new Historic();
+            newH.setCuantity(cuantity);
+            newH.setState(RESERVA_STATE);
+            newH.setTimeReserve(new Date());
+            newH.setUser(usr);
+            newH.setProduct(prod);
 
-            historicRepository.create(nuevo);
+            historicRepository.create(newH);
             
-            return new Response<Historic>(true, normalizeHistorico(nuevo), "Reserved product");
+            return new Response<Historic>(true, normalizeHistorico(newH), "Reserved product");
             
         }catch (Exception e) {
             return new Response<Historic>(false, null, e);

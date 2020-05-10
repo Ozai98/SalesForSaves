@@ -25,7 +25,7 @@ public class ProviderRepositoryDao implements Repository<Provider>{
 
     @Override
     public <G> List<Provider> search(G email)  throws SQLException{
-        return providerDao.queryForEq("correo", email);
+        return providerDao.queryForEq("mail", email);
     }
 
     @Override

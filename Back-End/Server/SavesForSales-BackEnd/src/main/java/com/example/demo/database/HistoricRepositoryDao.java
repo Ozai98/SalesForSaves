@@ -29,7 +29,7 @@ public class HistoricRepositoryDao implements Repository<Historic>{
 
     @Override
     public <G> List<Historic> search(G usr) throws SQLException {
-        return historicDao.queryBuilder().where().eq("usuario", usr).query();
+        return historicDao.queryBuilder().where().eq("user", usr).query();
     }
 
     @Override

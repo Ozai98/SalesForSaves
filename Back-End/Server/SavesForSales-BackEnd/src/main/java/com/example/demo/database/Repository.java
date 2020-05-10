@@ -21,4 +21,7 @@ public interface Repository<T> {
 	static HistoricRepositoryDao Historic(){
 		return new HistoricRepositoryDao();
 	}
+	static RateRepositoryDao Rate(){
+		return new RateRepositoryDao();
+	}
 }

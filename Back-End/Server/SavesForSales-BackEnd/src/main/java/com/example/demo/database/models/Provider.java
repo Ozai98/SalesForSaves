@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
  *
  * @author German le yo
  */
-@DatabaseTable(tableName = "Proveedor")
+@DatabaseTable(tableName = "Provider")
 public class Provider implements Client{
 
     @DatabaseField(generatedId = true)
