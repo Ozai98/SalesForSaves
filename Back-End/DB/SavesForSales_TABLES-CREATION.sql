@@ -25,25 +25,25 @@ CREATE USER IF NOT EXISTS 'sfsback'@'localhost' IDENTIFIED BY '0000';
 GRANT ALL PRIVILEGES ON *.* TO 'sfsback'@'localhost';
 FLUSH PRIVILEGES;
 -- -----------------------------------------------------
--- Table `SavesForSales`.`Proveedor`
+-- Table `SavesForSales`.`Provider`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SavesForSales`.`Proveedor` (
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Provider` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
-  `correo` VARCHAR(45) NOT NULL UNIQUE,
+  `name` VARCHAR(45) NOT NULL,
+  `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `avatar` VARCHAR(45) DEFAULT NULL,
-  `ubicacion` varchar(100) DEFAULT NULL, 
+  `ubication` varchar(100) DEFAULT NULL, 
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SavesForSales`.`Usuario`
+-- Table `SavesForSales`.`User`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SavesForSales`.`Usuario` (
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nombre` VARCHAR(45) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
   `correo` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `avatar` VARCHAR(45) NULL DEFAULT NULL,
@@ -52,46 +52,47 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `SavesForSales`.`Producto`
+-- Table `SavesForSales`.`Product`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SavesForSales`.`Producto` (
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `precio` DOUBLE NOT NULL,
-  `nombre` VARCHAR(45) NOT NULL,
-  `proveedor` INT NULL DEFAULT NULL,
-  `imagen` VARCHAR(45) NULL,
-  `cantidad` DOUBLE NOT NULL,
-  `fecha_publicacion` DATETIME NOT NULL,
+  `price` DOUBLE NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `provider` INT NULL DEFAULT NULL,
+  `image` VARCHAR(45) NULL,
+  `cuantity` DOUBLE NOT NULL,
+  `publicationDate` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX (`proveedor` ASC),
+  INDEX (`provider` ASC),
   CONSTRAINT ``
-    FOREIGN KEY (`proveedor`)
-    REFERENCES `SavesForSales`.`Proveedor` (`id`)
+    FOREIGN KEY (`provider`)
+    REFERENCES `SavesForSales`.`Provider` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 -- -----------------------------------------------------
--- Table `SavesForSales`.`Historico`
+-- Table `SavesForSales`.`Historic`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `SavesForSales`.`Historico` (
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Historic` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `usuario` INT NOT NULL,
-  `producto` INT NOT NULL,
-  `tiempo_reserva` DATETIME NULL,
-  `cantidad` DOUBLE NULL,
-  `estado` VARCHAR(20) NOT NULL DEFAULT 'RESERVA',
-  `fecha_compra` DATETIME NULL,
+  `user` INT NOT NULL,
+  `product` INT NOT NULL,
+  `timeReserve` DATETIME NULL,
+  `cuantity` DOUBLE NULL,
+  `state` VARCHAR(20) NOT NULL DEFAULT 'RESERVA',
+  `buyDate` DATETIME NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `c1`
-    FOREIGN KEY (`usuario`)
-    REFERENCES `SavesForSales`.`Usuario` (`id`)
+    FOREIGN KEY (`user`)
+    REFERENCES `SavesForSales`.`User` (`id`)
     ON DELETE CASCADE,
   CONSTRAINT `c2`
-    FOREIGN KEY (`producto`)
-    REFERENCES `SavesForSales`.`Producto` (`id`)
+    FOREIGN KEY (`product`)
+    REFERENCES `SavesForSales`.`Product` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+

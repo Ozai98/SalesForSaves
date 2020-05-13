@@ -90,8 +90,11 @@ export default {
             this.newUser.password,
             null,
             data => {
-              if (data.ok) console.log("Usuario registrado correctamente");
-              else console.log("No se pudo registrar el usuario");
+              if (data.ok) {
+                console.log("Usuario registrado correctamente");
+                this.$store.dispatch("storeUser", data.clase);
+                this.jumpScreen("Login");
+              } else console.log("No se pudo registrar el usuario");
             }
           );
         } else {

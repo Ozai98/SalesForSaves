@@ -1,10 +1,16 @@
 <template>
   <div id="navBar">
-    <p id="sellLink" @click="jumpScreen('SellProduct')">VENDER</p>
+    <p
+      v-if="this.$store.getters.returnUser.isProvider"
+      id="sellLink"
+      @click="jumpScreen('SellProduct')"
+    >
+      VENDER
+    </p>
     <div id="nav1" v-if="idPage == 'Home'">
-      <UserIcon v-bind:isLogged="true"></UserIcon>
+      <UserIcon></UserIcon>
     </div>
-    <div class="center-content" id="nav2" v-if="idPage == 'SearchProduct'">
+    <div class="center-content" id="nav2" v-else-if="idPage == 'SearchProduct'">
       <UserIcon></UserIcon>
       <img
         class="logo "
@@ -12,9 +18,8 @@
         alt="logo"
         @click="jumpScreen('Home')"
       />
-      <SearchBar class=""></SearchBar>
     </div>
-    <div id="nav3" v-if="idPage == 'Login' || idPage == 'Register'">
+    <div id="nav3" v-else-if="idPage == 'Login' || idPage == 'Register'">
       <img
         class="logo "
         src="@/assets/imgs/pageIcon.svg"
@@ -22,8 +27,8 @@
         @click="jumpScreen('Home')"
       />
     </div>
-    <div id="nav4" v-else>
-      <UserIcon v-bind:isLogged="true"></UserIcon>
+    <div v-else id="nav4">
+      <UserIcon></UserIcon>
       <img
         class="logo "
         src="@/assets/imgs/pageIcon.svg"
@@ -36,16 +41,16 @@
 
 <script>
 import UserIcon from "@/components/UserIcon.vue";
-import SearchBar from "@/components/SearchBar.vue";
+
 export default {
   name: "NavBar",
   props: {
     idPage: String
   },
   components: {
-    UserIcon,
-    SearchBar
-  }
+    UserIcon
+  },
+  methods: {}
 };
 </script>
 

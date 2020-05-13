@@ -8,32 +8,32 @@ import com.j256.ormlite.table.DatabaseTable;
  * @author German le yo
  */
 @DatabaseTable(tableName = "Proveedor")
-public class Proveedor{
+public class Provider implements Client{
 
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField
-    private String nombre;
+    private String name;
     @DatabaseField
-    private String correo;
+    private String mail;
     @DatabaseField
     private String password;
     @DatabaseField
     private String avatar;
     @DatabaseField
-    private String ubicacion;
+    private String ubication;
 
-    public Proveedor(){
-        nombre = correo = password = "";
+    public Provider(){
+        name = mail = password = "";
     }
 
-    public Proveedor(Proveedor other){
+    public Provider(Provider other){
         id = other.id;
-        nombre = other.nombre;
-        correo = other.correo;
+        name = other.name;
+        mail = other.mail;
         password = other.password;
         avatar = other.avatar;
-        ubicacion = other.ubicacion;
+        ubication = other.ubication;
     }
     
     // ---- GETS AND SETS ---------
@@ -41,12 +41,12 @@ public class Proveedor{
     public int getId() {
         return id;
     }
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getMail() {
+        return mail;
     }
 
     public String getPassword() {
@@ -57,20 +57,20 @@ public class Proveedor{
         return avatar;
     }
     
-    public String getUbicacion() {
-        return ubicacion;
+    public String getUbication() {
+        return ubication;
     }
 
     // ---------------- SETTERS---------------
     
     public void setId(int id){this.id = id;}
     
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     public void setPassword(String password) {
@@ -81,8 +81,8 @@ public class Proveedor{
         this.avatar = avatar;
     }
     
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
+    public void setUbication(String ubication) {
+        this.ubication = ubication;
     }
 
     // ---------------------------

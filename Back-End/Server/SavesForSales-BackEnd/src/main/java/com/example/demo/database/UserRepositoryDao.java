@@ -5,46 +5,44 @@
  */
 package com.example.demo.database;
 
-import com.example.demo.database.models.Usuario;
+import com.example.demo.database.models.Client;
+import com.example.demo.database.models.User;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-/**
- *
- * @author German le yo
- */
-public class UsuarioRepositoryDao implements UsuarioRepository{
 
-    private Dao<Usuario, Integer> userDao;
+public class UserRepositoryDao implements ClientRepository<User>{
+
+    private Dao<User, Integer> userDao;
     
-    public UsuarioRepositoryDao(){
+    public UserRepositoryDao(){
         this.userDao = DaoController.getInstance().userDao();
     }
     
     @Override
-    public void create(Usuario usr) throws SQLException{
+    public void create(User usr) throws SQLException{
         userDao.create(usr);
     }
 
     @Override
-    public List<Usuario> getByEmail(String email)  throws SQLException{
+    public List<User> getByEmail(String email)  throws SQLException{
         return userDao.queryForEq("correo", email);
     }
 
     @Override
-    public Usuario getById(int ID)  throws SQLException{
+    public User getById(int ID)  throws SQLException{
         return userDao.queryForId(ID);
     }
 
     @Override
-    public void update(Usuario usr)  throws SQLException{
+    public void update(User usr)  throws SQLException{
         userDao.update(usr);
     }
 
     @Override
-    public void refresh(Usuario usr) throws SQLException {
-        userDao.refresh(usr);
+    public void refresh(User obj) throws Exception {
+        userDao.refresh(obj);
     }
     
 }

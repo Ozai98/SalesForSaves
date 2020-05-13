@@ -14,15 +14,6 @@
         class="input-el field base-border body-text soft-el2"
       />
 
-      <label class="desc body-text" for="mailField">Correo</label>
-
-      <input
-        type="text"
-        id="mailField"
-        v-model="newUserInfo.mail"
-        class="input-el field base-border body-text soft-el2"
-      />
-
       <label class="desc body-text" for="pass">Contraseña</label>
 
       <input
@@ -44,7 +35,7 @@
       <button
         id="saveBtn"
         class="accessBtn soft-el2 base-border center-content"
-        @click="jumpScreen('ProfileView')"
+        @click="updateUser()"
       >
         GUARDAR
       </button>
@@ -53,7 +44,6 @@
 </template>
 
 <script>
-
 import request from "@/services/request.service.js";
 export default {
   name: "ProfileView",
@@ -73,22 +63,34 @@ export default {
     };
   },
   methods: {
-    updateUser(){
-      if (
-        this.newUserInfo.username != "" &&
-        this.newUserInfo.password != "" &&
-        this.newUserInfo.password2 != "" &&
-        this.newUserInfo.name != ""
-      ){
-        if (this.newUser.password == this.newUser.password2) {
-          let fun_request;
-          if (this.isProvider) {
-            fun_request = request.crearProveedor;
-          } else {
-            fun_request = request.crearUsuario;
-          }
-        }
+    updateUser() {
+      let fun_request,
+        new_name = null,
+        new_pass = null;
+      if (this.newUserInfo.name != "") new_name = this.newUserInfo.name;
+      if (this.newUserInfo.password != "") {
+        if (this.newUserInfo.password == this.newUserInfo.password2)
+          new_pass = this.newUserInfo.password;
+        else console.log("Contraseñas distintas");
       }
+      if (this.isProvider) {
+        fun_request = request.updateProveedor;
+      } else {
+        fun_request = request.updateUser;
+      }
+      fun_request(
+        this.$store.getters.returnUser.id,
+        new_name,
+        new_pass,
+        null,
+        data => {
+          if (data.ok) {
+            console.log("Usuario editado correctamente");
+            this.$store.dispatch("storeUser", data.clase);
+            this.jumpScreen("ProfileView");
+          } else console.log("No se pudo editar el usuario");
+        }
+      );
     }
   }
 };

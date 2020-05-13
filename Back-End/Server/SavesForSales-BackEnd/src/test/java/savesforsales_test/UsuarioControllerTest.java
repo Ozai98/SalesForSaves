@@ -5,8 +5,8 @@
  */
 package savesforsales_test;
 
-import com.example.demo.controllers.UsuarioController;
-import com.example.demo.database.models.Usuario;
+import com.example.demo.controllers.UserController;
+import com.example.demo.database.models.User;
 import com.example.demo.services.Services;
 import org.junit.Assert;
 import org.junit.Before;
@@ -25,7 +25,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 @RunWith(SpringRunner.class)
 public class UsuarioControllerTest {
  
-    private UsuarioController controller;
+    private UserController controller;
     
     @BeforeClass
     public static void setup() {
@@ -35,13 +35,13 @@ public class UsuarioControllerTest {
     @Test
     @Order(1)
     public void UserCreationTest(){
-        Usuario tstUser = new Usuario();
-        tstUser.setNombre("User creation Test Name");
-        tstUser.setCorreo("UserCeation@Test.Email");        
+        User tstUser = new User();
+        tstUser.setName("User creation Test Name");
+        tstUser.setMail("UserCeation@Test.Email");        
         tstUser.setPassword("User creation Test password");
         
-        UsuarioController controller = new UsuarioController();
+        UserController controller = new UserController();
         controller.init();
-        //Assert.assertEquals(true, controller.crear(tstUser.getNombre(), tstUser.getCorreo(), tstUser.getPassword()).ok);
+        //Assert.assertEquals(true, controller.crear(tstUser.getName(), tstUser.getMail(), tstUser.getPassword()).ok);
     }
 }

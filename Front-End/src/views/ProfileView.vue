@@ -16,6 +16,16 @@
       >
         EDITAR
       </button>
+      <button
+        id="editBtnH"
+        class="button-base accessBtn"
+        @click="jumpScreen('Hystory')"
+      >
+        HISTORIAL
+      </button>
+      <button id="" class="button-base accessBtn" @click="logout()">
+        Cerrar Sesión
+      </button>
     </div>
   </div>
 </template>
@@ -28,6 +38,12 @@ export default {
       name: this.$store.getters.returnUser.name,
       correo: this.$store.getters.returnUser.mail
     };
+  },
+  methods: {
+    logout() {
+      this.jumpScreen("Home");
+      this.$store.dispatch("resetUser");
+    }
   }
 };
 </script>
@@ -51,7 +67,12 @@ export default {
 #editBtn {
   min-width: 120px;
   min-height: 40px;
-  font-size: 2vw;
+  color: #ff8e43;
+}
+#editBtnH {
+  min-width: 120px;
+  min-height: 40px;
+  
   color: #ff8e43;
 }
 </style>

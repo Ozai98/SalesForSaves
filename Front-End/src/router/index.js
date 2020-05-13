@@ -11,6 +11,11 @@ const router = new VueRouter({
       component: () => import("@/views/Home.vue")
     },
     {
+      path: "/Hystory",
+      name: "Hystory",
+      component: () => import("@/views/Hystory.vue")
+    },
+    {
       path: "/ProfileView",
       name: "ProfileView",
       component: () => import("@/views/ProfileView.vue")
@@ -33,7 +38,15 @@ const router = new VueRouter({
     {
       path: "/SearchProduct",
       name: "SearchProduct",
-      component: () => import("@/views/SearchProduct.vue")
+      component: () => import("@/views/SearchProduct.vue"),
+      props: {
+        searchedValue: String
+      }
+    },
+    {
+      path: "/Reservas/:id",
+      name: "Reservas",
+      component: ()=> import("@/views/Reservas.vue")
     },
     {
       path: "/SellProduct",

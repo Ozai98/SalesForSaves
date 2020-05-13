@@ -1,18 +1,40 @@
 <template>
-  <div class="carta">
+  <div class="carta"@click="jumpReserva(product.id)">
     <img src="@/assets/imgs/banano.jpg" class="imagen" />
     <div class="card-body">
-      <p class="tiempo">
-        hace 20 minutos
-      </p>
-      <h5 class="precio">$500/kg</h5>
-      <h6 id="nombre">Banano ultravergas</h6>
+      <p id="tiempo">Hace {{ getSinceDate() }} días</p>
+      <h5 class="precio">${{ product.price }}/kg</h5>
+      <h5 id="nombre">{{ product.name }}</h5>
+      <h6 id="unidades">Quedan {{ product.leftUnits }} unidades</h6>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    product: {
+      time: Date,
+      price: Number,
+      name: String,
+      leftUnits: Number,
+      id: Number
+    }
+  },
+  methods: {
+        jumpReserva(id2){
+      console.log('me oprimieron');
+      //this.jumpScreen('Reservas');
+      this.$router.push({ name:'Reservas', params:{id: id2}})
+    },
+    getSinceDate() {
+      let current = new Date();
+      let diff = current - this.product.time;
+      let days = diff / (1000 * 3600 * 24);
+      return Math.floor(days);
+    }
+  }
+};
 </script>
 
 <style>
@@ -22,7 +44,7 @@ export default {};
   width: 100%;
   box-sizing: border-box;
   display: block;
-  max-height: 20vw;
+  max-height: 30vw;
   max-width: 17vw;
 }
 .card-body {
@@ -36,11 +58,10 @@ export default {};
   height: auto;
   vertical-align: middle;
   border-style: none;
-
 }
-.tiempo {
+#tiempo {
   font-weight: lighter;
-  font-size: 0.7vw;
+  font-size: 1vw;
   margin-left: 65%;
 }
 .precio {
@@ -50,7 +71,6 @@ export default {};
 }
 #nombre {
   font-weight: lighter;
-  font-size: 1vw;
-  margin-left: 30%;
+  font-size: 2vw;
 }
 </style>
