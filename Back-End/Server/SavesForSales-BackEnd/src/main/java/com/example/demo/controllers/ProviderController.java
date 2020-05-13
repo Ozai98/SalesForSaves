@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.Provider;
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.example.demo.services.Services;
@@ -30,7 +31,7 @@ public class ProviderController extends ClientController<Provider> {
     private Repository<Provider> providerRepository;
 
     public ProviderController() {
-        super(Repository.Provider());
+        super(RepositoryController.Provider());
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.User;
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.services.Services;
@@ -29,7 +30,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController extends ClientController<User>{
 
     public UserController() {
-        super(Repository.User());
+        super(RepositoryController.User());
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

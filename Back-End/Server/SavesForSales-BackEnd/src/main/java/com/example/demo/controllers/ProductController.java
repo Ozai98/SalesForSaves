@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 
 import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -33,14 +34,14 @@ public class ProductController {
     private ClientRepository<Provider> providerRepository;
 
     public ProductController(){
-        productRepository = Repository.Product();        
-        providerRepository = Repository.Provider();
+        productRepository = RepositoryController.Product();        
+        providerRepository = RepositoryController.Provider();
 
     }
 
     public static Product normalize(Product product){
         try{
-            Repository.Provider().refresh(product.getProvider());
+            RepositoryController.Provider().refresh(product.getProvider());
         }catch(Exception ex){
             Services.handleError(ex);
         }            

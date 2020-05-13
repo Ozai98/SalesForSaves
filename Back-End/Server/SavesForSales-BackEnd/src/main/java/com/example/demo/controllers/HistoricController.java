@@ -8,6 +8,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.database.HistoricRepository;
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 import com.example.demo.database.models.Historic;
 import com.example.demo.database.models.Product;
 import com.example.demo.database.models.User;
@@ -44,30 +45,17 @@ public class HistoricController {
     private Repository<Product> productRepository;
     
     public static Historic normalizeHistoric(Historic historic) throws Exception {
-        Repository.Product().refresh(historic.getProduct());
-        Repository.User().refresh(historic.getUser());
+        RepositoryController.Product().refresh(historic.getProduct());
+        RepositoryController.User().refresh(historic.getUser());
         ClientController.<User>normalize(historic.getUser());
         ProductController.normalize(historic.getProduct());
         return historic;
     }
     
-    @PostConstruct
-    public void init() {
-        setHistoricRepository(Repository.Historic());
-        setUsuarioRepository(Repository.User());
-        setProductoRepository(Repository.Product());
-    }
-    
-    public void setHistoricRepository(HistoricRepository repository){
-        this.historicRepository = repository;
-    }
-    
-    public void setUsuarioRepository(Repository<User> repository){
-        this.userRepository = repository;
-    }
-    
-    public void setProductoRepository(Repository<Product> repository){
-        this.productRepository = repository;
+    public HistoricController(){
+        this.historicRepository = RepositoryController.Historic();
+        this.userRepository = RepositoryController.User();
+        this.productRepository = RepositoryController.Product();
     }
     
     @PostMapping(value = "/reserve", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

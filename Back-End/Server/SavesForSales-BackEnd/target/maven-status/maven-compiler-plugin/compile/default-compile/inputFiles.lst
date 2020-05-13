@@ -1,9 +1,14 @@
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Proveedor.java
+<<<<<<< HEAD
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\HistoricoRepository.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\UsuarioRepository.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\UsuarioRepositoryDao.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Historico.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\HistoricoController.java
+=======
+D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\UsuarioRepository.java
+D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\UsuarioRepositoryDao.java
+>>>>>>> unit-test
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\UsuarioController.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\ProductoController.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\ProveedorRepository.java
@@ -14,7 +19,10 @@ D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-En
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\savesforsales\Index.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\ProductoRepositoryDao.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\ProveedorController.java
+<<<<<<< HEAD
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\HistoricoRepositoryDao.java
+=======
+>>>>>>> unit-test
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\ProductoRepository.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\ProveedorRepositoryDao.java
 D:\Universidad Nacional\9 Semestre\Ingenieria de Software II\Ingesoft-II\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\Response.java
