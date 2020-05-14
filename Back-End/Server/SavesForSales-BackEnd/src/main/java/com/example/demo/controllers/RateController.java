@@ -1,10 +1,13 @@
 package com.example.demo.controllers;
 
+import com.example.demo.database.ClientRepository;
+import com.example.demo.database.RateRepositoy;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
 
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 import com.example.demo.database.models.Provider;
 import com.example.demo.database.models.Rate;
 import com.example.demo.database.models.User;
@@ -23,26 +26,26 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin
 @RequestMapping("/rate")
 public class RateController {
-	private Repository<Rate> rateRepository;
-	private Repository<User> userRepository;
-	private Repository<Provider> providerRepository;
+	private RateRepositoy rateRepository;
+	private ClientRepository<User> userRepository;
+	private ClientRepository<Provider> providerRepository;
 
 	@PostConstruct
 	public void init() {
-		setRateRepository(Repository.Rate());
-		setUserRepository(Repository.User());
-		setProviderRepository(Repository.Provider());
+		setRateRepository(RepositoryController.Rate());
+		setUserRepository(RepositoryController.User());
+		setProviderRepository(RepositoryController.Provider());
 	}
 
-	private void setRateRepository(Repository<Rate> rateRepository) {
+	private void setRateRepository(RateRepositoy rateRepository) {
 		this.rateRepository = rateRepository;
 	}
 
-	private void setUserRepository(Repository<User> userRepository) {
+	private void setUserRepository(ClientRepository<User> userRepository) {
 		this.userRepository = userRepository;
 	}
 
-	private void setProviderRepository(Repository<Provider> providerRepository) {
+	private void setProviderRepository(ClientRepository<Provider> providerRepository) {
 		this.providerRepository = providerRepository;
 	}
 
@@ -68,8 +71,8 @@ public class RateController {
 		try {
 			Provider provider = providerRepository.getById(idProvider);
 			providerRepository.refresh(provider);
-			Services.normalize(provider);
-			List<Rate> list = rateRepository.search(idProvider);
+			ProviderController.normalize(provider);
+			List<Rate> list = rateRepository.getByProvider(idProvider);
 			int cuantity = list.size();
 			int rating = 0;
 			for(Rate rate : list){

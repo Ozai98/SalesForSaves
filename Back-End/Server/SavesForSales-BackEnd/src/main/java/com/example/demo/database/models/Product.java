@@ -18,7 +18,7 @@ public class Product{
         @DatabaseField
         private String image;
         @DatabaseField
-        private double cuantity;
+        private double quantity;
         @DatabaseField
         private Date publicationDate;
         
@@ -30,7 +30,7 @@ public class Product{
             name = other.name;
             provider = new Provider(other.provider);
             image = other.image;
-            cuantity = other.cuantity;
+            quantity = other.quantity;
             publicationDate = other.publicationDate;
             
         }
@@ -40,7 +40,7 @@ public class Product{
 	public String getName(){return name;}
 	public Provider getProvider(){return provider;}
         public String getImage(){return image;}
-        public double getCuantity(){return cuantity;}
+        public double getQuantity(){return quantity;}
         public Date getPublicationDate(){return publicationDate;}
 
         public void setId(int id){this.id = id;}
@@ -48,6 +48,6 @@ public class Product{
 	public void setName(String n){name=n;}
 	public void setProvider(Provider p){provider=p;}
         public void setImage(String i){image=i;}
-        public void setCuantity(double c){cuantity = c;}
+        public void setQuantity(double c){quantity = c;}
         public void setPublicationDate(Date d){publicationDate = d;}
 }

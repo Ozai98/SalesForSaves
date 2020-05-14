@@ -1,5 +1,7 @@
 package com.example.demo.controllers;
 
+import com.example.demo.database.ClientRepository;
+import com.example.demo.database.ProductRepository;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 
 import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -27,33 +30,23 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/product")
 public class ProductController {
 
-    private Repository<Product> productRepository;
-    private Repository<Provider> providerRepository;
+    private ProductRepository productRepository;
+    private ClientRepository<Provider> providerRepository;
 
-    
-    
-    @PostConstruct
-    public void init() {
-        setProductoRepository(Repository.Product());
-        setProveedorRepository(Repository.Provider());
+    public ProductController(){
+        productRepository = RepositoryController.Product();        
+        providerRepository = RepositoryController.Provider();
+
     }
 
-    public Product normalizeProducto(Product product){
+    public static Product normalize(Product product){
         try{
-            providerRepository.refresh(product.getProvider());
+            RepositoryController.Provider().refresh(product.getProvider());
         }catch(Exception ex){
             Services.handleError(ex);
         }            
-        Services.normalize(product.getProvider());
+        ProviderController.normalize(product.getProvider());
         return product;
-    }
-    
-    public void setProductoRepository(Repository<Product> repository){
-        this.productRepository = repository;
-    }
-    
-    public void setProveedorRepository(Repository<Provider> repository){
-        this.providerRepository = repository;
     }
 
     @GetMapping("/search/{name}")
@@ -61,7 +54,7 @@ public class ProductController {
         try {
             List<Product> result =  productRepository.search(name);
             Product[] response = new Product[result.size()]; int i = 0;
-            for(Product product: result) response[i++] = normalizeProducto(product);
+            for(Product product: result) response[i++] = normalize(product);
             return new Response<Product []>(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
@@ -74,33 +67,32 @@ public class ProductController {
         try {
             Product product = productRepository.getById(id);
             if(product == null) return new Response<Product>(false, null, "Product no Found");
-            return new Response<Product>(true, normalizeProducto(product), "Ok: " + product.getProvider().getId());
+            return new Response(true, normalize(product), "Ok:");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response<Product>(false, null, ex);
+            return new Response(false, null, ex);
         }
 
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double cuantity){
-        if(price <= 0) return new Response<Product>(false, null, "price invalido");
+    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double quantity){
+        if(price <= 0) return new Response(false, null, "Invalid Price");
         
         if(image == null) image = "";
-        
         Product nProduct = new Product();
         nProduct.setName(name);
         nProduct.setPrice(price);
         nProduct.setImage(image);
-        nProduct.setCuantity(cuantity);
+        nProduct.setQuantity(quantity);
         nProduct.setPublicationDate(new Date());
-        Provider creator;
+        
         try {
-            creator = providerRepository.getById(idProvider);
-            if(creator == null) return new Response<Product>(false, null, "idProvider don't match with any provider id: " + idProvider);
+            Provider creator = providerRepository.getById(idProvider);
+            if(creator == null) return new Response(false, null, "idProvider don't match with any provider id: " + idProvider);
             nProduct.setProvider(creator);
             productRepository.create(nProduct);
-            return new Response<Product>(true, normalizeProducto(nProduct), "Ok. " + creator.getName());
+            return new Response<Product>(true, normalize(nProduct), "Ok. ");
         } catch (Exception e) {
             return new Response<Product>(false, null, e);
         }

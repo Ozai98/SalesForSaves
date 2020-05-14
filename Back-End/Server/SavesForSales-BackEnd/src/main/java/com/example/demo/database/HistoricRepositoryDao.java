@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @author German le yo
  */
-public class HistoricRepositoryDao implements Repository<Historic>{
+public class HistoricRepositoryDao implements HistoricRepository{
     
      private Dao<Historic, Integer> historicDao;
     
@@ -27,12 +27,6 @@ public class HistoricRepositoryDao implements Repository<Historic>{
         historicDao.create(historic);
     }
 
-    @Override
-    public <G> List<Historic> search(G usr) throws SQLException {
-        return historicDao.queryBuilder().where().eq("user", usr).query();
-    }
-
-    @Override
     public Historic getById(int ID) throws SQLException {
         return historicDao.queryForId(ID);
     }
@@ -45,6 +39,15 @@ public class HistoricRepositoryDao implements Repository<Historic>{
     @Override
     public void refresh(Historic obj) throws Exception {
         historicDao.refresh(obj);
+    }
+    
+    @Override
+    public List<Historic> getForUserAndState(Integer usrId, String state) throws SQLException {
+        return historicDao.queryBuilder().where().eq("usuario", usrId).query();
+    }
 
+    @Override
+    public List<Historic> getForProviderAndState(Integer usrId, String state) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

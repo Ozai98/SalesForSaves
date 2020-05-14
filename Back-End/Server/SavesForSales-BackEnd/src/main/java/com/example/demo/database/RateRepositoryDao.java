@@ -3,9 +3,10 @@ package com.example.demo.database;
 import java.util.List;
 
 import com.example.demo.database.models.Rate;
+import com.example.demo.database.models.User;
 import com.j256.ormlite.dao.Dao;
 
-public class RateRepositoryDao implements Repository<Rate> {
+public class RateRepositoryDao implements RateRepositoy {
 
 	private Dao<Rate, Integer> rateDao;
 
@@ -19,8 +20,8 @@ public class RateRepositoryDao implements Repository<Rate> {
 	}
 
 	@Override
-	public <G> List<Rate> search(G obj) throws Exception {
-		return rateDao.queryBuilder().where().eq("user", obj).query();
+	public List<Rate> getByProvider(int provId) throws Exception {
+		return rateDao.queryBuilder().where().eq("provider", provId).query();
 	}
 
 	@Override

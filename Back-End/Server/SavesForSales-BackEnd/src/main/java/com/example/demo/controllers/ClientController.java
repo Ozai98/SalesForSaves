@@ -1,54 +1,81 @@
 package com.example.demo.controllers;
 
+import com.example.demo.database.ClientRepository;
 import java.util.List;
 
-import com.example.demo.database.Repository;
 import com.example.demo.database.models.Client;
 import com.example.demo.services.Services;
 
-public class ClientController<T extends Client > {
+public class ClientController<T extends Client> {
 
-	private Repository<T> repository;
-	
-	public Response<T> create(String name, String mail, String password, String avatar, T newUser){
-		if(!Services.validateEmail(mail)) return new Response<T>(false, null, "bad email");
-		
-		if(avatar == null) avatar = "";
-		
-		newUser.setName(name);
-		newUser.setMail(mail);
-		newUser.setPassword(Services.cryptPassword(password));
-		newUser.setAvatar(avatar);
-		try{
-			// Saving new user
-			repository.create(newUser);
-			return new Response<T>(true, (T) Services.normalize(newUser), "user created");
-		}catch(Exception ex){
-			// Error saving
-			Services.handleError(ex);
-			return new Response<T>(false, null, ex);
-		}
-	}
-	
-	public Response<T> login(String mail, String password){
-		try{
-			List<T> clients = repository.search(mail);
-			if(clients.isEmpty()) return new Response<T>(false, null, "User no found");
-			T provider =  clients.get(0);
-			if(provider.getPassword().compareTo(Services.cryptPassword(password)) != 0) return new Response<T>(false, null, "Bad Password");
-			return new Response<T>(true, Services.normalize(provider), "Ok");
-		}catch(Exception ex){
-			 Services.handleError(ex);
-			return new Response<T>(false, null, ex);
-		}
-	}
+    protected ClientRepository<T> repository;
 
-	public Response<T> update(String name, String password, String avatar, T user) throws Exception {
-		if(user == null) return new Response<T>(false, null, "User no Found");
-		if(name != null) user.setName(name);
-		if(password != null) user.setPassword(Services.cryptPassword(password));
-		if(avatar != null) user.setAvatar(avatar);
-		repository.update((T)user);
-		return new Response<T>(true, Services.normalize(user), "Ok");
-	}
+    public ClientController(ClientRepository<T> repository){
+        this.repository = repository;
+    }
+    
+    public static <T extends Client> T normalize(T instance) {
+        instance.setPassword("");
+        return instance;
+    }
+    
+    public Response<T> getById(Integer id){
+        try {
+            T instance = repository.getById(id);
+            if (instance == null) return new Response(false, null, "Client no Found");
+            return new Response(true, normalize(instance), "Ok");
+        } catch (Exception ex) {
+            Services.handleError(ex);
+            return new Response(false, null, ex);
+        }
+    }
+    
+    public Response<T> create(String name, String mail, String password, String avatar, T instance) {
+        if (!Services.validateEmail(mail)) return new Response(false, null, "bad email");
+        
+        if (avatar == null) avatar = "";
+
+        instance.setName(name);
+        instance.setMail(mail);
+        instance.setPassword(Services.cryptPassword(password));
+        instance.setAvatar(avatar);
+        try {
+            // Saving new user
+            repository.create(instance);
+            return new Response(true, normalize(instance), "user created");
+        } catch (Exception ex) {
+            // Error saving
+            Services.handleError(ex);
+            return new Response<T>(false, null, ex);
+        }
+    }
+
+    public Response<T> login(String mail, String password) {
+        try {
+            List<T> clients = repository.getByEmail(mail);
+            if (clients.isEmpty()) return new Response(false, null, "Client no found");
+            
+            T instance = clients.get(0);
+            if (instance.getPassword().compareTo(Services.cryptPassword(password)) != 0) {
+                return new Response(false, null, "Bad Password");
+            }
+            return new Response(true, normalize(instance), "Ok");
+        } catch (Exception ex) {
+            Services.handleError(ex);
+            return new Response(false, null, ex);
+        }
+    }
+
+    public Response<T> update(String name, String password, String avatar, T instance) throws Exception {
+        if (instance == null) return new Response(false, null, "User no Found");
+        
+        if (name != null) instance.setName(name);
+        
+        if (password != null)  instance.setPassword(Services.cryptPassword(password));
+        
+        if (avatar != null) instance.setAvatar(avatar);
+        
+        repository.update(instance);
+        return new Response(true, normalize(instance), "Ok");
+    }
 }

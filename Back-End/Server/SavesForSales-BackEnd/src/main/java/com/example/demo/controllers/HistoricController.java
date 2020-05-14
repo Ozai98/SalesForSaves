@@ -6,7 +6,9 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.database.HistoricRepository;
 import com.example.demo.database.Repository;
+import com.example.demo.database.RepositoryController;
 import com.example.demo.database.models.Historic;
 import com.example.demo.database.models.Product;
 import com.example.demo.database.models.User;
@@ -38,35 +40,22 @@ public class HistoricController {
     private static final String RESERVA_STATE = "RESERVA";
     private static final String HISTORICO_STATE = "HISTORICO";
     
-    private Repository<Historic> historicRepository;
+    private HistoricRepository historicRepository;
     private Repository<User> userRepository;
     private Repository<Product> productRepository;
     
-    public Historic normalizeHistorico(Historic historic) throws Exception {
-        productRepository.refresh(historic.getProduct());
-        userRepository.refresh(historic.getUser());
-        Services.normalize(historic.getUser());
-        Services.normalize(historic.getProduct().getProvider());
+    public static Historic normalizeHistoric(Historic historic) throws Exception {
+        RepositoryController.Product().refresh(historic.getProduct());
+        RepositoryController.User().refresh(historic.getUser());
+        ClientController.<User>normalize(historic.getUser());
+        ProductController.normalize(historic.getProduct());
         return historic;
     }
     
-    @PostConstruct
-    public void init() {
-        setHistoricoRepository(Repository.Historic());
-        setUsuarioRepository(Repository.User());
-        setProductoRepository(Repository.Product());
-    }
-    
-    public void setHistoricoRepository(Repository<Historic> repository){
-        this.historicRepository = repository;
-    }
-    
-    public void setUsuarioRepository(Repository<User> repository){
-        this.userRepository = repository;
-    }
-    
-    public void setProductoRepository(Repository<Product> repository){
-        this.productRepository = repository;
+    public HistoricController(){
+        this.historicRepository = RepositoryController.Historic();
+        this.userRepository = RepositoryController.User();
+        this.productRepository = RepositoryController.Product();
     }
     
     @PostMapping(value = "/reserve", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -91,35 +80,20 @@ public class HistoricController {
 
             historicRepository.create(newH);
             
-            return new Response<Historic>(true, normalizeHistorico(newH), "Reserved product");
-            
+            return new Response<Historic>(true, normalizeHistoric(newH), "Reserved product");
         }catch (Exception e) {
             return new Response<Historic>(false, null, e);
         }
     }
-
-    @GetMapping(value = "/buyed/{id}")
-    public Response<Historic []> searchHistoric(@PathVariable Integer id){
-        try {
-            List<Historic> result = historicRepository.search(id);
-            Historic[] response = new Historic[result.size()]; int i = 0;
-            for(Historic historic: result) response[i++] = normalizeHistorico(historic);
-            return new Response<Historic []>(true, response, "ok");
-        } catch (Exception ex) {
-            Services.handleError(ex);
-            return new Response<Historic []>(false, null, ex);
-        }
-        
-    }
     
     @PostMapping(value = "/buyed-product", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Historic> buyedProduct(Integer idHistorico){
-        if(idHistorico == null) return new Response<Historic>(false, null, String.format("Missing parameters. missing idHistorico: %b" , idHistorico == null));
+    public Response<Historic> buyedProduct(Integer idHistoric){
+        if(idHistoric == null) return new Response<Historic>(false, null, String.format("Missing parameters. missing idHistoric: %b" , idHistoric == null));
         
         try{
-            Historic hist = historicRepository.getById(idHistorico);
+            Historic hist = historicRepository.getById(idHistoric);
             
-            if(hist == null) return new Response<Historic>(false, null, "Historico no Found");
+            if(hist == null) return new Response<Historic>(false, null, "Historic no Found");
             
             if(hist.getTimeReserve().before(new Date())) return new Response<Historic>(false, null, String.format("Expired reservation date"));
             if(hist.getState().compareTo(RESERVA_STATE) != 0) return new Response<Historic>(false, null, "Not a reserved element");
@@ -128,11 +102,64 @@ public class HistoricController {
             hist.setBuyDate(new Date());
             historicRepository.update(hist);
             
-            return new Response<Historic>(true, normalizeHistorico(hist), "Buyed product");
+            return new Response<Historic>(true, normalizeHistoric(hist), "Buyed product");
             
         }catch (Exception e) {
             return new Response<Historic>(false, null, e);
         }
     }
     
+    @PostMapping(value = "/get-user-reserved", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Historic[]> getUserReserved(Integer idUser){
+        try{
+            List<Historic> list = historicRepository.getForUserAndState(idUser, RESERVA_STATE);
+            Historic[] exit = new Historic[list.size()];
+            
+            int i = 0;
+            for (Historic historico : list) {
+                exit[i++] = normalizeHistoric(historico);
+            }
+            
+            return new Response(true, exit, "Reserve Found");
+        }catch(Exception e){
+            return new Response(false, null, e);
+        }
+    }
+    
+    @PostMapping(value = "/get-user-historic", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Historic[]> getUserHistoric(Integer idUser){
+        try{
+            List<Historic> list = historicRepository.getForUserAndState(idUser, HISTORICO_STATE);
+            Historic[] exit = new Historic[list.size()];
+            
+            int i = 0;
+            for (Historic historico : list) {
+                exit[i++] = normalizeHistoric(historico);
+            }
+            return new Response(true, exit, "Historic Found");
+        }catch(Exception e){
+            return new Response(false, null, e);
+        }
+    }
+    
+    @PostMapping(value = "/get-provder-reserved", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Historic[]> getProviderReserved(Integer idProv){
+        try{
+            List<Historic> list = historicRepository.getForProviderAndState(idProv, HISTORICO_STATE);
+            Historic[] exit = new Historic[list.size()];
+            
+            int i = 0;
+            for (Historic historico : list) {
+                exit[i++] = normalizeHistoric(historico);
+            }
+            return new Response(true, exit, "Historic Found");
+        }catch(Exception e){
+            return new Response(false, null, e);
+        }
+    }
+    
+    @PostMapping(value = "/get-provder-historic", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<Historic[]> getProviderHistoric(Integer idProv){
+        return null;
+    }
 }

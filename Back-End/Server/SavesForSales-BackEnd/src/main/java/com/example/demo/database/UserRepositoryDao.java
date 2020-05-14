@@ -5,13 +5,14 @@
  */
 package com.example.demo.database;
 
+import com.example.demo.database.models.Client;
 import com.example.demo.database.models.User;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
 
-public class UserRepositoryDao implements Repository<User>{
+public class UserRepositoryDao implements ClientRepository<User>{
 
     private Dao<User, Integer> userDao;
     
@@ -25,7 +26,7 @@ public class UserRepositoryDao implements Repository<User>{
     }
 
     @Override
-    public <G> List<User> search(G email)  throws SQLException{
+    public List<User> getByEmail(String email)  throws SQLException{
         return userDao.queryForEq("correo", email);
     }
 
@@ -42,7 +43,6 @@ public class UserRepositoryDao implements Repository<User>{
     @Override
     public void refresh(User obj) throws Exception {
         userDao.refresh(obj);
-
     }
     
 }
