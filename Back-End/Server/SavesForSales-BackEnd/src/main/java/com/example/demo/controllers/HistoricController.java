@@ -81,7 +81,9 @@ public class HistoricController {
             if(usr == null) return new Response<Historic>(false, null, "Usuario no Found");
             Product prod = productRepository.getById(idProducto);
             if(prod == null) return new Response<Historic>(false, null, "Producto no Found");
-            
+            Date nDate = new Date();
+            if(nDate.compareTo(prod.getTimeLimit())>0)return new Response<Historic>(false, null, "too late");
+
             Historic nuevo = new Historic();
             nuevo.setCuantity(cuantity);
             nuevo.setState(RESERVA_STATE);

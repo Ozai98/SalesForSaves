@@ -21,6 +21,8 @@ public class Product{
         private double cuantity;
         @DatabaseField
         private Date publicationDate;
+        @DatabaseField
+        private Date timeLimit;
         
         public Product(){}
         
@@ -32,6 +34,7 @@ public class Product{
             image = other.image;
             cuantity = other.cuantity;
             publicationDate = other.publicationDate;
+            timeLimit = other.timeLimit;
             
         }
         
@@ -42,6 +45,7 @@ public class Product{
         public String getImage(){return image;}
         public double getCuantity(){return cuantity;}
         public Date getPublicationDate(){return publicationDate;}
+        public Date getTimeLimit(){return timeLimit;};
 
         public void setId(int id){this.id = id;}
 	public void setPrice(double p){price=p;}
@@ -50,4 +54,5 @@ public class Product{
         public void setImage(String i){image=i;}
         public void setCuantity(double c){cuantity = c;}
         public void setPublicationDate(Date d){publicationDate = d;}
+        public void setTimeLimit(Date d){timeLimit = d;}
 }
