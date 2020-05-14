@@ -4,8 +4,6 @@ import com.example.demo.database.ClientRepository;
 import com.example.demo.database.ProductRepository;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -49,13 +47,17 @@ public class ProductController {
         return product;
     }
 
-    @GetMapping("/search/{name}")
-    public Response<Product[]> searchProducts(@PathVariable String name) {
+    @GetMapping(value={"/search/{name}", "/search"})
+    public Response<Product[]> searchProductos(@PathVariable(required = false) String name) {
         try {
-            List<Product> result =  productRepository.search(name);
-            Product[] response = new Product[result.size()]; int i = 0;
+            List<Product> result;
+            if(name == null || name.isEmpty()) result = productRepository.search("");
+            else result =  productRepository.search(name);
+            
+            Product[] response = new Product[result.size()]; 
+            int i = 0;
             for(Product product: result) response[i++] = normalize(product);
-            return new Response<Product []>(true, response, "Ok");
+            return new Response(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
             return new Response<Product []>(false, null, ex);

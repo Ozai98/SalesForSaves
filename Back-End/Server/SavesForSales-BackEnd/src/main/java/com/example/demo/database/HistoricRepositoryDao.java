@@ -44,7 +44,7 @@ public class HistoricRepositoryDao implements HistoricRepository{
     
     @Override
     public List<Historic> getForUserAndState(Integer usrId, String state) throws SQLException {
-        return historicDao.queryBuilder().where().eq("usuario", usrId).query();
+        return historicDao.queryBuilder().where().eq("user", usrId).and().eq("state", state).query();
     }
 
     @Override

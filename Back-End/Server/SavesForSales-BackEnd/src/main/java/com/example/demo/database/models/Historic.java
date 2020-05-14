@@ -16,6 +16,8 @@ import java.util.Date;
 
 @DatabaseTable(tableName = "Historic")
 public class Historic {
+
+    
     @DatabaseField(generatedId = true)
     private int id;
     @DatabaseField(foreign = true, columnName = "user")
@@ -27,9 +29,11 @@ public class Historic {
     @DatabaseField
     private Date buyDate;
     @DatabaseField
-    private double cuantity;
+    private double quantity;
     @DatabaseField
-    String state;
+    private String state;
+    @DatabaseField
+    private Date reserveMoment;
     
     public Historic(){
         id = -1;
@@ -41,7 +45,7 @@ public class Historic {
         product = new Product(other.product);
         timeReserve = other.timeReserve;
         buyDate = other.buyDate;
-        cuantity = other.cuantity;
+        quantity = other.quantity;
         state = other.state;
     }
     
@@ -50,15 +54,17 @@ public class Historic {
     public Product getProduct(){return product;}
     public Date getTimeReserve(){return timeReserve;}
     public Date getBuyDate(){return buyDate;}
-    public double getCuantity(){return cuantity;}
+    public double getQuantity(){return quantity;}
     public String getState(){return state;}
-    
+    public Date getReserveMoment() {return reserveMoment;}
+
+    public void setReserveMoment(Date reserveMoment) {this.reserveMoment = reserveMoment;}
     public void setId(int id){this.id = id;}
     public void setUser(User usr){user = usr;}
     public void setProduct(Product prod){product = prod;}
     public void setTimeReserve(Date time){timeReserve = time;}
     public void setBuyDate(Date date){buyDate = date;}
-    public void setCuantity(double cuantity){this.cuantity = cuantity;}
+    public void setQuantity(double cuantity){this.quantity = cuantity;}
     public void setState(String state){this.state = state;}
     
 }

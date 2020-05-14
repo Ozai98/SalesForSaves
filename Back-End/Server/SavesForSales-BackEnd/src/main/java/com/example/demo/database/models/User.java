@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
  *
  * @author German le yo
  */
-@DatabaseTable(tableName = "Usuario")
+@DatabaseTable(tableName = "User")
 public class User implements Client{
 
 	@DatabaseField(generatedId = true)
@@ -54,7 +54,7 @@ public class User implements Client{
 		return avatar;
 	}
 
-	public void setId(int id){this.id = id;}
+	public void setId(Integer id){this.id = id;}
 	
 	public void setName(String name) {
 		this.name = name;

@@ -27,7 +27,7 @@ public class UserRepositoryDao implements ClientRepository<User>{
 
     @Override
     public List<User> getByEmail(String email)  throws SQLException{
-        return userDao.queryForEq("correo", email);
+        return userDao.queryForEq("mail", email);
     }
 
     @Override
