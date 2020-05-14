@@ -13,7 +13,7 @@ public class Response<T> {
 		this.ok = ok;
 		this.clase = clase;
                 StringBuilder msg = new StringBuilder();
-                msg.append("Error");
+                msg.append("Exception. ");
                 for(Throwable current = ex; current != null; current = current.getCause()) msg.append(" caused By ").append(current.getMessage());
                 this.msg = msg.toString();
                 ex.printStackTrace();

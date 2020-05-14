@@ -40,7 +40,7 @@ public class Product{
 	public String getName(){return name;}
 	public Provider getProvider(){return provider;}
         public String getImage(){return image;}
-        public double getCuantity(){return quantity;}
+        public double getQuantity(){return quantity;}
         public Date getPublicationDate(){return publicationDate;}
 
         public void setId(int id){this.id = id;}

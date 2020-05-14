@@ -67,7 +67,7 @@ public class ClientController<T extends Client> {
     }
 
     public Response<T> update(String name, String password, String avatar, T instance) throws Exception {
-        if (instance == null) return new Response<T>(false, null, "User no Found");
+        if (instance == null) return new Response(false, null, "User no Found");
         
         if (name != null) instance.setName(name);
         
