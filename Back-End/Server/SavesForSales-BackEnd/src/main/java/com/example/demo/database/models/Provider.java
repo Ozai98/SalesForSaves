@@ -7,7 +7,7 @@ import com.j256.ormlite.table.DatabaseTable;
  *
  * @author German le yo
  */
-@DatabaseTable(tableName = "Proveedor")
+@DatabaseTable(tableName = "Provider")
 public class Provider implements Client{
 
     @DatabaseField(generatedId = true)
@@ -24,16 +24,17 @@ public class Provider implements Client{
     private String ubication;
 
     public Provider(){
-        name = mail = password = "";
+        name = mail = password = avatar = ubication = "";
+        id = -1;
     }
-
-    public Provider(Provider other){
-        id = other.id;
-        name = other.name;
-        mail = other.mail;
-        password = other.password;
-        avatar = other.avatar;
-        ubication = other.ubication;
+    
+    public Provider(Provider prov){
+        this.id = prov.id;
+        this.name = prov.name;
+        this.mail = prov.mail;
+        this.password = prov.password;
+        this.avatar = prov.avatar;
+        this.ubication = prov.ubication;
     }
     
     // ---- GETS AND SETS ---------
@@ -63,7 +64,7 @@ public class Provider implements Client{
 
     // ---------------- SETTERS---------------
     
-    public void setId(int id){this.id = id;}
+    public void setId(Integer id){this.id = id;}
     
     public void setName(String name) {
         this.name = name;

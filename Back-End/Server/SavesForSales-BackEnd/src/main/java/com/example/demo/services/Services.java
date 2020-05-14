@@ -42,9 +42,6 @@ public class Services {
 		return emailPattern.matcher(email).matches();
 	}
 
-	public static <T extends Client> T normalize(T usr) {
-		usr.setPassword("");
-		return usr;
-	}
+	
 
 } 

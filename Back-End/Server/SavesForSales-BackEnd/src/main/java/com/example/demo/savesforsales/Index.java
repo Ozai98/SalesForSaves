@@ -1,6 +1,7 @@
 
 package com.example.demo.savesforsales;
 
+import com.example.demo.database.RepositoryController;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
@@ -28,10 +29,11 @@ public class Index {
       return "Bienvenido al servidor de backend de SavesForSales";
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception{
        Services.startServices();
+        RepositoryController.setDaoClases();
        SpringApplication app = new SpringApplication(Index.class);
        app.setDefaultProperties(Collections.singletonMap("server.port", "8083"));
-        app.run(args);
+       app.run(args);
     }
 }

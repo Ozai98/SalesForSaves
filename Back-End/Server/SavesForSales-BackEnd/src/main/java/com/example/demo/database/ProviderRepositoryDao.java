@@ -10,7 +10,7 @@ import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;
 import java.util.List;
 
-public class ProviderRepositoryDao implements Repository<Provider>{
+public class ProviderRepositoryDao implements ClientRepository<Provider>{
  
     private Dao<Provider, Integer> providerDao;
     
@@ -24,11 +24,6 @@ public class ProviderRepositoryDao implements Repository<Provider>{
     }
 
     @Override
-    public <G> List<Provider> search(G email)  throws SQLException{
-        return providerDao.queryForEq("correo", email);
-    }
-
-    @Override
     public Provider getById(int ID)  throws SQLException{
         return providerDao.queryForId(ID);
     }
@@ -39,8 +34,13 @@ public class ProviderRepositoryDao implements Repository<Provider>{
     }
 
     @Override
-    public void refresh(Provider prov) throws Exception {
+    public void refresh(Provider prov) throws SQLException {
         providerDao.refresh(prov);
+    }
+
+    @Override
+    public List<Provider> getByEmail(String email) throws SQLException {
+        return providerDao.queryForEq("mail", email);
     }
     
 }

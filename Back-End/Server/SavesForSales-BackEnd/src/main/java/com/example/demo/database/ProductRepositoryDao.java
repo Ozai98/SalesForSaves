@@ -13,9 +13,9 @@ import java.util.List;
  *
  * @author German le yo
  */
-public class ProductRepositoryDao implements Repository<Product>{
+public class ProductRepositoryDao implements ProductRepository{
 
-    private Dao<Product, Integer> productDao;
+    private final Dao<Product, Integer> productDao;
 
     public ProductRepositoryDao(){
         this.productDao = DaoController.getInstance().productDao();
@@ -24,11 +24,6 @@ public class ProductRepositoryDao implements Repository<Product>{
     @Override
     public void create(Product prod) throws Exception {
         productDao.create(prod);
-    }
-
-    @Override
-    public <G> List<Product> search(G param) throws Exception {
-        return productDao.queryBuilder().where().like("nombre", "%" + param + "%").query();
     }
 
     @Override
@@ -46,6 +41,11 @@ public class ProductRepositoryDao implements Repository<Product>{
     public void refresh(Product obj) throws Exception {
         productDao.refresh(obj);
 
+    }
+
+    @Override
+    public List<Product> search(String param) throws Exception {
+        return productDao.queryBuilder().where().like("name", "%" + param + "%").query();
     }
     
 }
