@@ -11,16 +11,16 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"mode": "formdata",
+					"formdata": [
 						{
 							"key": "name",
-							"value": "German",
+							"value": "Test User",
 							"type": "text"
 						},
 						{
 							"key": "mail",
-							"value": "german3@gmail.com",
+							"value": "testmail@testmail.com",
 							"type": "text"
 						},
 						{
@@ -30,9 +30,8 @@
 						},
 						{
 							"key": "avatar",
-							"value": "LeAvatar.png",
-							"type": "text",
-							"disabled": true
+							"type": "file",
+							"src": "/C:/Users/German le yo/Pictures/le yo.png"
 						}
 					]
 				},
@@ -137,7 +136,7 @@
 					"urlencoded": [
 						{
 							"key": "mail",
-							"value": "german3@gmail.com",
+							"value": "Jose@testmail.com",
 							"type": "text"
 						},
 						{
@@ -167,8 +166,8 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"mode": "formdata",
+					"formdata": [
 						{
 							"key": "id",
 							"value": "1",
@@ -181,13 +180,14 @@
 						},
 						{
 							"key": "password",
-							"value": "1111",
-							"type": "text"
+							"value": "0000",
+							"type": "text",
+							"disabled": true
 						},
 						{
 							"key": "avatar",
-							"value": "New avatar.jpg",
-							"type": "text"
+							"type": "file",
+							"src": "/C:/Users/German le yo/Pictures/WorkImgs/ion fab.png"
 						}
 					]
 				},

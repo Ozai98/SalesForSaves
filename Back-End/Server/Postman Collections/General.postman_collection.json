@@ -1,0 +1,61 @@
+{
+	"info": {
+		"_postman_id": "a2b1676d-b2bc-43fa-9860-823a69a7edb1",
+		"name": "General",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get Image",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8083/general/get-image/banana.jpeg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"general",
+						"get-image",
+						"banana.jpeg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Save Image",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/German le yo/Pictures/le yo.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8083/general/upload-image",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"general",
+						"upload-image"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

@@ -20,3 +20,6 @@ yarn-error.log*
 *.sln
 *.sw?
 /Back-End/Server/SavesForSales-BackEnd/target/
+
+**/uploads/*
+! **/uploads/.gitkeep
