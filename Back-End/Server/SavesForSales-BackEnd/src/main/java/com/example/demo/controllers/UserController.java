@@ -18,6 +18,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -33,8 +34,8 @@ public class UserController extends ClientController<User>{
         super(RepositoryController.User());
     }
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<User> create(String name, String mail, String password, String avatar) {
+    @PostMapping(value = "/create")
+    public Response<User> create(String name, String mail, String password, MultipartFile avatar) {
         return super.create(name, mail, password, avatar, new User());
     }
 
@@ -60,8 +61,8 @@ public class UserController extends ClientController<User>{
         return super.getById(id);
     }
 
-    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<User> updateUser(Integer id, String name, String password, String avatar) {
+    @PostMapping(value = "/update")
+    public Response<User> updateUser(Integer id, String name, String password, MultipartFile avatar) {
         if(id == null) return new Response(false, null, "Missing ID");
         try{
             return super.update(name, password, avatar, repository.getById(id));

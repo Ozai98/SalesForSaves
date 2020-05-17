@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.Repository;
 import com.example.demo.database.RepositoryController;
+import com.example.demo.services.FileSystem;
 
 import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @EnableAutoConfiguration
@@ -77,26 +79,33 @@ public class ProductController {
 
     }
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double quantity){
+    @PostMapping(value = "/create")
+    public Response<Product> create(String name, Double price, Integer idProvider, MultipartFile image, Double quantity){
         if(price <= 0) return new Response(false, null, "Invalid Price");
         
-        if(image == null) image = "";
         Product nProduct = new Product();
         nProduct.setName(name);
         nProduct.setPrice(price);
-        nProduct.setImage(image);
         nProduct.setQuantity(quantity);
         nProduct.setPublicationDate(new Date());
         
         try {
+            
+            String imgName = FileSystem.DEFAULT_IMG;
+            if(image != null) {
+                FileSystem.FileSystemRespone<String> res =  FileSystem.saveFile(new FileSystem.SFSFile(image.getBytes(), image.getOriginalFilename()));
+                if(!res.ok) return new Response(false, null, res.ex);
+                else imgName = res.msg;
+            }
+            nProduct.setImage(imgName);
+            
             Provider creator = providerRepository.getById(idProvider);
             if(creator == null) return new Response(false, null, "idProvider don't match with any provider id: " + idProvider);
             nProduct.setProvider(creator);
             productRepository.create(nProduct);
-            return new Response<Product>(true, normalize(nProduct), "Ok. ");
+            return new Response(true, normalize(nProduct), "Ok. ");
         } catch (Exception e) {
-            return new Response<Product>(false, null, e);
+            return new Response(false, null, e);
         }
     }
 }

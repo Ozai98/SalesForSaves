@@ -28,6 +28,8 @@ public class FileSystem {
             this.name = name;
         }
     }
+    
+    public static final String DEFAULT_IMG = "noimg.unknown";
 
     public static class FileSystemRespone<T>{
         public final T msg;
@@ -77,8 +79,14 @@ public class FileSystem {
         
     }
     
-    public static boolean removeFile(String name){
-        throw new RuntimeException("Remove File not implemented");
+    public static FileSystemRespone<String> removeFile(String name){
+        try{
+            Files.deleteIfExists(Paths.get(SAVE_PATH + name));
+            return new FileSystemRespone("Ok", null);
+        }catch(Exception e){
+            return new FileSystemRespone(null, e);
+        }
+        
     }
     
     
