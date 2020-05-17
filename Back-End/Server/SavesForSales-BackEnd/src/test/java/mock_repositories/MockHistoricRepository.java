@@ -22,7 +22,7 @@ public class MockHistoricRepository {
     private HashMap<Integer, Client> mockTable;
     private AtomicInteger idCounter ;
     
-    public MockClientRepository(){
+    public MockHistoricRepository(){
         mockTable = new HashMap();
         idCounter = new AtomicInteger();
     }

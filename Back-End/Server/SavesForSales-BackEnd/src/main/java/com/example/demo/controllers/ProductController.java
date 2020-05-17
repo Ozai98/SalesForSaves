@@ -48,7 +48,7 @@ public class ProductController {
     }
 
     @GetMapping(value={"/search/{name}", "/search"})
-    public Response<Product[]> searchProductos(@PathVariable(required = false) String name) {
+    public Response<Product[]> searchProducts(@PathVariable(required = false) String name) {
         try {
             List<Product> result;
             if(name == null || name.isEmpty()) result = productRepository.search("");

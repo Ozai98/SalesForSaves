@@ -88,7 +88,7 @@
 					"urlencoded": [
 						{
 							"key": "idUser",
-							"value": "1",
+							"value": "2",
 							"type": "text"
 						}
 					]
@@ -117,7 +117,7 @@
 					"urlencoded": [
 						{
 							"key": "idUser",
-							"value": "1",
+							"value": "2",
 							"type": "text"
 						}
 					]
@@ -131,6 +131,64 @@
 					"path": [
 						"historic",
 						"get-user-historic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get reserved Provider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idProv",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historic/get-provider-reserved",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historic",
+						"get-provider-reserved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get historic Provider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idProv",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historic/get-provider-historic",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historic",
+						"get-provider-historic"
 					]
 				}
 			},
