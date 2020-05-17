@@ -109,8 +109,8 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"mode": "formdata",
+					"formdata": [
 						{
 							"key": "id",
 							"value": "1",
@@ -129,15 +129,13 @@
 						},
 						{
 							"key": "avatar",
-							"value": "my avatar",
-							"type": "text",
-							"disabled": true
+							"type": "file",
+							"src": "/C:/Users/German le yo/Pictures/WorkImgs/petAtHomeSearch.jpeg"
 						},
 						{
 							"key": "ubication",
-							"value": "My house man :D",
-							"type": "text",
-							"disabled": true
+							"value": "New location",
+							"type": "text"
 						}
 					]
 				},

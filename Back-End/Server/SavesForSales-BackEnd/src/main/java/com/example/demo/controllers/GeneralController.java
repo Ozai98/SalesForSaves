@@ -28,8 +28,7 @@ public class GeneralController {
     
     
     @GetMapping("/get-image/{img:.+}")
-    public byte[] getById(@PathVariable String img) {
-        System.out.println(img);
+    public byte[] getImage(@PathVariable String img) {
         FileSystemRespone<SFSFile> res = FileSystem.getFile(img);
 
         if(res.ok) return res.msg.bytes;
