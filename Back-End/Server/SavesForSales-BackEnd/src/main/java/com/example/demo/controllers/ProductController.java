@@ -21,6 +21,7 @@ import com.example.demo.database.RepositoryController;
 import com.example.demo.services.FileSystem;
 
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -65,22 +66,22 @@ public class ProductController {
             return new Response<Product []>(false, null, ex);
         }
     }
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/get-by-id/{id}")
     public Response<Product> getProduct( @PathVariable Integer id) {
         try {
             Product product = productRepository.getById(id);
             if(product == null) return new Response<Product>(false, null, "Product no Found");
-            return new Response(true, normalize(product), "Ok:");
+            return new Response<Product>(true, normalize(product), "Ok:");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Product>(false, null, ex);
         }
 
     }
 
     @PostMapping(value = "/create")
-    public Response<Product> create(String name, Double price, Integer idProvider, MultipartFile image, Double quantity){
+    public Response<Product> create(String name, Double price, Integer idProvider, MultipartFile image, Double quantity, @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date timeLimit){
         if(price <= 0) return new Response(false, null, "Invalid Price");
         
         Product nProduct = new Product();
@@ -88,7 +89,8 @@ public class ProductController {
         nProduct.setPrice(price);
         nProduct.setQuantity(quantity);
         nProduct.setPublicationDate(new Date());
-        
+        nProduct.setTimeLimit(timeLimit);
+        Provider creator;
         try {
             
             String imgName = FileSystem.DEFAULT_IMG;
@@ -99,7 +101,7 @@ public class ProductController {
             }
             nProduct.setImage(imgName);
             
-            Provider creator = providerRepository.getById(idProvider);
+            creator = providerRepository.getById(idProvider);
             if(creator == null) return new Response(false, null, "idProvider don't match with any provider id: " + idProvider);
             nProduct.setProvider(creator);
             productRepository.create(nProduct);

@@ -1,10 +1,8 @@
 mock_repositories\MockProductRepository.class
-mock_repositories\MockClientRepository.class
 mock_repositories\MockProviderRepository.class
 mock_repositories\MockUserRepository.class
 savesforsales_test\UserControllerTest.class
 savesforsales_test\Utils.class
 mock_repositories\MockHistoricRepository.class
-mock_repositories\MockResponseRepository.class
 savesforsales_test\ProductControllerTest.class
 savesforsales_test\ProviderControllerTest.class

@@ -35,13 +35,13 @@ public class MockProviderRepository implements ClientRepository<Provider>{
     @Override
     public List<Provider> getByEmail(String Email) throws Exception{
         LinkedList<Provider> exit = new LinkedList();
-        for(Provider pro: mockTable.values()) if(pro.getMail().compareTo(Email) == 0) exit.add(pro);
+        for(Provider pro: mockTable.values()) if(pro.getMail().compareTo(Email) == 0) exit.add(new Provider(pro));
         return exit;
     }
 
     @Override
     public Provider getById(int ID) throws Exception {
-        return mockTable.getOrDefault(ID, null);
+        return new Provider(mockTable.getOrDefault(ID, null));
     }
     
     @Override

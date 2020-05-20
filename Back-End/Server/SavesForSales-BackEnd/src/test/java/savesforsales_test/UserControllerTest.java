@@ -43,7 +43,7 @@ public class UserControllerTest {
         defaultUser.setMail("defaultUser@Test.Email");        
         defaultUser.setPassword("defaultUser password");
         defaultUser.setAvatar("defaultUser avatar");
-        Response<User> res = controller.create(defaultUser.getName(), defaultUser.getMail(), defaultUser.getPassword(), defaultUser.getAvatar());
+        Response<User> res = controller.create(defaultUser.getName(), defaultUser.getMail(), defaultUser.getPassword(), null);
         if(!res.ok) Assert.fail("Fail default user creation");
         defaultUser.setId(res.clase.getId());
     }
@@ -56,7 +56,7 @@ public class UserControllerTest {
         tstUser.setPassword("User creation Test password");
         tstUser.setAvatar("User creation Test avatar");
         
-        Response res = controller.create(tstUser.getName(), tstUser.getMail(), tstUser.getPassword(), tstUser.getAvatar());
+        Response res = controller.create(tstUser.getName(), tstUser.getMail(), tstUser.getPassword(), null);
         
         Assert.assertEquals(res.msg, true, res.ok);
     }
@@ -121,7 +121,7 @@ public class UserControllerTest {
         Assert.assertTrue(res.msg, res.ok);
         
         defaultUser.setAvatar("defaultUser updated avatar");
-        res = controller.updateUser(defaultUser.getId(), null, null, defaultUser.getAvatar());
+        res = controller.updateUser(defaultUser.getId(), null, null, null);
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.clase.getAvatar(), defaultUser.getAvatar());
         
