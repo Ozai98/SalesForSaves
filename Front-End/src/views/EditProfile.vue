@@ -50,7 +50,7 @@ export default {
   props: {
     UserName: String,
     Mail: String,
-    Alt: Boolean
+    Alt: Boolean,
   },
   data() {
     return {
@@ -58,8 +58,8 @@ export default {
         name: "",
         username: "",
         password: "",
-        password2: ""
-      }
+        password2: "",
+      },
     };
   },
   methods: {
@@ -74,25 +74,25 @@ export default {
         else console.log("Contraseñas distintas");
       }
       if (this.isProvider) {
-        fun_request = request.updateProveedor;
+        fun_request = request.updateProvider;
       } else {
-        fun_request = request.updateUser;
+        fun_request = request.updateClient;
       }
       fun_request(
         this.$store.getters.returnUser.id,
         new_name,
         new_pass,
         null,
-        data => {
+        (data) => {
           if (data.ok) {
             console.log("Usuario editado correctamente");
-            this.$store.dispatch("storeUser", data.clase);
+            this.$store.dispatch("storeUser", data.classX);
             this.jumpScreen("ProfileView");
           } else console.log("No se pudo editar el usuario");
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

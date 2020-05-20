@@ -6,8 +6,9 @@
 package com.example.demo.controllers;
 
 
+import com.example.demo.database.ClientRepository;
 import com.example.demo.database.HistoricRepository;
-import com.example.demo.database.Repository;
+import com.example.demo.database.ProductRepository;
 import com.example.demo.database.RepositoryController;
 import com.example.demo.database.models.Historic;
 import com.example.demo.database.models.Product;
@@ -17,12 +18,10 @@ import com.example.demo.services.Services;
 import java.util.Date;
 import java.util.List;
 
-import javax.annotation.PostConstruct;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -37,12 +36,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/historic")
 public class HistoricController {
     
-    private static final String RESERVA_STATE = "RESERVA";
-    private static final String HISTORICO_STATE = "HISTORICO";
+    private static final String RESERVED_STATE = "RESERVED";
+    private static final String HISROTIC_STATE = "HISTORIC";
     
     private HistoricRepository historicRepository;
-    private Repository<User> userRepository;
-    private Repository<Product> productRepository;
+    private ClientRepository<User> userRepository;
+    private ProductRepository productRepository;
     
     public static Historic normalizeHistoric(Historic historic) throws Exception {
         RepositoryController.Product().refresh(historic.getProduct());
@@ -59,30 +58,33 @@ public class HistoricController {
     }
     
     @PostMapping(value = "/reserve", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Historic> reserve(Integer idUser, Integer idProducto, Double cuantity){
+    public Response<Historic> reserve(Integer idUser, Integer idProduct, Double quantity, @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date reserveDate){
         
-        if(idUser == null || idProducto == null || cuantity == null){ 
-            return new Response<Historic>(false, null, String.format("Missing parameters. missing idUser: %b, missing idProducto: %b, missing cuantity: %b",
-                    idUser == null, idProducto == null, cuantity == null));}
+        if(idUser == null || idProduct == null || quantity == null || reserveDate == null) 
+            return new Response(false, null, String.format("Missing parameters. missing idUser: %b, missing idProduct: %b, missing quantity: %b, missing reserveDate: %b",
+                    idUser == null, idProduct == null, quantity == null, reserveDate == null));
         
         try{
             User usr = userRepository.getById(idUser);
-            if(usr == null) return new Response<Historic>(false, null, "Usuario no Found");
-            Product prod = productRepository.getById(idProducto);
-            if(prod == null) return new Response<Historic>(false, null, "Producto no Found");
+            if(usr == null) return new Response<Historic>(false, null, "User no Found");
+            Product prod = productRepository.getById(idProduct);
+            if(prod == null) return new Response<Historic>(false, null, "Product no Found");
             
-            Historic newH = new Historic();
-            newH.setCuantity(cuantity);
-            newH.setState(RESERVA_STATE);
-            newH.setTimeReserve(new Date());
-            newH.setUser(usr);
-            newH.setProduct(prod);
+            Historic newHistoric = new Historic();
+            newHistoric.setQuantity(quantity);
+            newHistoric.setState(RESERVED_STATE);
+            newHistoric.setTimeReserve(reserveDate);
+            newHistoric.setReserveMoment(new Date());
+            newHistoric.setUser(usr);
+            newHistoric.setProduct(prod);
 
-            historicRepository.create(newH);
+            historicRepository.create(newHistoric);
             
-            return new Response<Historic>(true, normalizeHistoric(newH), "Reserved product");
+            return new Response(true, normalizeHistoric(newHistoric), "Reserved product");
+
         }catch (Exception e) {
-            return new Response<Historic>(false, null, e);
+            Services.handleError(e);
+            return new Response(false, null, e);
         }
     }
     
@@ -96,9 +98,9 @@ public class HistoricController {
             if(hist == null) return new Response<Historic>(false, null, "Historic no Found");
             
             if(hist.getTimeReserve().before(new Date())) return new Response<Historic>(false, null, String.format("Expired reservation date"));
-            if(hist.getState().compareTo(RESERVA_STATE) != 0) return new Response<Historic>(false, null, "Not a reserved element");
+            if(hist.getState().compareTo(RESERVED_STATE) != 0) return new Response<Historic>(false, null, "Not a reserved element");
 
-            hist.setState(HISTORICO_STATE);
+            hist.setState(HISROTIC_STATE);
             hist.setBuyDate(new Date());
             historicRepository.update(hist);
             
@@ -112,7 +114,7 @@ public class HistoricController {
     @PostMapping(value = "/get-user-reserved", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic[]> getUserReserved(Integer idUser){
         try{
-            List<Historic> list = historicRepository.getForUserAndState(idUser, RESERVA_STATE);
+            List<Historic> list = historicRepository.getForUserAndState(idUser, RESERVED_STATE);
             Historic[] exit = new Historic[list.size()];
             
             int i = 0;
@@ -129,7 +131,7 @@ public class HistoricController {
     @PostMapping(value = "/get-user-historic", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic[]> getUserHistoric(Integer idUser){
         try{
-            List<Historic> list = historicRepository.getForUserAndState(idUser, HISTORICO_STATE);
+            List<Historic> list = historicRepository.getForUserAndState(idUser, HISROTIC_STATE);
             Historic[] exit = new Historic[list.size()];
             
             int i = 0;
@@ -142,10 +144,10 @@ public class HistoricController {
         }
     }
     
-    @PostMapping(value = "/get-provder-reserved", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/get-provider-reserved", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic[]> getProviderReserved(Integer idProv){
         try{
-            List<Historic> list = historicRepository.getForProviderAndState(idProv, HISTORICO_STATE);
+            List<Historic> list = historicRepository.getForProviderAndState(idProv, RESERVED_STATE);
             Historic[] exit = new Historic[list.size()];
             
             int i = 0;
@@ -158,8 +160,19 @@ public class HistoricController {
         }
     }
     
-    @PostMapping(value = "/get-provder-historic", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    @PostMapping(value = "/get-provider-historic", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic[]> getProviderHistoric(Integer idProv){
-        return null;
+        try{
+            List<Historic> list = historicRepository.getForProviderAndState(idProv, HISROTIC_STATE);
+            Historic[] exit = new Historic[list.size()];
+            
+            int i = 0;
+            for (Historic historico : list) {
+                exit[i++] = normalizeHistoric(historico);
+            }
+            return new Response(true, exit, "Historic Found");
+        }catch(Exception e){
+            return new Response(false, null, e);
+        }
     }
 }

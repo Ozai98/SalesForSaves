@@ -15,35 +15,35 @@
 					"urlencoded": [
 						{
 							"key": "idUser",
-							"value": "0",
-							"type": "text"
-						},
-						{
-							"key": "idProducto",
 							"value": "1",
 							"type": "text"
 						},
 						{
-							"key": "cantidad",
+							"key": "idProduct",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
 							"value": "0.57",
 							"type": "text"
 						},
 						{
-							"key": "fechaReserva",
-							"value": "2020-04-30T14:00:00.000",
+							"key": "reserveDate",
+							"value": "2020-05-30T14:00:00.000",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/historico/reservar",
+					"raw": "localhost:8083/historic/reserve",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"historico",
-						"reservar"
+						"historic",
+						"reserve"
 					]
 				}
 			},
@@ -58,20 +58,20 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "idHistorico",
-							"value": "4",
+							"key": "idHistoric",
+							"value": "2",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/historico/buyed-product",
+					"raw": "localhost:8083/historic/buyed-product",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"historico",
+						"historic",
 						"buyed-product"
 					]
 				}
@@ -79,7 +79,7 @@
 			"response": []
 		},
 		{
-			"name": "Get reserved",
+			"name": "Get reserved User",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -88,19 +88,19 @@
 					"urlencoded": [
 						{
 							"key": "idUser",
-							"value": "1",
+							"value": "2",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/historico/get-user-reserved",
+					"raw": "localhost:8083/historic/get-user-reserved",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"historico",
+						"historic",
 						"get-user-reserved"
 					]
 				}
@@ -108,7 +108,7 @@
 			"response": []
 		},
 		{
-			"name": "Get historic",
+			"name": "Get historic User",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -117,20 +117,78 @@
 					"urlencoded": [
 						{
 							"key": "idUser",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historic/get-user-historic",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historic",
+						"get-user-historic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get reserved Provider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idProv",
 							"value": "1",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/historico/get-user-historic",
+					"raw": "localhost:8083/historic/get-provider-reserved",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"historico",
-						"get-user-historic"
+						"historic",
+						"get-provider-reserved"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get historic Provider",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idProv",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/historic/get-provider-historic",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"historic",
+						"get-provider-historic"
 					]
 				}
 			},

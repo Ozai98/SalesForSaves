@@ -14,12 +14,12 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "nombre",
+							"key": "name",
 							"value": "German",
 							"type": "text"
 						},
 						{
-							"key": "correo",
+							"key": "mail",
 							"value": "german3@gmail.com",
 							"type": "text"
 						},
@@ -37,21 +37,21 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/usuario/crear",
+					"raw": "localhost:8083/user/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"usuario",
-						"crear"
+						"user",
+						"create"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update",
+			"name": "Get by email",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -59,36 +59,21 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "nombre",
-							"value": "German2",
-							"type": "text"
-						},
-						{
-							"key": "password",
-							"value": "1111",
-							"type": "text"
-						},
-						{
-							"key": "avatar",
-							"value": "le nuevo avatar2.png",
-							"type": "text"
-						},
-						{
-							"key": "id",
-							"value": "5",
+							"key": "mail",
+							"value": "german3@gmail.com",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/usuario/update",
+					"raw": "localhost:8083/user/get-by-email",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"usuario",
-						"update"
+						"user",
+						"get-by-email"
 					]
 				}
 			},
@@ -128,15 +113,93 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/usuario/get-by-id/6",
+					"raw": "localhost:8083/user/get-by-id/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"usuario",
+						"user",
 						"get-by-id",
-						"6"
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "mail",
+							"value": "german3@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "0000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/user/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "id",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "New name",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "1111",
+							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "New avatar.jpg",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/user/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"user",
+						"update"
 					]
 				}
 			},

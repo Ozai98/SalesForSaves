@@ -19,7 +19,7 @@
       <button
         id="editBtnH"
         class="button-base accessBtn"
-        @click="jumpScreen('Hystory')"
+        @click="jumpScreen('History')"
       >
         HISTORIAL
       </button>
@@ -36,15 +36,15 @@ export default {
   data() {
     return {
       name: this.$store.getters.returnUser.name,
-      correo: this.$store.getters.returnUser.mail
+      correo: this.$store.getters.returnUser.mail,
     };
   },
   methods: {
     logout() {
       this.jumpScreen("Home");
       this.$store.dispatch("resetUser");
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -72,7 +72,7 @@ export default {
 #editBtnH {
   min-width: 120px;
   min-height: 40px;
-  
+
   color: #ff8e43;
 }
 </style>

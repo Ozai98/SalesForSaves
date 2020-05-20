@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "3540cca2-2b57-431a-9041-ab3d23c63f22",
+		"name": "Rate",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Rate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idProvider",
+							"value": "1",
+							"type": "text"
+						},
+						{
+							"key": "idUser",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/rate/add-rate/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"rate",
+						"add-rate",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Rate",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "idProvider",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8083/rate/rating",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"rate",
+						"rating"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

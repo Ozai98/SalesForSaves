@@ -13,7 +13,7 @@
     <div class="center-content" id="nav2" v-else-if="idPage == 'SearchProduct'">
       <UserIcon></UserIcon>
       <img
-        class="logo "
+        class="logo"
         src="@/assets/imgs/pageIcon.svg"
         alt="logo"
         @click="jumpScreen('Home')"
@@ -21,7 +21,7 @@
     </div>
     <div id="nav3" v-else-if="idPage == 'Login' || idPage == 'Register'">
       <img
-        class="logo "
+        class="logo"
         src="@/assets/imgs/pageIcon.svg"
         alt="logo"
         @click="jumpScreen('Home')"
@@ -30,7 +30,7 @@
     <div v-else id="nav4">
       <UserIcon></UserIcon>
       <img
-        class="logo "
+        class="logo"
         src="@/assets/imgs/pageIcon.svg"
         alt="logo"
         @click="jumpScreen('Home')"
@@ -45,12 +45,12 @@ import UserIcon from "@/components/UserIcon.vue";
 export default {
   name: "NavBar",
   props: {
-    idPage: String
+    idPage: String,
   },
   components: {
-    UserIcon
+    UserIcon,
   },
-  methods: {}
+  methods: {},
 };
 </script>
 

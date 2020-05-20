@@ -45,7 +45,7 @@ public class ProductRepositoryDao implements ProductRepository{
 
     @Override
     public List<Product> search(String param) throws Exception {
-        return productDao.queryBuilder().where().like("nombre", "%" + param + "%").query();
+        return productDao.queryBuilder().where().like("name", "%" + param + "%").query();
     }
     
 }

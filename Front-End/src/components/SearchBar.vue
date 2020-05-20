@@ -25,7 +25,7 @@ export default {
   name: "SearchBar",
   data() {
     return {
-      sVal: ""
+      sVal: "",
     };
   },
   methods: {
@@ -33,8 +33,8 @@ export default {
       this.$store.dispatch("updateSearch", this.sVal);
       this.$emit("search");
       console.log("Hace algo");
-    }
-  }
+    },
+  },
 };
 </script>
 

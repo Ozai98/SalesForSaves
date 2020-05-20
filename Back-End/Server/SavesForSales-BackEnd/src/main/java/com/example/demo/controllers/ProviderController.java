@@ -1,8 +1,5 @@
 package com.example.demo.controllers;
 
-import com.example.demo.database.ClientRepository;
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,6 +29,7 @@ public class ProviderController extends ClientController<Provider> {
 
     public ProviderController() {
         super(RepositoryController.Provider());
+        this.providerRepository = RepositoryController.Provider();
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)

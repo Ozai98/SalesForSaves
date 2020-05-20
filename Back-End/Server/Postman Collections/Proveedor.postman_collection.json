@@ -14,12 +14,12 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "nombre",
+							"key": "name",
 							"value": "proveedor 1",
 							"type": "text"
 						},
 						{
-							"key": "correo",
+							"key": "mail",
 							"value": "proveedor1@p.com",
 							"type": "text"
 						},
@@ -27,18 +27,23 @@
 							"key": "password",
 							"value": "0000",
 							"type": "text"
+						},
+						{
+							"key": "avatar",
+							"value": "Le avatar.jpg",
+							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/proveedor/crear",
+					"raw": "localhost:8083/provider/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"proveedor",
-						"crear"
+						"provider",
+						"create"
 					]
 				}
 			},
@@ -53,7 +58,7 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "correo",
+							"key": "mail",
 							"value": "proveedor1@p.com",
 							"type": "text"
 						},
@@ -65,13 +70,13 @@
 					]
 				},
 				"url": {
-					"raw": "localhost:8080/proveedor/login",
+					"raw": "localhost:8083/provider/login",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
-						"proveedor",
+						"provider",
 						"login"
 					]
 				}
@@ -84,13 +89,13 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8083/proveedor/get-by-id/1",
+					"raw": "localhost:8083/provider/get-by-id/1",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"proveedor",
+						"provider",
 						"get-by-id",
 						"1"
 					]
@@ -112,37 +117,38 @@
 							"type": "text"
 						},
 						{
-							"key": "nombre",
+							"key": "name",
 							"value": "Cambio de nombre",
-							"type": "text",
-							"disabled": true
+							"type": "text"
 						},
 						{
 							"key": "password",
-							"value": "new pass",
+							"value": "0000",
 							"type": "text",
 							"disabled": true
 						},
 						{
 							"key": "avatar",
 							"value": "my avatar",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						},
 						{
-							"key": "ubicacion",
+							"key": "ubication",
 							"value": "My house man :D",
-							"type": "text"
+							"type": "text",
+							"disabled": true
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/proveedor/update",
+					"raw": "localhost:8083/provider/update",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"proveedor",
+						"provider",
 						"update"
 					]
 				}

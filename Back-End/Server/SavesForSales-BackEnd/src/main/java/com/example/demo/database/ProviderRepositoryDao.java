@@ -39,7 +39,7 @@ public class ProviderRepositoryDao implements ClientRepository<Provider>{
 
     @Override
     public List<Provider> getByEmail(String email) throws SQLException {
-        return providerDao.queryForEq("correo", email);
+        return providerDao.queryForEq("mail", email);
     }
     
 }

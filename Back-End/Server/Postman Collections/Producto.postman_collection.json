@@ -14,41 +14,41 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
-							"key": "nombre",
-							"value": "Producto de prueba 1",
+							"key": "name",
+							"value": "Comida",
 							"type": "text"
 						},
 						{
-							"key": "precio",
+							"key": "price",
 							"value": "5",
 							"type": "text"
 						},
 						{
-							"key": "id_proveedor",
+							"key": "idProvider",
 							"value": "1",
 							"type": "text"
 						},
 						{
-							"key": "imagen",
+							"key": "image",
 							"value": "mi imagen.png",
 							"type": "text"
 						},
 						{
-							"key": "cantidad",
+							"key": "quantity",
 							"value": "3.3",
 							"type": "text"
 						}
 					]
 				},
 				"url": {
-					"raw": "localhost:8083/producto/crear",
+					"raw": "localhost:8083/product/create",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"producto",
-						"crear"
+						"product",
+						"create"
 					]
 				}
 			},
@@ -60,15 +60,15 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/producto/get-by-id/3",
+					"raw": "localhost:8083/product/get-by-id/4",
 					"host": [
 						"localhost"
 					],
-					"port": "8080",
+					"port": "8083",
 					"path": [
-						"producto",
+						"product",
 						"get-by-id",
-						"3"
+						"4"
 					]
 				}
 			},
@@ -80,15 +80,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8083/producto/search/pruEba",
+					"raw": "localhost:8083/product/search",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
-						"producto",
-						"search",
-						"pruEba"
+						"product",
+						"search"
 					]
 				}
 			},

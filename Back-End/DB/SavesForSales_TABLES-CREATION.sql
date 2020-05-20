@@ -44,7 +44,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SavesForSales`.`User` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
-  `correo` VARCHAR(45) NOT NULL UNIQUE,
+  `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `avatar` VARCHAR(45) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `name` VARCHAR(45) NOT NULL,
   `provider` INT NULL DEFAULT NULL,
   `image` VARCHAR(45) NULL,
-  `cuantity` DOUBLE NOT NULL,
+  `quantity` DOUBLE NOT NULL,
   `publicationDate` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX (`provider` ASC),
@@ -78,8 +78,9 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Historic` (
   `user` INT NOT NULL,
   `product` INT NOT NULL,
   `timeReserve` DATETIME NULL,
-  `cuantity` DOUBLE NULL,
-  `state` VARCHAR(20) NOT NULL DEFAULT 'RESERVA',
+  `reserveMoment` DATETIME NULL,
+  `quantity` DOUBLE NULL,
+  `state` VARCHAR(20) NOT NULL DEFAULT 'RESERVE',
   `buyDate` DATETIME NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `c1`
@@ -91,7 +92,6 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Historic` (
     REFERENCES `SavesForSales`.`Product` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
-
 
 DROP TABLE IF EXISTS `SavesForSales`.`Rate` ;
 

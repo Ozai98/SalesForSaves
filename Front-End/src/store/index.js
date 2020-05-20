@@ -35,7 +35,7 @@ export default new Vuex.Store({
     },
     UPDATE_SEARCH(state, newVal) {
       state.searchedValue = newVal;
-    }
+    },
   },
   actions: {
     changeViewState({ commit }, newView) {
@@ -53,29 +53,29 @@ export default new Vuex.Store({
     },
     updateSearch({ commit }, val) {
       commit("UPDATE_SEARCH", val);
-    }
+    },
   },
   getters: {
-    returnLogState: state => {
+    returnLogState: (state) => {
       return state.isLogged;
     },
-    returnView: state => {
+    returnView: (state) => {
       return state.currentView;
     },
-    returnUser: state => {
+    returnUser: (state) => {
       if (!state.isLogged) {
         return "There is no logged user";
       } else {
         return state.user;
       }
     },
-    returnSearchedValue: state => {
+    returnSearchedValue: (state) => {
       if (state.searchedValue == "") {
         return "There is no searched value";
       } else {
         return state.searchedValue;
       }
-    }
+    },
   },
-  modules: {}
+  modules: {},
 });

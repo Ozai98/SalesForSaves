@@ -6,7 +6,10 @@
 package com.example.demo.database;
 
 import com.example.demo.database.models.Historic;
+import com.example.demo.database.models.Product;
+import com.example.demo.database.models.Provider;
 import com.j256.ormlite.dao.Dao;
+import com.j256.ormlite.stmt.QueryBuilder;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -43,11 +46,18 @@ public class HistoricRepositoryDao implements HistoricRepository{
     
     @Override
     public List<Historic> getForUserAndState(Integer usrId, String state) throws SQLException {
-        return historicDao.queryBuilder().where().eq("usuario", usrId).query();
+        return historicDao.queryBuilder().where().eq("user", usrId).and().eq("state", state).query();
     }
 
     @Override
-    public List<Historic> getForProviderAndState(Integer usrId, String state) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<Historic> getForProviderAndState(Integer provId, String state) throws Exception {
+        	
+        QueryBuilder<Provider, Integer> provQuery = DaoController.getInstance().providerDao().queryBuilder();
+        provQuery.where().eq("id", provId);
+        QueryBuilder<Product, Integer> prodQuery = DaoController.getInstance().productDao().queryBuilder();
+        prodQuery.join(provQuery);
+        QueryBuilder<Historic, Integer> prodHist = historicDao.queryBuilder();
+        prodHist.where().eq("state", state);
+        return prodHist.join(prodQuery).query();
     }
 }

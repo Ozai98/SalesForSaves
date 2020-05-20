@@ -7,20 +7,20 @@ import com.j256.ormlite.table.DatabaseTable;
 public class Rate {
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
 	@DatabaseField
 	private int rate;
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = "user")
 	private User user;
 
 	public Rate(){}
 
 	public Rate(Rate rate){
-		this.id = rate.id;
-		this.provider = rate.provider;
-		this.rate = rate.rate;
-		this.user = rate.user;
+            this.id = rate.id;
+            this.provider = new Provider(rate.provider);
+            this.rate = rate.rate;
+            this.user = new User(rate.user);
 	}
 
 	public int getId() {return id;}

@@ -1,14 +1,12 @@
 <template>
-  <div class="recuentoH">
-    <img src="@/assets/imgs/banano.jpg" class="imagenH" />
+  <div class="summaryH">
+    <img src="@/assets/imgs/banano.jpg" class="pictureH" />
     <div class="card-bodyH">
-      <p class="tiempoH">
-        Hace {{ getSinceDate() }} días
-      </p>
-      <h5 class="precioH">{{Historical_product.precio}}/kg</h5>
-      <h6 id="nombreh">{{Historical_product.nombre}}</h6>
-      <p class="tiendaH"> {{Historical_product.proveedor}}</p>
-      <p class="cantidadH">{{Historical_product.cantidad}} unidades</p>
+      <p class="timeH">Hace {{ getSinceDate() }} días</p>
+      <h5 class="priceH">{{ Historical_product.price }}/kg</h5>
+      <h6 id="nameH">{{ Historical_product.name }}</h6>
+      <p class="providerH">{{ Historical_product.provider }}</p>
+      <p class="quantityH">{{ Historical_product.quantity }} unidades</p>
     </div>
   </div>
 </template>
@@ -17,12 +15,12 @@
 export default {
   props: {
     Historical_product: {
-      tiempo: Date,
-      precio: Number,
-      nombre: String,
-      proveedor: String,
-      cantidad: Number
-    }
+      time: Date,
+      price: Number,
+      name: String,
+      provider: String,
+      quantity: Number,
+    },
   },
   methods: {
     getSinceDate() {
@@ -30,13 +28,13 @@ export default {
       let diff = current - this.Historical_product.time;
       let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
-.recuentoH {
+.summaryH {
   border: 1px solid #ff8e43;
   overflow: hidden;
   border-radius: 15px;
@@ -50,9 +48,9 @@ export default {
   padding-left: 1vw;
   width: 50vw;
   display: grid;
-  font-family: verdana,Verdana, Geneva, Tahoma, sans-serif;
+  font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
 }
-.imagenH {
+.pictureH {
   height: 9.9vw;
   float: left;
   border-radius: 1vw;
@@ -60,16 +58,15 @@ export default {
   width: auto;
   vertical-align: middle;
   border-style: none;
-
 }
-.tiempoH {
+.timeH {
   font-weight: lighter;
   font-size: 1vw;
   margin-left: 85%;
   grid-column: 1/3;
   grid-row: 1;
 }
-.precioH {
+.priceH {
   font-size: 2vw;
   font-weight: bold;
   color: #ff8e43;
@@ -77,20 +74,20 @@ export default {
   grid-column: 1;
   grid-row: 2;
 }
-.tiendaH {
-    font-weight: lighter;
+.providerH {
+  font-weight: lighter;
   font-size: 1vw;
   margin-left: 80%;
   grid-column: 1/3;
   grid-row: 4;
 }
-.cantidadH{
-      font-weight: lighter;
+.quantityH {
+  font-weight: lighter;
   font-size: 2vw;
   grid-column: 1;
   grid-row: 4;
 }
-#nombreh {
+#nameH {
   font-weight: lighter;
   font-size: 2vw;
   text-align: center;

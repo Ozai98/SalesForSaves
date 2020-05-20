@@ -12,6 +12,7 @@ import com.example.demo.database.models.Provider;
 import com.example.demo.database.models.Rate;
 import com.example.demo.database.models.User;
 import com.example.demo.services.Services;
+import java.util.HashMap;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
@@ -49,7 +50,7 @@ public class RateController {
 		this.providerRepository = providerRepository;
 	}
 
-	@PostMapping(value = "/{rating}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@PostMapping(value = "/add-rate/{rating}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public Response<Rate> rate(int idProvider, int idUser, @PathVariable int rating) {
 		try {
 			User user = userRepository.getById(idUser);
@@ -59,32 +60,33 @@ public class RateController {
 			rate.setProvider(provider);
 			rate.setRate(rating);
 			rateRepository.create(rate);
-			return new Response<Rate>(true, rate, "rated created in db");
+			return new Response(true, rate, "rated created in db");
 		} catch (Exception e) {
 			Services.handleError(e);
-			return new Response<Rate>(false, null, "user not found");
+			return new Response(false, null, e);
 		}
 	}
 
-	@PostMapping(value = "/rating/", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<int[]> totalRate(int idProvider) {
-		try {
-			Provider provider = providerRepository.getById(idProvider);
-			providerRepository.refresh(provider);
-			ProviderController.normalize(provider);
-			List<Rate> list = rateRepository.getByProvider(idProvider);
-			int cuantity = list.size();
-			int rating = 0;
-			for(Rate rate : list){
-				rating += rate.getRate();
-			}
-			int values[] = new int[2];
-			if(cuantity!=0)values[1] = rating/cuantity;
-			values[1] = cuantity;
-			return new Response<int[]>(true, values , "total rating");
-		} catch (Exception e) {
-			Services.handleError(e);
-			return new Response<int[]>(true, null, "provider not found");
-		}
+	@PostMapping(value = "/rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<HashMap> totalRate(int idProvider) {
+            try {
+                List<Rate> list = rateRepository.getByProvider(idProvider);
+                int cuantity = list.size();
+                double rating = 0;
+                for(Rate rate : list){
+                    rating += rate.getRate();
+                }
+                
+                HashMap exit = new HashMap();
+                
+                exit.put("total", cuantity);
+                if(cuantity == 0) exit.put("rate", 0);
+                else exit.put("rate", rating/cuantity);
+                
+                return new Response(true, exit , "total rating");
+            } catch (Exception e) {
+                Services.handleError(e);
+                return new Response(true, null, "provider not found");
+            }
 	}
 }
