@@ -16,17 +16,12 @@ import com.example.demo.database.models.User;
 import com.example.demo.database.models.Product;
 import com.example.demo.database.models.Provider;
 import com.example.demo.controllers.Response;
-import com.example.demo.database.RepositoryController;
-import com.example.demo.services.Services;
 import java.util.Calendar;
 import java.util.Date;
-import mock_repositories.MockHistoricRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.test.context.junit4.SpringRunner;
 
 public class HistoricControllerTest {
     private HistoricController controller;

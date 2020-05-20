@@ -1,62 +1,63 @@
 <template>
-  <ModalComponent>
-    <div id="title">INICIAR SESION!</div>
-    <div id "login">
-    <div id="user">
-      <div id="user" class="input-el field base-border body-text">
-        <p class="label">E-mail</p>
-        <div class="space"></div>
+  <div id="back" class="center-content">
+    <div id="login">
+      <div id="title">INICIAR SESION!</div>
+      <div id="user">
+        <div id="user" class="input-el field base-border body-text">
+          <p class="label">E-mail</p>
+          <div class="space"></div>
+          <input
+            type="text"
+            name="User"
+            v-model="userLog.username"
+            class="soft-el body-text input"
+          />
+        </div>
+        <div id="pass" class="input-el field base-border body-text">
+          <p class="label">Contraseña</p>
+          <div class="space"></div>
+          <input
+            type="password"
+            name="password"
+            v-model="userLog.password"
+            class="soft-el body-text input"
+          />
+        </div>
+        <label for="ProviderCheck" class="body-text desc">
+          Si eres proveedor dale a la cajita
+        </label>
         <input
-          type="text"
-          name="User"
-          v-model="userLog.username"
-          class="soft-el body-text input"
+          type="checkBox"
+          id="providerCheck"
+          @change="userLog.isProvider = !userLog.isProvider"
         />
-      </div>
-      <div id="pass" class="input-el field base-border body-text">
-        <p class="label">Contraseña</p>
-        <div class="space"></div>
-        <input
-          type="password"
-          name="password"
-          v-model="userLog.password"
-          class="soft-el body-text input"
-        />
-      </div>
-      <label for="ProviderCheck" class="body-text desc"
-        >Si eres proveedor dale a la cajita</label
-      >
-      <input
-        type="checkBox"
-        id="providerCheck"
-        @change="userLog.isProvider = !userLog.isProvider"
-      />
-      <div>
-        <button
-          type="button"
-          name="log"
-          v-on:click="login()"
-          class="accessBtn button-base"
-        >
-          ENTRAR
-        </button>
-      </div>
-      <div id="regtext">
-        O
-        <br />si no tienes una cuenta puedes registrarte
-      </div>
-      <div id="bot2">
-        <button
-          class="accessBtn button-base"
-          type="button"
-          v-on:click="jumpScreen('Register')"
-          name="sin"
-        >
-          REGISTRARME!
-        </button>
+        <div>
+          <button
+            type="button"
+            name="log"
+            v-on:click="login()"
+            class="accessBtn button-base"
+          >
+            ENTRAR
+          </button>
+        </div>
+        <div id="regtext">
+          O
+          <br />si no tienes una cuenta puedes registrarte
+        </div>
+        <div id="bot2">
+          <button
+            class="accessBtn button-base"
+            type="button"
+            v-on:click="jumpScreen('Register')"
+            name="sin"
+          >
+            REGISTRARME!
+          </button>
+        </div>
       </div>
     </div>
-  </ModalComponent>
+  </div>
 </template>
 
 <script>
@@ -92,9 +93,9 @@ export default {
           console.log(data.classX);
           let builder = {
             id: data.classX.id,
-            nombre: data.classX.name,
-            correo: data.class.mail,
-            avatar: data.clase.avatar,
+            name: data.classX.name,
+            mail: data.classX.mail,
+            avatar: data.classX.avatar,
             isProvider: this.userLog.isProvider,
           };
           this.$store.dispatch("storeUser", builder);

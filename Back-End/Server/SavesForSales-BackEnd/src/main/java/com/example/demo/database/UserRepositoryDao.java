@@ -5,7 +5,6 @@
  */
 package com.example.demo.database;
 
-import com.example.demo.database.models.Client;
 import com.example.demo.database.models.User;
 import com.j256.ormlite.dao.Dao;
 import java.sql.SQLException;

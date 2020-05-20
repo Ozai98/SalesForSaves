@@ -11,7 +11,7 @@
         name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
       />
-      <NavBar :idPage="page"></NavBar>
+      <NavBar :idPage="page""></NavBar>
       <div id="app">
         <router-view />
       </div>
@@ -21,8 +21,6 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-import Login from "@/components/Login.vue";
-import Register from "@/components/Register.vue";
 // import services from "@/services/request.service.js";
 export default {
   name: "App",
@@ -33,8 +31,6 @@ export default {
   },
   components: {
     NavBar,
-    Login,
-    Register,
   },
   computed: {
     page() {
@@ -44,9 +40,6 @@ export default {
   mounted() {
     this.$router.replace("home");
     this.$store.dispatch("resetUser");
-  },
-  metthods: {
-    openLogin() {},
   },
 };
 </script>
