@@ -165,10 +165,10 @@ function getHistoricbyId(idUser, callback) {
   );
 }
 
-function newReserve(idUser, idProducto, cantidad, callback) {
+function newReserve(idUser, idProduct, quantity, callback) {
   generalRequest(
     "/historic/reserve/",
-    { idUser, idProducto, cantidad },
+    { idUser, idProduct, quantity, reserveDate: new Date() },
     REQUEST_TYPES.POST,
     callback
   );
