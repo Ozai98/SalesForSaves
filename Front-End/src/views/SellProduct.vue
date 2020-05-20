@@ -41,9 +41,6 @@
 
 <script>
 import request from "@/services/request.service.js";
-import Vue from "vue"
-import alet from  "vue-simple-alert" ;
-Vue.use(alet);
 export default {
   name: "SellProduct",
   data() {
@@ -53,29 +50,28 @@ export default {
         quantity: 0,
         price: 0,
         imgURL: "",
-        provID: this.$store.getters.returnUser.id
-      }
+        provID: this.$store.getters.returnUser.id,
+      },
     };
   },
   methods: {
     sellProduct() {
       console.log(this.product);
-      request.crearProducto(
+      request.createProduct(
         this.product.name,
         Number(this.product.price),
         Number(this.product.quantity),
         this.product.provID,
         this.product.imgURL,
-        data => {
+        (data) => {
           console.log(data);
           if (data.ok) {
             console.log("Producto creado");
-            this.$alert("SE CREO EL RPODUCTO",'succes');
-          } else this.$alert("ERROR AL CREAR PRODUCTO",'error');
+          } else console.log("Error al crear producto");
         }
       );
-    }
-  }
+    },
+  },
 };
 </script>
 

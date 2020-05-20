@@ -1,0 +1,9 @@
+mock_repositories\MockProductRepository.class
+mock_repositories\MockProviderRepository.class
+mock_repositories\MockUserRepository.class
+savesforsales_test\UserControllerTest.class
+savesforsales_test\Utils.class
+mock_repositories\MockHistoricRepository.class
+savesforsales_test\ProductControllerTest.class
+savesforsales_test\HistoricControllerTest.class
+savesforsales_test\ProviderControllerTest.class

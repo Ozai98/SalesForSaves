@@ -3,7 +3,7 @@ const SERVER_URL = "http://localhost:8083";
 
 const REQUEST_TYPES = {
   GET: "GET",
-  POST: "POST"
+  POST: "POST",
 };
 
 function generalRequest(path, body, requestType, callback) {
@@ -20,17 +20,17 @@ function generalRequest(path, body, requestType, callback) {
     method: requestType,
     headers: myHeaders,
     body: urlencoded,
-    redirect: "follow"
+    redirect: "follow",
   };
 
   fetch(SERVER_URL + path, requestOptions)
-    .then(response => response.json())
-    .then(result => callback(result))
-    .catch(error => {
+    .then((response) => response.json())
+    .then((result) => callback(result))
+    .catch((error) => {
       console.log(error);
       callback({
         ok: false,
-        msg: "An error ocurred while sending HTTP request eje"
+        msg: "An error ocurred while sending HTTP request",
       });
     });
 }
@@ -39,36 +39,31 @@ function generalRequest(path, body, requestType, callback) {
 //----------------------USUARIO--------------------------------------
 //-------------------------------------------------------------------
 
-function loginUsuario(correo, password, callback) {
+function loginClient(mail, password, callback) {
   generalRequest(
-    "/usuario/login",
-    { correo, password },
+    "/user/login",
+    { mail, password },
     REQUEST_TYPES.POST,
     callback
   );
 }
 
-function crearUsuario(nombre, correo, password, avatar, callback) {
+function createClient(name, mail, password, avatar, callback) {
   generalRequest(
-    "/usuario/crear",
-    { nombre, correo, password, avatar },
+    "/user/create",
+    { name, mail, password, avatar },
     REQUEST_TYPES.POST,
     callback
   );
 }
 
-function getUserByEmail(correo, callback) {
-  generalRequest(
-    "/usuario/get-by-email",
-    { correo },
-    REQUEST_TYPES.POST,
-    callback
-  );
+function getUserByEmail(mail, callback) {
+  generalRequest("/user/get-by-email", { mail }, REQUEST_TYPES.POST, callback);
 }
 
 function getUserById(id, callback) {
   generalRequest(
-    "/usuario/get-by-id/" + id,
+    "/user/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
     callback
@@ -76,40 +71,40 @@ function getUserById(id, callback) {
 }
 
 // Los parametros que recive son opcionales. Solo envien los valores a actualizar
-function updateUser(id, nombre, password, avatar, callback) {
+function updateClient(id, name, password, avatar, callback) {
   var body = { id };
-  if (nombre) body.nombre = nombre;
+  if (name) body.name = name;
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
 
-  generalRequest("/usuario/update", body, REQUEST_TYPES.POST, callback);
+  generalRequest("/user/update", body, REQUEST_TYPES.POST, callback);
 }
 
 //-------------------------------------------------------------------
 //----------------------PROVEEDOR------------------------------------
 //-------------------------------------------------------------------
 
-function loginProveedor(correo, password, callback) {
+function loginProvider(mail, password, callback) {
   generalRequest(
-    "/proveedor/login",
-    { correo, password },
+    "/provider/login",
+    { mail, password },
     REQUEST_TYPES.POST,
     callback
   );
 }
 
-function crearProveedor(nombre, correo, password, avatar, callback) {
+function createProvider(name, mail, password, avatar, callback) {
   generalRequest(
-    "/proveedor/crear",
-    { nombre, correo, password, avatar },
+    "/provider/create",
+    { name, mail, password, avatar },
     REQUEST_TYPES.POST,
     callback
   );
 }
 
-function getProveedorById(id, callback) {
+function getProviderById(id, callback) {
   generalRequest(
-    "/proveedor/get-by-id/" + id,
+    "/provider/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
     callback
@@ -117,12 +112,12 @@ function getProveedorById(id, callback) {
 }
 
 // Los parametros que recive son opcionales. Solo envien los valores a actualizar
-function updateProveedor(id, nombre, password, ubicacion, avatar, callback) {
+function updateProvider(id, name, password, ubication, avatar, callback) {
   var body = { id };
-  if (nombre) body.nombre = nombre;
+  if (name) body.name = name;
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
-  if (ubicacion) body.ubicacion = ubicacion;
+  if (ubication) body.ubication = ubicacion;
   generalRequest("/proveedor/update", body, REQUEST_TYPES.POST, callback);
 }
 
@@ -131,9 +126,9 @@ function updateProveedor(id, nombre, password, ubicacion, avatar, callback) {
 //-------------------------------------------------------------------
 
 // Parametro es una cadena que se desesa buscar
-function buscarProducto(parametro, callback) {
+function searchProduct(param, callback) {
   generalRequest(
-    "/producto/search/" + parametro,
+    "/product/search/" + param,
     undefined,
     REQUEST_TYPES.GET,
     callback
@@ -142,7 +137,7 @@ function buscarProducto(parametro, callback) {
 
 function getProductoById(id, callback) {
   generalRequest(
-    "/producto/get-by-id/" + id,
+    "/product/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
     callback
@@ -150,17 +145,10 @@ function getProductoById(id, callback) {
 }
 
 // El parametro imagen es opcional. Pueden pasar undefined o null
-function crearProducto(
-  nombre,
-  precio,
-  cantidad,
-  id_proveedor,
-  imagen,
-  callback
-) {
+function createProduct(name, price, quantity, id_provider, picture, callback) {
   generalRequest(
     "/producto/crear",
-    { nombre, precio, cantidad, id_proveedor, imagen },
+    { name, price, quantity, id_provider, picture },
     REQUEST_TYPES.POST,
     callback
   );
@@ -168,42 +156,40 @@ function crearProducto(
 //-------------------------------------------------------------------
 //----------------------HISTORICO-------------------------------------
 //-------------------------------------------------------------------
-function getHistoricbyId(id , callback) {
-  generalRequest("/historico/buyed/"+ id,
-  undefined,
-  REQUEST_TYPES.GET,
-  callback);
+function getHistoricbyId(id, callback) {
+  generalRequest(
+    "/historic/buyed-product/" + id,
+    undefined,
+    REQUEST_TYPES.GET,
+    callback
+  );
 }
 
-function newReserve(idUser,idProducto,cantidad,callback){
-  generalRequest("/historico/reservar/",
-    {idUser,idProducto,cantidad},
+function newReserve(idUser, idProducto, cantidad, callback) {
+  generalRequest(
+    "/historic/reserve/",
+    { idUser, idProducto, cantidad },
     REQUEST_TYPES.POST,
     callback
-  ); 
-
+  );
 }
-
-
-
-
 
 module.exports = {
   SERVER_URL,
   REQUEST_TYPES,
   generalRequest,
-  loginUsuario,
-  crearUsuario,
+  loginClient,
+  createClient,
   getUserByEmail,
   getUserById,
-  updateUser,
-  loginProveedor,
-  crearProveedor,
-  getProveedorById,
-  updateProveedor,
-  buscarProducto,
+  updateClient,
+  loginProvider,
+  createProvider,
+  getProviderById,
+  updateProvider,
+  searchProduct,
   getProductoById,
-  crearProducto,
+  createProduct,
   newReserve,
-  getHistoricbyId
+  getHistoricbyId,
 };

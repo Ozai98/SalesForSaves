@@ -25,56 +25,60 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-
-public class ProductControllerTest{
+public class ProductControllerTest {
     private ProductController controller;
     private Product defaultProduct;
+
     @BeforeClass
     public static void setup() {
         Utils.defaultSetup();
     }
-    
+
     @Before
-    public void before() throws Exception{
+    public void before() throws Exception {
         controller = new ProductController();
         defaultProduct = new Product();
         defaultProduct.setName("defaultProduct Name");
         defaultProduct.setPrice(100);
         defaultProduct.setImage("defaultProduct Image");
         defaultProduct.setQuantity(5);
-        
+
         ProviderController provController = new ProviderController();
         int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", "").clase.getId();
-        
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id, defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit());
-        if(!res.ok) Assert.fail("Fail default product creation. Ex: " + res.msg);
+
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id,
+                defaultProduct.getImage(), defaultProduct.getQuantity());
+        if (!res.ok)
+            Assert.fail("Fail default product creation. Ex: " + res.msg);
         defaultProduct.setId(res.clase.getId());
     }
-    
+
     @Test
-    public void SearchProduct(){
+    public void SearchProduct() {
         Response<Product[]> res = controller.searchProducts(defaultProduct.getName());
-                
+
         Assert.assertTrue(res.msg, res.ok);
-        boolean found = false; 
-        for(int i = 0; i < res.clase.length && !found; i++) found = res.clase[i].getId() == defaultProduct.getId(); 
-        if(!found) Assert.fail();
-        
+        boolean found = false;
+        for (int i = 0; i < res.clase.length && !found; i++)
+            found = res.clase[i].getId() == defaultProduct.getId();
+        if (!found)
+            Assert.fail();
+
     }
-    
+
     @Test
-    public void GetProduct(){
+    public void GetProduct() {
         Response<Product> res = controller.getProduct(defaultProduct.getId());
-                
+
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getId(), defaultProduct.getId());        
+        Assert.assertEquals(res.clase.getId(), defaultProduct.getId());
     }
-    
+
     @Test
     public void CreateProduct(){
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit());
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity());
                 
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getName(), defaultProduct.getName());        
+        Assert.assertEquals(res.clase.getName(), defaultProduct.getName());
     }
 }

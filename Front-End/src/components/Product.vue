@@ -1,11 +1,11 @@
 <template>
-  <div class="carta"@click="jumpReserva(product.id)">
-    <img src="@/assets/imgs/banano.jpg" class="imagen" />
+  <div class="card" @click="jumpBookings(product.id)">
+    <img src="@/assets/imgs/banano.jpg" class="picture" />
     <div class="card-body">
-      <p id="tiempo">Hace {{ getSinceDate() }} días</p>
-      <h5 class="precio">${{ product.price }}/kg</h5>
-      <h5 id="nombre">{{ product.name }}</h5>
-      <h6 id="unidades">Quedan {{ product.leftUnits }} unidades</h6>
+      <p id="time">Hace {{ getSinceDate() }} días</p>
+      <h5 class="price">${{ product.price }}/kg</h5>
+      <h5 id="name">{{ product.name }}</h5>
+      <h6>Quedan {{ product.leftUnits }} unidades</h6>
     </div>
   </div>
 </template>
@@ -18,27 +18,27 @@ export default {
       price: Number,
       name: String,
       leftUnits: Number,
-      id: Number
-    }
+      id: Number,
+    },
   },
   methods: {
-        jumpReserva(id2){
-      console.log('me oprimieron');
+    jumpBookings(id2) {
+      console.log("me oprimieron");
       //this.jumpScreen('Reservas');
-      this.$router.push({ name:'Reservas', params:{id: id2}})
+      this.$router.push({ name: "Bookings", params: { id: id2 } });
     },
     getSinceDate() {
       let current = new Date();
       let diff = current - this.product.time;
       let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style>
-.carta {
+.card {
   border: 1px solid #ff8e43;
   border-radius: 15px;
   width: 100%;
@@ -50,7 +50,7 @@ export default {
 .card-body {
   padding: 1vw;
 }
-.imagen {
+.picture {
   width: 100%;
   border-top-left-radius: 1vw;
   border-top-right-radius: 1vw;
@@ -59,17 +59,17 @@ export default {
   vertical-align: middle;
   border-style: none;
 }
-#tiempo {
+#time {
   font-weight: lighter;
   font-size: 1vw;
   margin-left: 65%;
 }
-.precio {
+.price {
   font-size: 3vw;
   font-weight: bold;
   color: #ff8e43;
 }
-#nombre {
+#name {
   font-weight: lighter;
   font-size: 2vw;
 }
