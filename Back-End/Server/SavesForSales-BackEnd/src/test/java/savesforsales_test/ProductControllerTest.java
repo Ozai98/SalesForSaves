@@ -46,14 +46,14 @@ public class ProductControllerTest{
         ProviderController provController = new ProviderController();
         int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", "").clase.getId();
         
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id, defaultProduct.getImage(), defaultProduct.getQuantity());
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id, defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit());
         if(!res.ok) Assert.fail("Fail default product creation. Ex: " + res.msg);
         defaultProduct.setId(res.clase.getId());
     }
     
     @Test
     public void SearchProduct(){
-        Response<Product[]> res = controller.searchProductos(defaultProduct.getName());
+        Response<Product[]> res = controller.searchProducts(defaultProduct.getName());
                 
         Assert.assertTrue(res.msg, res.ok);
         boolean found = false; 
@@ -72,7 +72,7 @@ public class ProductControllerTest{
     
     @Test
     public void CreateProduct(){
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity());
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit());
                 
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.clase.getName(), defaultProduct.getName());        
