@@ -1,15 +1,11 @@
 package com.example.demo.controllers;
 
-import com.example.demo.database.ClientRepository;
-import javax.annotation.PostConstruct;
-
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.database.models.User;
-import com.example.demo.database.Repository;
 import com.example.demo.database.RepositoryController;
 import org.springframework.web.bind.annotation.RequestMapping;
 

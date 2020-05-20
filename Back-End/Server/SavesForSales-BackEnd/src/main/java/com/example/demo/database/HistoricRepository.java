@@ -6,7 +6,6 @@
 package com.example.demo.database;
 
 import com.example.demo.database.models.Historic;
-import com.example.demo.database.models.User;
 import java.util.List;
 
 /**

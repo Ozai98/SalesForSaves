@@ -4,13 +4,13 @@
       v-if="this.$store.getters.returnLogState"
       id="userIcon"
       src="@/assets/imgs/ProfilePhoto.jpg"
-      @click="openLogin()"
+      @click="jumpScreen('ProfileView')"
     />
     <img
       v-else
       id="userIcon"
       src="@/assets/imgs/user.svg"
-      @click="openLogin()"
+      @click="jumpScreen('Login')"
     />
   </div>
 </template>
@@ -26,11 +26,7 @@ export default {
   components: {
     ModalComponent,
   },
-  methods: {
-    openLogin() {
-      this.$emit("openLogin");
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped>

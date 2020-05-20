@@ -8,10 +8,10 @@
       VENDER
     </p>
     <div id="nav1" v-if="idPage == 'Home'">
-      <UserIcon></UserIcon>
+      <UserIcon @openLogin="openLogin()"></UserIcon>
     </div>
     <div class="center-content" id="nav2" v-else-if="idPage == 'SearchProduct'">
-      <UserIcon></UserIcon>
+      <UserIcon @openLogin="openLogin()"></UserIcon>
       <img
         class="logo"
         src="@/assets/imgs/pageIcon.svg"
@@ -28,7 +28,7 @@
       />
     </div>
     <div v-else id="nav4">
-      <UserIcon></UserIcon>
+      <UserIcon @openLogin="openLogin()"></UserIcon>
       <img
         class="logo"
         src="@/assets/imgs/pageIcon.svg"
@@ -50,7 +50,12 @@ export default {
   components: {
     UserIcon,
   },
-  methods: {},
+  methods: {
+    openLogin() {
+      console.log("emitio2");
+      this.$emit("openLogin");
+    },
+  },
 };
 </script>
 
