@@ -15,6 +15,7 @@
           v-model="product.quantity"
           type="number"
           class="soft-el spacer"
+          
         />
         <div class="space"></div>
         <p class="center-content">kg</p>
