@@ -81,7 +81,7 @@ public class HistoricController {
             historicRepository.create(newHistoric);
             
             return new Response(true, normalizeHistoric(newHistoric), "Reserved product");
-            
+
         }catch (Exception e) {
             Services.handleError(e);
             return new Response(false, null, e);

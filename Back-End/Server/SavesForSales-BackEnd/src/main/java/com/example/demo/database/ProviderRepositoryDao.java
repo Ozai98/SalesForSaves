@@ -23,7 +23,6 @@ public class ProviderRepositoryDao implements ClientRepository<Provider>{
         providerDao.create(usr);
     }
 
-    @Override
     public Provider getById(int ID)  throws SQLException{
         return providerDao.queryForId(ID);
     }

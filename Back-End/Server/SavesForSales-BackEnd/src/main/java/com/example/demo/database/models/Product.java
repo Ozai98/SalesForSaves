@@ -14,7 +14,7 @@ public class Product{
 	@DatabaseField
 	private String name;
 	@DatabaseField(foreign = true, columnName = "provider")
-	Provider provider;
+	private Provider provider;
         @DatabaseField
         private String image;
         @DatabaseField

@@ -30,7 +30,6 @@ public class HistoricRepositoryDao implements HistoricRepository{
         historicDao.create(historic);
     }
 
-    @Override
     public Historic getById(int ID) throws SQLException {
         return historicDao.queryForId(ID);
     }

@@ -54,4 +54,7 @@ public final class RepositoryController {
     public static void setHistoric(HistoricRepository aHistoric) {
         Historic = aHistoric;
     }
+    public static RateRepositoryDao Rate(){
+        return new RateRepositoryDao();
+    }
 }

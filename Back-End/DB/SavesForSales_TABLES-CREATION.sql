@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `image` VARCHAR(45) NULL,
   `quantity` DOUBLE NOT NULL,
   `publicationDate` DATETIME NOT NULL,
+  `timeLimit` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX (`provider` ASC),
   CONSTRAINT ``
@@ -92,6 +93,26 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Historic` (
     REFERENCES `SavesForSales`.`Product` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
+
+DROP TABLE IF EXISTS `SavesForSales`.`Rate` ;
+
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Rate` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `provider` INT NULL,
+  `rate` INT NOT NULL,
+  `user` INT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `providerfk_idx` (`provider` ASC),
+  CONSTRAINT `userfk`
+    FOREIGN KEY (`user`)
+    REFERENCES `SavesForSales`.`User` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `providerfk`
+    FOREIGN KEY (`provider`)
+    REFERENCES `SavesForSales`.`Provider` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

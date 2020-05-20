@@ -156,19 +156,19 @@ function createProduct(name, price, quantity, id_provider, picture, callback) {
 //-------------------------------------------------------------------
 //----------------------HISTORICO-------------------------------------
 //-------------------------------------------------------------------
-function getHistoricbyId(id, callback) {
+function getHistoricbyId(idUser, callback) {
   generalRequest(
-    "/historic/buyed-product/" + id,
-    undefined,
-    REQUEST_TYPES.GET,
+    "/historic/get-user-reserved",
+    {idUser},
+    REQUEST_TYPES.POST,
     callback
   );
 }
 
-function newReserve(idUser, idProducto, cantidad, callback) {
+function newReserve(idUser, idProduct, quantity, callback) {
   generalRequest(
     "/historic/reserve/",
-    { idUser, idProducto, cantidad },
+    { idUser, idProduct, quantity, reserveDate: new Date() },
     REQUEST_TYPES.POST,
     callback
   );

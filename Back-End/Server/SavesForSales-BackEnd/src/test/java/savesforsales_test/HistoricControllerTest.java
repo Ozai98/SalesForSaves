@@ -68,7 +68,7 @@ public class HistoricControllerTest {
         defaultHistoric.setReserveMoment(dt2);
         Response<Historic> res = controller.reserve(defaultHistoric.getUser().getId(), defaultHistoric.getProduct().getId(), defaultHistoric.getQuantity(), defaultHistoric.getTimeReserve());
         if(!res.ok) Assert.fail("Fail default Historic creation. Ex: " + res.msg);
-        defaultHistoric.setId(res.clase.getId());
+        defaultHistoric.setId(res.classX.getId());
     }
     
     @Test
