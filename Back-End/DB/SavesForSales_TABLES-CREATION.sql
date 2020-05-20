@@ -62,6 +62,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `image` VARCHAR(45) NULL,
   `quantity` DOUBLE NOT NULL,
   `publicationDate` DATETIME NOT NULL,
+  `timeLimit` DATETIME NOT NULL,
   PRIMARY KEY (`id`),
   INDEX (`provider` ASC),
   CONSTRAINT ``
