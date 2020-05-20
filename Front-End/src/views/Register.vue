@@ -56,6 +56,9 @@
 
 <script>
 import request from "@/services/request.service.js";
+import Vue from "vue"
+import alet from  "vue-simple-alert" ;
+Vue.use(alet);
 export default {
   name: "Register",
   data() {
@@ -94,14 +97,14 @@ export default {
                 console.log("Usuario registrado correctamente");
                 this.$store.dispatch("storeUser", data.clase);
                 this.jumpScreen("Login");
-              } else console.log("No se pudo registrar el usuario");
+              } else this.$alert("No se pudo crear usuario","ERROR CREANDO USUARIO",'error');
             }
           );
         } else {
-          console.log("Contraseña incorrecta");
+          this.$alert("Contraseña incorrecta","ERROR CREANDO USUARIO",'error');
         }
       } else {
-        console.log("Faltan datos");
+        this.$alert("Hacen falta datos","ERROR CREANDO USUARIO",'error');
       }
     }
   }

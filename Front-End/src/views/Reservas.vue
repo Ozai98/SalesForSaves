@@ -47,6 +47,7 @@
 <script>
 import request from "@/services/request.service.js";
 import Producto from "@/components/Producto.vue";
+import starts from "@/components/stars";
 export default {
   name: "SellProduct",
   data() {

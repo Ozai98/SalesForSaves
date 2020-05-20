@@ -1,4 +1,5 @@
 <template>
+
   <div id="back" class="center-content">
     <div id="login">
       <div id="title">INICIAR SESION!</div>
@@ -55,6 +56,7 @@
           >
             REGISTRARME!
           </button>
+          
         </div>
       </div>
     </div>
@@ -62,8 +64,14 @@
 </template>
 
 <script>
+
 import * as request from "../services/request.service";
+
+import Vue from "vue"
+import alet from  "vue-simple-alert" ;
+Vue.use(alet);
 export default {
+  
   name: "Login",
   data() {
     return {
@@ -101,13 +109,14 @@ export default {
           this.$store.dispatch("storeUser", builder);
           this.$store.dispatch("changeLogState");
           this.jumpScreen("Home");
-        } else console.log("Error logeando usuario");
+        } else this.$alert("no se reconoce el usuario o la contraseña","ERROR LOGUEANDO USUARIO",'error');
       });
     },
     login() {
       if (this.userLog.username != "" && this.userLog.password != "") {
         this.get_data();
       } else {
+        this.$alert("Un nombre de usuario y contraseña deben ser presentados","ERROR LOGUEANDO USUARIO",'error');
         console.log("A username and password must be present");
       }
     }

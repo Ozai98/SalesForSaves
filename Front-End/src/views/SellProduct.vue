@@ -41,6 +41,9 @@
 
 <script>
 import request from "@/services/request.service.js";
+import Vue from "vue"
+import alet from  "vue-simple-alert" ;
+Vue.use(alet);
 export default {
   name: "SellProduct",
   data() {
@@ -67,7 +70,8 @@ export default {
           console.log(data);
           if (data.ok) {
             console.log("Producto creado");
-          } else console.log("Error al crear producto");
+            this.$alert("SE CREO EL RPODUCTO",'succes');
+          } else this.$alert("ERROR AL CREAR PRODUCTO",'error');
         }
       );
     }
