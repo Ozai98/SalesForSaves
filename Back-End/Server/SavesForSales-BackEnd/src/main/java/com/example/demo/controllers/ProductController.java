@@ -63,23 +63,23 @@ public class ProductController {
             return new Response<Product []>(false, null, ex);
         }
     }
-    @CrossOrigin(origins = "*")
+
     @GetMapping("/get-by-id/{id}")
     public Response<Product> getProduct( @PathVariable Integer id) {
         try {
             Product product = productRepository.getById(id);
             if(product == null) return new Response<Product>(false, null, "Product no Found");
-            return new Response(true, normalize(product), "Ok:");
+            return new Response<Product>(true, normalize(product), "Ok:");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Product>(false, null, ex);
         }
 
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double quantity){
-        if(price <= 0) return new Response(false, null, "Invalid Price");
+    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double quantity, Date timeLimit){
+        if(price <= 0) return new Response<Product>(false, null, "price invalido");
         
         if(image == null) image = "";
         Product nProduct = new Product();
@@ -88,9 +88,10 @@ public class ProductController {
         nProduct.setImage(image);
         nProduct.setQuantity(quantity);
         nProduct.setPublicationDate(new Date());
-        
+        nProduct.setTimeLimit(timeLimit);
+        Provider creator;
         try {
-            Provider creator = providerRepository.getById(idProvider);
+            creator = providerRepository.getById(idProvider);
             if(creator == null) return new Response(false, null, "idProvider don't match with any provider id: " + idProvider);
             nProduct.setProvider(creator);
             productRepository.create(nProduct);

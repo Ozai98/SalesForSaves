@@ -75,11 +75,9 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void CreateProduct() {
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(),
-                ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(),
-                defaultProduct.getQuantity());
-
+    public void CreateProduct(){
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity());
+                
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.clase.getName(), defaultProduct.getName());
     }
