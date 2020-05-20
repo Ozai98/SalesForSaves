@@ -69,10 +69,10 @@ public class ProductController {
         try {
             Product product = productRepository.getById(id);
             if(product == null) return new Response<Product>(false, null, "Product no Found");
-            return new Response(true, normalize(product), "Ok:");
+            return new Response<Product>(true, normalize(product), "Ok:");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<Product>(false, null, ex);
         }
 
     }
@@ -91,7 +91,7 @@ public class ProductController {
         nProduct.setTimeLimit(timeLimit);
         Provider creator;
         try {
-            Provider creator = providerRepository.getById(idProvider);
+            creator = providerRepository.getById(idProvider);
             if(creator == null) return new Response(false, null, "idProvider don't match with any provider id: " + idProvider);
             nProduct.setProvider(creator);
             productRepository.create(nProduct);
