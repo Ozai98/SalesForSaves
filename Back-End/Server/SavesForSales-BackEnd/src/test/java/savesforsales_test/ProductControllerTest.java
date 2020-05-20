@@ -44,13 +44,13 @@ public class ProductControllerTest {
         defaultProduct.setQuantity(5);
 
         ProviderController provController = new ProviderController();
-        int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", "").clase.getId();
+        int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", "").classX.getId();
 
         Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id,
-                defaultProduct.getImage(), defaultProduct.getQuantity());
+                defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit());
         if (!res.ok)
             Assert.fail("Fail default product creation. Ex: " + res.msg);
-        defaultProduct.setId(res.clase.getId());
+        defaultProduct.setId(res.classX.getId());
     }
 
     @Test
@@ -59,8 +59,8 @@ public class ProductControllerTest {
 
         Assert.assertTrue(res.msg, res.ok);
         boolean found = false;
-        for (int i = 0; i < res.clase.length && !found; i++)
-            found = res.clase[i].getId() == defaultProduct.getId();
+        for (int i = 0; i < res.classX.length && !found; i++)
+            found = res.classX[i].getId() == defaultProduct.getId();
         if (!found)
             Assert.fail();
 
@@ -71,14 +71,14 @@ public class ProductControllerTest {
         Response<Product> res = controller.getProduct(defaultProduct.getId());
 
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getId(), defaultProduct.getId());
+        Assert.assertEquals(res.classX.getId(), defaultProduct.getId());
     }
 
     @Test
     public void CreateProduct(){
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity());
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit());
                 
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getName(), defaultProduct.getName());
+        Assert.assertEquals(res.classX.getName(), defaultProduct.getName());
     }
 }
