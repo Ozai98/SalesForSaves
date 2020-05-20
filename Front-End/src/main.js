@@ -8,18 +8,18 @@ Vue.config.productionTip = false;
 
 Vue.mixin({
   methods: {
-    jumpScreen: function(newScreen) {
+    jumpScreen: function (newScreen) {
       if (store.getters.returnView != newScreen) {
         this.$router.replace({ name: newScreen });
         this.$store.dispatch("changeViewState", newScreen);
-      }else console.log("Misma página");
-    }
-  }
+      } else console.log("Misma página");
+    },
+  },
 });
 
 new Vue({
   router,
   store,
   requestHandler,
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount("#app");

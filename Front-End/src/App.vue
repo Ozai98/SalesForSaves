@@ -1,6 +1,12 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container" @openLogin="openLogin()">
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+          rel="stylesheet"
+        />
+      </head>
       <meta
         name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
@@ -15,26 +21,33 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
+import Login from "@/components/Login.vue";
+import Register from "@/components/Register.vue";
 // import services from "@/services/request.service.js";
 export default {
   name: "App",
   data() {
     return {
-      idPage: "MainHome"
+      idPage: "MainHome",
     };
   },
   components: {
-    NavBar
+    NavBar,
+    Login,
+    Register,
   },
   computed: {
     page() {
       return this.$store.getters.returnView;
-    }
+    },
   },
   mounted() {
     this.$router.replace("home");
     this.$store.dispatch("resetUser");
-  }
+  },
+  metthods: {
+    openLogin() {},
+  },
 };
 </script>
 <style>

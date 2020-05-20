@@ -4,24 +4,33 @@
       v-if="this.$store.getters.returnLogState"
       id="userIcon"
       src="@/assets/imgs/ProfilePhoto.jpg"
-      @click="jumpScreen('ProfileView')"
+      @click="openLogin()"
     />
     <img
       v-else
       id="userIcon"
       src="@/assets/imgs/user.svg"
-      @click="jumpScreen('Login')"
+      @click="openLogin()"
     />
   </div>
 </template>
 
 <script>
+import ModalComponent from "@/components/ModalComponent.vue";
 export default {
   name: "UserIcon",
   props: {
-    isLogged: Boolean
+    isLogged: Boolean,
   },
-  computed: {}
+  computed: {},
+  components: {
+    ModalComponent,
+  },
+  methods: {
+    openLogin() {
+      this.$emit("openLogin");
+    },
+  },
 };
 </script>
 <style scoped>
