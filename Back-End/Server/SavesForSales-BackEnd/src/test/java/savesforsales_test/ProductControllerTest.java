@@ -53,7 +53,7 @@ public class ProductControllerTest{
     
     @Test
     public void SearchProduct(){
-        Response<Product[]> res = controller.searchProducts(defaultProduct.getName());
+        Response<Product[]> res = controller.searchProductos(defaultProduct.getName());
                 
         Assert.assertTrue(res.msg, res.ok);
         boolean found = false; 
