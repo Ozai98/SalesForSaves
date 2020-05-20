@@ -38,7 +38,7 @@ public class ProviderControllerTest {
         defaultProvider.setUbication("defaultProvider ubicacion");
         Response<Provider> res = controller.create(defaultProvider.getName(), defaultProvider.getMail(), defaultProvider.getPassword(), defaultProvider.getAvatar());
         if(!res.ok) Assert.fail("Fail default proveedor creation");
-        defaultProvider.setId(res.clase.getId());
+        defaultProvider.setId(res.classX.getId());
     }
     
     @Test
@@ -46,8 +46,8 @@ public class ProviderControllerTest {
         Response<Provider> res = controller.create(defaultProvider.getName(), defaultProvider.getMail(), defaultProvider.getPassword(), defaultProvider.getAvatar());
         
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getName(), defaultProvider.getName());
-        Assert.assertEquals(res.clase.getAvatar(), defaultProvider.getAvatar());   
+        Assert.assertEquals(res.classX.getName(), defaultProvider.getName());
+        Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());   
         
     }
     
@@ -56,9 +56,9 @@ public class ProviderControllerTest {
         Response<Provider> res = controller.login(defaultProvider.getMail(), defaultProvider.getPassword());
         
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getName(), defaultProvider.getName());
-        Assert.assertEquals(res.clase.getAvatar(), defaultProvider.getAvatar());
-        //Assert.assertEquals(res.clase.getId(), defaultProvider.getId());    
+        Assert.assertEquals(res.classX.getName(), defaultProvider.getName());
+        Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());
+        //Assert.assertEquals(res.classX.getId(), defaultProvider.getId());    
         
         res = controller.login(defaultProvider.getMail(), "Bad Password");
         Assert.assertFalse(res.msg, res.ok);
@@ -72,9 +72,9 @@ public class ProviderControllerTest {
         Response<Provider> res = controller.getById(defaultProvider.getId());
         
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getName(), defaultProvider.getName());
-        Assert.assertEquals(res.clase.getAvatar(), defaultProvider.getAvatar());
-        Assert.assertEquals(res.clase.getId(), defaultProvider.getId());  
+        Assert.assertEquals(res.classX.getName(), defaultProvider.getName());
+        Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());
+        Assert.assertEquals(res.classX.getId(), defaultProvider.getId());  
         
         res = controller.getById(defaultProvider.getId() - 100);
         
@@ -87,7 +87,7 @@ public class ProviderControllerTest {
         defaultProvider.setName("defaultProvider updated Name");
         Response<Provider> res = controller.updateProvider(defaultProvider.getId(), defaultProvider.getName(), null, null, null);
         Assert.assertTrue("Msg : " + res.msg, res.ok);
-        Assert.assertEquals(res.clase.getName(), defaultProvider.getName());
+        Assert.assertEquals(res.classX.getName(), defaultProvider.getName());
         
         defaultProvider.setPassword("defaultUser updated password");
         res = controller.updateProvider(defaultProvider.getId(), null, defaultProvider.getPassword(), null, null);
@@ -96,7 +96,7 @@ public class ProviderControllerTest {
         defaultProvider.setAvatar("defaultProvider updated avatar");
         res = controller.updateProvider(defaultProvider.getId(), null, null, defaultProvider.getAvatar(), null);
         Assert.assertTrue(res.msg, res.ok);
-        Assert.assertEquals(res.clase.getAvatar(), defaultProvider.getAvatar());
+        Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());
         
         res = controller.updateProvider(defaultProvider.getId() - 100, null, null, null, null);
         Assert.assertFalse(res.msg, res.ok);

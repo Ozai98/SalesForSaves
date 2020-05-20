@@ -1,6 +1,6 @@
 <template>
   <div id="home" class="center-content">
-    <div class="titulo">
+    <div class="title">
       <h1>SALES FOR SAVES</h1>
     </div>
     <SearchBar
@@ -17,13 +17,13 @@ import SearchBar from "@/components/SearchBar.vue";
 export default {
   name: "Home",
   components: {
-    SearchBar
-  }
+    SearchBar,
+  },
 };
 </script>
 
 <style scoped>
-.titulo {
+.title {
   font-size: 6vw;
 }
 #home {

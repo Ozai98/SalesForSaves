@@ -3,59 +3,57 @@
     <div id="sDiv"></div>
     <SearchBar id="s-el" @search="bringFromBack()"></SearchBar>
     <div id="products">
-      <div  v-for="prod in dataProd" :key="prod.name">
-        <Producto :product="prod"></Producto>
+      <div v-for="prod in dataProd" :key="prod.name">
+        <Product :product="prod"></Product>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Producto from "@/components/Producto.vue";
+import Product from "@/components/Product.vue";
 import request from "@/services/request.service.js";
 import SearchBar from "@/components/SearchBar.vue";
 export default {
   data() {
     return {
-      dataProd: Object
+      dataProd: Object,
     };
   },
   name: "SearchView",
   components: {
-    Producto,
-    SearchBar
+    Product,
+    SearchBar,
   },
   methods: {
-
     bringFromBack() {
       this.dataProd = [];
-      request.buscarProducto(this.$store.getters.returnSearchedValue, data => {
+      request.searchProduct(this.$store.getters.returnSearchedValue, (data) => {
         if (data.ok) {
           console.log(data);
           console.log("Producto encontrado");
-          for (const prod of data.clase) {
+          for (const prod of data.classX) {
             this.dataProd.push({
-              time: new Date(prod.fechaPublicacion),
-              price: prod.precio,
-              name: prod.nombre,
-              leftUnits: prod.cantidad,
-              id: prod.id
+              time: new Date(prod.publicationDate),
+              price: prod.price,
+              name: prod.name,
+              leftUnits: prod.quantity,
+              id: prod.id,
             });
           }
           console.log(this.dataProd);
         } else console.log("Error al encontrar producto");
       });
-    }
+    },
   },
   mounted() {
     this.bringFromBack();
-  }
+  },
 };
 </script>
 
 <style>
 #container {
-
   height: 90%;
   background-color: white;
 }
@@ -67,7 +65,6 @@ export default {
   margin: auto;
 }
 #products {
-
   padding: 2vw;
   display: grid;
   grid-gap: 2vw;
