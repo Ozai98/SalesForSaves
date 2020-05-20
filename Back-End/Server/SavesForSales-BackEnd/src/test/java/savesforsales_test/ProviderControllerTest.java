@@ -12,10 +12,7 @@ package savesforsales_test;
 
 import com.example.demo.controllers.Response;
 import com.example.demo.controllers.ProviderController;
-import com.example.demo.database.RepositoryController;
 import com.example.demo.database.models.Provider;
-import com.example.demo.services.Services;
-import mock_repositories.MockProviderRepository;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;

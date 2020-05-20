@@ -6,8 +6,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.regex.Pattern;
 
-import com.example.demo.database.models.Client;
-
 import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
