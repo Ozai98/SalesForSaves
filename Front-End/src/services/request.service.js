@@ -1,5 +1,5 @@
-const SERVER_URL = "http://190.157.224.51:8083/";
-//const SERVER_URL = "http://localhost:8083";
+//const SERVER_URL = "http://190.157.224.51:8083/";
+const SERVER_URL = "http://localhost:8083";
 
 const REQUEST_TYPES = {
   GET: "GET",
@@ -104,7 +104,7 @@ function createProvider(name, mail, password, avatar, callback) {
 
 function getProviderById(id, callback) {
   generalRequest(
-    "/provider/get-by-id/" + id,
+    "/provider/get-by-id" + id,
     undefined,
     REQUEST_TYPES.GET,
     callback
@@ -147,7 +147,7 @@ function getProductoById(id, callback) {
 // El parametro imagen es opcional. Pueden pasar undefined o null
 function createProduct(name, price, quantity, id_provider, picture, callback) {
   generalRequest(
-    "/producto/crear",
+    "/product/create",
     { name, price, quantity, id_provider, picture },
     REQUEST_TYPES.POST,
     callback
@@ -167,7 +167,7 @@ function getHistoricbyId(idUser, callback) {
 
 function newReserve(idUser, idProduct, quantity, callback) {
   generalRequest(
-    "/historic/reserve/",
+    "/historic/reserve",
     { idUser, idProduct, quantity, reserveDate: new Date() },
     REQUEST_TYPES.POST,
     callback

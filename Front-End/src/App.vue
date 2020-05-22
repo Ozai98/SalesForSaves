@@ -1,36 +1,52 @@
 <template>
-  <div>
-    <div class="container" @openLogin="openLogin()">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
-      <meta
-        name="viewport"
-        content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
+<div>
+  <div class="container">
+    <head>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet"
       />
-      <NavBar :idPage="page""></NavBar>
-      <div id="app">
-        <router-view />
-      </div>
+    </head>
+    <meta
+      name="viewport"
+      content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
+    />
+    <NavBar :idPage="page" @openLogin2="$refs.modalLogin.openModal()"></NavBar>
+    <ModalComponent ref="modalLogin">
+      <template v-slot:body>
+        <Login @goToRegister=" $refs.modalLogin.closeModal();$refs.modalRegister.openModal()"></Login>
+      </template>
+    </ModalComponent>
+    <ModalComponent ref="modalRegister">
+      <template v-slot:body>
+        <Register></Register>
+      </template>
+    </ModalComponent>
+    <div id="app">
+      <router-view />
     </div>
   </div>
+</div>
 </template>
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-// import services from "@/services/request.service.js";
+import ModalComponent from "@/components/ModalComponent.vue";
+import Login from "@/components/Login.vue";
+import Register from "@/components/Register.vue";
 export default {
   name: "App",
   data() {
     return {
       idPage: "MainHome",
+      register: false,
     };
   },
   components: {
     NavBar,
+    ModalComponent,
+    Login,
+    Register,
   },
   computed: {
     page() {
@@ -41,6 +57,11 @@ export default {
     this.$router.replace("home");
     this.$store.dispatch("resetUser");
   },
+  methods:{
+    swapModal(){
+      this.register = !this.register;
+    }
+  }
 };
 </script>
 <style>

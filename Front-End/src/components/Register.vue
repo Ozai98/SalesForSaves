@@ -1,56 +1,39 @@
 <template>
-  <div id="back" class="center-content">
-    <div id="register" class="center-content">
-      <div id="title">REGISTRARSE</div>
-      <div id="name" class="space input-el field base-border">
-        <p class="body-text label">Nombre</p>
-        <div class="space"></div>
-        <input
-          type="text"
-          name="name"
-          v-model="newUser.name"
-          class="soft-el body-text input"
-        />
-      </div>
-      <div id="user" class="space input-el field base-border body-text">
-        <p class="label">Correo</p>
-        <div class="space"></div>
-        <input
-          type="text"
-          name="User"
-          v-model="newUser.username"
-          class="soft-el body-text input"
-        />
-      </div>
-      <div id="pass" class="space input-el field base-border body-text">
-        <p class="label">Contraseña</p>
-        <div class="space"></div>
-        <input
-          type="password"
-          name="password"
-          v-model="newUser.password"
-          class="soft-el body-text input"
-        />
-      </div>
-      <div id="pass2" class="space input-el field base-border body-text">
-        <p class="label">Repita Contraseña</p>
-        <div class="space"></div>
-        <input
-          type="password"
-          name="password2"
-          v-model="newUser.password2"
-          class="soft-el body-text input"
-          id="rep"
-        />
-      </div>
-      <label for="ProviderCheck" class="body-text desc">
-        ¿Desea vender productos como proveedor?
-      </label>
-      <input type="checkBox" id="providerCheck" v-model="isProvider" />
-      <button class="button-base accessBtn" id="regBtn" v-on:click="register()">
-        REGISTRARSE!
-      </button>
+  <div id="register" class="center-content">
+    <div id="title">REGISTRARSE</div>
+    <div id="name" class="space input-el field base-border">
+      <p class="body-text label">Nombre</p>
+      <div class="space"></div>
+      <input type="text" name="name" v-model="newUser.name" class="soft-el body-text regField" />
     </div>
+    <div id="user" class="space input-el field base-border body-text">
+      <p class="label">Correo</p>
+      <div class="space"></div>
+      <input type="text" name="User" v-model="newUser.username" class="soft-el body-text regField" />
+    </div>
+    <div id="pass" class="space input-el field base-border body-text">
+      <p class="label">Contraseña</p>
+      <div class="space"></div>
+      <input
+        type="password"
+        name="password"
+        v-model="newUser.password"
+        class="soft-el body-text regField"
+      />
+    </div>
+    <div id="pass2" class="space input-el field base-border body-text">
+      <p class="label">Repita Contraseña</p>
+      <div class="space"></div>
+      <input
+        type="password"
+        name="password2"
+        v-model="newUser.password2"
+        class="soft-el body-text regField"
+      />
+    </div>
+    <label for="ProviderCheck" class="body-text desc">¿Desea vender productos como proveedor?</label>
+    <input type="checkBox" id="providerCheck" v-model="isProvider" />
+    <button class="button-base accessBtn" id="regBtn" v-on:click="register()">REGISTRARSE!</button>
   </div>
 </template>
 
@@ -114,8 +97,8 @@ export default {
   justify-items: center;
   text-align: center;
   width: 30vw;
-  height: 30vw;
-  border-radius: 23px;
+  height: 25vw;
+  border-radius: 2vw;
   display: grid;
   grid-template-columns: 1fr;
 }
@@ -125,10 +108,11 @@ export default {
   font-size: 0.6vw;
   margin-right: 10px;
   margin-left: 10px;
+  min-width: 6vw;
 }
 
-#rep {
-  width: 17vw;
+.regField {
+  width: 15vw;
 }
 
 #title {
@@ -136,6 +120,8 @@ export default {
   color: #a1ffca;
   -webkit-text-stroke-color: #ff8e43;
   -webkit-text-stroke-width: 1px;
+  font-family: "Oswald", sans-serif;
+  font-weight: 700;
 }
 
 #regBtn {
