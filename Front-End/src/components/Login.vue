@@ -1,60 +1,38 @@
 <template>
-  <div id="back" class="center-content">
-    <div id="login">
-      <div id="title">INICIAR SESION!</div>
-      <div id="user">
-        <div id="user" class="input-el field base-border body-text">
-          <p class="label">E-mail</p>
-          <div class="space"></div>
-          <input
-            type="text"
-            name="User"
-            v-model="userLog.username"
-            class="soft-el body-text input"
-          />
-        </div>
-        <div id="pass" class="input-el field base-border body-text">
-          <p class="label">Contraseña</p>
-          <div class="space"></div>
-          <input
-            type="password"
-            name="password"
-            v-model="userLog.password"
-            class="soft-el body-text input"
-          />
-        </div>
-        <label for="ProviderCheck" class="body-text desc">
-          Si eres proveedor dale a la cajita
-        </label>
+  <div id="login" class="center-content">
+    <div id="title">INICIAR SESION!</div>
+    <div id="user">
+      <div id="user" class="input-el field base-border body-text">
+        <p class="label">E-mail</p>
+        <div class="space"></div>
+        <input type="text" name="User" v-model="userLog.username" class="soft-el body-text input" />
+      </div>
+      <div id="pass" class="input-el field base-border body-text">
+        <p class="label">Contraseña</p>
+        <div class="space"></div>
         <input
-          type="checkBox"
-          id="providerCheck"
-          @change="userLog.isProvider = !userLog.isProvider"
+          type="password"
+          name="password"
+          v-model="userLog.password"
+          class="soft-el body-text input"
         />
-        <div>
-          <button
-            type="button"
-            name="log"
-            v-on:click="login()"
-            class="accessBtn button-base"
-          >
-            ENTRAR
-          </button>
-        </div>
-        <div id="regtext">
-          O
-          <br />si no tienes una cuenta puedes registrarte
-        </div>
-        <div id="bot2">
-          <button
-            class="accessBtn button-base"
-            type="button"
-            v-on:click="jumpScreen('Register')"
-            name="sin"
-          >
-            REGISTRARME!
-          </button>
-        </div>
+      </div>
+      <label for="ProviderCheck" class="body-text desc">Si eres proveedor dale a la cajita</label>
+      <input type="checkBox" id="providerCheck" @change="userLog.isProvider = !userLog.isProvider" />
+      <div>
+        <button type="button" name="log" v-on:click="login()" class="accessBtn button-base">ENTRAR</button>
+      </div>
+      <div id="regtext">
+        O
+        <br />si no tienes una cuenta puedes registrarte
+      </div>
+      <div id="bot2">
+        <button
+          class="accessBtn button-base"
+          type="button"
+          v-on:click="goToRegister()"
+          name="sin"
+        >REGISTRARME!</button>
       </div>
     </div>
   </div>
@@ -111,6 +89,9 @@ export default {
         console.log("A username and password must be present");
       }
     },
+    goToRegister(){
+      this.$emit("goToRegister");
+    }
   },
   components: {
     ModalComponent,
@@ -124,18 +105,22 @@ export default {
   justify-items: center;
   text-align: center;
   width: 30vw;
-  height: 30vw;
-  border-radius: 23px;
+  height: 25vw;
+  border-radius: 2vw;
   display: grid;
   grid-template-columns: 1fr;
 }
+#providerCheck {
+  margin: 0.2vw;
+}
 
 #title {
-  font-size: 4vw;
+  font-size: 3.5vw;
   color: #a1ffca;
   -webkit-text-stroke-color: #ff8e43;
   -webkit-text-stroke-width: 1px;
-  margin-top: 2vw;
+  font-weight: 700;
+  font-family: "Oswald", sans-serif;
 }
 
 #back {
@@ -156,6 +141,13 @@ export default {
   font-size: 0.6vw;
   margin-right: 10px;
   margin-left: 10px;
+  min-width: 4vw;
+}
+
+button {
+  min-width: 8vw;
+  font-size: 1.7vw;
+  font-weight: 700;
 }
 
 button[name="log"] {
