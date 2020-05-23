@@ -26,7 +26,7 @@ export default {
       this.dataH = [];
       request.getHistoricbyId(this.id, (data) => {
         if (data.ok) {
-          for (const hist of data.clase) {
+          for (const hist of data.classX) {
             this.dataH.push({
               time: hist.time,
               price: hist.product.price,

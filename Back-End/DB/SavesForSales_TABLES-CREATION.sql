@@ -63,6 +63,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `quantity` DOUBLE NOT NULL,
   `publicationDate` DATETIME NOT NULL,
   `timeLimit` DATETIME NOT NULL,
+  `category` varchar(45) NOT NULL default 'NO CATEGORY',
   PRIMARY KEY (`id`),
   INDEX (`provider` ASC),
   CONSTRAINT ``
@@ -93,8 +94,6 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Historic` (
     REFERENCES `SavesForSales`.`Product` (`id`)
     ON DELETE CASCADE)
 ENGINE = InnoDB;
-
-DROP TABLE IF EXISTS `SavesForSales`.`Rate` ;
 
 CREATE TABLE IF NOT EXISTS `SavesForSales`.`Rate` (
   `id` INT NOT NULL AUTO_INCREMENT,

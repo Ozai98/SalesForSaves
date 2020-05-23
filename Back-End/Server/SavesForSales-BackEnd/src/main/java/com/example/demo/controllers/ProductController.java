@@ -27,6 +27,9 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @RequestMapping("/product")
 public class ProductController {
 
+    
+    public static final String DEFAULT_CATEGORY = "NO CATEGORY";
+    
     private ProductRepository productRepository;
     private ClientRepository<Provider> providerRepository;
 
@@ -50,8 +53,25 @@ public class ProductController {
     public Response<Product[]> searchProducts(@PathVariable(required = false) String name) {
         try {
             List<Product> result;
-            if(name == null || name.isEmpty()) result = productRepository.search("");
-            else result =  productRepository.search(name);
+            if(name == null || name.isEmpty()) result = productRepository.searchValid("");
+            else result =  productRepository.searchValid(name);
+            
+            Product[] response = new Product[result.size()]; 
+            int i = 0;
+            for(Product product: result) response[i++] = normalize(product);
+            return new Response(true, response, "Ok");
+        } catch (Exception ex) {
+            Services.handleError(ex);
+            return new Response<Product []>(false, null, ex);
+        }
+    }
+    
+    @GetMapping(value={"/search-category/{category}", "/search-category"})
+    public Response<Product[]> searchCategory(@PathVariable(required = false) String category) {
+        try {
+            List<Product> result;
+            if(category == null || category.isEmpty()) result = productRepository.searchCategory("");
+            else result =  productRepository.searchCategory(category.toUpperCase());
             
             Product[] response = new Product[result.size()]; 
             int i = 0;
@@ -77,8 +97,12 @@ public class ProductController {
     }
 
     @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double quantity, Date timeLimit){
+    public Response<Product> create(String name, Double price, Integer idProvider, String image, Double quantity, 
+            Date timeLimit, String category){
         if(price <= 0) return new Response<Product>(false, null, "price invalido");
+        if(category == null || category.isEmpty()) category = DEFAULT_CATEGORY;
+        else category = category.toUpperCase();
+        
         
         if(image == null) image = "";
         Product nProduct = new Product();
@@ -88,6 +112,7 @@ public class ProductController {
         nProduct.setQuantity(quantity);
         nProduct.setPublicationDate(new Date());
         nProduct.setTimeLimit(timeLimit);
+        nProduct.setCategory(category);
         Provider creator;
         try {
             creator = providerRepository.getById(idProvider);

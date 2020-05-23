@@ -102,8 +102,13 @@ public class HistoricController {
 
             hist.setState(HISROTIC_STATE);
             hist.setBuyDate(new Date());
-            historicRepository.update(hist);
             
+            productRepository.refresh(hist.getProduct());
+            hist.getProduct().setQuantity(hist.getProduct().getQuantity() - hist.getQuantity());
+            
+            historicRepository.update(hist);
+            productRepository.update(hist.getProduct());
+
             return new Response<Historic>(true, normalizeHistoric(hist), "Buyed product");
             
         }catch (Exception e) {

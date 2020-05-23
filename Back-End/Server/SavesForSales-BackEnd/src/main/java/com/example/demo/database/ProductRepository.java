@@ -13,5 +13,6 @@ import java.util.List;
  * @author German le yo
  */
 public interface ProductRepository extends Repository<Product>{
-    List<Product> search(String param) throws Exception;
+    List<Product> searchValid(String param) throws Exception;
+    List<Product> searchCategory(String categoy) throws Exception;
 }

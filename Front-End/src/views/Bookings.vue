@@ -58,7 +58,7 @@ export default {
             (this.preview.price = data.classX.price),
             (this.preview.name = data.classX.name),
             (this.preview.provider = data.classX.provider.name),
-            (this.preview.id = data.classXX.id);
+            (this.preview.id = data.classX.id);
         } else console.log("Error al encontrar producto");
         console.log(data);
       });
@@ -75,6 +75,7 @@ export default {
               console.log("Reserva creada");
             } else {
               console.log("Error al crear reserva");
+              console.log(data.msg);
             }
           }
         );

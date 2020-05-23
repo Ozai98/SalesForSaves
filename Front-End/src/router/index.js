@@ -45,7 +45,7 @@ const router = new VueRouter({
     },
     {
       path: "/Bookings/:id",
-      name: "Reservas",
+      name: "Bookings",
       component: () => import("@/views/Bookings.vue"),
     },
     {
