@@ -32,7 +32,7 @@ public class MockProductRepository implements ProductRepository{
     }
 
     @Override
-    public List<Product> search(String param) throws Exception {
+    public List<Product> searchValid(String param) throws Exception {
         LinkedList<Product> exit = new LinkedList();
         for(Product pro: mockTable.values()) if(pro.getName().compareTo(param) == 0) exit.add(pro);
         return exit;

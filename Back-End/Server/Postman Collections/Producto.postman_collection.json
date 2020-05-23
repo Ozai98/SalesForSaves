@@ -11,16 +11,16 @@
 				"method": "POST",
 				"header": [],
 				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
+					"mode": "formdata",
+					"formdata": [
 						{
 							"key": "name",
-							"value": "Comida",
+							"value": "Le besto comida",
 							"type": "text"
 						},
 						{
 							"key": "price",
-							"value": "5",
+							"value": "54",
 							"type": "text"
 						},
 						{
@@ -30,12 +30,17 @@
 						},
 						{
 							"key": "image",
-							"value": "mi imagen.png",
-							"type": "text"
+							"type": "file",
+							"src": "/C:/Users/German le yo/Pictures/Saved Pictures/Fondo bloqueo.jpg"
 						},
 						{
 							"key": "quantity",
 							"value": "3.3",
+							"type": "text"
+						},
+						{
+							"key": "timeLimit",
+							"value": "2020-06-09T11:30:00",
 							"type": "text"
 						}
 					]
@@ -80,14 +85,34 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8083/product/search",
+					"raw": "localhost:8083/product/search/",
 					"host": [
 						"localhost"
 					],
 					"port": "8083",
 					"path": [
 						"product",
-						"search"
+						"search",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar Category",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8083/product/search-category",
+					"host": [
+						"localhost"
+					],
+					"port": "8083",
+					"path": [
+						"product",
+						"search-category"
 					]
 				}
 			},

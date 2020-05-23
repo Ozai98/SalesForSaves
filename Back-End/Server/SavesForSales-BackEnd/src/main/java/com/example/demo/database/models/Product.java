@@ -23,6 +23,8 @@ public class Product{
         private Date publicationDate;
         @DatabaseField
         private Date timeLimit;
+        @DatabaseField
+        private String category;
         
         public Product(){}
         
@@ -35,7 +37,7 @@ public class Product{
             quantity = other.quantity;
             publicationDate = other.publicationDate;
             timeLimit = other.timeLimit;
-            
+            category = other.category;
         }
         
 	public int getId(){return id;}
@@ -46,6 +48,7 @@ public class Product{
         public double getQuantity(){return quantity;}
         public Date getPublicationDate(){return publicationDate;}
         public Date getTimeLimit(){return timeLimit;};
+        public String getCategory(){return category;};
 
         public void setId(int id){this.id = id;}
 	public void setPrice(double p){price=p;}
@@ -55,4 +58,5 @@ public class Product{
         public void setQuantity(double c){quantity = c;}
         public void setPublicationDate(Date d){publicationDate = d;}
         public void setTimeLimit(Date d){timeLimit = d;}
+        public void setCategory(String c){category = c;}
 }

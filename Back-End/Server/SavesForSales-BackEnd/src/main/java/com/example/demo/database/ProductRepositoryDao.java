@@ -7,6 +7,7 @@ package com.example.demo.database;
 
 import com.example.demo.database.models.Product;
 import com.j256.ormlite.dao.Dao;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -44,8 +45,15 @@ public class ProductRepositoryDao implements ProductRepository{
     }
 
     @Override
-    public List<Product> search(String param) throws Exception {
-        return productDao.queryBuilder().where().like("name", "%" + param + "%").query();
+    public List<Product> searchValid(String param) throws Exception {
+        return productDao.queryBuilder().where().like("name", "%" + param + "%")
+                .and().gt("quantity", 0).and().ge("timeLimit", new Date()).query();
+    }
+
+    @Override
+    public List<Product> searchCategory(String categoy) throws Exception {
+        return productDao.queryBuilder().where().like("category", "%" + categoy + "%")
+                .and().gt("quantity", 0).and().ge("timeLimit", new Date()).query();
     }
     
 }
