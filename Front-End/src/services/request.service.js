@@ -8,7 +8,8 @@ const REQUEST_TYPES = {
 
 function generalRequest(path, body, requestType, useFormData, callback) {
   var myHeaders = new Headers();
-  if(!useFormData) myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  if(useFormData) myHeaders.append("Content-Type", "multipart/form-data");
+  else myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
   var body = undefined;
   if (requestType != REQUEST_TYPES.GET) {
