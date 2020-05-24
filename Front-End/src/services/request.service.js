@@ -11,13 +11,14 @@ function generalRequest(path, body, requestType, useFormData, callback) {
   if (requestType != REQUEST_TYPES.GET) {
     if (useFormData) body = new FormData();
     else body = new URLSearchParams();
-
+    
     for (const key in body) body.append(key, body[key]);
   }
 
   var requestOptions = {
     method: requestType,
     body: body,
+    redirect: 'follow',
   };
 
   if(!useFormData){
@@ -25,6 +26,8 @@ function generalRequest(path, body, requestType, useFormData, callback) {
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
     requestOptions.headers = myHeaders;
   }
+
+  console.log(body);
 
   fetch(SERVER_URL + path, requestOptions)
     .then((response) => response.json())
