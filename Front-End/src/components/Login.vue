@@ -5,7 +5,12 @@
       <div id="user" class="input-el field base-border body-text">
         <p class="label">E-mail</p>
         <div class="space"></div>
-        <input type="text" name="User" v-model="userLog.username" class="soft-el body-text input" />
+        <input
+          type="text"
+          name="User"
+          v-model="userLog.username"
+          class="soft-el body-text input"
+        />
       </div>
       <div id="pass" class="input-el field base-border body-text">
         <p class="label">Contraseña</p>
@@ -17,10 +22,23 @@
           class="soft-el body-text input"
         />
       </div>
-      <label for="ProviderCheck" class="body-text desc">Si eres proveedor dale a la cajita</label>
-      <input type="checkBox" id="providerCheck" @change="userLog.isProvider = !userLog.isProvider" />
+      <label for="ProviderCheck" class="body-text desc"
+        >Si eres proveedor dale a la cajita</label
+      >
+      <input
+        type="checkBox"
+        id="providerCheck"
+        @change="userLog.isProvider = !userLog.isProvider"
+      />
       <div>
-        <button type="button" name="log" v-on:click="login()" class="accessBtn button-base">ENTRAR</button>
+        <button
+          type="button"
+          name="log"
+          v-on:click="login()"
+          class="accessBtn button-base"
+        >
+          ENTRAR
+        </button>
       </div>
       <div id="regtext">
         O
@@ -32,7 +50,9 @@
           type="button"
           v-on:click="goToRegister()"
           name="sin"
-        >REGISTRARME!</button>
+        >
+          REGISTRARME!
+        </button>
       </div>
     </div>
   </div>
@@ -41,6 +61,9 @@
 <script>
 import * as request from "../services/request.service";
 import ModalComponent from "@/components/ModalComponent.vue";
+import alert from "vue-simple-alert";
+import Vue from "vue";
+Vue.use(alert);
 export default {
   name: "Login",
   data() {
@@ -79,19 +102,33 @@ export default {
           this.$store.dispatch("storeUser", builder);
           this.$store.dispatch("changeLogState");
           this.jumpScreen("Home");
-        } else console.log("Error logeando usuario");
+        } else {
+          this.$fire({
+            text: "no se reconoce el usuario o la contraseña",
+            titleText: "ERROR LOGUEANDO USUARIO",
+            icon: "error",
+            confirmButtonColor: "#ff8e43",
+            customClass: "swal2-error",
+          });
+        }
       });
     },
     login() {
       if (this.userLog.username != "" && this.userLog.password != "") {
         this.get_data();
       } else {
-        console.log("A username and password must be present");
+        this.$fire({
+          text: "Un nombre de usuario y contraseña deben ser presentados",
+          titleText: "ERROR LOGUEANDO USUARIO",
+          icon: "error",
+          confirmButtonColor: "#ff8e43",
+          customClass: "swal2-error",
+        });
       }
     },
-    goToRegister(){
+    goToRegister() {
       this.$emit("goToRegister");
-    }
+    },
   },
   components: {
     ModalComponent,

@@ -4,12 +4,22 @@
     <div id="name" class="space input-el field base-border">
       <p class="body-text label">Nombre</p>
       <div class="space"></div>
-      <input type="text" name="name" v-model="newUser.name" class="soft-el body-text regField" />
+      <input
+        type="text"
+        name="name"
+        v-model="newUser.name"
+        class="soft-el body-text regField"
+      />
     </div>
     <div id="user" class="space input-el field base-border body-text">
       <p class="label">Correo</p>
       <div class="space"></div>
-      <input type="text" name="User" v-model="newUser.username" class="soft-el body-text regField" />
+      <input
+        type="text"
+        name="User"
+        v-model="newUser.username"
+        class="soft-el body-text regField"
+      />
     </div>
     <div id="pass" class="space input-el field base-border body-text">
       <p class="label">Contraseña</p>
@@ -31,14 +41,21 @@
         class="soft-el body-text regField"
       />
     </div>
-    <label for="ProviderCheck" class="body-text desc">¿Desea vender productos como proveedor?</label>
+    <label for="ProviderCheck" class="body-text desc"
+      >¿Desea vender productos como proveedor?</label
+    >
     <input type="checkBox" id="providerCheck" v-model="isProvider" />
-    <button class="button-base accessBtn" id="regBtn" v-on:click="register()">REGISTRARSE!</button>
+    <button class="button-base accessBtn" id="regBtn" v-on:click="register()">
+      REGISTRARSE!
+    </button>
   </div>
 </template>
 
 <script>
 import request from "@/services/request.service.js";
+import alert from "vue-simple-alert";
+import Vue from "vue";
+Vue.use(alert);
 export default {
   name: "Register",
   data() {
@@ -76,15 +93,35 @@ export default {
               if (data.ok) {
                 console.log("Usuario registrado correctamente");
                 this.$store.dispatch("storeUser", data.classX);
-                this.jumpScreen("Login");
-              } else console.log("No se pudo registrar el usuario");
+                this.jumpScreen("ProfileView");
+              } else {
+                this.$fire({
+                  text: "No se pudo crear usuario",
+                  titleText: "ERROR CREANDO USUARIO",
+                  icon: "error",
+                  confirmButtonColor: "#ff8e43",
+                  customClass: "swal2-error",
+                });
+              }
             }
           );
         } else {
-          console.log("Contraseña incorrecta");
+          this.$fire({
+            text: "Contraseña incorrecta",
+            titleText: "ERROR CREANDO USUARIO",
+            icon: "error",
+            confirmButtonColor: "#ff8e43",
+            customClass: "swal2-error",
+          });
         }
       } else {
-        console.log("Faltan datos");
+        this.$fire({
+          text: "Hacen falta datos",
+          titleText: "ERROR CREANDO USUARIO",
+          icon: "error",
+          confirmButtonColor: "#ff8e43",
+          customClass: "swal2-error",
+        });
       }
     },
   },
