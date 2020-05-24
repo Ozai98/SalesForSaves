@@ -8,18 +8,36 @@ const REQUEST_TYPES = {
 
 function generalRequest(path, body, requestType, useFormData, callback) {
 
-  var formdata = new FormData();
-  formdata.append("name", "Test User");
-  formdata.append("mail", "testmail@testmail.com");
-  formdata.append("password", "0000");
+  var requestOptions;
 
-  var requestOptions = {
-    method: 'POST',
-    body: formdata,
-    redirect: 'follow'
-  };
+  if(useFormData){
+    var formdata = new FormData();
+    for(const key in body) formdata.append(key, body[key]);
 
-  fetch("localhost:8083/user/create", requestOptions)
+    requestOptions = {
+      method: requestType,
+      body: formdata,
+      redirect: 'follow'
+    };
+
+  }else {
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    if (requestType != REQUEST_TYPES.GET) {
+      const urlParams = new URLSearchParams(); 
+      for (const key in body) urlParams.append(key, body[key]);
+    }
+
+    requestOptions = {
+      method: requestType,
+      body: body,
+      redirect: 'follow',
+      headers: myHeaders,
+    };
+
+  }
+
+  fetch(SERVER_URL + path, requestOptions)
     .then((response) => response.json())
     .then((result) => callback(result))
     .catch((error) => {
@@ -32,44 +50,6 @@ function generalRequest(path, body, requestType, useFormData, callback) {
         },
       });
     });
-
-  // var body = undefined;
-  // const myHeaders = new Headers();
-  
-  // if (requestType != REQUEST_TYPES.GET) {
-  //   if (useFormData) {
-  //     myHeaders.append("Content-Type", "multipart/form-data; boundary=---------------------------974767299852498929531610575");
-  //     body = new FormData();
-  //   } else {
-  //     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  //     body = new URLSearchParams(); 
-  //   }
-    
-  //   for (const key in body) body.append(key, body[key]);
-  // }
-
-  // var requestOptions = {
-  //   method: requestType,
-  //   body: body,
-  //   redirect: 'follow',
-  //   headers: myHeaders,
-  // };
-
-  // console.log(body);
-
-  // fetch(SERVER_URL + path, requestOptions)
-  //   .then((response) => response.json())
-  //   .then((result) => callback(result))
-  //   .catch((error) => {
-  //     console.log(error);
-  //     callback({
-  //       ok: false,
-  //       msg: {
-  //         msg: "An error occurred while sending http request",
-  //         error,
-  //       },
-  //     });
-  //   });
 }
 
 //-------------------------------------------------------------------
