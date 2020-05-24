@@ -1,7 +1,7 @@
 <template>
   <div id="container" class="container center-content">
     <div id="sellProduct" class="center-content">
-      <h1 class="highText">¿Que quieres vender?</h1>
+      <h1 id="hTitle" class="highText">¿QUÉ QUIERES VENDER?</h1>
       <div id="productPicFrame" class="base-border center-content inputIMG">
         <label for="fileInput">
           <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
@@ -10,14 +10,18 @@
       </div>
       <label class="body-text desc">Nombre</label>
       <div class="input-el prodField base-border body-text">
-        <input v-model="product.name" type="text" class="soft-el spacer" />
+        <input
+          v-model="product.name"
+          type="text"
+          class="soft-el spacer input-center"
+        />
       </div>
       <label class="body-text desc">Cantidad</label>
       <div class="input-el prodField base-border body-text">
         <input
           v-model="product.quantity"
           type="number"
-          class="soft-el spacer"
+          class="soft-el spacer input-center"
         />
         <div class="space"></div>
         <p class="center-content">kg</p>
@@ -29,7 +33,11 @@
           class="space center-content"
           style="margin: 0 0.5vw 0 0.5vw;"
         ></div>
-        <input v-model="product.price" type="number" class="soft-el spacer" />
+        <input
+          v-model="product.price"
+          type="number"
+          class="soft-el spacer input-center"
+        />
       </div>
       <button
         type="button"
@@ -100,8 +108,7 @@ export default {
 #sellProduct {
   background-color: white;
   border-radius: 25px 25px 25px 25px;
-  max-height: 80vh;
-  width: 60%;
+  width: 50%;
 }
 #productPicFrame {
   width: 30vw;
@@ -113,9 +120,13 @@ export default {
   width: 70%;
   height: 70%;
 }
+#hTitle {
+  margin: 2vw 0;
+  font-size: 3vw;
+}
 
 .spacer {
-  margin-left: 2vw;
+  margin-left: 1vw;
 }
 .prodField {
   width: 13vw;

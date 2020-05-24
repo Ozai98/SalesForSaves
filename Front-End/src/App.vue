@@ -129,6 +129,7 @@ export default {
 }
 .desc {
   color: #888;
+  margin: 0.7vw 0;
 }
 .small-img {
   width: 1vw;
@@ -215,5 +216,8 @@ export default {
 }
 .swal2-error {
   font-family: "Oswald", sans-serif !important;
+}
+.input-center {
+  text-align: center;
 }
 </style>
