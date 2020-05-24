@@ -34,6 +34,10 @@ public class ClientController<T extends Client> {
     }
     
     public Response<T> create(String name, String mail, String password, MultipartFile avatar, T instance) {
+        
+        if(name == null || mail == null || password == null) return new Response(false, null, 
+        String.format("Missing parameters: name: %b, mail: %b, password: %b", name == null, mail == null, password == null));
+        
         if (!Services.validateEmail(mail)) return new Response(false, null, "bad email");
         
         
