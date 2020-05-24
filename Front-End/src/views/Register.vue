@@ -43,9 +43,9 @@
           id="rep"
         />
       </div>
-      <label for="ProviderCheck" class="body-text desc">
-        ¿Desea vender productos como proveedor?
-      </label>
+      <label for="ProviderCheck" class="body-text desc"
+        >¿Desea vender productos como proveedor?</label
+      >
       <input type="checkBox" id="providerCheck" v-model="isProvider" />
       <button class="button-base accessBtn" id="regBtn" v-on:click="register()">
         REGISTRARSE!
@@ -56,6 +56,9 @@
 
 <script>
 import request from "@/services/request.service.js";
+import Vue from "vue";
+import alert from "vue-simple-alert";
+Vue.use(alert);
 export default {
   name: "Register",
   data() {
@@ -88,20 +91,39 @@ export default {
             this.newUser.name,
             this.newUser.username,
             this.newUser.password,
-            "potato.jpg",
+            null,
             (data) => {
               if (data.ok) {
                 console.log("Usuario registrado correctamente");
-                this.$store.dispatch("storeUser", data.classX);
+                this.$store.dispatch("storeUser", data.clase);
                 this.jumpScreen("Login");
-              } else console.log("No se pudo registrar el usuario");
+              } else
+                this.$fire({
+                  text: "No se pudo crear usuario",
+                  titleText: "ERROR CREANDO USUARIO",
+                  icon: "error",
+                  confirmButtonColor: "#ff8e43",
+                  customClass: "swal2-error",
+                });
             }
           );
         } else {
-          console.log("Contraseña incorrecta");
+          this.$fire({
+            text: "Contraseña incorrecta",
+            titleText: "ERROR CREANDO USUARIO",
+            icon: "error",
+            confirmButtonColor: "#ff8e43",
+            customClass: "swal2-error",
+          });
         }
       } else {
-        console.log("Faltan datos");
+        this.$fire({
+          text: "Hacen falta datos",
+          titleText: "ERROR CREANDO USUARIO",
+          icon: "error",
+          confirmButtonColor: "#ff8e43",
+          customClass: "swal2-error",
+        });
       }
     },
   },

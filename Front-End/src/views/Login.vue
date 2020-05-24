@@ -62,7 +62,10 @@
 
 <script>
 import * as request from "../services/request.service";
-import ModalComponent from "@/components/ModalComponent.vue";
+
+import Vue from "vue";
+import alert from "vue-simple-alert";
+Vue.use(alert);
 export default {
   name: "Login",
   data() {
@@ -80,9 +83,9 @@ export default {
       let fun_request;
       console.log(this.userLog.isProvider);
       if (this.userLog.isProvider) {
-        fun_request = request.loginProvider;
+        fun_request = request.loginProveedor;
       } else {
-        fun_request = request.loginClient;
+        fun_request = request.loginUsuario;
       }
       console.log(this.userLog);
       fun_request(this.userLog.username, this.userLog.password, (data) => {
@@ -90,30 +93,42 @@ export default {
         console.log(data);
         if (data.ok) {
           console.log("Usuario logeado");
-          console.log(data.classX);
+          console.log(data.clase);
           let builder = {
-            id: data.classX.id,
-            name: data.classX.name,
-            mail: data.classX.mail,
-            avatar: data.classX.avatar,
+            id: data.clase.id,
+            nombre: data.clase.nombre,
+            correo: data.clase.correo,
+            avatar: data.clase.avatar,
             isProvider: this.userLog.isProvider,
           };
           this.$store.dispatch("storeUser", builder);
           this.$store.dispatch("changeLogState");
           this.jumpScreen("Home");
-        } else console.log("Error logeando usuario");
+        } else {
+          this.$fire({
+            text: "no se reconoce el usuario o la contraseña",
+            titleText: "ERROR LOGUEANDO USUARIO",
+            icon: "error",
+            confirmButtonColor: "#ff8e43",
+            customClass: "swal2-error",
+          });
+        }
       });
     },
     login() {
       if (this.userLog.username != "" && this.userLog.password != "") {
         this.get_data();
       } else {
+        this.$fire({
+          text: "Un nombre de usuario y contraseña deben ser presentados",
+          titleText: "ERROR LOGUEANDO USUARIO",
+          icon: "error",
+          confirmButtonColor: "#ff8e43",
+          customClass: "swal2-error",
+        });
         console.log("A username and password must be present");
       }
     },
-  },
-  components: {
-    ModalComponent,
   },
 };
 </script>

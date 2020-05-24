@@ -15,7 +15,6 @@
           v-model="product.quantity"
           type="number"
           class="soft-el spacer"
-          
         />
         <div class="space"></div>
         <p class="center-content">kg</p>
@@ -42,6 +41,9 @@
 
 <script>
 import request from "@/services/request.service.js";
+import Vue from "vue";
+import alert from "vue-simple-alert";
+Vue.use(alert);
 export default {
   name: "SellProduct",
   data() {
@@ -58,7 +60,7 @@ export default {
   methods: {
     sellProduct() {
       console.log(this.product);
-      request.createProduct(
+      request.crearProducto(
         this.product.name,
         Number(this.product.price),
         Number(this.product.quantity),
@@ -67,8 +69,23 @@ export default {
         (data) => {
           console.log(data);
           if (data.ok) {
-            console.log("Producto creado");
-          } else console.log("Error al crear producto");
+            this.$fire({
+              text: "Producto creado",
+              titleText: "SE CREO EL PRODUCTO",
+              icon: "success",
+              confirmButtonColor: "#ff8e43",
+              customClass: "swal2-error",
+            });
+          } else {
+            this.$alert("", "error");
+            this.$fire({
+              text: "No se pudo crear el producto, intenta nuevamente",
+              titleText: "ERROR AL CREAR PRODUCTO",
+              icon: "error",
+              confirmButtonColor: "#ff8e43",
+              customClass: "swal2-error",
+            });
+          }
         }
       );
     },

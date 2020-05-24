@@ -11,7 +11,7 @@
         name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
       />
-      <NavBar :idPage="page""></NavBar>
+      <NavBar :idPage="page"></NavBar>
       <div id="app">
         <router-view />
       </div>
@@ -157,7 +157,7 @@ export default {
 }
 /*Estilado de los botones de acceso de login y register*/
 .accessBtn {
-  border-radius: 16px;
+  border-radius: 10%;
   height: 3vw;
   padding: 0 0.2vw;
   cursor: pointer;
@@ -176,5 +176,8 @@ export default {
   overflow: hidden;
   border-radius: 50%;
   margin: auto;
+}
+.swal2-error {
+  font-family: "Oswald", sans-serif !important;
 }
 </style>
