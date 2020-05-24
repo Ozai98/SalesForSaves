@@ -15,7 +15,7 @@ function generalRequest(path, body, requestType, useFormData, callback) {
 
   var body = undefined;
   if (requestType != REQUEST_TYPES.GET) {
-    if(useFormData) body = new FormData();
+    if (useFormData) body = new FormData();
     else body = new URLSearchParams();
 
     for (const key in body) body.append(key, body[key]);
@@ -68,8 +68,13 @@ function createClient(name, mail, password, avatar, callback) {
 }
 
 function getUserByEmail(mail, callback) {
-  generalRequest("/user/get-by-email", { mail }, REQUEST_TYPES.POST,
-  undefined, callback);
+  generalRequest(
+    "/user/get-by-email",
+    { mail },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
 }
 
 function getUserById(id, callback) {
@@ -89,8 +94,7 @@ function updateClient(id, name, password, avatar, callback) {
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
 
-  generalRequest("/user/update", body, REQUEST_TYPES.POST,
-  undefined, callback);
+  generalRequest("/user/update", body, REQUEST_TYPES.POST, undefined, callback);
 }
 
 //-------------------------------------------------------------------
@@ -163,7 +167,16 @@ function getProductById(id, callback) {
 }
 
 // El parametro imagen es opcional. Pueden pasar undefined o null
-function createProduct(name, price, quantity, idProvider, image, timeLimit, category, callback) {
+function createProduct(
+  name,
+  price,
+  quantity,
+  idProvider,
+  image,
+  timeLimit,
+  category,
+  callback
+) {
   generalRequest(
     "/product/create",
     { name, price, quantity, idProvider, image, timeLimit, category },
@@ -276,8 +289,13 @@ function addRate(idProvider, idUser, rate, callback) {
 }
 
 function getRate(idProvider, callback) {
-  generalRequest("rate/rating", { idProvider }, REQUEST_TYPES.POST,
-  undefined, callback);
+  generalRequest(
+    "rate/rating",
+    { idProvider },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
 }
 
 //-------------------------------------------------------------------
@@ -302,9 +320,8 @@ function getCategories(callback) {
   });
 }
 
-function getImgUrl(imgName){
-  return SERVER_URL + '/general/get-image/' + imgName;
-
+function getImgUrl(imgName) {
+  return SERVER_URL + "/general/get-image/" + imgName;
 }
 
 module.exports = {
