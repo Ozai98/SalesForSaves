@@ -7,9 +7,11 @@ const REQUEST_TYPES = {
 };
 
 function generalRequest(path, body, requestType, useFormData, callback) {
-  // var myHeaders = new Headers();
-  // if(useFormData) myHeaders.append("Content-Type", "multipart/form-data");
-  // else myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  var myHeaders = undefined;
+  if(!useFormData){
+    myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  }
 
   var body = undefined;
   if (requestType != REQUEST_TYPES.GET) {
@@ -21,7 +23,7 @@ function generalRequest(path, body, requestType, useFormData, callback) {
 
   var requestOptions = {
     method: requestType,
-    //headers: myHeaders,
+    headers: myHeaders,
     body: body,
     redirect: "follow",
   };
