@@ -18,7 +18,6 @@ function generalRequest(path, body, requestType, useFormData, callback) {
   var requestOptions = {
     method: requestType,
     body: body,
-    redirect: "follow",
   };
 
   if(!useFormData){
