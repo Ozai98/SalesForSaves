@@ -41,6 +41,16 @@
         class="soft-el body-text regField"
       />
     </div>
+    <div class="base-border center-content inputIMG">
+      <label for="fileInput">
+        <img
+          id="picInput"
+          src="@/assets/imgs/photo-camera.svg"
+          alt="profile pic"
+        />
+      </label>
+      <input type="file" id="fileInput" @change="onFileSelected()" />
+    </div>
     <label for="ProviderCheck" class="body-text desc"
       >¿Desea vender productos como proveedor?</label
     >
@@ -140,6 +150,11 @@ export default {
   display: grid;
   grid-template-columns: 1fr;
 }
+#picInput {
+  height: 3vw;
+  width: 3vw;
+  padding: 0.5vw;
+}
 
 .label {
   margin: auto;
@@ -151,6 +166,12 @@ export default {
 
 .regField {
   width: 15vw;
+}
+.inputIMG > input {
+  display: none;
+}
+.inputIMG {
+  margin-bottom: 0.5vw;
 }
 
 #title {

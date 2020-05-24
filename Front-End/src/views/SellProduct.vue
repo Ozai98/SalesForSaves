@@ -2,8 +2,11 @@
   <div id="container" class="container center-content">
     <div id="sellProduct" class="center-content">
       <h1 class="highText">¿Que quieres vender?</h1>
-      <div id="productPicFrame" class="base-border center-content">
-        <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
+      <div id="productPicFrame" class="base-border center-content inputIMG">
+        <label for="fileInput">
+          <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
+        </label>
+        <input type="file" id="fileInput" @change="onFileSelected()" />
       </div>
       <label class="body-text desc">Nombre</label>
       <div class="input-el prodField base-border body-text">
@@ -15,7 +18,6 @@
           v-model="product.quantity"
           type="number"
           class="soft-el spacer"
-          
         />
         <div class="space"></div>
         <p class="center-content">kg</p>
@@ -89,6 +91,7 @@ export default {
         }
       );
     },
+    onFileSected() {},
   },
 };
 </script>
@@ -110,10 +113,14 @@ export default {
   width: 70%;
   height: 70%;
 }
+
 .spacer {
   margin-left: 2vw;
 }
 .prodField {
   width: 13vw;
+}
+.inputIMG > input {
+  display: none;
 }
 </style>
