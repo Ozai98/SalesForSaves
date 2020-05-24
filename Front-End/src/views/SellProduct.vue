@@ -41,6 +41,9 @@
 
 <script>
 import request from "@/services/request.service.js";
+import alert from "vue-simple-alert";
+import Vue from "vue";
+Vue.use(alert);
 export default {
   name: "SellProduct",
   data() {
@@ -66,8 +69,22 @@ export default {
         (data) => {
           console.log(data);
           if (data.ok) {
-            console.log("Producto creado");
-          } else console.log("Error al crear producto");
+            this.$fire({
+              text: "Producto creado",
+              titleText: "SE CREO EL PRODUCTO",
+              icon: "success",
+              confirmButtonColor: "#ff8e43",
+              customClass: "swal2-error",
+            });
+          } else {
+            this.$fire({
+              text: "No se pudo crear el producto, intenta nuevamente",
+              titleText: "ERROR AL CREAR PRODUCTO",
+              icon: "error",
+              confirmButtonColor: "#ff8e43",
+              customClass: "swal2-error",
+            });
+          }
         }
       );
     },
