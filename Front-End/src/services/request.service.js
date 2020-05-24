@@ -285,6 +285,11 @@ function getCategories(callback) {
   });
 }
 
+function getImgUrl(imgName){
+  return SERVER_URL + '/general/get-image/' + imgName;
+
+}
+
 module.exports = {
   SERVER_URL,
   REQUEST_TYPES,
@@ -305,4 +310,5 @@ module.exports = {
   newReserve,
   getByCategory,
   getCategories,
+  getImgUrl,
 };
