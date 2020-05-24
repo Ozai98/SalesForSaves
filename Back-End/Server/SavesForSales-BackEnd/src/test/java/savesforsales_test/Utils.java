@@ -7,6 +7,7 @@ package savesforsales_test;
 
 import com.example.demo.database.RepositoryController;
 import com.example.demo.services.Services;
+import mock_repositories.MockHistoricRepository;
 import mock_repositories.MockProductRepository;
 import mock_repositories.MockProviderRepository;
 import mock_repositories.MockUserRepository;
@@ -21,5 +22,6 @@ public class Utils {
         RepositoryController.setUser(new MockUserRepository());
         RepositoryController.setProduct(new MockProductRepository());
         RepositoryController.setProvider(new MockProviderRepository());
+        RepositoryController.setHistoric(new MockHistoricRepository());
     }
 }

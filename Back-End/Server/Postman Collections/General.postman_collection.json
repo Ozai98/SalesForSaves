@@ -11,7 +11,11 @@
 				"method": "GET",
 				"header": [],
 				"url": {
+<<<<<<< HEAD
 					"raw": "http://localhost:8083/general/get-image/Germanavatar.jpg",
+=======
+					"raw": "http://localhost:8083/general/get-image/banana.jpeg",
+>>>>>>> uploadImages
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -20,7 +24,11 @@
 					"path": [
 						"general",
 						"get-image",
+<<<<<<< HEAD
 						"Germanavatar.jpg"
+=======
+						"banana.jpeg"
+>>>>>>> uploadImages
 					]
 				}
 			},

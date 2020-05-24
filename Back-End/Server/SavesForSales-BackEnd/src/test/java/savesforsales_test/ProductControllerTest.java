@@ -38,13 +38,14 @@ public class ProductControllerTest {
         defaultProduct.setQuantity(5);
 
         ProviderController provController = new ProviderController();
-        int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", "").classX.getId();
+        int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", null).classX.getId();
 
         Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id,
-                defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit(), null);
+                null, defaultProduct.getQuantity(), defaultProduct.getTimeLimit(), null);
         if (!res.ok)
             Assert.fail("Fail default product creation. Ex: " + res.msg);
         defaultProduct.setId(res.classX.getId());
+        
     }
 
     @Test
@@ -70,7 +71,7 @@ public class ProductControllerTest {
 
     @Test
     public void CreateProduct(){
-        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), defaultProduct.getImage(), defaultProduct.getQuantity(), defaultProduct.getTimeLimit(), null);
+        Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), ProductController.normalize(defaultProduct).getProvider().getId(), null, defaultProduct.getQuantity(), defaultProduct.getTimeLimit(), "Category");
                 
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.classX.getName(), defaultProduct.getName());

@@ -2,6 +2,7 @@ com\example\demo\database\models\Product.class
 com\example\demo\controllers\UserController.class
 com\example\demo\controllers\RateController.class
 com\example\demo\database\HistoricRepository.class
+com\example\demo\services\FileSystem$1.class
 com\example\demo\database\RateRepositoryDao.class
 com\example\demo\controllers\ProductController.class
 com\example\demo\database\models\Client.class
@@ -17,11 +18,15 @@ com\example\demo\controllers\Response.class
 com\example\demo\database\ProductRepositoryDao.class
 com\example\demo\database\RateRepositoy.class
 com\example\demo\database\Repository.class
+com\example\demo\services\FileSystem.class
+com\example\demo\controllers\GeneralController.class
 com\example\demo\services\Services.class
 com\example\demo\database\models\User.class
 com\example\demo\database\HistoricRepositoryDao.class
+com\example\demo\services\FileSystem$FileSystemRespone.class
 com\example\demo\database\ProductRepository.class
 com\example\demo\database\ProviderRepositoryDao.class
 com\example\demo\savesforsales\Index.class
+com\example\demo\services\FileSystem$SFSFile.class
 com\example\demo\database\DaoController.class
 com\example\demo\database\models\Historic.class

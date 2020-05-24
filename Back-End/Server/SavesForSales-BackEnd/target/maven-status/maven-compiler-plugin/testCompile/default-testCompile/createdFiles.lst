@@ -5,5 +5,8 @@ savesforsales_test\UserControllerTest.class
 savesforsales_test\Utils.class
 mock_repositories\MockHistoricRepository.class
 savesforsales_test\ProductControllerTest.class
+<<<<<<< HEAD
 savesforsales_test\HistoricControllerTest.class
+=======
+>>>>>>> uploadImages
 savesforsales_test\ProviderControllerTest.class
