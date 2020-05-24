@@ -7,12 +7,6 @@ const REQUEST_TYPES = {
 };
 
 function generalRequest(path, body, requestType, useFormData, callback) {
-  var myHeaders = undefined;
-  if(!useFormData){
-    myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-  }
-
   var body = undefined;
   if (requestType != REQUEST_TYPES.GET) {
     if(useFormData) body = new FormData();
@@ -23,10 +17,15 @@ function generalRequest(path, body, requestType, useFormData, callback) {
 
   var requestOptions = {
     method: requestType,
-    headers: myHeaders,
     body: body,
     redirect: "follow",
   };
+
+  if(!useFormData){
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    requestOptions.headers = myHeaders;
+  }
 
   fetch(SERVER_URL + path, requestOptions)
     .then((response) => response.json())
