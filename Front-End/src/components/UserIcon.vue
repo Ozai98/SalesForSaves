@@ -6,12 +6,7 @@
       src="@/assets/imgs/ProfilePhoto.jpg"
       @click="jumpScreen('ProfileView')"
     />
-    <img
-      v-else
-      id="userIcon"
-      src="@/assets/imgs/user.svg"
-      @click="jumpScreen('Login')"
-    />
+    <img v-else id="userIcon" src="@/assets/imgs/user.svg" @click="open()" />
   </div>
 </template>
 
@@ -26,7 +21,12 @@ export default {
   components: {
     ModalComponent,
   },
-  methods: {},
+  methods: {
+    open() {
+      console.log("emitio");
+      this.$emit("login");
+    },
+  },
 };
 </script>
 <style scoped>

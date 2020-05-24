@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container" @openLogin="openLogin()">
+    <div class="container">
       <head>
         <link
           href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
@@ -11,7 +11,31 @@
         name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
       />
-      <NavBar :idPage="page""></NavBar>
+      <NavBar
+        :idPage="page"
+        @openLogin2="$refs.modalLogin.openModal()"
+      ></NavBar>
+      <ModalComponent ref="modalLogin">
+        <template v-slot:body>
+          <Login
+            @goToRegister="
+              $refs.modalLogin.closeModal();
+              $refs.modalRegister.openModal();
+            "
+            @closeLogin="$refs.modalLogin.closeModal()"
+          ></Login>
+        </template>
+      </ModalComponent>
+      <ModalComponent ref="modalRegister">
+        <template v-slot:body>
+          <Register
+            @goToLogin="
+              $refs.modalRegister.closeModal();
+              $refs.modalLogin.openModal();
+            "
+          ></Register>
+        </template>
+      </ModalComponent>
       <div id="app">
         <router-view />
       </div>
@@ -21,16 +45,23 @@
 
 <script>
 import NavBar from "@/components/NavBar.vue";
-// import services from "@/services/request.service.js";
+import ModalComponent from "@/components/ModalComponent.vue";
+import Login from "@/components/Login.vue";
+import Register from "@/components/Register.vue";
+import Vue from "vue";
 export default {
   name: "App",
   data() {
     return {
       idPage: "MainHome",
+      register: false,
     };
   },
   components: {
     NavBar,
+    ModalComponent,
+    Login,
+    Register,
   },
   computed: {
     page() {
@@ -40,6 +71,11 @@ export default {
   mounted() {
     this.$router.replace("home");
     this.$store.dispatch("resetUser");
+  },
+  methods: {
+    swapModal() {
+      this.register = !this.register;
+    },
   },
 };
 </script>
@@ -176,5 +212,8 @@ export default {
   overflow: hidden;
   border-radius: 50%;
   margin: auto;
+}
+.swal2-error {
+  font-family: "Oswald", sans-serif !important;
 }
 </style>

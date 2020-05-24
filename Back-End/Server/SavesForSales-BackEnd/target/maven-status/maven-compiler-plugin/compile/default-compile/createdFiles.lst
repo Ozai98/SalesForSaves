@@ -1,6 +1,8 @@
 com\example\demo\database\models\Product.class
 com\example\demo\controllers\UserController.class
+com\example\demo\controllers\RateController.class
 com\example\demo\database\HistoricRepository.class
+com\example\demo\database\RateRepositoryDao.class
 com\example\demo\controllers\ProductController.class
 com\example\demo\database\models\Client.class
 com\example\demo\controllers\HistoricController.class
@@ -8,10 +10,12 @@ com\example\demo\database\ClientRepository.class
 com\example\demo\controllers\ProviderController.class
 com\example\demo\controllers\ClientController.class
 com\example\demo\database\RepositoryController.class
+com\example\demo\database\models\Rate.class
 com\example\demo\database\UserRepositoryDao.class
 com\example\demo\database\models\Provider.class
 com\example\demo\controllers\Response.class
 com\example\demo\database\ProductRepositoryDao.class
+com\example\demo\database\RateRepositoy.class
 com\example\demo\database\Repository.class
 com\example\demo\services\Services.class
 com\example\demo\database\models\User.class
