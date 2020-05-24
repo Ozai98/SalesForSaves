@@ -33,6 +33,9 @@
 <script>
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
+import Vue from "vue";
+import alert from "vue-simple-alert";
+Vue.use(alert);
 export default {
   name: "SellProduct",
   data() {
@@ -73,13 +76,34 @@ export default {
             if (data.ok) {
               console.log(data);
               console.log("Reserva creada");
+              this.$fire({
+                text: "Reserva creada con éxito",
+                titleText: "RESERVA CREADA",
+                icon: "success",
+                confirmButtonColor: "#ff8e43",
+                customClass: "swal2-error",
+              });
             } else {
               console.log("Error al crear reserva");
               console.log(data.msg);
+              this.$fire({
+                text: "Ocurrió un error al crear la reserva",
+                titleText: "NO SE PUDO CREAR RESERVA",
+                icon: "error",
+                confirmButtonColor: "#ff8e43",
+                customClass: "swal2-error",
+              });
             }
           }
         );
       } else {
+        this.$fire({
+          text: "Estás pidiendo más unidades de las que hay disponibles",
+          titleText: "NO SE PUDO CREAR RESERVA",
+          icon: "error",
+          confirmButtonColor: "#ff8e43",
+          customClass: "swal2-error",
+        });
         console.log("a<b por tanto A jamas va a querer a B como B quiere a A");
       }
     },

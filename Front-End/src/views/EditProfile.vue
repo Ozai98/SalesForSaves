@@ -3,9 +3,12 @@
     <div id="profile" class="center-content">
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
-        <img src="@/assets/imgs/ProfilePhoto.jpg" alt="profile pic" />
+        <label for="editProfilePic">
+          <img src="@/assets/imgs/ProfilePhoto.jpg" alt="profile pic" />
+        </label>
+        <input type="file" id="editProfilePic" />
       </div>
-      <label class="desc body-text" for="unField">Nombre</label>
+      <label class="desc body-text" for="unField">Correo</label>
 
       <input
         type="text"
@@ -117,6 +120,9 @@ export default {
   width: auto;
   height: 100%;
   margin-left: -15%;
+}
+.profilePicFrame > input {
+  display: none;
 }
 
 .highText {

@@ -129,6 +129,7 @@ export default {
 }
 .desc {
   color: #888;
+  margin: 0.7vw 0;
 }
 .small-img {
   width: 1vw;
@@ -138,6 +139,7 @@ export default {
 .soft-el {
   outline: none;
   border: none;
+  justify-self: center;
 }
 .soft-el2 {
   outline: none;
@@ -181,6 +183,7 @@ export default {
 }
 /*Estilado del elemento input*/
 .input {
+  margin-right: 0.8vw;
   width: 19vw;
 }
 /*Estilado de contenedores de input un poco distinto*/
@@ -190,6 +193,7 @@ export default {
   color: #ff8e43;
   font-size: 1vw;
   margin: 0.5vw 0 0.5vw 0;
+  justify-self: center;
 }
 /*Estilado de los botones de acceso de login y register*/
 .accessBtn {
@@ -215,5 +219,8 @@ export default {
 }
 .swal2-error {
   font-family: "Oswald", sans-serif !important;
+}
+.input-center {
+  text-align: center;
 }
 </style>

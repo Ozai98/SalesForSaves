@@ -48,9 +48,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+
+
+
 .modal {
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: hidden;
   position: fixed;
   top: 0;
   right: 0;
@@ -72,8 +75,8 @@ export default {
     position: relative;
     width: 600px;
     margin: 9vw auto;
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    
     border-radius: 1vw;
     z-index: 2;
     @media screen and (max-width: 992px) {
@@ -83,24 +86,29 @@ export default {
   &__close {
     width: 30px;
     height: 30px;
+    align-self: end;
+    justify-items: flex-end;
   }
   &__header {
+    grid-row: 1;
+    justify-self: end;
     padding: 20px 20px 10px;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+
+   
   }
   &__body {
+    grid-row:2;
     padding: 10px 20px 10px;
-    overflow: auto;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
+
   }
   &__footer {
     padding: 10px 20px 20px;
+
   }
+  
+  
 }
+
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.2s;

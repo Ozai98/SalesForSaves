@@ -1,8 +1,8 @@
 <template>
   <div id="login" class="center-content">
     <div id="title">INICIAR SESION!</div>
-    <div id="user">
-      <div id="user" class="input-el field base-border body-text">
+    <div id="user" class="center-content">
+      <div id="user" class="input-el field base-border body-text ">
         <p class="label">E-mail</p>
         <div class="space"></div>
         <input
@@ -41,8 +41,8 @@
         </button>
       </div>
       <div id="regtext">
-        O
-        <br />si no tienes una cuenta puedes registrarte
+  
+        si no tienes una cuenta puedes registrarte
       </div>
       <div id="bot2">
         <button
@@ -142,8 +142,6 @@ export default {
   background-color: white;
   justify-items: center;
   text-align: center;
-  width: 30vw;
-  height: 25vw;
   border-radius: 2vw;
   display: grid;
   grid-template-columns: 1fr;
@@ -175,6 +173,7 @@ export default {
 }
 
 .label {
+ 
   margin: auto;
   font-size: 0.6vw;
   margin-right: 10px;
