@@ -39,6 +39,21 @@
           class="soft-el spacer input-center"
         />
       </div>
+
+      <label class="body-text desc" for="dateUntil"
+        >¿Hasta que día deseas vender este producto?</label
+      >
+      <input
+        v-model="product.timeLimit"
+        type="date"
+        class="soft-el input-center desc"
+        id="dateUntil"
+      />
+      la
+      <select v-model="product.category" name="categories" id="categories">
+        <option v-for="category in categories">{{ category }}</option>
+      </select>
+
       <button
         type="button"
         class="editBtn button-base accessBtn"
@@ -59,12 +74,15 @@ export default {
   name: "SellProduct",
   data() {
     return {
+      categories: ["comida", "bebida"],
       product: {
         name: "",
         quantity: 0,
         price: 0,
         imgURL: "",
         provID: this.$store.getters.returnUser.id,
+        timeLimit: new Date(),
+        category: "",
       },
     };
   },
@@ -77,6 +95,7 @@ export default {
         Number(this.product.quantity),
         this.product.provID,
         this.product.imgURL,
+        this.product.category,
         (data) => {
           console.log(data);
           if (data.ok) {
@@ -95,6 +114,7 @@ export default {
               confirmButtonColor: "#ff8e43",
               customClass: "swal2-error",
             });
+            console.log(data.msg);
           }
         }
       );
@@ -109,6 +129,7 @@ export default {
   background-color: white;
   border-radius: 25px 25px 25px 25px;
   width: 50%;
+  overflow: hidden;
 }
 #productPicFrame {
   width: 30vw;
