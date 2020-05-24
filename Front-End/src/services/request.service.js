@@ -30,7 +30,10 @@ function generalRequest(path, body, requestType, callback) {
       console.log(error);
       callback({
         ok: false,
-        msg: "An error ocurred while sending HTTP request",
+        msg: {
+          msg: "An error occurred while sending http request",
+          error
+        },
       });
     });
 }
@@ -145,14 +148,25 @@ function getProductoById(id, callback) {
 }
 
 // El parametro imagen es opcional. Pueden pasar undefined o null
-function createProduct(name, price, quantity, id_provider, picture, callback) {
+function createProduct(name, price, quantity, idProvider, image, timeLimit, category, callback) {
   generalRequest(
     "/product/create",
-    { name, price, quantity, id_provider, picture },
+    { name, price, quantity, idProvider, image, timeLimit, category},
     REQUEST_TYPES.POST,
     callback
   );
 }
+
+function getByCategory(category, callback){
+  generalRequest(
+    "/product/search-category/" + category,
+    undefined,
+    REQUEST_TYPES.GET,
+    callback
+  );
+
+}
+
 //-------------------------------------------------------------------
 //----------------------HISTORICO-------------------------------------
 //-------------------------------------------------------------------
@@ -168,11 +182,103 @@ function getHistoricbyId(idUser, callback) {
 function newReserve(idUser, idProduct, quantity, callback) {
   generalRequest(
     "/historic/reserve",
-    { idUser, idProduct, quantity, reserveDate: new Date() },
+    { idUser, idProduct, quantity, reserveDate: new Date(new Date().getTime() + 1000*60*60*24*10) },
     REQUEST_TYPES.POST,
     callback
   );
 }
+
+function newPurchase(idHistoric, callback){
+  generalRequest(
+    "/historic/buyed-product",
+    { idHistoric },
+    REQUEST_TYPES.POST,
+    callback
+  );
+}
+
+function getReservedUser(idUser, callback){
+  generalRequest(
+    "/historic/get-user-reserved",
+    { idUser },
+    REQUEST_TYPES.POST,
+    callback
+  );
+
+}
+
+function getPurchasedUser(idUser, callback){
+  generalRequest(
+    "/historic/get-user-historic",
+    { idUser },
+    REQUEST_TYPES.POST,
+    callback
+  );
+}
+
+function getReservedProv(idProv, callback){
+  generalRequest(
+    "/historic/get-provider-historic",
+    { idProv },
+    REQUEST_TYPES.POST,
+    callback
+  );
+}
+
+function getPurchasedProv(idProv, callback){
+  generalRequest(
+    "/historic/get-provider-historic",
+    { idProv },
+    REQUEST_TYPES.POST,
+    callback
+  );
+}
+
+
+//-------------------------------------------------------------------
+//----------------------RATE-----------------------------------------
+//-------------------------------------------------------------------
+
+function addRate(idProvider, idUser, rate, callback){
+  generalRequest(
+    "rate/add-rate/" + rate,
+    { idProvider, idUser },
+    REQUEST_TYPES.POST,
+    callback
+  );
+}
+
+function getRate(idProvider, callback){
+  generalRequest(
+    "rate/rating",
+    { idProvider },
+    REQUEST_TYPES.POST,
+    callback
+  );
+}
+
+
+
+//-------------------------------------------------------------------
+//----------------------GENERAL--------------------------------------
+//-------------------------------------------------------------------
+function getCategories(callback){
+  callback({ok: true, classX: [
+    'FRUTAS',
+    'VERDURAS',
+    'RES',
+    'POLLO',
+    'CERDO',
+    'PESCADO',
+    'GRANOS',
+    'POSTRES',
+    'BEBIDAS',
+    'HARINAS',
+    
+  ], msg: "Ok"});
+
+}
+
 
 module.exports = {
   SERVER_URL,
