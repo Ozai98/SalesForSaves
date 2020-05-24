@@ -52,4 +52,16 @@ public class MockProductRepository implements ProductRepository{
     public void refresh(Product obj) throws Exception {
         
     }
+
+    @Override
+    public List<Product> searchCategory(String categoy) throws Exception {
+        
+        LinkedList<Product> prods = new LinkedList();
+        
+        for(Product p: mockTable.values()){
+            if(p.getCategory().contains(categoy)) prods.add(p);
+        }
+        
+        return prods;
+    }
 }
