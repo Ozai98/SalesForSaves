@@ -93,7 +93,7 @@ export default {
               if (data.ok) {
                 console.log("Usuario registrado correctamente");
                 this.$store.dispatch("storeUser", data.classX);
-                this.jumpScreen("ProfileView");
+                this.$emit("goToLogin");
               } else {
                 this.$fire({
                   text: "No se pudo crear usuario",
@@ -102,6 +102,7 @@ export default {
                   confirmButtonColor: "#ff8e43",
                   customClass: "swal2-error",
                 });
+                console.log(data.msg);
               }
             }
           );

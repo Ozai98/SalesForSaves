@@ -22,12 +22,18 @@
               $refs.modalLogin.closeModal();
               $refs.modalRegister.openModal();
             "
+            @closeLogin="$refs.modalLogin.closeModal()"
           ></Login>
         </template>
       </ModalComponent>
       <ModalComponent ref="modalRegister">
         <template v-slot:body>
-          <Register></Register>
+          <Register
+            @goToLogin="
+              $refs.modalRegister.closeModal();
+              $refs.modalLogin.openModal();
+            "
+          ></Register>
         </template>
       </ModalComponent>
       <div id="app">
@@ -206,5 +212,8 @@ export default {
   overflow: hidden;
   border-radius: 50%;
   margin: auto;
+}
+.swal2-error {
+  font-family: "Oswald", sans-serif !important;
 }
 </style>
