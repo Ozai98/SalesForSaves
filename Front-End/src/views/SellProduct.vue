@@ -49,7 +49,6 @@
         class="soft-el input-center desc"
         id="dateUntil"
       />
-      la
       <select v-model="product.category" name="categories" id="categories">
         <option v-for="category in categories">{{ category }}</option>
       </select>
@@ -71,30 +70,39 @@ import alert from "vue-simple-alert";
 import Vue from "vue";
 Vue.use(alert);
 export default {
-  name: "SellProduct",
   data() {
     return {
-      categories: ["comida", "bebida"],
+      categories: [],
       product: {
         name: "",
         quantity: 0,
         price: 0,
         imgURL: "",
-        provID: this.$store.getters.returnUser.id,
+        idProvider: this.$store.getters.returnUser.id,
         timeLimit: new Date(),
         category: "",
       },
     };
   },
+  mounted() {
+    this.getCategories();
+  },
   methods: {
+    getCategories() {
+      request.getCategories((data) => {
+        if (data.ok) this.categories = data.classX;
+        console.log(data);
+      });
+    },
     sellProduct() {
       console.log(this.product);
       request.createProduct(
         this.product.name,
         Number(this.product.price),
         Number(this.product.quantity),
-        this.product.provID,
+        this.product.idProvider,
         this.product.imgURL,
+        new Date(this.product.timeLimit),
         this.product.category,
         (data) => {
           console.log(data);

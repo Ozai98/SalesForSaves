@@ -70,7 +70,6 @@ export default {
   },
   mounted() {
     this.$router.replace("home");
-    this.$store.dispatch("resetUser");
   },
   methods: {
     swapModal() {
