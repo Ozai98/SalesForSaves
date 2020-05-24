@@ -6,20 +6,22 @@ const REQUEST_TYPES = {
   POST: "POST",
 };
 
-function generalRequest(path, body, requestType, callback) {
+function generalRequest(path, body, requestType, useFormData, callback) {
   var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+  if(!useFormData) myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-  var urlencoded = undefined;
+  var body = undefined;
   if (requestType != REQUEST_TYPES.GET) {
-    urlencoded = new URLSearchParams();
-    for (const key in body) urlencoded.append(key, body[key]);
+    if(useFormData) body = new FormData();
+    else body = new URLSearchParams();
+
+    for (const key in body) body.append(key, body[key]);
   }
 
   var requestOptions = {
     method: requestType,
     headers: myHeaders,
-    body: urlencoded,
+    body: body,
     redirect: "follow",
   };
 
@@ -47,6 +49,7 @@ function loginClient(mail, password, callback) {
     "/user/login",
     { mail, password },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -56,12 +59,14 @@ function createClient(name, mail, password, avatar, callback) {
     "/user/create",
     { name, mail, password, avatar },
     REQUEST_TYPES.POST,
+    true,
     callback
   );
 }
 
 function getUserByEmail(mail, callback) {
-  generalRequest("/user/get-by-email", { mail }, REQUEST_TYPES.POST, callback);
+  generalRequest("/user/get-by-email", { mail }, REQUEST_TYPES.POST,
+  undefined, callback);
 }
 
 function getUserById(id, callback) {
@@ -69,6 +74,7 @@ function getUserById(id, callback) {
     "/user/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
@@ -80,7 +86,8 @@ function updateClient(id, name, password, avatar, callback) {
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
 
-  generalRequest("/user/update", body, REQUEST_TYPES.POST, callback);
+  generalRequest("/user/update", body, REQUEST_TYPES.POST,
+  undefined, callback);
 }
 
 //-------------------------------------------------------------------
@@ -92,6 +99,7 @@ function loginProvider(mail, password, callback) {
     "/provider/login",
     { mail, password },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -101,6 +109,7 @@ function createProvider(name, mail, password, avatar, callback) {
     "/provider/create",
     { name, mail, password, avatar },
     REQUEST_TYPES.POST,
+    true,
     callback
   );
 }
@@ -110,6 +119,7 @@ function getProviderById(id, callback) {
     "/provider/get-by-id" + id,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
@@ -121,7 +131,7 @@ function updateProvider(id, name, password, ubication, avatar, callback) {
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
   if (ubication) body.ubication = ubicacion;
-  generalRequest("/proveedor/update", body, REQUEST_TYPES.POST, callback);
+  generalRequest("/proveedor/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
 //-------------------------------------------------------------------
@@ -134,6 +144,7 @@ function searchProduct(param, callback) {
     "/product/search/" + param,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
@@ -143,25 +154,18 @@ function getProductById(id, callback) {
     "/product/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
 
 // El parametro imagen es opcional. Pueden pasar undefined o null
-function createProduct(
-  name,
-  price,
-  quantity,
-  idProvider,
-  image,
-  timeLimit,
-  category,
-  callback
-) {
+function createProduct(name, price, quantity, idProvider, image, timeLimit, category, callback) {
   generalRequest(
     "/product/create",
     { name, price, quantity, idProvider, image, timeLimit, category },
     REQUEST_TYPES.POST,
+    true,
     callback
   );
 }
@@ -171,6 +175,7 @@ function getByCategory(category, callback) {
     "/product/search-category/" + category,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
@@ -183,6 +188,7 @@ function getHistoricbyId(idUser, callback) {
     "/historic/get-user-reserved",
     { idUser },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -197,6 +203,7 @@ function newReserve(idUser, idProduct, quantity, callback) {
       reserveDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
     },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -206,6 +213,7 @@ function newPurchase(idHistoric, callback) {
     "/historic/buyed-product",
     { idHistoric },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -215,6 +223,7 @@ function getReservedUser(idUser, callback) {
     "/historic/get-user-reserved",
     { idUser },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -224,6 +233,7 @@ function getPurchasedUser(idUser, callback) {
     "/historic/get-user-historic",
     { idUser },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -233,6 +243,7 @@ function getReservedProv(idProv, callback) {
     "/historic/get-provider-historic",
     { idProv },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -242,6 +253,7 @@ function getPurchasedProv(idProv, callback) {
     "/historic/get-provider-historic",
     { idProv },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -255,12 +267,14 @@ function addRate(idProvider, idUser, rate, callback) {
     "rate/add-rate/" + rate,
     { idProvider, idUser },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
 
 function getRate(idProvider, callback) {
-  generalRequest("rate/rating", { idProvider }, REQUEST_TYPES.POST, callback);
+  generalRequest("rate/rating", { idProvider }, REQUEST_TYPES.POST,
+  undefined, callback);
 }
 
 //-------------------------------------------------------------------
