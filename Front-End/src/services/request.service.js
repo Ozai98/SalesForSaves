@@ -21,18 +21,20 @@ function generalRequest(path, body, requestType, useFormData, callback) {
     };
 
   }else {
-    const myHeaders = new Headers();
+    var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = undefined;
     if (requestType != REQUEST_TYPES.GET) {
-      const urlParams = new URLSearchParams(); 
-      for (const key in body) urlParams.append(key, body[key]);
+      urlencoded = new URLSearchParams();
+      for (const key in body) urlencoded.append(key, body[key]);
     }
 
     requestOptions = {
       method: requestType,
-      body: body,
-      redirect: 'follow',
       headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
     };
 
   }
