@@ -8,9 +8,16 @@ const REQUEST_TYPES = {
 
 function generalRequest(path, body, requestType, useFormData, callback) {
   var body = undefined;
+  const myHeaders = new Headers();
+  
   if (requestType != REQUEST_TYPES.GET) {
-    if (useFormData) body = new FormData();
-    else body = new URLSearchParams();
+    if (useFormData) {
+      myHeaders.append("Content-Type", "multipart/form-data; boundary=---------------------------974767299852498929531610575");
+      body = new FormData();
+    } else {
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+      body = new URLSearchParams(); 
+    }
     
     for (const key in body) body.append(key, body[key]);
   }
@@ -22,8 +29,7 @@ function generalRequest(path, body, requestType, useFormData, callback) {
   };
 
   if(!useFormData){
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    
     requestOptions.headers = myHeaders;
   }
 
