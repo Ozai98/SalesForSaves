@@ -5,7 +5,7 @@
       <p class="timeH">Hace {{ getSinceDate() }} días</p>
       <h5 class="priceH">{{ Historical_product.price }}/kg</h5>
       <h6 id="nameH">{{ Historical_product.name }}</h6>
-      <p class="providerH">{{ Historical_product.provider }}</p>
+      <p class="providerH">{{ Historical_product.provider.name }}</p>
       <p class="quantityH">{{ Historical_product.quantity }} unidades</p>
     </div>
   </div>
