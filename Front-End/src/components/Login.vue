@@ -102,6 +102,7 @@ export default {
           this.$store.dispatch("storeUser", builder);
           this.$store.dispatch("changeLogState");
           this.jumpScreen("Home");
+          this.$emit("closeLogin");
         } else {
           this.$fire({
             text: "no se reconoce el usuario o la contraseña",
