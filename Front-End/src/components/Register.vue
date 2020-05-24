@@ -134,7 +134,7 @@ export default {
   background-color: white;
   justify-items: center;
   text-align: center;
-  width: 30vw;
+ 
   height: 25vw;
   border-radius: 2vw;
   display: grid;
