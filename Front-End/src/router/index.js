@@ -43,6 +43,7 @@ const router = new VueRouter({
       name: "SellProduct",
       component: () => import("@/views/SellProduct.vue"),
     },
+    
   ],
 });
 

@@ -1,27 +1,75 @@
-<template>
-  <div class="ContainerNoGrid">
+
+<template  >
+
+  <div class="ContainerNoGrid" v-if="active" key="g">
     <center>
-      <p class="titleH">TU HISTORIAL</p>
+      <p class="titleH"  >TU HISTORIAL</p>
       <div id="j" v-for="history in dataH" :key="history.name">
         <HistoryProduct :Historical_product="history"></HistoryProduct>
       </div>
     </center>
   </div>
+
+  <div class="ContainerGrid"  v-else >
+    <div class="titleH">
+      <p >TU HISTORIAL</p>
+    </div>
+    <div class="encierro">
+      <clf :clasication="this.test" class="calificacion" ></clf>
+
+      <div class="table" @click="exit()">
+        <div id="j" v-for="history in dataH" :key="history.name">
+          <HistoryProduct :Historical_product="history" ></HistoryProduct>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
+
+
+
+
 
 <script>
 import HistoryProduct from "../components/HistoryProduct.vue";
 import request from "@/services/request.service.js";
+import clf from "@/components/calification.vue"
 export default {
-  name: "HView",
+
   data() {
+
     return {
       id: this.$store.getters.returnUser.id,
       dataH: Object,
+      test:{
+      nombre:"",
+      picture:"a"
+    },
+      active: true
     };
   },
+  computed:{
+    state(){
+    
+      return this.$store.getters.returnHysState;
+    },
+    prov(){
+      return this.$store.getters.returnHysProv;
+    }
+  },
+  watch:{
+    state:function(val){
+      console.log("EN HYS"+this.test.nombre)
+        this.active=!this.active;
+    },
+    prov:function(val){
+      this.test.nombre=val;
+    }
 
+    
+  },
   methods: {
+    //this.$store.getters.returnHysState
     Backbb() {
       this.dataH = [];
       request.getHistoricbyId(this.id, (data) => {
@@ -35,27 +83,35 @@ export default {
               quantity: hist.quantity,
             });
           }
-          console.log(this.dataProd);
         } else console.log("hijole no se va a podeeer");
         console.log(data);
       });
     },
+    exit(){
+      if(!this.active){
+        this.$store.dispatch("updateStateH","");
+      }
+    }
   },
   components: {
     HistoryProduct,
+    clf
   },
   mounted() {
+    
     this.Backbb();
   },
 };
 </script>
 
-<style>
+<style  scoped>
+
 .titleH {
   font-family: Oswald;
   font-size: 70px;
   margin: 0%;
   text-align: center;
+  grid-column: 1/3;
 }
 .ContainerNoGrid {
   padding: 2vw;
@@ -63,7 +119,36 @@ export default {
   height: 90%;
   background-color: white;
 }
+.ContainerGrid {
+  padding-bottom: 2vw;
+  padding-top: 2vw;
+  align-self: center;
+  height: 90%;
+  background-color: white;
+
+}
+.encierro{
+  display:flex;
+}
+.calificacion{
+  position: sticky;
+  top:10vw;
+  max-width: 25vw;
+  max-height: 35vw;
+}
 #j {
   margin: 1vw;
+
+
+}
+.que{
+  width:50px;
+  height: 4vw;
+}
+
+.table{
+  display: flex; 
+  align-items: flex-end;
+  flex-direction: column;
 }
 </style>

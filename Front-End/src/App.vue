@@ -200,7 +200,7 @@ export default {
   height: 3vw;
   padding: 0 0.2vw;
   cursor: pointer;
-  font-size: 1.2vw;
+  font-size: 1.5vw;
   font-family: "Oswald", sans-serif;
   margin: 0.5vw 0 0.5vw 0;
   font-weight: bold;

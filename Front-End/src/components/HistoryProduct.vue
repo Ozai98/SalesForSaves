@@ -5,13 +5,14 @@
       <p class="timeH">Hace {{ getSinceDate() }} días</p>
       <h5 class="priceH">{{ Historical_product.price }}/kg</h5>
       <h6 id="nameH">{{ Historical_product.name }}</h6>
-      <p class="providerH">{{ Historical_product.provider.name }}</p>
+      <p class="providerH" @click="changestate()">{{ Historical_product.provider.name }}  </p>
       <p class="quantityH">{{ Historical_product.quantity }} unidades</p>
     </div>
   </div>
 </template>
 
 <script>
+
 export default {
   props: {
     Historical_product: {
@@ -29,6 +30,12 @@ export default {
       let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
     },
+    changestate(){
+      if(this.$store.getters.returnHysState){
+      this.$store.dispatch("updateStateH",this.Historical_product.provider.name);
+      }
+      
+    }
   },
 };
 </script>
@@ -42,6 +49,7 @@ export default {
   display: block;
   max-height: 10vw;
   max-width: 70vw;
+  text-align: left;
 }
 .card-bodyH {
   float: left;
@@ -49,6 +57,7 @@ export default {
   width: 50vw;
   display: grid;
   font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
+
 }
 .pictureH {
   height: 9.9vw;
@@ -62,9 +71,10 @@ export default {
 .timeH {
   font-weight: lighter;
   font-size: 1vw;
-  margin-left: 85%;
+  margin-left: 75%;
   grid-column: 1/3;
   grid-row: 1;
+  text-align: center;
 }
 .priceH {
   font-size: 2vw;
@@ -76,10 +86,13 @@ export default {
 }
 .providerH {
   font-weight: lighter;
+  color:blue;
+  cursor: pointer;
   font-size: 1vw;
   margin-left: 80%;
   grid-column: 1/3;
   grid-row: 4;
+  text-align: center;
 }
 .quantityH {
   font-weight: lighter;
