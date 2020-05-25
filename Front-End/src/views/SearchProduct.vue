@@ -68,6 +68,7 @@ export default {
   },
   mounted() {
     this.bringFromBack();
+    this.bringFromBackCat();
   },
 };
 </script>
