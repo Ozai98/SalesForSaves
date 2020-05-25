@@ -32,7 +32,6 @@ export default {
     search() {
       this.$store.dispatch("updateSearch", this.sVal);
       this.$emit("search");
-      console.log("Hace algo");
     },
   },
 };

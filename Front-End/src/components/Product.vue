@@ -1,6 +1,6 @@
 <template>
   <div class="card" @click="jumpBookings(product.id)">
-    <img src="@/assets/imgs/banano.jpg" class="picture" />
+    <img :src="getImage()" class="picture" />
     <div class="card-body">
       <p id="time">Hace {{ getSinceDate() }} días</p>
       <h5 class="price">${{ product.price }}/kg</h5>
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import request from "@/services/request.service.js";
 export default {
   props: {
     product: {
@@ -19,11 +20,11 @@ export default {
       name: String,
       leftUnits: Number,
       id: Number,
+      image: String,
     },
   },
   methods: {
     jumpBookings(id2) {
-      console.log("me oprimieron");
       //this.jumpScreen('Reservas');
       this.$router.push({ name: "Bookings", params: { id: id2 } });
     },
@@ -32,6 +33,9 @@ export default {
       let diff = current - this.product.time;
       let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
+    },
+    getImage() {
+      return request.getImgUrl(this.product.image);
     },
   },
 };

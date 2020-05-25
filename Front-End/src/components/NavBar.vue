@@ -52,7 +52,6 @@ export default {
   },
   methods: {
     openLogin() {
-      console.log("emitio2");
       this.$emit("openLogin2");
     },
   },

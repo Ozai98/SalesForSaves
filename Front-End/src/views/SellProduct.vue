@@ -3,10 +3,10 @@
     <div id="sellProduct" class="center-content">
       <h1 id="hTitle" class="highText">¿QUÉ QUIERES VENDER?</h1>
       <div id="productPicFrame" class="base-border center-content inputIMG">
-        <label for="fileInput">
+        <label for="fileInputProd">
           <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
         </label>
-        <input type="file" id="fileInput" @change="onFileSelected()" />
+        <input type="file" id="fileInputProd" @change="onFileSelected" />
       </div>
       <label class="body-text desc">Nombre</label>
       <div class="input-el prodField base-border body-text">
@@ -77,7 +77,7 @@ export default {
         name: "",
         quantity: 0,
         price: 0,
-        imgURL: "",
+        imgProduct: Object,
         idProvider: this.$store.getters.returnUser.id,
         timeLimit: new Date(),
         category: "",
@@ -91,21 +91,18 @@ export default {
     getCategories() {
       request.getCategories((data) => {
         if (data.ok) this.categories = data.classX;
-        console.log(data);
       });
     },
     sellProduct() {
-      console.log(this.product);
       request.createProduct(
         this.product.name,
         Number(this.product.price),
         Number(this.product.quantity),
         this.product.idProvider,
-        this.product.imgURL,
+        this.product.imgProduct,
         new Date(this.product.timeLimit),
         this.product.category,
         (data) => {
-          console.log(data);
           if (data.ok) {
             this.$fire({
               text: "Producto creado",
@@ -122,12 +119,13 @@ export default {
               confirmButtonColor: "#ff8e43",
               customClass: "swal2-error",
             });
-            console.log(data.msg);
           }
         }
       );
     },
-    onFileSected() {},
+    onFileSelected(event) {
+      this.product.imgProduct = event.target.files[0];
+    },
   },
 };
 </script>

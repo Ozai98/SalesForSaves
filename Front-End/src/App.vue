@@ -54,7 +54,6 @@ export default {
   data() {
     return {
       idPage: "MainHome",
-      register: false,
     };
   },
   components: {
@@ -70,11 +69,6 @@ export default {
   },
   mounted() {
     this.$router.replace("home");
-  },
-  methods: {
-    swapModal() {
-      this.register = !this.register;
-    },
   },
 };
 </script>

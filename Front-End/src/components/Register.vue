@@ -98,7 +98,6 @@ export default {
           } else {
             fun_request = request.createClient;
           }
-          console.log(this.newUser);
           fun_request(
             this.newUser.name,
             this.newUser.mail,
@@ -106,7 +105,6 @@ export default {
             this.newUser.avatar,
             (data) => {
               if (data.ok) {
-                console.log("Usuario registrado correctamente");
                 this.$store.dispatch("storeUser", data.classX);
                 this.$emit("goToLogin");
               } else {
@@ -117,7 +115,6 @@ export default {
                   confirmButtonColor: "#ff8e43",
                   customClass: "swal2-error",
                 });
-                console.log(data.msg);
               }
             }
           );

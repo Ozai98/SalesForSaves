@@ -1,33 +1,38 @@
 <template>
   <div class="summaryH">
-    <img src="@/assets/imgs/banano.jpg" class="pictureH" />
+    <img :src="getImage()" class="pictureH" />
     <div class="card-bodyH">
       <p class="timeH">Hace {{ getSinceDate() }} días</p>
-      <h5 class="priceH">{{ Historical_product.price }}/kg</h5>
-      <h6 id="nameH">{{ Historical_product.name }}</h6>
-      <p class="providerH">{{ Historical_product.provider.name }}</p>
-      <p class="quantityH">{{ Historical_product.quantity }} unidades</p>
+      <h5 class="priceH">{{ historicalProduct.price }}/kg</h5>
+      <h6 id="nameH">{{ historicalProduct.name }}</h6>
+      <p class="providerH">{{ historicalProduct.provider.name }}</p>
+      <p class="quantityH">{{ historicalProduct.quantity }} unidades</p>
     </div>
   </div>
 </template>
 
 <script>
+import request from "@/services/request.service.js";
 export default {
   props: {
-    Historical_product: {
+    historicalProduct: {
       time: Date,
       price: Number,
       name: String,
       provider: String,
       quantity: Number,
+      image: "",
     },
   },
   methods: {
     getSinceDate() {
       let current = new Date();
-      let diff = current - this.Historical_product.time;
+      let diff = current - this.historicalProduct;
       let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
+    },
+    getImage() {
+      return request.getImgUrl(this.historicalProduct.image);
     },
   },
 };
@@ -54,7 +59,7 @@ export default {
   height: 9.9vw;
   float: left;
   border-radius: 1vw;
-  max-width: 100%;
+  max-width: 10vw;
   width: auto;
   vertical-align: middle;
   border-style: none;

@@ -7,7 +7,7 @@
         <div class="modal__header">
           <slot name="header" />
           <button type="button" class="modal__close" @click="closeModal()">
-            X
+            <img src="@/assets/imgs/close.svg" alt="" />
           </button>
         </div>
 
@@ -48,9 +48,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
-
-
 .modal {
   overflow-x: hidden;
   overflow-y: hidden;
@@ -76,7 +73,7 @@ export default {
     width: 600px;
     margin: 9vw auto;
     display: grid;
-    
+
     border-radius: 1vw;
     z-index: 2;
     @media screen and (max-width: 992px) {
@@ -84,29 +81,27 @@ export default {
     }
   }
   &__close {
-    width: 30px;
-    height: 30px;
+    width: 2vw;
+    height: 2vw;
     align-self: end;
-    justify-items: flex-end;
+    outline: none;
+    border: none;
+    justify-self: center;
+    cursor: pointer;
+    background-color: white;
   }
   &__header {
     grid-row: 1;
     justify-self: end;
     padding: 20px 20px 10px;
-
-   
   }
   &__body {
-    grid-row:2;
+    grid-row: 2;
     padding: 10px 20px 10px;
-
   }
   &__footer {
     padding: 10px 20px 20px;
-
   }
-  
-  
 }
 
 .fade-enter-active,

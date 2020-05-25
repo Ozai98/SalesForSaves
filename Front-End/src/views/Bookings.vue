@@ -2,7 +2,7 @@
   <div id="container">
     <p class="titleR">RESERVA YA!</p>
     <div class="summaryR">
-      <img src="@/assets/imgs/banano.jpg" class="pictureR" />
+      <img :src="getImage()" class="pictureR" />
       <div class="cardBodyR">
         <p class="timeR"></p>
         <p class="nameR">{{ preview.name }}</p>
@@ -47,6 +47,7 @@ export default {
         name: "",
         provider: "",
         id: null,
+        image: "",
       },
     };
   },
@@ -55,15 +56,15 @@ export default {
   },
   methods: {
     bringFromBackR() {
-      request.getProductoById(this.$route.params.id, (data) => {
+      request.getProductById(this.$route.params.id, (data) => {
         if (data.ok) {
-          (this.preview.quantity = data.classX.quantity),
-            (this.preview.price = data.classX.price),
-            (this.preview.name = data.classX.name),
-            (this.preview.provider = data.classX.provider.name),
-            (this.preview.id = data.classX.id);
-        } else console.log("Error al encontrar producto");
-        console.log(data);
+          this.preview.quantity = data.classX.quantity;
+          this.preview.price = data.classX.price;
+          this.preview.name = data.classX.name;
+          this.preview.provider = data.classX.provider.name;
+          this.preview.id = data.classX.id;
+          this.preview.image = data.classX.image;
+        }
       });
     },
     book() {
@@ -74,8 +75,6 @@ export default {
           this.preview.quantity,
           (data) => {
             if (data.ok) {
-              console.log(data);
-              console.log("Reserva creada");
               this.$fire({
                 text: "Reserva creada con éxito",
                 titleText: "RESERVA CREADA",
@@ -84,8 +83,6 @@ export default {
                 customClass: "swal2-error",
               });
             } else {
-              console.log("Error al crear reserva");
-              console.log(data.msg);
               this.$fire({
                 text: "Ocurrió un error al crear la reserva",
                 titleText: "NO SE PUDO CREAR RESERVA",
@@ -104,8 +101,10 @@ export default {
           confirmButtonColor: "#ff8e43",
           customClass: "swal2-error",
         });
-        console.log("a<b por tanto A jamas va a querer a B como B quiere a A");
       }
+    },
+    getImage() {
+      return request.getImgUrl(this.preview.image);
     },
   },
   mounted() {

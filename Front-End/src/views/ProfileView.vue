@@ -3,12 +3,12 @@
     <div id="profile" class="center-content">
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="picFrame">
-        <img src="@/assets/imgs/ProfilePhoto.jpg" alt="profile pic" />
+        <img :src="getImage()" alt="profile pic" />
       </div>
       <label class="body-text desc" for="unField">Nombre</label>
       <p id="unField" class="highText">{{ name }}</p>
       <label class="body-text desc" for="mailField">Correo</label>
-      <p id="mailField" class="highText">{{ correo }}</p>
+      <p id="mailField" class="highText">{{ mail }}</p>
       <button
         id="editBtn"
         class="button-base accessBtn"
@@ -31,18 +31,21 @@
 </template>
 
 <script>
+import request from "@/services/request.service.js";
 export default {
-  name: "ProfileView",
   data() {
     return {
       name: this.$store.getters.returnUser.name,
-      correo: this.$store.getters.returnUser.mail,
+      mail: this.$store.getters.returnUser.mail,
     };
   },
   methods: {
     logout() {
       this.jumpScreen("Home");
       this.$store.dispatch("resetUser");
+    },
+    getImage() {
+      return request.getImgUrl(this.$store.getters.returnUser.imgURL);
     },
   },
 };

@@ -7,20 +7,18 @@ const REQUEST_TYPES = {
 };
 
 function generalRequest(path, body, requestType, useFormData, callback) {
-
   var requestOptions;
 
-  if(useFormData){
+  if (useFormData) {
     var formdata = new FormData();
-    for(const key in body) formdata.append(key, body[key]);
+    for (const key in body) formdata.append(key, body[key]);
 
     requestOptions = {
       method: requestType,
       body: formdata,
-      redirect: 'follow'
+      redirect: "follow",
     };
-
-  }else {
+  } else {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
@@ -36,7 +34,6 @@ function generalRequest(path, body, requestType, useFormData, callback) {
       body: urlencoded,
       redirect: "follow",
     };
-
   }
 
   fetch(SERVER_URL + path, requestOptions)
@@ -148,8 +145,8 @@ function updateProvider(id, name, password, ubication, avatar, callback) {
   if (name) body.name = name;
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
-  if (ubication) body.ubication = ubicacion;
-  generalRequest("/proveedor/update", body, REQUEST_TYPES.POST, true, callback);
+  if (ubication) body.ubication = ubication;
+  generalRequest("/provider/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
 //-------------------------------------------------------------------
