@@ -7,17 +7,20 @@
       @search="jumpScreen('SearchProduct')"
       id="search-bar"
     ></SearchBar>
+    <CategorySearch @search2="jumpScreen('SearchProduct')"></CategorySearch>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
 import SearchBar from "@/components/SearchBar.vue";
+import CategorySearch from "@/components/CategorySearch.vue";
 
 export default {
   name: "Home",
   components: {
     SearchBar,
+    CategorySearch,
   },
 };
 </script>

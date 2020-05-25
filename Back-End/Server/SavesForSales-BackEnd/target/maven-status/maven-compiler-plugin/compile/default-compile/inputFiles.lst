@@ -1,4 +1,5 @@
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Client.java
+C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\services\FileSystem.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\User.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\ClientController.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\ProviderController.java
@@ -14,6 +15,7 @@ C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEn
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\ClientRepository.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\DaoController.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Historic.java
+C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\GeneralController.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Provider.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Product.java
 C:\Users\alvad\CodingProjects\SalesForSaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\RateController.java

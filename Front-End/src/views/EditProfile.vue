@@ -4,11 +4,11 @@
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
         <label for="editProfilePic">
-          <img src="@/assets/imgs/ProfilePhoto.jpg" alt="profile pic" />
+          <img :src="getImage()" alt="profile pic" />
         </label>
-        <input type="file" id="editProfilePic" />
+        <input type="file" id="editProfilePic" @change="updateImg" />
       </div>
-      <label class="desc body-text" for="unField">Correo</label>
+      <label class="desc body-text" for="unField">Nombre</label>
 
       <input
         type="text"
@@ -59,41 +59,63 @@ export default {
     return {
       newUserInfo: {
         name: "",
-        username: "",
         password: "",
         password2: "",
+        avatar: null,
       },
     };
   },
   methods: {
     updateUser() {
-      let fun_request,
-        new_name = null,
-        new_pass = null;
+      let isProvider = this.$store.getters.returnUser.isProvider;
+      let new_name = null,
+        new_pass = null,
+        new_avatar = null;
       if (this.newUserInfo.name != "") new_name = this.newUserInfo.name;
       if (this.newUserInfo.password != "") {
         if (this.newUserInfo.password == this.newUserInfo.password2)
           new_pass = this.newUserInfo.password;
-        else console.log("Contraseñas distintas");
       }
-      if (this.isProvider) {
-        fun_request = request.updateProvider;
-      } else {
-        fun_request = request.updateClient;
-      }
-      fun_request(
-        this.$store.getters.returnUser.id,
-        new_name,
-        new_pass,
-        null,
-        (data) => {
-          if (data.ok) {
-            console.log("Usuario editado correctamente");
-            this.$store.dispatch("storeUser", data.classX);
-            this.jumpScreen("ProfileView");
-          } else console.log("No se pudo editar el usuario");
+      if (this.newUserInfo.avatar != null) new_avatar = this.newUserInfo.avatar;
+      const callback = (data) => {
+        if (data.ok) {
+          data.classX.isProvider = isProvider;
+          this.$store.dispatch("storeUser", data.classX);
+          this.jumpScreen("ProfileView");
+        } else {
+          this.$fire({
+            text: "Ocurrió un error al editar el usuario",
+            titleText: "ERROR EDITANDO USUARIO",
+            icon: "error",
+            confirmButtonColor: "#ff8e43",
+            customClass: "swal2-error",
+          });
         }
-      );
+      };
+      if (isProvider) {
+        request.updateProvider(
+          this.$store.getters.returnUser.id,
+          new_name,
+          new_pass,
+          null,
+          new_avatar,
+          callback
+        );
+      } else {
+        request.updateClient(
+          this.$store.getters.returnUser.id,
+          new_name,
+          new_pass,
+          new_avatar,
+          callback
+        );
+      }
+    },
+    getImage() {
+      return request.getImgUrl(this.$store.getters.returnUser.imgURL);
+    },
+    updateImg(event) {
+      this.newUserInfo.avatar = event.target.files[0];
     },
   },
 };

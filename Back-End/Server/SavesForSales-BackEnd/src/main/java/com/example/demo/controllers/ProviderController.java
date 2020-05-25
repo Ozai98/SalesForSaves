@@ -14,6 +14,7 @@ import com.example.demo.services.Services;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
@@ -32,8 +33,8 @@ public class ProviderController extends ClientController<Provider> {
         this.providerRepository = RepositoryController.Provider();
     }
 
-    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Provider> create(String name, String mail, String password, String avatar) {
+    @PostMapping(value = "/create")
+    public Response<Provider> create(String name, String mail, String password, MultipartFile avatar) {
         return super.create(name, mail, password, avatar, new Provider());
     }
 
@@ -47,8 +48,8 @@ public class ProviderController extends ClientController<Provider> {
         return super.getById(id);
     }
 
-    @PostMapping(value = "/update", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Provider> updateProvider(Integer id, String name, String password, String avatar, String ubication) {
+    @PostMapping(value = "/update")
+    public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, String ubication) {
         if(id == null) return new Response(false, null, "Missing ID");
         try {
             Provider provider = providerRepository.getById(id);

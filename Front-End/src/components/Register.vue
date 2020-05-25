@@ -17,7 +17,7 @@
       <input
         type="text"
         name="User"
-        v-model="newUser.username"
+        v-model="newUser.mail"
         class="soft-el body-text regField"
       />
     </div>
@@ -49,7 +49,7 @@
           alt="profile pic"
         />
       </label>
-      <input type="file" id="fileInput" @change="onFileSelected()" />
+      <input type="file" id="fileInput" @change="onFileSelected" />
     </div>
     <label for="ProviderCheck" class="body-text desc"
       >¿Desea vender productos como proveedor?</label
@@ -72,17 +72,21 @@ export default {
     return {
       newUser: {
         name: "",
-        username: "",
+        mail: "",
         password: "",
         password2: "",
+        avatar: Object,
       },
       isProvider: false,
     };
   },
   methods: {
+    onFileSelected(event) {
+      this.newUser.avatar = event.target.files[0];
+    },
     register() {
       if (
-        this.newUser.username != "" &&
+        this.newUser.mail != "" &&
         this.newUser.password != "" &&
         this.newUser.password2 != "" &&
         this.newUser.name != ""
@@ -96,12 +100,11 @@ export default {
           }
           fun_request(
             this.newUser.name,
-            this.newUser.username,
+            this.newUser.mail,
             this.newUser.password,
-            "potato.jpg",
+            this.newUser.avatar,
             (data) => {
               if (data.ok) {
-                console.log("Usuario registrado correctamente");
                 this.$store.dispatch("storeUser", data.classX);
                 this.$emit("goToLogin");
               } else {
@@ -112,7 +115,6 @@ export default {
                   confirmButtonColor: "#ff8e43",
                   customClass: "swal2-error",
                 });
-                console.log(data.msg);
               }
             }
           );
@@ -144,8 +146,8 @@ export default {
   background-color: white;
   justify-items: center;
   text-align: center;
- 
-  height: 25vw;
+
+  height: 30vw;
   border-radius: 2vw;
   display: grid;
   grid-template-columns: 1fr;

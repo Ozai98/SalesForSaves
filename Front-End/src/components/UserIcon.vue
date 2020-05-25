@@ -3,7 +3,7 @@
     <img
       v-if="this.$store.getters.returnLogState"
       id="userIcon"
-      src="@/assets/imgs/ProfilePhoto.jpg"
+      :src="getImage()"
       @click="jumpScreen('ProfileView')"
     />
     <img v-else id="userIcon" src="@/assets/imgs/user.svg" @click="open()" />
@@ -11,6 +11,7 @@
 </template>
 
 <script>
+import request from "@/services/request.service.js";
 import ModalComponent from "@/components/ModalComponent.vue";
 export default {
   name: "UserIcon",
@@ -23,8 +24,10 @@ export default {
   },
   methods: {
     open() {
-      console.log("emitio");
       this.$emit("login");
+    },
+    getImage() {
+      return request.getImgUrl(this.$store.getters.returnUser.imgURL);
     },
   },
 };

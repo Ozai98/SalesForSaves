@@ -1,23 +1,27 @@
 <template>
   <div id="container" class="container center-content">
     <div id="sellProduct" class="center-content">
-      <h1 class="highText">¿Que quieres vender?</h1>
+      <h1 id="hTitle" class="highText">¿QUÉ QUIERES VENDER?</h1>
       <div id="productPicFrame" class="base-border center-content inputIMG">
-        <label for="fileInput">
+        <label for="fileInputProd">
           <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
         </label>
-        <input type="file" id="fileInput" @change="onFileSelected()" />
+        <input type="file" id="fileInputProd" @change="onFileSelected" />
       </div>
       <label class="body-text desc">Nombre</label>
       <div class="input-el prodField base-border body-text">
-        <input v-model="product.name" type="text" class="soft-el spacer" />
+        <input
+          v-model="product.name"
+          type="text"
+          class="soft-el spacer input-center"
+        />
       </div>
       <label class="body-text desc">Cantidad</label>
       <div class="input-el prodField base-border body-text">
         <input
           v-model="product.quantity"
           type="number"
-          class="soft-el spacer"
+          class="soft-el spacer input-center"
         />
         <div class="space"></div>
         <p class="center-content">kg</p>
@@ -29,8 +33,26 @@
           class="space center-content"
           style="margin: 0 0.5vw 0 0.5vw;"
         ></div>
-        <input v-model="product.price" type="number" class="soft-el spacer" />
+        <input
+          v-model="product.price"
+          type="number"
+          class="soft-el spacer input-center"
+        />
       </div>
+
+      <label class="body-text desc" for="dateUntil"
+        >¿Hasta que día deseas vender este producto?</label
+      >
+      <input
+        v-model="product.timeLimit"
+        type="date"
+        class="soft-el input-center desc"
+        id="dateUntil"
+      />
+      <select v-model="product.category" name="categories" id="categories">
+        <option v-for="category in categories">{{ category }}</option>
+      </select>
+
       <button
         type="button"
         class="editBtn button-base accessBtn"
@@ -48,29 +70,39 @@ import alert from "vue-simple-alert";
 import Vue from "vue";
 Vue.use(alert);
 export default {
-  name: "SellProduct",
   data() {
     return {
+      categories: [],
       product: {
         name: "",
         quantity: 0,
         price: 0,
-        imgURL: "",
-        provID: this.$store.getters.returnUser.id,
+        imgProduct: Object,
+        idProvider: this.$store.getters.returnUser.id,
+        timeLimit: new Date(),
+        category: "",
       },
     };
   },
+  mounted() {
+    this.getCategories();
+  },
   methods: {
+    getCategories() {
+      request.getCategories((data) => {
+        if (data.ok) this.categories = data.classX;
+      });
+    },
     sellProduct() {
-      console.log(this.product);
       request.createProduct(
         this.product.name,
         Number(this.product.price),
         Number(this.product.quantity),
-        this.product.provID,
-        this.product.imgURL,
+        this.product.idProvider,
+        this.product.imgProduct,
+        new Date(this.product.timeLimit),
+        this.product.category,
         (data) => {
-          console.log(data);
           if (data.ok) {
             this.$fire({
               text: "Producto creado",
@@ -91,7 +123,9 @@ export default {
         }
       );
     },
-    onFileSected() {},
+    onFileSelected(event) {
+      this.product.imgProduct = event.target.files[0];
+    },
   },
 };
 </script>
@@ -100,8 +134,8 @@ export default {
 #sellProduct {
   background-color: white;
   border-radius: 25px 25px 25px 25px;
-  max-height: 80vh;
-  width: 60%;
+  width: 50%;
+  overflow: hidden;
 }
 #productPicFrame {
   width: 30vw;
@@ -113,9 +147,13 @@ export default {
   width: 70%;
   height: 70%;
 }
+#hTitle {
+  margin: 2vw 0;
+  font-size: 3vw;
+}
 
 .spacer {
-  margin-left: 2vw;
+  margin-left: 1vw;
 }
 .prodField {
   width: 13vw;

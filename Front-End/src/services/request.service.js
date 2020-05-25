@@ -6,22 +6,35 @@ const REQUEST_TYPES = {
   POST: "POST",
 };
 
-function generalRequest(path, body, requestType, callback) {
-  var myHeaders = new Headers();
-  myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+function generalRequest(path, body, requestType, useFormData, callback) {
+  var requestOptions;
 
-  var urlencoded = undefined;
-  if (requestType != REQUEST_TYPES.GET) {
-    urlencoded = new URLSearchParams();
-    for (const key in body) urlencoded.append(key, body[key]);
+  if (useFormData) {
+    var formdata = new FormData();
+    for (const key in body) formdata.append(key, body[key]);
+
+    requestOptions = {
+      method: requestType,
+      body: formdata,
+      redirect: "follow",
+    };
+  } else {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+
+    var urlencoded = undefined;
+    if (requestType != REQUEST_TYPES.GET) {
+      urlencoded = new URLSearchParams();
+      for (const key in body) urlencoded.append(key, body[key]);
+    }
+
+    requestOptions = {
+      method: requestType,
+      headers: myHeaders,
+      body: urlencoded,
+      redirect: "follow",
+    };
   }
-
-  var requestOptions = {
-    method: requestType,
-    headers: myHeaders,
-    body: urlencoded,
-    redirect: "follow",
-  };
 
   fetch(SERVER_URL + path, requestOptions)
     .then((response) => response.json())
@@ -30,7 +43,10 @@ function generalRequest(path, body, requestType, callback) {
       console.log(error);
       callback({
         ok: false,
-        msg: "An error ocurred while sending HTTP request",
+        msg: {
+          msg: "An error occurred while sending http request",
+          error,
+        },
       });
     });
 }
@@ -44,6 +60,7 @@ function loginClient(mail, password, callback) {
     "/user/login",
     { mail, password },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -53,12 +70,19 @@ function createClient(name, mail, password, avatar, callback) {
     "/user/create",
     { name, mail, password, avatar },
     REQUEST_TYPES.POST,
+    true,
     callback
   );
 }
 
 function getUserByEmail(mail, callback) {
-  generalRequest("/user/get-by-email", { mail }, REQUEST_TYPES.POST, callback);
+  generalRequest(
+    "/user/get-by-email",
+    { mail },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
 }
 
 function getUserById(id, callback) {
@@ -66,6 +90,7 @@ function getUserById(id, callback) {
     "/user/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
@@ -77,7 +102,7 @@ function updateClient(id, name, password, avatar, callback) {
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
 
-  generalRequest("/user/update", body, REQUEST_TYPES.POST, callback);
+  generalRequest("/user/update", body, REQUEST_TYPES.POST, undefined, callback);
 }
 
 //-------------------------------------------------------------------
@@ -89,6 +114,7 @@ function loginProvider(mail, password, callback) {
     "/provider/login",
     { mail, password },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -98,6 +124,7 @@ function createProvider(name, mail, password, avatar, callback) {
     "/provider/create",
     { name, mail, password, avatar },
     REQUEST_TYPES.POST,
+    true,
     callback
   );
 }
@@ -107,6 +134,7 @@ function getProviderById(id, callback) {
     "/provider/get-by-id" + id,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
@@ -117,8 +145,8 @@ function updateProvider(id, name, password, ubication, avatar, callback) {
   if (name) body.name = name;
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
-  if (ubication) body.ubication = ubicacion;
-  generalRequest("/proveedor/update", body, REQUEST_TYPES.POST, callback);
+  if (ubication) body.ubication = ubication;
+  generalRequest("/provider/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
 //-------------------------------------------------------------------
@@ -131,28 +159,51 @@ function searchProduct(param, callback) {
     "/product/search/" + param,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
 
-function getProductoById(id, callback) {
+function getProductById(id, callback) {
   generalRequest(
     "/product/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
+    undefined,
     callback
   );
 }
 
 // El parametro imagen es opcional. Pueden pasar undefined o null
-function createProduct(name, price, quantity, id_provider, picture, callback) {
+function createProduct(
+  name,
+  price,
+  quantity,
+  idProvider,
+  image,
+  timeLimit,
+  category,
+  callback
+) {
   generalRequest(
     "/product/create",
-    { name, price, quantity, id_provider, picture },
+    { name, price, quantity, idProvider, image, timeLimit, category },
     REQUEST_TYPES.POST,
+    true,
     callback
   );
 }
+
+function getByCategory(category, callback) {
+  generalRequest(
+    "/product/search-category/" + category,
+    undefined,
+    REQUEST_TYPES.GET,
+    undefined,
+    callback
+  );
+}
+
 //-------------------------------------------------------------------
 //----------------------HISTORICO-------------------------------------
 //-------------------------------------------------------------------
@@ -161,6 +212,7 @@ function getHistoricbyId(idUser, callback) {
     "/historic/get-user-reserved",
     { idUser },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
 }
@@ -168,10 +220,116 @@ function getHistoricbyId(idUser, callback) {
 function newReserve(idUser, idProduct, quantity, callback) {
   generalRequest(
     "/historic/reserve",
-    { idUser, idProduct, quantity, reserveDate: new Date() },
+    {
+      idUser,
+      idProduct,
+      quantity,
+      reserveDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
+    },
     REQUEST_TYPES.POST,
+    undefined,
     callback
   );
+}
+
+function newPurchase(idHistoric, callback) {
+  generalRequest(
+    "/historic/buyed-product",
+    { idHistoric },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+function getReservedUser(idUser, callback) {
+  generalRequest(
+    "/historic/get-user-reserved",
+    { idUser },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+function getPurchasedUser(idUser, callback) {
+  generalRequest(
+    "/historic/get-user-historic",
+    { idUser },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+function getReservedProv(idProv, callback) {
+  generalRequest(
+    "/historic/get-provider-historic",
+    { idProv },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+function getPurchasedProv(idProv, callback) {
+  generalRequest(
+    "/historic/get-provider-historic",
+    { idProv },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+//-------------------------------------------------------------------
+//----------------------RATE-----------------------------------------
+//-------------------------------------------------------------------
+
+function addRate(idProvider, idUser, rate, callback) {
+  generalRequest(
+    "rate/add-rate/" + rate,
+    { idProvider, idUser },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+function getRate(idProvider, callback) {
+  generalRequest(
+    "rate/rating",
+    { idProvider },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+//-------------------------------------------------------------------
+//----------------------GENERAL--------------------------------------
+//-------------------------------------------------------------------
+function getCategories(callback) {
+  callback({
+    ok: true,
+    classX: [
+      "FRUTAS",
+      "VERDURAS",
+      "RES",
+      "POLLO",
+      "CERDO",
+      "PESCADO",
+      "GRANOS",
+      "POSTRES",
+      "BEBIDAS",
+      "HARINAS",
+    ],
+    msg: "Ok",
+  });
+}
+
+function getImgUrl(imgName) {
+  return SERVER_URL + "/general/get-image/" + imgName;
 }
 
 module.exports = {
@@ -188,8 +346,11 @@ module.exports = {
   getProviderById,
   updateProvider,
   searchProduct,
-  getProductoById,
+  getProductById,
   createProduct,
-  newReserve,
   getHistoricbyId,
+  newReserve,
+  getByCategory,
+  getCategories,
+  getImgUrl,
 };

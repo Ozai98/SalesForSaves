@@ -54,7 +54,6 @@ export default {
   data() {
     return {
       idPage: "MainHome",
-      register: false,
     };
   },
   components: {
@@ -70,12 +69,6 @@ export default {
   },
   mounted() {
     this.$router.replace("home");
-    this.$store.dispatch("resetUser");
-  },
-  methods: {
-    swapModal() {
-      this.register = !this.register;
-    },
   },
 };
 </script>
@@ -129,6 +122,7 @@ export default {
 }
 .desc {
   color: #888;
+  margin: 0.7vw 0;
 }
 .small-img {
   width: 1vw;
@@ -218,5 +212,8 @@ export default {
 }
 .swal2-error {
   font-family: "Oswald", sans-serif !important;
+}
+.input-center {
+  text-align: center;
 }
 </style>

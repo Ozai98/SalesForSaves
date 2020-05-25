@@ -1,6 +1,6 @@
 <template>
   <div class="summaryH">
-    <img src="@/assets/imgs/banano.jpg" class="pictureH" />
+    <img :src="getImage()" class="pictureH" />
     <div class="card-bodyH">
       <p class="timeH">Hace {{ getSinceDate() }} días</p>
       <h5 class="priceH">{{ Historical_product.price }}/kg</h5>
@@ -12,21 +12,22 @@
 </template>
 
 <script>
-
+import request from "@/services/request.service.js";
 export default {
   props: {
-    Historical_product: {
+    historicalProduct: {
       time: Date,
       price: Number,
       name: String,
       provider: String,
       quantity: Number,
+      image: "",
     },
   },
   methods: {
     getSinceDate() {
       let current = new Date();
-      let diff = current - this.Historical_product.time;
+      let diff = current - this.historicalProduct;
       let days = diff / (1000 * 3600 * 24);
       return Math.floor(days);
     },
@@ -35,7 +36,10 @@ export default {
       this.$store.dispatch("updateStateH",this.Historical_product.provider.name);
       }
       
-    }
+    },
+    getImage() {
+      return request.getImgUrl(this.historicalProduct.image);
+    },
   },
 };
 </script>
@@ -63,7 +67,7 @@ export default {
   height: 9.9vw;
   float: left;
   border-radius: 1vw;
-  max-width: 100%;
+  max-width: 10vw;
   width: auto;
   vertical-align: middle;
   border-style: none;

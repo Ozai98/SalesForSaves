@@ -27,9 +27,9 @@ export default new Vuex.Store({
     },
     STORE_USER(state, user) {
       state.user.id = user.id;
-      state.user.name = user.nombre;
+      state.user.name = user.name;
       state.user.imgURL = user.avatar;
-      state.user.mail = user.correo;
+      state.user.mail = user.mail;
       state.user.isProvider = user.isProvider;
     },
     RESTART_LOGIN(state) {

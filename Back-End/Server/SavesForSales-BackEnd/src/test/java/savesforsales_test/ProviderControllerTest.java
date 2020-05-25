@@ -30,25 +30,24 @@ public class ProviderControllerTest {
     @Before
     public void before() throws Exception{
         controller = new ProviderController();
-        defaultProvider = new Provider();
-        defaultProvider.setName("defaultProvider Name");
-        defaultProvider.setMail("defaultProvider@Test.Email");        
-        defaultProvider.setPassword("defaultProvider password");
-        defaultProvider.setAvatar("defaultProvider avatar");
-        defaultProvider.setUbication("defaultProvider ubicacion");
-        Response<Provider> res = controller.create(defaultProvider.getName(), defaultProvider.getMail(), defaultProvider.getPassword(), defaultProvider.getAvatar());
+        Response<Provider> res = controller.create("defaultProvider Name", "defaultProvider@Test.Email", "defaultProvider password", null);
         if(!res.ok) Assert.fail("Fail default proveedor creation");
         defaultProvider.setId(res.classX.getId());
     }
     
     @Test
     public void Create(){
-        Response<Provider> res = controller.create(defaultProvider.getName(), defaultProvider.getMail(), defaultProvider.getPassword(), defaultProvider.getAvatar());
+        Provider other = new Provider();
+        
+        other.setName("Name 1");
+        other.setMail("Name1@mail.com");
+        other.setPassword("0000");
+        
+        Response<Provider> res = controller.create(other.getName(), other.getMail(), other.getPassword(), null);
         
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.classX.getName(), defaultProvider.getName());
         Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());   
-        
     }
     
     @Test
@@ -94,7 +93,7 @@ public class ProviderControllerTest {
         Assert.assertTrue(res.msg, res.ok);
         
         defaultProvider.setAvatar("defaultProvider updated avatar");
-        res = controller.updateProvider(defaultProvider.getId(), null, null, defaultProvider.getAvatar(), null);
+        res = controller.updateProvider(defaultProvider.getId(), null, null, null, null);
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());
         

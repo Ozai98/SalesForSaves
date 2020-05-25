@@ -2,7 +2,7 @@
   <div id="login" class="center-content">
     <div id="title">INICIAR SESION!</div>
     <div id="user" class="center-content">
-      <div id="user" class="input-el field base-border body-text ">
+      <div id="user" class="input-el field base-border body-text">
         <p class="label">E-mail</p>
         <div class="space"></div>
         <input
@@ -41,7 +41,6 @@
         </button>
       </div>
       <div id="regtext">
-  
         si no tienes una cuenta puedes registrarte
       </div>
       <div id="bot2">
@@ -79,19 +78,13 @@ export default {
     get_data() {
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
       let fun_request;
-      console.log(this.userLog.isProvider);
       if (this.userLog.isProvider) {
         fun_request = request.loginProvider;
       } else {
         fun_request = request.loginClient;
       }
-      console.log(this.userLog);
       fun_request(this.userLog.username, this.userLog.password, (data) => {
-        console.log("Login info received");
-        console.log(data);
         if (data.ok) {
-          console.log("Usuario logeado");
-          console.log(data.classX);
           let builder = {
             id: data.classX.id,
             name: data.classX.name,
@@ -173,7 +166,6 @@ export default {
 }
 
 .label {
- 
   margin: auto;
   font-size: 0.6vw;
   margin-right: 10px;

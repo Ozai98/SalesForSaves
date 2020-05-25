@@ -2,6 +2,7 @@
   <div id="container">
     <div id="sDiv"></div>
     <SearchBar id="s-el" @search="bringFromBack()"></SearchBar>
+    <CategorySearch @search2="bringFromBackCat()"></CategorySearch>
     <div id="products">
       <div v-for="prod in dataProd" :key="prod.name">
         <Product :product="prod"></Product>
@@ -14,6 +15,7 @@
 import Product from "@/components/Product.vue";
 import request from "@/services/request.service.js";
 import SearchBar from "@/components/SearchBar.vue";
+import CategorySearch from "@/components/CategorySearch.vue";
 export default {
   data() {
     return {
@@ -24,14 +26,14 @@ export default {
   components: {
     Product,
     SearchBar,
+    CategorySearch,
   },
   methods: {
     bringFromBack() {
       this.dataProd = [];
       request.searchProduct(this.$store.getters.returnSearchedValue, (data) => {
         if (data.ok) {
-          console.log(data);
-          console.log("Producto encontrado");
+          console.log(data.classX);
           for (const prod of data.classX) {
             this.dataProd.push({
               time: new Date(prod.publicationDate),
@@ -39,10 +41,28 @@ export default {
               name: prod.name,
               leftUnits: prod.quantity,
               id: prod.id,
+              image: prod.image,
             });
           }
-          console.log(this.dataProd);
-        } else console.log("Error al encontrar producto");
+        }
+      });
+    },
+    bringFromBackCat() {
+      this.dataProd = [];
+      request.getByCategory(this.$store.getters.returnSearchedValue, (data) => {
+        if (data.ok) {
+          console.log(data.classX);
+          for (const prod of data.classX) {
+            this.dataProd.push({
+              time: new Date(prod.publicationDate),
+              price: prod.price,
+              name: prod.name,
+              leftUnits: prod.quantity,
+              id: prod.id,
+              image: prod.image,
+            });
+          }
+        }
       });
     },
   },

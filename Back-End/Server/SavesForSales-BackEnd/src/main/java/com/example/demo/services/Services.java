@@ -37,6 +37,7 @@ public class Services {
 	}
 
 	public static boolean validateEmail(String email){
+            
 		return emailPattern.matcher(email).matches();
 	}
 

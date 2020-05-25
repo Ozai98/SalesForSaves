@@ -5,7 +5,7 @@
     <center>
       <p class="titleH"  >TU HISTORIAL</p>
       <div id="j" v-for="history in dataH" :key="history.name">
-        <HistoryProduct :Historical_product="history"></HistoryProduct>
+        <HistoryProduct :historicalProduct="history"></HistoryProduct>
       </div>
     </center>
   </div>
@@ -74,6 +74,7 @@ export default {
       this.dataH = [];
       request.getHistoricbyId(this.id, (data) => {
         if (data.ok) {
+          console.log(data.classX);
           for (const hist of data.classX) {
             this.dataH.push({
               time: hist.time,
@@ -81,10 +82,10 @@ export default {
               name: hist.product.name,
               provider: hist.product.provider,
               quantity: hist.quantity,
+              image: hist.product.image,
             });
           }
-        } else console.log("hijole no se va a podeeer");
-        console.log(data);
+        }
       });
     },
     exit(){
