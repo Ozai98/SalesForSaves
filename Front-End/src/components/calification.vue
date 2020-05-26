@@ -1,13 +1,13 @@
 <template>
     <div class="BackCl" id="componen">
         <div class="imgCl">
-            <img src="@/assets/imgs/ProfilePhoto.jpg"  />
+            <!--<img src="@/assets/imgs/ProfilePhoto.jpg"  />-->
         </div>
         <div class="nombreCl">
             <p style="font-size: 1vw;"> NOMBRE</p>
            <p>{{this.clasication.nombre}}</p> 
         </div>
-        <starts class="estrellas"></starts>
+        <starts class="estrellas" :mainData="clasication"></starts>
     </div>
 </template>
 
@@ -18,14 +18,17 @@ export default {
     props:{
         clasication:{
             nombre:String,
-            picture:String
+            picture:String,
+            Userid:Number,
+            Provid:Number
         }
+
     },
     components:{
         starts
     },
     mounted(){
-        console.log("ACTUAL"+this.clasication.nombre)
+        console.log("ACTUAL"+this.clasication.Userid+' '+this.clasication.Provid)
     }
 
 }

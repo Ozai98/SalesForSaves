@@ -1,5 +1,5 @@
-//const SERVER_URL = "http://190.157.224.51:8083/";
-const SERVER_URL = "http://localhost:8083";
+const SERVER_URL = "http://190.157.224.51:8083";
+//const SERVER_URL = "http://localhost:8083";
 
 const REQUEST_TYPES = {
   GET: "GET",
@@ -288,7 +288,7 @@ function getPurchasedProv(idProv, callback) {
 
 function addRate(idProvider, idUser, rate, callback) {
   generalRequest(
-    "rate/add-rate/" + rate,
+    "/rate/add-rate/" + rate,
     { idProvider, idUser },
     REQUEST_TYPES.POST,
     undefined,
@@ -298,7 +298,7 @@ function addRate(idProvider, idUser, rate, callback) {
 
 function getRate(idProvider, callback) {
   generalRequest(
-    "rate/rating",
+    "/rate/rating",
     { idProvider },
     REQUEST_TYPES.POST,
     undefined,
@@ -353,4 +353,6 @@ module.exports = {
   getByCategory,
   getCategories,
   getImgUrl,
+  addRate,
+  getRate,
 };

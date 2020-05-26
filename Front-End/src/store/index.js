@@ -10,7 +10,7 @@ export default new Vuex.Store({
     user: { id: -1, name: null, imgURL: null, mail: null, isProvider: false },
     searchedValue: "",
     stateH: true,
-    ProvH:""
+    ProvH:Object
   },
   mutations: {
     CHANGE_VIEW_DISPLAYING(state, newView) {

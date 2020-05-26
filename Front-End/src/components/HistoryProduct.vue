@@ -3,11 +3,12 @@
     <img :src="getImage()" class="pictureH" />
     <div class="card-bodyH">
       <p class="timeH">Hace {{ getSinceDate() }} días</p>
-      <h5 class="priceH">{{ Historical_product.price }}/kg</h5>
-      <h6 id="nameH">{{ Historical_product.name }}</h6>
-      <p class="providerH" @click="changestate()">{{ Historical_product.provider.name }}  </p>
-      <p class="quantityH">{{ Historical_product.quantity }} unidades</p>
+      <h5 class="priceH">{{ historicalProduct.price }}/kg</h5>
+      <h6 id="nameH">{{ historicalProduct.name }}</h6>
+      <p class="providerH" @click="changestate()">{{ historicalProduct.provider.name }}  </p>
+      <p class="quantityH">{{ historicalProduct.quantity }} unidades</p>
     </div>
+
   </div>
 </template>
 
@@ -33,7 +34,7 @@ export default {
     },
     changestate(){
       if(this.$store.getters.returnHysState){
-      this.$store.dispatch("updateStateH",this.Historical_product.provider.name);
+      this.$store.dispatch("updateStateH",this.historicalProduct.provider);
       }
       
     },

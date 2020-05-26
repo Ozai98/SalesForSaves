@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 <template>
   <div id="container">
     <p class="titleR">RESERVA YA!</p>
@@ -159,6 +160,11 @@ export default {
   color: #ff8e43;
   text-align: right;
   margin: 1vw;
+}
+.storeR{
+  grid-row:3 ;
+  font-size: 2vw;
+  margin-top: 2vw;
 }
 .providerR {
   grid-row: 3;
