@@ -42,7 +42,8 @@ export default {
      console.log(this.final);
    },
    Rate(){
-     request.addRate(this.mainData.Provid,this.mainData.Userid,this.final,(data)=>{ })
+     request.addRate(this.mainData.Provid,this.mainData.Userid,this.final,(data)=>{ });
+     this.$store.dispatch("updateStateH",null);
    },
 
  },   mounted(){

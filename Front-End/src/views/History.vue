@@ -1,10 +1,10 @@
 
 <template  >
 
-  <div class="ContainerNoGrid" v-if="active" key="g">
+  <div class="ContainerNoGrid" v-if="active" >
     <center>
       <p class="titleH"  >TU HISTORIAL</p>
-      <div id="j" v-for="history in dataH" :key="history.name">
+      <div id="j" v-for="history in dataH" :key="history.name" >
         <HistoryProduct :historicalProduct="history"></HistoryProduct>
       </div>
     </center>
@@ -19,7 +19,7 @@
 
       <div class="table" @click="exit()">
         <div id="j" v-for="history in dataH" :key="history.name">
-          <HistoryProduct :Historical_product="history" ></HistoryProduct>
+          <HistoryProduct :historicalProduct="history" ></HistoryProduct>
         </div>
       </div>
     </div>
@@ -42,8 +42,10 @@ export default {
       id: this.$store.getters.returnUser.id,
       dataH: Object,
       test:{
-      nombre:"",
-      picture:"a"
+        nombre:String,
+        picture:String,
+        Userid:this.$store.getters.returnUser.id,
+        Provid:Number
     },
       active: true
     };
@@ -63,7 +65,9 @@ export default {
         this.active=!this.active;
     },
     prov:function(val){
-      this.test.nombre=val;
+      this.test.nombre=val.name;
+      this.test.Provid=val.id;
+      this.test.picture=val.avatar;
     }
 
     

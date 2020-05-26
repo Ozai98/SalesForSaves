@@ -1,7 +1,7 @@
 <template>
     <div class="BackCl" id="componen">
         <div class="imgCl">
-            <!--<img src="@/assets/imgs/ProfilePhoto.jpg"  />-->
+            <img :src="getImage()"  />
         </div>
         <div class="nombreCl">
             <p style="font-size: 1vw;"> NOMBRE</p>
@@ -14,6 +14,7 @@
 
 <script>
 import starts from "./stars";
+import request from "../services/request.service.js";
 export default {
     props:{
         clasication:{
@@ -24,11 +25,22 @@ export default {
         }
 
     },
+    methods:{
+        getImage() {
+      return request.getImgUrl(this.clasication.picture);
+    
+    }
+    },
     components:{
         starts
     },
     mounted(){
-        console.log("ACTUAL"+this.clasication.Userid+' '+this.clasication.Provid)
+        console.log("ACTUAL"+this.clasication.Userid+' '+this.clasication.Provid+' '+this.clasication.picture)
+    },
+    destroyed(){
+        if(!this.$store.getters.returnHysState){
+      this.$store.dispatch("updateStateH",null);
+      }
     }
 
 }
