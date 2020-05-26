@@ -219,12 +219,12 @@ function getHistoricbyId(idUser, callback) {
 
 function newReserve(idUser, idProduct, quantity, callback) {
   generalRequest(
-    "/historic/reserve",
+    "/historic/reserve/",
     {
       idUser,
       idProduct,
       quantity,
-      reserveDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10),
+      reserveDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10).toISOString(),
     },
     REQUEST_TYPES.POST,
     undefined,
