@@ -28,7 +28,7 @@ export default {
         if (data.ok) this.categories = data.classX;
       });
     },
-    search(event) {
+    search() {
       this.$store.dispatch("updateSearch", this.sVal);
       console.log(this.sVal);
       this.$emit("search2");
