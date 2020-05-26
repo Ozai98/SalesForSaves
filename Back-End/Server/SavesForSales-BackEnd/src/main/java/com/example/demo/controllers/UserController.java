@@ -24,7 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 @EnableAutoConfiguration
 @RequestMapping("/user")
 @CrossOrigin
-public class UserController extends ClientController<User>{
+public class UserController extends ClientController<User> {
 
     public UserController() {
         super(RepositoryController.User());
@@ -44,7 +44,8 @@ public class UserController extends ClientController<User>{
     public Response<User> getByEmail(String mail) {
         try {
             List<User> users = this.repository.getByEmail(mail);
-            if (users.isEmpty()) return new Response<User>(false, null, "User no found");
+            if (users.isEmpty())
+                return new Response<User>(false, null, "User no found");
             return new Response(true, super.normalize(users.get(0)), "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
@@ -53,16 +54,17 @@ public class UserController extends ClientController<User>{
     }
 
     @GetMapping("/get-by-id/{id}")
-    public Response<User>getById(@PathVariable Integer id) {
+    public Response<User> getById(@PathVariable Integer id) {
         return super.getById(id);
     }
 
     @PostMapping(value = "/update")
     public Response<User> updateUser(Integer id, String name, String password, MultipartFile avatar) {
-        if(id == null) return new Response(false, null, "Missing ID");
-        try{
+        if (id == null)
+            return new Response(false, null, "Missing ID");
+        try {
             return super.update(name, password, avatar, repository.getById(id));
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             Services.handleError(ex);
             return new Response(false, null, ex);
         }

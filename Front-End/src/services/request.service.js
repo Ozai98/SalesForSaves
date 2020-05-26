@@ -102,7 +102,7 @@ function updateClient(id, name, password, avatar, callback) {
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
 
-  generalRequest("/user/update", body, REQUEST_TYPES.POST, undefined, callback);
+  generalRequest("/user/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
 //-------------------------------------------------------------------
@@ -224,7 +224,9 @@ function newReserve(idUser, idProduct, quantity, callback) {
       idUser,
       idProduct,
       quantity,
-      reserveDate: new Date(new Date().getTime() + 1000 * 60 * 60 * 24 * 10).toISOString(),
+      reserveDate: new Date(
+        new Date().getTime() + 1000 * 60 * 60 * 24 * 10
+      ).toISOString(),
     },
     REQUEST_TYPES.POST,
     undefined,

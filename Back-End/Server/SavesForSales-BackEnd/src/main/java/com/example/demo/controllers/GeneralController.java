@@ -25,27 +25,30 @@ import org.springframework.web.multipart.MultipartFile;
 @CrossOrigin
 @RequestMapping("/general")
 public class GeneralController {
-    
-    
+
     @GetMapping("/get-image/{img:.+}")
     public byte[] getImage(@PathVariable String img) {
         FileSystemRespone<SFSFile> res = FileSystem.getFile(img);
 
-        if(res.ok) return res.msg.bytes;
-        else return null;
+        if (res.ok)
+            return res.msg.bytes;
+        else
+            return null;
     }
-    
+
     @PostMapping("/upload-image")
-    public Response<String> uploadFile(MultipartFile file){
-        try{
-            FileSystemRespone<String> res = FileSystem.saveFile(new SFSFile(file.getBytes(), file.getOriginalFilename()));
-            if(res.ok) return new Response(true, res.msg, "File Saved");
-            else return new Response(false, "File no Saved", res.ex);
-        }catch(IOException ex){
+    public Response<String> uploadFile(MultipartFile file) {
+        try {
+            FileSystemRespone<String> res = FileSystem
+                    .saveFile(new SFSFile(file.getBytes(), file.getOriginalFilename()));
+            if (res.ok)
+                return new Response(true, res.msg, "File Saved");
+            else
+                return new Response(false, "File no Saved", res.ex);
+        } catch (IOException ex) {
             Services.handleError(ex);
             return new Response(false, "Error getting file bytes", ex);
         }
-        
-        
+
     }
 }
