@@ -5,7 +5,6 @@
  */
 package com.example.demo.controllers;
 
-import com.example.demo.database.models.User;
 import com.example.demo.services.FileSystem;
 import com.example.demo.services.FileSystem.FileSystemRespone;
 import com.example.demo.services.FileSystem.SFSFile;
@@ -42,12 +41,12 @@ public class GeneralController {
             FileSystemRespone<String> res = FileSystem
                     .saveFile(new SFSFile(file.getBytes(), file.getOriginalFilename()));
             if (res.ok)
-                return new Response(true, res.msg, "File Saved");
+                return new Response<>(true, res.msg, "File Saved");
             else
-                return new Response(false, "File no Saved", res.ex);
+                return new Response<>(false, "File no Saved", res.ex);
         } catch (IOException ex) {
             Services.handleError(ex);
-            return new Response(false, "Error getting file bytes", ex);
+            return new Response<>(false, "Error getting file bytes", ex);
         }
 
     }

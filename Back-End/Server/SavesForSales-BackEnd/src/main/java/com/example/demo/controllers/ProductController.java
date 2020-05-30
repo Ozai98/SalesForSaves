@@ -5,7 +5,6 @@ import com.example.demo.database.ProductRepository;
 import java.util.List;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +19,6 @@ import com.example.demo.database.RepositoryController;
 import com.example.demo.services.FileSystem;
 
 import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,7 +60,7 @@ public class ProductController {
             Product[] response = new Product[result.size()]; 
             int i = 0;
             for(Product product: result) response[i++] = normalize(product);
-            return new Response(true, response, "Ok");
+            return new Response<>(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
             return new Response<Product []>(false, null, ex);
@@ -79,7 +77,7 @@ public class ProductController {
             Product[] response = new Product[result.size()]; 
             int i = 0;
             for(Product product: result) response[i++] = normalize(product);
-            return new Response(true, response, "Ok");
+            return new Response<>(true, response, "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
             return new Response<Product []>(false, null, ex);
@@ -120,18 +118,18 @@ public class ProductController {
             String imgName = FileSystem.DEFAULT_IMG;
             if(image != null) {
                 FileSystem.FileSystemRespone<String> res =  FileSystem.saveFile(new FileSystem.SFSFile(image.getBytes(), image.getOriginalFilename()));
-                if(!res.ok) return new Response(false, null, res.ex);
+                if(!res.ok) return new Response<>(false, null, res.ex);
                 else imgName = res.msg;
             }
             nProduct.setImage(imgName);
             
             creator = providerRepository.getById(idProvider);
-            if(creator == null) return new Response(false, null, "idProvider don't match with any provider id: " + idProvider);
+            if(creator == null) return new Response<>(false, null, "idProvider don't match with any provider id: " + idProvider);
             nProduct.setProvider(creator);
             productRepository.create(nProduct);
-            return new Response(true, normalize(nProduct), "Ok. ");
+            return new Response<>(true, normalize(nProduct), "Ok. ");
         } catch (Exception e) {
-            return new Response(false, null, e);
+            return new Response<>(false, null, e);
         }
     }
 }

@@ -50,14 +50,14 @@ public class ProviderController extends ClientController<Provider> {
 
     @PostMapping(value = "/update")
     public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, String ubication) {
-        if(id == null) return new Response(false, null, "Missing ID");
+        if(id == null) return new Response<>(false, null, "Missing ID");
         try {
             Provider provider = providerRepository.getById(id);
             if (ubication != null) provider.setUbication(ubication);
             return super.update(name, password, avatar, provider);
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<>(false, null, ex);
         }
     }
 

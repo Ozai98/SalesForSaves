@@ -88,7 +88,7 @@ public class HistoricController {
 
         }catch (Exception e) {
             Services.handleError(e);
-            return new Response(false, null, e);
+            return new Response<Historic>(false, null, e);
         }
     }
     
@@ -131,9 +131,9 @@ public class HistoricController {
                 exit[i++] = normalizeHistoric(historico);
             }
             
-            return new Response(true, exit, "Reserve Found");
+            return new Response<Historic[]>(true, exit, "Reserve Found");
         }catch(Exception e){
-            return new Response(false, null, e);
+            return new Response<>(false, null, e);
         }
     }
     
@@ -147,9 +147,9 @@ public class HistoricController {
             for (Historic historico : list) {
                 exit[i++] = normalizeHistoric(historico);
             }
-            return new Response(true, exit, "Historic Found");
+            return new Response<Historic[]>(true, exit, "Historic Found");
         }catch(Exception e){
-            return new Response(false, null, e);
+            return new Response<>(false, null, e);
         }
     }
     
@@ -163,9 +163,9 @@ public class HistoricController {
             for (Historic historico : list) {
                 exit[i++] = normalizeHistoric(historico);
             }
-            return new Response(true, exit, "Historic Found");
+            return new Response<Historic[]>(true, exit, "Historic Found");
         }catch(Exception e){
-            return new Response(false, null, e);
+            return new Response<>(false, null, e);
         }
     }
     
@@ -179,9 +179,9 @@ public class HistoricController {
             for (Historic historico : list) {
                 exit[i++] = normalizeHistoric(historico);
             }
-            return new Response(true, exit, "Historic Found");
+            return new Response<>(true, exit, "Historic Found");
         }catch(Exception e){
-            return new Response(false, null, e);
+            return new Response<>(false, null, e);
         }
     }
 }
