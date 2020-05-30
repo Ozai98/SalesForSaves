@@ -60,6 +60,7 @@ export default {
       request.getProductById(this.$route.params.id, (data) => {
         if (data.ok) {
           this.preview.quantity = data.classX.quantity;
+          console.log(this.preview.quantity);
           this.preview.price = data.classX.price;
           this.preview.name = data.classX.name;
           this.preview.provider = data.classX.provider.name;
@@ -73,7 +74,7 @@ export default {
         request.newReserve(
           this.$store.getters.returnUser.id,
           Number(this.preview.id),
-          this.preview.quantity,
+          this.to_buy,
           (data) => {
             if (data.ok) {
               this.$fire({
@@ -83,6 +84,7 @@ export default {
                 confirmButtonColor: "#ff8e43",
                 customClass: "swal2-error",
               });
+              this.bringFromBackR();
             } else {
               this.$fire({
                 text: "Ocurrió un error al crear la reserva",
