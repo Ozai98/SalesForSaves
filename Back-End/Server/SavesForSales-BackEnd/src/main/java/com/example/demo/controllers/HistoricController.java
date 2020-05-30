@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -56,12 +57,12 @@ public class HistoricController {
         this.userRepository = RepositoryController.User();
         this.productRepository = RepositoryController.Product();
     }
-    
+    @Transactional
     @PostMapping(value = "/reserve", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic> reserve(Integer idUser, Integer idProduct, Double quantity, @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date reserveDate){
         
         if(idUser == null || idProduct == null || quantity == null || reserveDate == null) 
-            return new Response(false, null, String.format("Missing parameters. missing idUser: %b, missing idProduct: %b, missing quantity: %b, missing reserveDate: %b",
+            return new Response<Historic>(false, null, String.format("Missing parameters. missing idUser: %b, missing idProduct: %b, missing quantity: %b, missing reserveDate: %b",
                     idUser == null, idProduct == null, quantity == null, reserveDate == null));
         
         try{
@@ -70,6 +71,9 @@ public class HistoricController {
             Product prod = productRepository.getById(idProduct);
             if(prod == null) return new Response<Historic>(false, null, "Product no Found");
             
+            prod.setQuantity(prod.getQuantity()-quantity);
+            productRepository.update(prod);
+
             Historic newHistoric = new Historic();
             newHistoric.setQuantity(quantity);
             newHistoric.setState(RESERVED_STATE);
@@ -80,7 +84,7 @@ public class HistoricController {
 
             historicRepository.create(newHistoric);
             
-            return new Response(true, normalizeHistoric(newHistoric), "Reserved product");
+            return new Response<Historic>(true, normalizeHistoric(newHistoric), "Reserved product");
 
         }catch (Exception e) {
             Services.handleError(e);
