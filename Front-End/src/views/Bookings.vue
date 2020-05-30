@@ -20,7 +20,7 @@
       <input v-model="to_buy" type="number" class="inputR" />
       <div>
         <label class="inputR">PRECIO FINAL:</label>
-        <label class="inputR"></label>
+        <label class="inputR">${{preview.price * to_buy}}</label>
       </div>
       <div id="bot2">
         <button class="button-base" type="button" v-on:click="book()">
@@ -41,7 +41,7 @@ export default {
   name: "SellProduct",
   data() {
     return {
-      to_buy: Number,
+      to_buy:0 ,
       preview: {
         quantity: 0,
         price: 0,
