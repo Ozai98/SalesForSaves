@@ -28,108 +28,108 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/product")
 public class ProductController {
 
-    
-    public static final String DEFAULT_CATEGORY = "NO CATEGORY";
-    
-    private ProductRepository productRepository;
-    private ClientRepository<Provider> providerRepository;
+	
+	public static final String DEFAULT_CATEGORY = "NO CATEGORY";
+	
+	private ProductRepository productRepository;
+	private ClientRepository<Provider> providerRepository;
 
-    public ProductController(){
-        productRepository = RepositoryController.Product();        
-        providerRepository = RepositoryController.Provider();
+	public ProductController(){
+		productRepository = RepositoryController.Product();        
+		providerRepository = RepositoryController.Provider();
 
-    }
+	}
 
-    public static Product normalize(Product product){
-        try{
-            RepositoryController.Provider().refresh(product.getProvider());
-        }catch(Exception ex){
-            Services.handleError(ex);
-        }            
-        ProviderController.normalize(product.getProvider());
-        return product;
-    }
+	public static Product normalize(Product product){
+		try{
+			RepositoryController.Provider().refresh(product.getProvider());
+		}catch(Exception ex){
+			Services.handleError(ex);
+		}            
+		ProviderController.normalize(product.getProvider());
+		return product;
+	}
 
-    @GetMapping(value={"/search/{name}", "/search"})
-    public Response<Product[]> searchProducts(@PathVariable(required = false) String name) {
-        try {
-            List<Product> result;
-            if(name == null || name.isEmpty()) result = productRepository.searchValid("");
-            else result =  productRepository.searchValid(name);
-            
-            Product[] response = new Product[result.size()]; 
-            int i = 0;
-            for(Product product: result) response[i++] = normalize(product);
-            return new Response<>(true, response, "Ok");
-        } catch (Exception ex) {
-            Services.handleError(ex);
-            return new Response<Product []>(false, null, ex);
-        }
-    }
-    
-    @GetMapping(value={"/search-category/{category}", "/search-category"})
-    public Response<Product[]> searchCategory(@PathVariable(required = false) String category) {
-        try {
-            List<Product> result;
-            if(category == null || category.isEmpty()) result = productRepository.searchCategory("");
-            else result =  productRepository.searchCategory(category.toUpperCase());
-            
-            Product[] response = new Product[result.size()]; 
-            int i = 0;
-            for(Product product: result) response[i++] = normalize(product);
-            return new Response<>(true, response, "Ok");
-        } catch (Exception ex) {
-            Services.handleError(ex);
-            return new Response<Product []>(false, null, ex);
-        }
-    }
+	@GetMapping(value={"/search/{name}", "/search"})
+	public Response<Product[]> searchProducts(@PathVariable(required = false) String name) {
+		try {
+			List<Product> result;
+			if(name == null || name.isEmpty()) result = productRepository.searchValid("");
+			else result =  productRepository.searchValid(name);
+			
+			Product[] response = new Product[result.size()]; 
+			int i = 0;
+			for(Product product: result) response[i++] = normalize(product);
+			return new Response<>(true, response, "Ok");
+		} catch (Exception ex) {
+			Services.handleError(ex);
+			return new Response<Product []>(false, null, ex);
+		}
+	}
+	
+	@GetMapping(value={"/search-category/{category}", "/search-category"})
+	public Response<Product[]> searchCategory(@PathVariable(required = false) String category) {
+		try {
+			List<Product> result;
+			if(category == null || category.isEmpty()) result = productRepository.searchCategory("");
+			else result =  productRepository.searchCategory(category.toUpperCase());
+			
+			Product[] response = new Product[result.size()]; 
+			int i = 0;
+			for(Product product: result) response[i++] = normalize(product);
+			return new Response<>(true, response, "Ok");
+		} catch (Exception ex) {
+			Services.handleError(ex);
+			return new Response<Product []>(false, null, ex);
+		}
+	}
 
-    @GetMapping("/get-by-id/{id}")
-    public Response<Product> getProduct( @PathVariable Integer id) {
-        try {
-            Product product = productRepository.getById(id);
-            if(product == null) return new Response<Product>(false, null, "Product no Found");
-            return new Response<Product>(true, normalize(product), "Ok:");
-        } catch (Exception ex) {
-            Services.handleError(ex);
-            return new Response<Product>(false, null, ex);
-        }
+	@GetMapping("/get-by-id/{id}")
+	public Response<Product> getProduct( @PathVariable Integer id) {
+		try {
+			Product product = productRepository.getById(id);
+			if(product == null) return new Response<Product>(false, null, "Product no Found");
+			return new Response<Product>(true, normalize(product), "Ok:");
+		} catch (Exception ex) {
+			Services.handleError(ex);
+			return new Response<Product>(false, null, ex);
+		}
 
-    }
+	}
 
 
-    @PostMapping(value = "/create")
-    public Response<Product> create(String name, Double price, Integer idProvider, MultipartFile image, Double quantity,  
-            Date timeLimit, String category){
-        if(price <= 0) return new Response<Product>(false, null, "price invalido");
-        if(category == null || category.isEmpty()) category = DEFAULT_CATEGORY;
-        else category = category.toUpperCase();
-        
-        Product nProduct = new Product();
-        nProduct.setName(name);
-        nProduct.setPrice(price);
-        nProduct.setQuantity(quantity);
-        nProduct.setPublicationDate(new Date());
-        nProduct.setTimeLimit(timeLimit);
-        nProduct.setCategory(category);
-        Provider creator;
-        try {
-            
-            String imgName = FileSystem.DEFAULT_IMG;
-            if(image != null) {
-                FileSystem.FileSystemRespone<String> res =  FileSystem.saveFile(new FileSystem.SFSFile(image.getBytes(), image.getOriginalFilename()));
-                if(!res.ok) return new Response<>(false, null, res.ex);
-                else imgName = res.msg;
-            }
-            nProduct.setImage(imgName);
-            
-            creator = providerRepository.getById(idProvider);
-            if(creator == null) return new Response<>(false, null, "idProvider don't match with any provider id: " + idProvider);
-            nProduct.setProvider(creator);
-            productRepository.create(nProduct);
-            return new Response<>(true, normalize(nProduct), "Ok. ");
-        } catch (Exception e) {
-            return new Response<>(false, null, e);
-        }
-    }
+	@PostMapping(value = "/create")
+	public Response<Product> create(String name, Double price, Integer idProvider, MultipartFile image, Double quantity,  
+			Date timeLimit, String category){
+		if(price <= 0) return new Response<Product>(false, null, "price invalido");
+		if(category == null || category.isEmpty()) category = DEFAULT_CATEGORY;
+		else category = category.toUpperCase();
+		
+		Product nProduct = new Product();
+		nProduct.setName(name);
+		nProduct.setPrice(price);
+		nProduct.setQuantity(quantity);
+		nProduct.setPublicationDate(new Date());
+		nProduct.setTimeLimit(timeLimit);
+		nProduct.setCategory(category);
+		Provider creator;
+		try {
+			
+			String imgName = FileSystem.DEFAULT_IMG;
+			if(image != null) {
+				FileSystem.FileSystemRespone<String> res =  FileSystem.saveFile(new FileSystem.SFSFile(image.getBytes(), image.getOriginalFilename()));
+				if(!res.ok) return new Response<>(false, null, res.ex);
+				else imgName = res.msg;
+			}
+			nProduct.setImage(imgName);
+			
+			creator = providerRepository.getById(idProvider);
+			if(creator == null) return new Response<>(false, null, "idProvider don't match with any provider id: " + idProvider);
+			nProduct.setProvider(creator);
+			productRepository.create(nProduct);
+			return new Response<>(true, normalize(nProduct), "Ok. ");
+		} catch (Exception e) {
+			return new Response<>(false, null, e);
+		}
+	}
 }

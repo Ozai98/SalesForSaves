@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.PostConstruct;
 
-import com.example.demo.database.Repository;
 import com.example.demo.database.RepositoryController;
 import com.example.demo.database.models.Provider;
 import com.example.demo.database.models.Rate;
@@ -60,15 +59,15 @@ public class RateController {
 			rate.setProvider(provider);
 			rate.setRate(rating);
 			rateRepository.create(rate);
-			return new Response(true, rate, "rated created in db");
+			return new Response<>(true, rate, "rated created in db");
 		} catch (Exception e) {
 			Services.handleError(e);
-			return new Response(false, null, e);
+			return new Response<>(false, null, e);
 		}
 	}
 
 	@PostMapping(value = "/rating", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public Response<HashMap> totalRate(int idProvider) {
+	public Response<HashMap<String, Number>> totalRate(int idProvider) {
             try {
                 List<Rate> list = rateRepository.getByProvider(idProvider);
                 int cuantity = list.size();
@@ -77,16 +76,16 @@ public class RateController {
                     rating += rate.getRate();
                 }
                 
-                HashMap exit = new HashMap();
+                HashMap<String,Number> exit = new HashMap<String, Number>();
                 
                 exit.put("total", cuantity);
                 if(cuantity == 0) exit.put("rate", 0);
                 else exit.put("rate", rating/cuantity);
                 
-                return new Response(true, exit , "total rating");
+                return new Response<>(true, exit , "total rating");
             } catch (Exception e) {
                 Services.handleError(e);
-                return new Response(true, null, "provider not found");
+                return new Response<>(true, null, "provider not found");
             }
 	}
 }
