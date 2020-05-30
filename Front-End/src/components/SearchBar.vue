@@ -44,8 +44,9 @@ export default {
 
 #SearchBtn {
   background-color: white;
-  width: 2vw;
-  height: 2vw;
+  max-width: 2vw;
+  max-height: 2vw;
+  border-radius: 20%;
 }
 
 #SearchBtn:hover {
