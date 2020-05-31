@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`User` (
   `name` VARCHAR(45) NOT NULL,
   `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
-  `avatar` VARCHAR(45) NULL DEFAULT NULL,
+  `avatar` BLOB NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

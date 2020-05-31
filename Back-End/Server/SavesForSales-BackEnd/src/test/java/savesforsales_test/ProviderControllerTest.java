@@ -92,7 +92,6 @@ public class ProviderControllerTest {
         res = controller.updateProvider(defaultProvider.getId(), null, defaultProvider.getPassword(), null, null);
         Assert.assertTrue(res.msg, res.ok);
         
-        defaultProvider.setAvatar("defaultProvider updated avatar");
         res = controller.updateProvider(defaultProvider.getId(), null, null, null, null);
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.classX.getAvatar(), defaultProvider.getAvatar());

@@ -112,8 +112,8 @@ export default {
       }
     },
     getImage() {
-      return request.getImgUrl(this.$store.getters.returnUser.imgURL);
-    },
+      return 'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
+    }, 
     updateImg(event) {
       this.newUserInfo.avatar = event.target.files[0];
     },

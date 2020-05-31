@@ -48,18 +48,9 @@ public class ClientController<T extends Client> {
 		instance.setPassword(Services.cryptPassword(password));
 		try {
 
-			// Saving Avatar
-			String avatarName = FileSystem.DEFAULT_IMG;
 			if (avatar != null) {
-				FileSystemRespone<String> res = FileSystem
-						.saveFile(new FileSystem.SFSFile(avatar.getBytes(), avatar.getOriginalFilename()));
-				if (!res.ok)
-					return new Response<>(false, null, res.ex);
-				else
-					avatarName = res.msg;
+				instance.setAvatar(avatar.getBytes());
 			}
-
-			instance.setAvatar(avatarName);
 
 			// Saving new user
 			repository.create(instance);
@@ -100,19 +91,7 @@ public class ClientController<T extends Client> {
 
 		if (avatar != null) {
 			FileSystemRespone<String> res;
-			// Remove last Avatar
-			if (instance.getAvatar().compareTo(FileSystem.DEFAULT_IMG) != 0) {
-				res = FileSystem.removeFile(instance.getAvatar());
-				System.out.println("holaaaaaaaaaaaaaa");
-				if (!res.ok)
-					return new Response(false, "Error removing last file", res.ex);
-			}
 
-			// Save new File
-			res = FileSystem.saveFile(new FileSystem.SFSFile(avatar.getBytes(), avatar.getOriginalFilename()));
-			if (!res.ok)
-				return new Response(false, "File no Saved", res.ex);
-			instance.setAvatar(res.msg);
 		}
 
 		repository.update(instance);

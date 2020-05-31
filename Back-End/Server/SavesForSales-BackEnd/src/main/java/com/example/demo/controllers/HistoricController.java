@@ -57,7 +57,7 @@ public class HistoricController {
         this.userRepository = RepositoryController.User();
         this.productRepository = RepositoryController.Product();
     }
-    @Transactional
+    //@Transactional
     @PostMapping(value = "/reserve", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<Historic> reserve(Integer idUser, Integer idProduct, Double quantity, @DateTimeFormat(pattern="yyyy-MM-dd'T'HH:mm:ss") Date reserveDate){
         
