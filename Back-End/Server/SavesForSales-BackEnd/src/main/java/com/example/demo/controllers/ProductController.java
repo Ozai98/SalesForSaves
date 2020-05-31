@@ -100,7 +100,7 @@ public class ProductController {
 
 	@PostMapping(value = "/create")
 	public Response<Product> create(String name, Double price, Integer idProvider, MultipartFile image, Double quantity,  
-			Date timeLimit, String category){
+			Date timeLimit, String category, double originalPrice){
 		if(price <= 0) return new Response<Product>(false, null, "price invalido");
 		if(category == null || category.isEmpty()) category = DEFAULT_CATEGORY;
 		else category = category.toUpperCase();
@@ -112,6 +112,7 @@ public class ProductController {
 		nProduct.setPublicationDate(new Date());
 		nProduct.setTimeLimit(timeLimit);
 		nProduct.setCategory(category);
+		nProduct.setSaved(originalPrice-price);
 		Provider creator;
 		try {
 			

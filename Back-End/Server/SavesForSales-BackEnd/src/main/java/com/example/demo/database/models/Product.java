@@ -10,8 +10,10 @@ public class Product{
 	@DatabaseField(generatedId = true)
 	private int id;
 	@DatabaseField
-	private double price;
-	@DatabaseField
+        private double price;
+        @DatabaseField
+        private double saved;
+        @DatabaseField
 	private String name;
 	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
@@ -49,6 +51,7 @@ public class Product{
         public Date getPublicationDate(){return publicationDate;}
         public Date getTimeLimit(){return timeLimit;};
         public String getCategory(){return category;};
+        public double getSaved(){return saved;}
 
         public void setId(int id){this.id = id;}
 	public void setPrice(double p){price=p;}
@@ -59,4 +62,5 @@ public class Product{
         public void setPublicationDate(Date d){publicationDate = d;}
         public void setTimeLimit(Date d){timeLimit = d;}
         public void setCategory(String c){category = c;}
+        public void setSaved(double s){saved = s;}
 }
