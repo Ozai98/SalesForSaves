@@ -1,6 +1,7 @@
 <template>
   <div id="register" class="center-content">
     <div id="title">REGISTRARSE</div>
+    <form v-on:submit.prevent="register">
     <div id="name" class="space input-el field base-border">
       <p class="body-text label">Nombre</p>
       <div class="space"></div>
@@ -9,6 +10,7 @@
         name="name"
         v-model="newUser.name"
         class="soft-el body-text regField"
+        required
       />
     </div>
     <div id="user" class="space input-el field base-border body-text">
@@ -19,6 +21,7 @@
         name="User"
         v-model="newUser.mail"
         class="soft-el body-text regField"
+        required
       />
     </div>
     <div id="pass" class="space input-el field base-border body-text">
@@ -29,6 +32,7 @@
         name="password"
         v-model="newUser.password"
         class="soft-el body-text regField"
+        required
       />
     </div>
     <div id="pass2" class="space input-el field base-border body-text">
@@ -39,6 +43,7 @@
         name="password2"
         v-model="newUser.password2"
         class="soft-el body-text regField"
+        required
       />
     </div>
     <div class="base-border center-content inputIMG">
@@ -51,13 +56,14 @@
       </label>
       <input type="file" id="fileInput" @change="onFileSelected" />
     </div>
-    <label for="ProviderCheck" class="body-text desc"
-      >¿Desea vender productos como proveedor?</label
-    >
-    <input type="checkBox" id="providerCheck" v-model="isProvider" />
-    <button class="button-base accessBtn" id="regBtn" v-on:click="register()">
-      REGISTRARSE!
-    </button>
+    <div class="center-content" id="butss">
+    <input type="radio" class="typeBox" id="providerCheck" name="tipo" @change="testt"/>
+    <label for = "providerCheck" id="providerLabel" class="typeLabel center-content button-base accessBtn"> Proveedor </label>
+    <input type="radio" checked id="userCheck"  name="tipo" class="typeBox" @change="testt"/>
+    <label for="userCheck" id="userLabel" class="typeLabel center-content button-base accessBtn selected">Usuario</label>
+    </div>
+    <input class="button-base accessBtn" id="regBtn" type="submit" value="Registrarse">
+    </form>
   </div>
 </template>
 
@@ -81,21 +87,24 @@ export default {
     };
   },
   methods: {
+    testt(event){
+      document.getElementById("providerLabel").classList.toggle("selected");
+      document.getElementById("userLabel").classList.toggle("selected");
+      
+      this.isProvider = !this.isProvider;
+      console.log(this.isProvider);
+    },
     onFileSelected(event) {
       this.newUser.avatar = event.target.files[0];
     },
     register() {
-      if (
-        this.newUser.mail != "" &&
-        this.newUser.password != "" &&
-        this.newUser.password2 != "" &&
-        this.newUser.name != ""
-      ) {
         if (this.newUser.password == this.newUser.password2) {
           let fun_request;
           if (this.isProvider) {
             fun_request = request.createProvider;
+            console.log("proveedor");
           } else {
+            console.log("user");
             fun_request = request.createClient;
           }
           fun_request(
@@ -127,15 +136,6 @@ export default {
             customClass: "swal2-error",
           });
         }
-      } else {
-        this.$fire({
-          text: "Hacen falta datos",
-          titleText: "ERROR CREANDO USUARIO",
-          icon: "error",
-          confirmButtonColor: "#ff8e43",
-          customClass: "swal2-error",
-        });
-      }
     },
   },
 };
@@ -194,5 +194,23 @@ export default {
   height: 100%;
   width: 100%;
   background-color: #ff8e43;
+}
+
+.typeBox {
+  visibility: hidden;
+}
+#butss {
+  flex-direction: row;
+}
+.typeLabel {
+  position: relative;
+  width: 10vw;
+  height: 5vw;
+  background-color: #a1ffca;
+  color: #ff8e43;
+}
+
+.selected {
+  background-color: aqua;
 }
 </style>
