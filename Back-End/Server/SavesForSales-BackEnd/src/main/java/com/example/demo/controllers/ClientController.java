@@ -4,7 +4,6 @@ import com.example.demo.database.ClientRepository;
 import java.util.List;
 
 import com.example.demo.database.models.Client;
-import com.example.demo.services.FileSystem;
 import com.example.demo.services.FileSystem.FileSystemRespone;
 import com.example.demo.services.Services;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +17,7 @@ public class ClientController<T extends Client> {
 	}
 
 	public static <T extends Client> T normalize(T instance) {
+		instance.setAvatar(Services.decompressBytes(instance.getAvatar()));
 		instance.setPassword("");
 		return instance;
 	}
@@ -49,7 +49,7 @@ public class ClientController<T extends Client> {
 		try {
 
 			if (avatar != null) {
-				instance.setAvatar(avatar.getBytes());
+				instance.setAvatar(Services.compressBytes(avatar.getBytes()));
 			}
 
 			// Saving new user
