@@ -46,10 +46,10 @@ public class UserController extends ClientController<User> {
             List<User> users = this.repository.getByEmail(mail);
             if (users.isEmpty())
                 return new Response<User>(false, null, "User no found");
-            return new Response(true, super.normalize(users.get(0)), "Ok");
+            return new Response<>(true, super.normalize(users.get(0)), "Ok");
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<>(false, null, ex);
         }
     }
 
@@ -61,12 +61,12 @@ public class UserController extends ClientController<User> {
     @PostMapping(value = "/update")
     public Response<User> updateUser(Integer id, String name, String password, MultipartFile avatar) {
         if (id == null)
-            return new Response(false, null, "Missing ID");
+            return new Response<>(false, null, "Missing ID");
         try {
             return super.update(name, password, avatar, repository.getById(id));
         } catch (Exception ex) {
             Services.handleError(ex);
-            return new Response(false, null, ex);
+            return new Response<>(false, null, ex);
         }
     }
 }
