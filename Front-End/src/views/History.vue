@@ -4,6 +4,9 @@
   <div class="ContainerNoGrid" v-if="active" >
     <center>
       <p class="titleH"  >TU HISTORIAL</p>
+      <div class = "totalSave">
+        Tu ahorro : {{this.save}}
+      </div>
       <div id="j" v-for="history in dataH" :key="history.name" >
         <HistoryProduct :historicalProduct="history"></HistoryProduct>
       </div>
@@ -41,6 +44,7 @@ export default {
     return {
       id: this.$store.getters.returnUser.id,
       dataH: Object,
+      save:0,
       test:{
         nombre:String,
         picture:String,
@@ -76,6 +80,7 @@ export default {
     //this.$store.getters.returnHysState
     Backbb() {
       this.dataH = [];
+      
       request.getHistoricbyId(this.id, (data) => {
         if (data.ok) {
           console.log(data.classX);
@@ -88,6 +93,7 @@ export default {
               quantity: hist.quantity,
               image: hist.product.image,
             });
+            this.save= hist.product.saved*hist.quantity + this.save;
           }
         }
       });
@@ -117,6 +123,12 @@ export default {
   margin: 0%;
   text-align: center;
   grid-column: 1/3;
+}
+.totalSave{
+  display: flex; 
+  align-items: flex-end;
+  flex-direction: column;
+  font-size: 3vw;
 }
 .ContainerNoGrid {
   padding: 2vw;
