@@ -40,6 +40,7 @@ public class Product{
             publicationDate = other.publicationDate;
             timeLimit = other.timeLimit;
             category = other.category;
+            saved = other.saved;
         }
         
 	public int getId(){return id;}
