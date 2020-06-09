@@ -26,39 +26,39 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/provider")
 public class ProviderController extends ClientController<Provider> {
 
-    private Repository<Provider> providerRepository;
+	private Repository<Provider> providerRepository;
 
-    public ProviderController() {
-        super(RepositoryController.Provider());
-        this.providerRepository = RepositoryController.Provider();
-    }
+	public ProviderController() {
+		super(RepositoryController.Provider());
+		this.providerRepository = RepositoryController.Provider();
+	}
 
-    @PostMapping(value = "/create")
-    public Response<Provider> create(String name, String mail, String password, MultipartFile avatar) {
-        return super.create(name, mail, password, avatar, new Provider());
-    }
+	@PostMapping(value = "/create")
+	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar) {
+		return super.create(name, mail, password, avatar, new Provider());
+	}
 
-    @PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public Response<Provider> login(String mail, String password) {
-        return super.login(mail, password);
-    }
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public Response<Provider> login(String mail, String password) {
+		return super.login(mail, password);
+	}
 
-    @GetMapping("/get-by-id/{id}")
-    public Response<Provider> getById(@PathVariable Integer id) {
-        return super.getById(id);
-    }
+	@GetMapping("/get-by-id/{id}")
+	public Response<Provider> getById(@PathVariable Integer id) {
+		return super.getById(id);
+	}
 
-    @PostMapping(value = "/update")
-    public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, String ubication) {
-        if(id == null) return new Response(false, null, "Missing ID");
-        try {
-            Provider provider = providerRepository.getById(id);
-            if (ubication != null) provider.setUbication(ubication);
-            return super.update(name, password, avatar, provider);
-        } catch (Exception ex) {
-            Services.handleError(ex);
-            return new Response(false, null, ex);
-        }
-    }
+	@PostMapping(value = "/update")
+	public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, String ubication) {
+		if(id == null) return new Response<>(false, null, "Missing ID");
+		try {
+			Provider provider = providerRepository.getById(id);
+			if (ubication != null) provider.setUbication(ubication);
+			return super.update(name, password, avatar, provider);
+		} catch (Exception ex) {
+			Services.handleError(ex);
+			return new Response<>(false, null, ex);
+		}
+	}
 
 }

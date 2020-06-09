@@ -57,6 +57,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `price` DOUBLE NOT NULL,
+  'saved' DOUBLE NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `provider` INT NULL DEFAULT NULL,
   `image` VARCHAR(45) NULL,
