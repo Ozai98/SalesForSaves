@@ -13,6 +13,8 @@
         <p class="storeR">{{ preview.provider }}</p>
         <p class="const3R">CANTIDAD DISPONIBLE :</p>
         <p class="quantityR">{{ preview.quantity }} UNIDADES</p>
+        <p class="const4R">AHORRO EN EL PRODUCTO :</p>
+        <p class="saveR">${{ preview.save}}/kg</p>
       </div>
     </div>
     <div class="calculatorR">
@@ -21,6 +23,10 @@
       <div>
         <label class="inputR">PRECIO FINAL:</label>
         <label class="inputR">${{preview.price * to_buy}}</label>
+      </div>
+      <div>
+        <label class="inputR">AHORRO FINAL:</label>
+        <label class="inputR">${{preview.save * to_buy}}</label>
       </div>
       <div id="bot2">
         <button class="button-base" type="button" v-on:click="book()">
@@ -49,6 +55,7 @@ export default {
         provider: "",
         id: null,
         image: "",
+        save:0
       },
     };
   },
@@ -66,6 +73,7 @@ export default {
           this.preview.provider = data.classX.provider.name;
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
+          this.preview.save = data.classX.saved;
         }
       });
     },
@@ -190,6 +198,15 @@ export default {
   font-size: 2vw;
   margin-top: 2vw;
 }
+.saveR {
+  grid-row: 5;
+  grid-column: 2;
+  font-size: 2vw;
+  font-weight: bold;
+  color: #ff8e43;
+  text-align: right;
+  margin: 1vw;
+}
 .const1R {
   grid-row: 2;
   grid-column: 1;
@@ -211,6 +228,13 @@ export default {
   grid-row: 4;
   font-weight: lighter;
   font-size: 2vw;
+  text-align: left;
+  margin: 1vw;
+}
+.const4R {
+  grid-row: 5;
+  font-weight: lighter;
+  font-size: 1.8vw;
   text-align: left;
   margin: 1vw;
 }

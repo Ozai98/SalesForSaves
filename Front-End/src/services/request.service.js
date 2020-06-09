@@ -183,11 +183,12 @@ function createProduct(
   image,
   timeLimit,
   category,
+  originalPrice,
   callback
 ) {
   generalRequest(
     "/product/create",
-    { name, price, quantity, idProvider, image, timeLimit, category },
+    { name, price, quantity, idProvider, image, timeLimit, category,originalPrice },
     REQUEST_TYPES.POST,
     true,
     callback

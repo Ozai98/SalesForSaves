@@ -26,6 +26,16 @@
         <div class="space"></div>
         <p class="center-content">kg</p>
       </div>
+      <label class="body-text desc">Precio normal en el mercado</label>
+      <div class="input-el prodField base-border body-text">
+        <input
+          v-model="product.NormalPrice"
+          type="number"
+          class="soft-el spacer input-center"
+        />
+        <div class="space"></div>
+        <p class="center-content">kg</p>
+      </div>
       <label class="body-text desc">Precio por kg</label>
       <div class="input-el prodField base-border body-text center-content">
         <p class="center-content">$</p>
@@ -50,7 +60,7 @@
         id="dateUntil"
       />
       <select v-model="product.category" name="categories" id="categories">
-        <option v-for="category in categories">{{ category }}</option>
+        <option v-for="category in categories" :key="category">{{ category }}</option>
       </select>
 
       <button
@@ -77,6 +87,7 @@ export default {
         name: "",
         quantity: 0,
         price: 0,
+        NormalPrice: 0,
         imgProduct: Object,
         idProvider: this.$store.getters.returnUser.id,
         timeLimit: new Date(),
@@ -102,6 +113,7 @@ export default {
         this.product.imgProduct,
         new Date(this.product.timeLimit),
         this.product.category,
+        Number(this.product.NormalPrice),
         (data) => {
           if (data.ok) {
             this.$fire({
