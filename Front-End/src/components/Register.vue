@@ -47,6 +47,7 @@
           id="picInput"
           src="@/assets/imgs/photo-camera.svg"
           alt="profile pic"
+          
         />
       </label>
       <input type="file" id="fileInput" @change="onFileSelected" />

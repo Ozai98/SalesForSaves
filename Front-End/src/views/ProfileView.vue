@@ -61,7 +61,6 @@ export default {
 .picFrame img { 
   width: auto;
   height: 100%;
-  margin-left: -15%;
 }
 
 .highText {
