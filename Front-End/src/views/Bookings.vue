@@ -73,7 +73,7 @@ export default {
         request.newReserve(
           this.$store.getters.returnUser.id,
           Number(this.preview.id),
-          this.preview.quantity,
+          this.to_buy,
           (data) => {
             if (data.ok) {
               this.$fire({
