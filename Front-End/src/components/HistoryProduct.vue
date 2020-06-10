@@ -39,7 +39,7 @@ export default {
       
     },
     getImage() {
-      return request.getImgUrl(this.historicalProduct.image);
+      return 'data:image/jpeg;base64,' + this.historicalProduct.image;
     },
   },
 };

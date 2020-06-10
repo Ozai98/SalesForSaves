@@ -34,7 +34,7 @@ public class ProductControllerTest {
         defaultProduct = new Product();
         defaultProduct.setName("defaultProduct Name");
         defaultProduct.setPrice(100);
-        defaultProduct.setImage("defaultProduct Image");
+        // defaultProduct.setImage("defaultProduct Image");
         defaultProduct.setQuantity(5);
         defaultProduct.setSaved(23);
 

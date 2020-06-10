@@ -22,20 +22,20 @@ public class MockHistoricRepository implements HistoricRepository{
     private AtomicInteger idCounter ;
     
     public MockHistoricRepository(){
-        mockTable = new HashMap();
+        mockTable = new HashMap<>();
         idCounter = new AtomicInteger();
     }
     
     @Override
     public List<Historic> getForUserAndState(Integer usrId, String state) throws Exception{
-        LinkedList<Historic> exit = new LinkedList();
+        LinkedList<Historic> exit = new LinkedList<>();
         for(Historic hsc: mockTable.values()) if(hsc.getUser().getId() == usrId && hsc.getState().compareTo(state) == 0) exit.add(hsc);
         return exit;
     }
     
     @Override
     public List<Historic> getForProviderAndState(Integer usrId, String state) throws Exception{
-        LinkedList<Historic> exit = new LinkedList();
+        LinkedList<Historic> exit = new LinkedList<>();
         for(Historic hsc: mockTable.values()) if(hsc.getUser().getId() == usrId && hsc.getState().compareTo(state) == 0) exit.add(hsc);
         return exit;
     }

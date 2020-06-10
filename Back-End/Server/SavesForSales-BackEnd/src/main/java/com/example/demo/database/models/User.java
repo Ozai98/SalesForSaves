@@ -1,5 +1,6 @@
 package com.example.demo.database.models;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -18,8 +19,8 @@ public class User implements Client{
 	private String mail;
 	@DatabaseField
 	private String password;
-	@DatabaseField
-	private String avatar;
+	@DatabaseField(dataType = DataType.BYTE_ARRAY)
+	private byte[] avatar;
 
 	public User(){
 		name = mail = password = "";
@@ -50,7 +51,7 @@ public class User implements Client{
 		return password;
 	}
 
-	public String getAvatar() {
+	public byte[] getAvatar() {
 		return avatar;
 	}
 
@@ -68,7 +69,7 @@ public class User implements Client{
 		this.password = password;
 	}
 
-	public void setAvatar(String avatar) {
+	public void setAvatar(byte[] avatar) {
 		this.avatar = avatar;
 	}
 

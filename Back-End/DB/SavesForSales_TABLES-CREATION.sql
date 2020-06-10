@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Provider` (
   `name` VARCHAR(45) NOT NULL,
   `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
-  `avatar` VARCHAR(45) DEFAULT NULL,
+  `avatar` MEDIUMBLOB DEFAULT NULL,
   `ubication` varchar(100) DEFAULT NULL, 
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`User` (
   `name` VARCHAR(45) NOT NULL,
   `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
-  `avatar` VARCHAR(45) NULL DEFAULT NULL,
+  `avatar` MEDIUMBLOB NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   'saved' DOUBLE NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `provider` INT NULL DEFAULT NULL,
-  `image` VARCHAR(45) NULL,
+  `image` MEDIUMBLOB NULL,
   `quantity` DOUBLE NOT NULL,
   `publicationDate` DATETIME NOT NULL,
   `timeLimit` DATETIME NOT NULL,
