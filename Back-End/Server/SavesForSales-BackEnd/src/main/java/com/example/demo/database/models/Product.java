@@ -1,5 +1,6 @@
 package com.example.demo.database.models;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import java.util.Date;
@@ -15,8 +16,8 @@ public class Product{
 	private String name;
 	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
-        @DatabaseField
-        private String image;
+        @DatabaseField(dataType = DataType.BYTE_ARRAY) //TODO: recordar modificar en la base
+	private byte[] image;
         @DatabaseField
         private double quantity;
         @DatabaseField
@@ -44,7 +45,7 @@ public class Product{
 	public double getPrice(){return price;}
 	public String getName(){return name;}
 	public Provider getProvider(){return provider;}
-        public String getImage(){return image;}
+        public byte[] getImage(){return image;}
         public double getQuantity(){return quantity;}
         public Date getPublicationDate(){return publicationDate;}
         public Date getTimeLimit(){return timeLimit;};
@@ -54,7 +55,7 @@ public class Product{
 	public void setPrice(double p){price=p;}
 	public void setName(String n){name=n;}
 	public void setProvider(Provider p){provider=p;}
-        public void setImage(String i){image=i;}
+        public void setImage(byte[] i){image=i;}
         public void setQuantity(double c){quantity = c;}
         public void setPublicationDate(Date d){publicationDate = d;}
         public void setTimeLimit(Date d){timeLimit = d;}
