@@ -91,6 +91,7 @@ export default {
         this.newUser.password2 != "" &&
         this.newUser.name != ""
       ) {
+        console.log(this.newUser);
         if (this.newUser.password == this.newUser.password2) {
           let fun_request;
           if (this.isProvider) {

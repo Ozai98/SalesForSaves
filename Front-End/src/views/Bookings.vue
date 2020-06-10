@@ -105,7 +105,7 @@ export default {
       }
     },
     getImage() {
-      return request.getImgUrl(this.preview.image);
+      return 'data:image/jpeg;base64,' + this.preview.image;
     },
   },
   mounted() {
