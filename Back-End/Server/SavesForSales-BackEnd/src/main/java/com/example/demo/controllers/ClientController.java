@@ -4,7 +4,6 @@ import com.example.demo.database.ClientRepository;
 import java.util.List;
 
 import com.example.demo.database.models.Client;
-import com.example.demo.services.FileSystem.FileSystemRespone;
 import com.example.demo.services.Services;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -90,8 +89,7 @@ public class ClientController<T extends Client> {
 			instance.setPassword(Services.cryptPassword(password));
 
 		if (avatar != null) {
-			FileSystemRespone<String> res;
-
+			instance.setAvatar(Services.compressBytes(avatar.getBytes()));
 		}
 
 		repository.update(instance);

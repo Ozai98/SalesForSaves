@@ -56,7 +56,7 @@ public class HistoricControllerTest {
         defaultProduct = new Product();
         defaultProduct.setName("defaultProduct Name");
         defaultProduct.setPrice(100);
-        defaultProduct.setImage("defaultProduct Image");
+        // defaultProduct.setImage("defaultProduct Image");
         defaultProduct.setProvider(defaultProvider);
         defaultProduct.setQuantity(5);
         defaultProduct.setPublicationDate(dt);

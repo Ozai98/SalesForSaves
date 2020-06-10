@@ -21,7 +21,7 @@ public class MockProductRepository implements ProductRepository{
     private AtomicInteger idCounter ;
     
     public MockProductRepository(){
-        mockTable = new HashMap();
+        mockTable = new HashMap<>();
         idCounter = new AtomicInteger();
     }
     
@@ -33,7 +33,7 @@ public class MockProductRepository implements ProductRepository{
 
     @Override
     public List<Product> searchValid(String param) throws Exception {
-        LinkedList<Product> exit = new LinkedList();
+        LinkedList<Product> exit = new LinkedList<>();
         for(Product pro: mockTable.values()) if(pro.getName().compareTo(param) == 0) exit.add(pro);
         return exit;
     }
@@ -56,7 +56,7 @@ public class MockProductRepository implements ProductRepository{
     @Override
     public List<Product> searchCategory(String categoy) throws Exception {
         
-        LinkedList<Product> prods = new LinkedList();
+        LinkedList<Product> prods = new LinkedList<>();
         
         for(Product p: mockTable.values()){
             if(p.getCategory().contains(categoy)) prods.add(p);
