@@ -17,25 +17,34 @@
         <p class="saveR">${{ preview.save}}/kg</p>
       </div>
     </div>
-    <div class="calculatorR">
-      <label class="inputR">CANTIDAD:</label>
-      <input v-model="to_buy" type="number" class="inputR" />
-      <div>
-        <label class="inputR">PRECIO FINAL:</label>
-        <label class="inputR">${{preview.price * to_buy}}</label>
+    <div class="contenedorR">
+      <div class="seeMap">
+        <center>
+        UBICA EL NEGOCIO !
+        <Map/>
+        </center>
       </div>
-      <div>
-        <label class="inputR">AHORRO FINAL:</label>
-        <label class="inputR">${{preview.save * to_buy}}</label>
-      </div>
-      <div id="bot2">
-        <button class="button-base" type="button" v-on:click="book()">
-          RESERVAR
-        </button>
-      </div>
+      <div class="calculatorR">
+        <label class="inputR">CANTIDAD:</label>
+        <input v-model="to_buy" type="number" class="inputR" />
+        <div>
+          <label class="inputR">PRECIO FINAL:</label>
+          <label class="inputR">${{preview.price * to_buy}}</label>
+        </div>
+        <div>
+          <label class="inputR">AHORRO FINAL:</label>
+          <label class="inputR">${{preview.save * to_buy}}</label>
+        </div>
+        <div id="bot2">
+          <button class="button-base" type="button" v-on:click="book()">
+              RESERVAR
+            </button>
+         </div>   
+        </div>
+        
     </div>
-    <Map class="mapa"/>
   </div>
+
 </template>
 
 <script>
@@ -247,7 +256,7 @@ export default {
 }
 .calculatorR {
   width: 55vw;
-  height: 10vw;
+  height: auto;
   float: right;
 }
 button {
@@ -262,5 +271,27 @@ button {
   font-family: "Oswald", sans-serif;
   margin: 3vw 0 0.5vw 0;
   font-weight: bold;
+}  
+.contenedorR{
+  width:100%;
+  height: 40%;
+  display: flex;
 }
+.seeMap{
+    height: 40vw;
+    width: 50vw;
+    font-size: 3vw;
+    color: #ff8e43;
+    font-family: "Oswald", sans-serif;
+    align-content: center;
+    align-items: center;
+}
+.mapa {
+    height: 30vw;
+    width: 46vw;
+    margin: 1.5vw 1.5vw 1.5vw 1.5vw;
+    border: solid 0.3vw;
+    border-color: black;
+    border-radius: 0.2vw;
+  }
 </style>

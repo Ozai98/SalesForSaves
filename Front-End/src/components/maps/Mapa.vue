@@ -35,8 +35,8 @@
         markers: [
           {
             id: "0",
-            position: { lat: -13.1583635, lng: -72.603623 },
-            title: "Machu Pichu - Cusco"
+            position: { lat: 4.6412, lng: -74 },
+            title: "Bogota-Colombia"
           },
           {
             id: "1",
