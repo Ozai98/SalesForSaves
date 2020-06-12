@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -72,6 +73,35 @@ public class upload {
 			pstmt.setString(5, linea);
 			linea = reader.readLine();
 		}
+		System.out.println("insertados Proveedores");
+		reader.close();
+
+		//insert Products
+		reader = new BufferedReader(new FileReader(directory.concat("\\productos.txt")));
+		linea = reader.readLine();
+		query = "INSERT INTO Product(name, price,saved, provider, image, quantity, publicationDate, timeLimit, category) VALUES (?,?,?,?,?,?,?,?,?)";
+		pstmt = con.prepareStatement(query);
+		while(!(linea == null)){
+			pstmt.setString(1, linea);
+			linea = reader.readLine();
+			pstmt.setDouble(2, Double.parseDouble(linea));
+			linea = reader.readLine();
+			pstmt.setDouble(3, Double.parseDouble(linea));
+			linea = reader.readLine();
+			pstmt.setInt(4, Integer.parseInt(linea));
+			linea = reader.readLine();
+			pstmt.setBinaryStream(5, new FileInputStream(directory.concat(Images.concat(linea))));
+			linea = reader.readLine();
+			pstmt.setDouble(6, Double.parseDouble(linea));
+			linea = reader.readLine();
+			pstmt.setDate(7, Date.valueOf(linea));
+			linea = reader.readLine();
+			pstmt.setDate(8, Date.valueOf(linea));
+			linea = reader.readLine();
+			pstmt.setString(9, linea);
+			linea = reader.readLine();
+		}
+		System.out.println("productos insertados");
 		System.out.println("Records inserted......");
 	}
 }
