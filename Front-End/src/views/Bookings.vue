@@ -34,10 +34,12 @@
         </button>
       </div>
     </div>
+    <Map class="mapa"/>
   </div>
 </template>
 
 <script>
+import Map from "../components/maps/Mapa";
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
 import Vue from "vue";
@@ -61,6 +63,7 @@ export default {
   },
   components: {
     Product,
+    Map
   },
   methods: {
     bringFromBackR() {
