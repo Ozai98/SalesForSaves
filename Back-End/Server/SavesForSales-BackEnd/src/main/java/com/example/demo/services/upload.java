@@ -1,26 +1,13 @@
-
+package com.example.demo.services;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
-import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.Date;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
-import java.text.DateFormat;
-import java.time.format.DateTimeFormatter;
-import java.util.StringTokenizer;
 import java.text.SimpleDateFormat;
-
-import javax.swing.text.DateFormatter;
-
-import javafx.util.converter.DateTimeStringConverter;
-import jdk.nashorn.internal.parser.DateParser;
+import java.util.StringTokenizer;
 
 
 public class upload {
@@ -48,7 +35,7 @@ public class upload {
 		//Getting the connection
 		String mysqlUrl = "jdbc:mysql://sfsback:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		Connection con = DriverManager.getConnection(mysqlUrl);
-		System.out.println("Connection estadasda sblished......");
+		System.out.println("Connection established......");
 		String query = "INSERT INTO User(name, mail, password, avatar) VALUES (?, ?, ?, ?)";
 		PreparedStatement pstmt = con.prepareStatement(query);
 		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
