@@ -1,3 +1,5 @@
+
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileReader;
@@ -10,7 +12,15 @@ import java.sql.Date;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.text.DateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.StringTokenizer;
+import java.text.SimpleDateFormat;
+
+import javax.swing.text.DateFormatter;
+
+import javafx.util.converter.DateTimeStringConverter;
+import jdk.nashorn.internal.parser.DateParser;
 
 
 public class upload {
@@ -38,10 +48,10 @@ public class upload {
 		//Getting the connection
 		String mysqlUrl = "jdbc:mysql://sfsback:0000@localhost:3306/savesforsales?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 		Connection con = DriverManager.getConnection(mysqlUrl);
-		System.out.println("Connection established......");
+		System.out.println("Connection estadasda sblished......");
 		String query = "INSERT INTO User(name, mail, password, avatar) VALUES (?, ?, ?, ?)";
 		PreparedStatement pstmt = con.prepareStatement(query);
-		
+		SimpleDateFormat parser = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		//Inserting values User
 		while(!(linea == null)){
 			st = new StringTokenizer(linea);
@@ -54,14 +64,18 @@ public class upload {
 			}
 			linea = reader.readLine();
 		}
+		System.out.println("hi");
 		reader.close();
+
 
 		//Insert Providers
 		reader = new BufferedReader(new FileReader(directory.concat("\\proveedor.txt")));
+		
 		linea = reader.readLine();
 		query = "INSERT INTO Provider(name, mail, password, avatar, ubication) VALUES (?, ?, ?, ?, ?)";
 		pstmt = con.prepareStatement(query);
 		while(!(linea == null)){
+
 			pstmt.setString(1, linea);
 			linea = reader.readLine();
 			pstmt.setString(2, linea);
@@ -72,6 +86,7 @@ public class upload {
 			linea = reader.readLine();
 			pstmt.setString(5, linea);
 			linea = reader.readLine();
+			pstmt.execute();
 		}
 		System.out.println("insertados Proveedores");
 		reader.close();
@@ -94,12 +109,13 @@ public class upload {
 			linea = reader.readLine();
 			pstmt.setDouble(6, Double.parseDouble(linea));
 			linea = reader.readLine();
-			pstmt.setDate(7, Date.valueOf(linea));
+			pstmt.setDate(7, new java.sql.Date(parser.parse(linea).getTime()) );
 			linea = reader.readLine();
-			pstmt.setDate(8, Date.valueOf(linea));
+			pstmt.setDate(8, new java.sql.Date(parser.parse(linea).getTime()));
 			linea = reader.readLine();
 			pstmt.setString(9, linea);
 			linea = reader.readLine();
+			pstmt.execute();
 		}
 		System.out.println("productos insertados");
 		System.out.println("Records inserted......");
