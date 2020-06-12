@@ -18,7 +18,7 @@ public class Product{
 	private String name;
 	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
-        @DatabaseField(dataType = DataType.BYTE_ARRAY) //TODO: recordar modificar en la base
+        @DatabaseField(dataType = DataType.BYTE_ARRAY) 
 	private byte[] image;
         @DatabaseField
         private double quantity;
