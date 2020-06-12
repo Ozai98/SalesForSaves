@@ -22,7 +22,7 @@ public class MockUserRepository implements ClientRepository<User>{
     private AtomicInteger idCounter ;
     
     public MockUserRepository(){
-        mockTable = new HashMap();
+        mockTable = new HashMap<>();
         idCounter = new AtomicInteger();
     }
     
@@ -34,7 +34,7 @@ public class MockUserRepository implements ClientRepository<User>{
 
     @Override
     public List<User> getByEmail(String email) throws Exception {
-        LinkedList<User> exit = new LinkedList();
+        LinkedList<User> exit = new LinkedList<>();
         for(User usr: mockTable.values()) if(usr.getMail().compareTo(email) == 0) exit.add(usr);
         return exit;
     }

@@ -5,11 +5,11 @@ public interface Client {
     public String getName();
     public String getMail();
     public String getPassword();
-    public String getAvatar();
+    public byte[] getAvatar();
 
     public void setId(Integer id);
     public void setName(String nombre);
     public void setMail(String correo);
     public void setPassword(String password);
-    public void setAvatar(String avatar);
+    public void setAvatar(byte[] avatar);
 }

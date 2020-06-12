@@ -3,7 +3,6 @@ package com.example.demo.database;
 import java.util.List;
 
 import com.example.demo.database.models.Rate;
-import com.example.demo.database.models.User;
 import com.j256.ormlite.dao.Dao;
 
 public class RateRepositoryDao implements RateRepositoy {

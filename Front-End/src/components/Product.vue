@@ -20,7 +20,7 @@ export default {
       name: String,
       leftUnits: Number,
       id: Number,
-      image: String,
+      image: Object,
     },
   },
   methods: {
@@ -35,7 +35,7 @@ export default {
       return Math.floor(days);
     },
     getImage() {
-      return request.getImgUrl(this.product.image);
+      return 'data:image/jpeg;base64,' + this.product.image;
     },
   },
 };

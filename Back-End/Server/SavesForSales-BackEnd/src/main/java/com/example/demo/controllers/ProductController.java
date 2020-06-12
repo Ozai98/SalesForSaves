@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.demo.database.RepositoryController;
-import com.example.demo.services.FileSystem;
 
 import java.util.Date;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -47,6 +46,7 @@ public class ProductController {
 			Services.handleError(ex);
 		}            
 		ProviderController.normalize(product.getProvider());
+		product.setImage(product.getImage());
 		return product;
 	}
 
@@ -115,15 +115,9 @@ public class ProductController {
 		nProduct.setSaved(originalPrice-price);
 		Provider creator;
 		try {
-			
-			String imgName = FileSystem.DEFAULT_IMG;
 			if(image != null) {
-				FileSystem.FileSystemRespone<String> res =  FileSystem.saveFile(new FileSystem.SFSFile(image.getBytes(), image.getOriginalFilename()));
-				if(!res.ok) return new Response<>(false, null, res.ex);
-				else imgName = res.msg;
+				nProduct.setImage(image.getBytes());
 			}
-			nProduct.setImage(imgName);
-			
 			creator = providerRepository.getById(idProvider);
 			if(creator == null) return new Response<>(false, null, "idProvider don't match with any provider id: " + idProvider);
 			nProduct.setProvider(creator);

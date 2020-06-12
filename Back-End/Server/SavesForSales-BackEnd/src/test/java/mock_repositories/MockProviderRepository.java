@@ -22,7 +22,7 @@ public class MockProviderRepository implements ClientRepository<Provider>{
     private AtomicInteger idCounter ;
     
     public MockProviderRepository(){
-        mockTable = new HashMap();
+        mockTable = new HashMap<>();
         idCounter = new AtomicInteger();
     }
     
@@ -34,7 +34,7 @@ public class MockProviderRepository implements ClientRepository<Provider>{
     
     @Override
     public List<Provider> getByEmail(String Email) throws Exception{
-        LinkedList<Provider> exit = new LinkedList();
+        LinkedList<Provider> exit = new LinkedList<>();
         for(Provider pro: mockTable.values()) if(pro.getMail().compareTo(Email) == 0) exit.add(new Provider(pro));
         return exit;
     }

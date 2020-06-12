@@ -61,19 +61,19 @@ public class FileSystem {
             OutputStream os = new FileOutputStream(Paths.get(SAVE_PATH + fileName).toFile()); 
             os.write(file.bytes); 
             os.close(); 
-            return new FileSystemRespone(fileName, null);
+            return new FileSystemRespone<>(fileName, null);
         } catch (Exception e) {
             Services.handleError(e);
-            return new FileSystemRespone(null, e);
+            return new FileSystemRespone<>(null, e);
         } 
     }
     
     public static FileSystemRespone<SFSFile> getFile(String name){
         try{
             byte[] fileContent = Files.readAllBytes(Paths.get(SAVE_PATH + name));
-            return new FileSystemRespone(new SFSFile(fileContent, name), null);
+            return new FileSystemRespone<>(new SFSFile(fileContent, name), null);
         }catch(Exception e){
-            return new FileSystemRespone(null, e);
+            return new FileSystemRespone<>(null, e);
         }
         
     }
@@ -81,9 +81,9 @@ public class FileSystem {
     public static FileSystemRespone<String> removeFile(String name){
         try{
             Files.deleteIfExists(Paths.get(SAVE_PATH + name));
-            return new FileSystemRespone("Ok", null);
+            return new FileSystemRespone<>("Ok", null);
         }catch(Exception e){
-            return new FileSystemRespone(null, e);
+            return new FileSystemRespone<>(null, e);
         }
         
     }
