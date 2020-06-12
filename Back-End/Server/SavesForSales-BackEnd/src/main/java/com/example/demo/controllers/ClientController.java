@@ -16,7 +16,7 @@ public class ClientController<T extends Client> {
 	}
 
 	public static <T extends Client> T normalize(T instance) {
-		instance.setAvatar(Services.decompressBytes(instance.getAvatar()));
+		instance.setAvatar(instance.getAvatar());
 		instance.setPassword("");
 		return instance;
 	}
@@ -48,7 +48,7 @@ public class ClientController<T extends Client> {
 		try {
 
 			if (avatar != null) {
-				instance.setAvatar(Services.compressBytes(avatar.getBytes()));
+				instance.setAvatar(avatar.getBytes());
 			}
 
 			// Saving new user
@@ -89,7 +89,7 @@ public class ClientController<T extends Client> {
 			instance.setPassword(Services.cryptPassword(password));
 
 		if (avatar != null) {
-			instance.setAvatar(Services.compressBytes(avatar.getBytes()));
+			instance.setAvatar(avatar.getBytes());
 		}
 
 		repository.update(instance);

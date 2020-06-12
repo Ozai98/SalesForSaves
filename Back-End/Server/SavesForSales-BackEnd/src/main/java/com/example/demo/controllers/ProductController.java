@@ -46,7 +46,7 @@ public class ProductController {
 			Services.handleError(ex);
 		}            
 		ProviderController.normalize(product.getProvider());
-		product.setImage(Services.decompressBytes(product.getImage()));
+		product.setImage(product.getImage());
 		return product;
 	}
 
@@ -116,7 +116,7 @@ public class ProductController {
 		Provider creator;
 		try {
 			if(image != null) {
-				nProduct.setImage(Services.compressBytes(image.getBytes()));
+				nProduct.setImage(image.getBytes());
 			}
 			creator = providerRepository.getById(idProvider);
 			if(creator == null) return new Response<>(false, null, "idProvider don't match with any provider id: " + idProvider);

@@ -39,7 +39,7 @@ public class upload {
 		}
 		//DriverManager.registerDriver(new );
 		//getting the list of data for user
-		String directory = "C:\\Users\\matei\\git\\Ingesoft\\Ingesoft-II\\Back-End\\DB";
+		String directory = System.getProperty("user.dir") +"\\Back-End\\DB";
 		BufferedReader reader = new BufferedReader(new FileReader(directory.concat("\\Usuarios.txt")));
 		String linea= reader.readLine();
 		StringTokenizer st;

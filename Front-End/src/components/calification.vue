@@ -27,7 +27,7 @@ export default {
     },
     methods:{
         getImage() {
-      return 'data:image/jpeg;base64,' +this.clasication.picture;
+      return 'data:image/jpeg;base64,' + this.clasication.picture;
     
     }
     },
