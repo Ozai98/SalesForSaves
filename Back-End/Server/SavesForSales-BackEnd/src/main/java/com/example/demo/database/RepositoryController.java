@@ -18,6 +18,7 @@ public final class RepositoryController {
     private static ClientRepository<Provider> Provider;
     private static ProductRepository Product;
     private static HistoricRepository Historic;
+    private static CommentsRepository Comments;
     
     public static void setDaoClases(){
         setUser(new UserRepositoryDao());
@@ -37,6 +38,13 @@ public final class RepositoryController {
     }
     public static HistoricRepository Historic(){
         return Historic;
+    }
+    public static CommentsRepository Comment() {
+        return Comments;
+    }
+
+    public static void setComments(CommentsRepository cRepository) {
+        Comments = cRepository;
     }
 
     public static void setUser(ClientRepository<User> aUser) {
