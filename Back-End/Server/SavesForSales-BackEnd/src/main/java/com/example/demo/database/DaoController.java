@@ -5,6 +5,7 @@
  */
 package com.example.demo.database;
 
+import com.example.demo.database.models.Comments;
 import com.example.demo.database.models.Historic;
 import java.sql.SQLException;
 
@@ -36,6 +37,7 @@ public class DaoController {
     private final Dao<Product, Integer> productDao;
     private final Dao<Historic, Integer> historicDao;
     private final Dao<Rate, Integer> rateDao;
+    private final Dao<Comments, Integer> commentDao;
 
     private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
@@ -44,6 +46,7 @@ public class DaoController {
         productDao = DaoManager.createDao(connection, Product.class);
         historicDao = DaoManager.createDao(connection, Historic.class);
         rateDao = DaoManager.createDao(connection, Rate.class);
+        commentDao = DaoManager.createDao(connection, Comments.class);
     }
 
     public static DaoController getInstance(){
@@ -74,5 +77,9 @@ public class DaoController {
 
     public Dao<Rate, Integer> rateDao(){
         return rateDao;
+    }
+
+    public Dao<Comments, Integer> commentsDao(){
+        return commentDao;
     }
 }

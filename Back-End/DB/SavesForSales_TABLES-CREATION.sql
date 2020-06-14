@@ -113,6 +113,29 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Rate` (
     ON DELETE CASCADE)
 ENGINE = InnoDB;
 
+-- -----------------------------------------------------
+-- Table `SavesForSales`.`Coments`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SavesForSales`.`Coments` ;
+
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Coments` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user` INT NULL,
+  `provider` INT NULL,
+  `comment` VARCHAR(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `userfk_idx` (`user` ASC),
+  INDEX `providerfk_idx` (`provider` ASC),
+  CONSTRAINT `userfk`
+    FOREIGN KEY (`user`)
+    REFERENCES `SavesForSales`.`User` (`id`)
+    ON DELETE CASCADE
+  CONSTRAINT `providerfk`
+    FOREIGN KEY (`provider`)
+    REFERENCES `SavesForSales`.`Provider` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB;
+
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
