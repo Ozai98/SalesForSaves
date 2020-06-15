@@ -16,7 +16,7 @@
         <p class="const4R">AHORRO EN EL PRODUCTO :</p>
         <p class="saveR">${{ preview.save}}/kg</p>
         <p class="const5R">CALIFICACION DEL PROVEEDOR :</p>
-        <span class="calification" v-html="this.showStarts(3)"></span>
+        <span class="calification" v-html="this.showStarts(this.rate)"></span>
       </div>
     </div>
     <div class="contenedorR">
@@ -39,13 +39,22 @@
           <label class="inputR">${{preview.save * to_buy}}</label>
         </div>
         <div id="bot2">
-          <button class="button-base" type="button" v-on:click="book()">
+          <button class="button-baseR" type="button" v-on:click="book()">
               RESERVAR
+            </button>
+        </div>
+          <div>
+            <button class="button-baseR" type="button" v-on:click="comments()">
+              COMENTAR
             </button>
          </div>   
         </div>
     </div>
-    
+    <ModalComponent ref="modalComments">
+      <template v-slot:body>
+        <Comments :images="preview.image" :idProvider="preview.provider"/>
+      </template>
+    </ModalComponent>
   </div>
 
 </template>
@@ -54,6 +63,8 @@
 import Map from "../components/maps/Mapa";
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
+import ModalComponent from "@/components/ModalComponent.vue";
+import Comments from "../components/comments";
 import Vue from "vue";
 import alert from "vue-simple-alert";
 Vue.use(alert);
@@ -61,7 +72,7 @@ export default {
   name: "SellProduct",
   data() {
     return {
-      h:this.showStarts(2),
+      rate:0,
       to_buy:0 ,
       preview: {
         quantity: 0,
@@ -72,24 +83,32 @@ export default {
         image: "",
         save:0
       },
+
     };
   },
   components: {
     Product,
-    Map
+    Map,
+    Comments,
+    ModalComponent 
   },
   methods: {
     bringFromBackR() {
       request.getProductById(this.$route.params.id, (data) => {
         if (data.ok) {
           this.preview.quantity = data.classX.quantity;
-          console.log(this.preview.quantity);
           this.preview.price = data.classX.price;
           this.preview.name = data.classX.name;
           this.preview.provider = data.classX.provider.name;
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
+          request.getRate(data.classX.provider.id,(data) => {
+          
+           if(data.ok){
+              this.rate=Math.floor(data.classX.rate);
+            }
+          });
         }
       });
     },
@@ -142,8 +161,10 @@ export default {
           this.HtmlText+='<label style="color: grey">★</label>'
           
         }
-        console.log(this.HtmlText);
         return this.HtmlText;
+    },
+    comments(){
+      this.$refs.modalComments.openModal();
     }
   },
   mounted() {
@@ -290,7 +311,7 @@ export default {
   height: auto;
   float: right;
 }
-button {
+.button-baseR {
   background-color: #a1ffca;
   color: #ff8e43;
   width: 15vw;

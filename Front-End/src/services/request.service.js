@@ -308,6 +308,30 @@ function getRate(idProvider, callback) {
     callback
   );
 }
+//-------------------------------------------------------------------
+//----------------------COMENTARIOS----------------------------------
+//-------------------------------------------------------------------
+
+function getComments(idProvider,callback){
+  generalRequest(
+    "/Comment/search/{id}",
+    { idProvider },
+    REQUEST_TYPES.GET,
+    undefined,
+    callback
+  );
+}
+
+function setComment(idProvider,idUser,comment,callback){
+  generalRequest(
+    "/Comment/create",
+    {idUser,idProvider, comment},
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+
+}
 
 //-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------
@@ -358,4 +382,6 @@ module.exports = {
   getImgUrl,
   addRate,
   getRate,
+  getComments,
+  setComment
 };

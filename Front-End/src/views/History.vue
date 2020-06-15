@@ -69,9 +69,11 @@ export default {
         this.active=!this.active;
     },
     prov:function(val){
-      this.test.nombre=val.name;
-      this.test.Provid=val.id;
-      this.test.picture=val.avatar;
+        if(val!= null){
+        this.test.nombre=val.name;
+        this.test.Provid=val.id;
+        this.test.picture=val.avatar;
+      }
     }
 
     
