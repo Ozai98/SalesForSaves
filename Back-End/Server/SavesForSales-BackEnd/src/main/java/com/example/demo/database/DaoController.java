@@ -15,6 +15,7 @@ import com.j256.ormlite.jdbc.JdbcConnectionSource;
 import com.j256.ormlite.support.ConnectionSource;
 import com.example.demo.database.models.Provider;
 import com.example.demo.database.models.Rate;
+import com.example.demo.database.models.Ubication;
 import com.example.demo.database.models.User;
 import com.example.demo.services.Services;
 import com.example.demo.database.models.Product;
@@ -38,6 +39,7 @@ public class DaoController {
     private final Dao<Historic, Integer> historicDao;
     private final Dao<Rate, Integer> rateDao;
     private final Dao<Comments, Integer> commentDao;
+    private final Dao<Ubication, Integer> ubicationDao;
 
     private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
@@ -47,6 +49,7 @@ public class DaoController {
         historicDao = DaoManager.createDao(connection, Historic.class);
         rateDao = DaoManager.createDao(connection, Rate.class);
         commentDao = DaoManager.createDao(connection, Comments.class);
+        ubicationDao = DaoManager.createDao(connection, Ubication.class);
     }
 
     public static DaoController getInstance(){
@@ -81,5 +84,8 @@ public class DaoController {
 
     public Dao<Comments, Integer> commentsDao(){
         return commentDao;
+    }
+    public Dao<Ubication, Integer> ubicationDao(){
+        return ubicationDao;
     }
 }

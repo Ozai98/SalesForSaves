@@ -21,11 +21,11 @@ public class Provider implements Client{
     private String password;
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] avatar;
-    @DatabaseField
-    private String ubication;
+    @DatabaseField(foreign = true)
+    private Ubication ubication;
 
     public Provider(){
-        name = mail = password = ubication = "";
+        name = mail = password = "";
         id = -1;
     }
     
@@ -59,7 +59,7 @@ public class Provider implements Client{
         return avatar;
     }
     
-    public String getUbication() {
+    public Ubication getUbication() {
         return ubication;
     }
 
@@ -83,7 +83,7 @@ public class Provider implements Client{
         this.avatar = avatar;
     }
     
-    public void setUbication(String ubication) {
+    public void setUbication(Ubication ubication) {
         this.ubication = ubication;
     }
 

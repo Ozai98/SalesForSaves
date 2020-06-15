@@ -1,6 +1,5 @@
 package com.example.demo.controllers;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import com.example.demo.database.CommentsRepository;

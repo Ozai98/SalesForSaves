@@ -6,6 +6,7 @@
 package com.example.demo.database;
 
 import com.example.demo.database.models.Provider;
+import com.example.demo.database.models.Ubication;
 import com.example.demo.database.models.User;
 
 /**
@@ -19,12 +20,14 @@ public final class RepositoryController {
     private static ProductRepository Product;
     private static HistoricRepository Historic;
     private static CommentsRepository Comments;
+    private static Repository<Ubication> Ubication;
     
     public static void setDaoClases(){
         setUser(new UserRepositoryDao());
         setProvider(new ProviderRepositoryDao());
         setProduct(new ProductRepositoryDao());
         setHistoric(new HistoricRepositoryDao());
+        setUbication(new UbicationRepositoryDao());
     }
     
     public static ClientRepository<User> User(){
@@ -42,7 +45,13 @@ public final class RepositoryController {
     public static CommentsRepository Comment() {
         return Comments;
     }
+    public static Repository<Ubication> Ubication(){
+        return Ubication;
+    }
 
+    public static void setUbication(Repository<Ubication> repository){
+        Ubication = repository;
+    }
     public static void setComments(CommentsRepository cRepository) {
         Comments = cRepository;
     }

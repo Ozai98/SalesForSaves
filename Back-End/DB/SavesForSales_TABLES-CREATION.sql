@@ -33,8 +33,13 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Provider` (
   `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `avatar` MEDIUMBLOB DEFAULT NULL,
-  `ubication` varchar(100) DEFAULT NULL, 
-  PRIMARY KEY (`id`))
+  `ubication` INT NULL, 
+  PRIMARY KEY (`id`)
+    INDEX `ubicationfk_idx` (`ubication` ASC) VISIBLE,
+  CONSTRAINT `ubicationfk`
+    FOREIGN KEY (`ubication`)
+    REFERENCES `SavesForSales`.`Ubication` (`id`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -134,6 +139,18 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Coments` (
     FOREIGN KEY (`provider`)
     REFERENCES `SavesForSales`.`Provider` (`id`)
     ON DELETE CASCADE)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `SavesForSales`.`Ubication`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SavesForSales`.`Ubication` ;
+
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Ubication` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `lat` DOUBLE NOT NULL,
+  `long` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 

@@ -43,7 +43,7 @@ public class CommentController {
 		return comment;
 	}
 
-	@PostMapping(value = "/create/{rating}", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	@PostMapping(value = "/create", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
 	public Response<Comments> create(int idUser, int idProvider, String comment) {
 		Comments comments = new Comments();
 		try {
