@@ -1,9 +1,8 @@
-package com.example.demo.controllers;
+package com.example.demo.database;
 
 import java.util.List;
 
 import com.example.demo.database.CommentsRepository;
-import com.example.demo.database.DaoController;
 import com.example.demo.database.models.Comments;
 import com.j256.ormlite.dao.Dao;
 

@@ -28,6 +28,7 @@ public final class RepositoryController {
         setProduct(new ProductRepositoryDao());
         setHistoric(new HistoricRepositoryDao());
         setUbication(new UbicationRepositoryDao());
+        setComments(new CommentRepositoryDao());
     }
     
     public static ClientRepository<User> User(){

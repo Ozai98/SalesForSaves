@@ -3,14 +3,14 @@ package com.example.demo.database.models;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
-@DatabaseTable(tableName = "comments")
+@DatabaseTable(tableName = "coments")
 public class Comments {
 	
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = "user")
 	private User user;
-	@DatabaseField(foreign = true)
+	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
 	@DatabaseField
 	private String comment;

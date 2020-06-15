@@ -21,7 +21,7 @@ public class Provider implements Client{
     private String password;
     @DatabaseField(dataType = DataType.BYTE_ARRAY)
     private byte[] avatar;
-    @DatabaseField(foreign = true)
+    @DatabaseField(foreign = true, columnName = "ubication")
     private Ubication ubication;
 
     public Provider(){
