@@ -6,7 +6,6 @@
       <div class="modal__dialog">
         <div class="modal__header">
           <slot name="header" />
-          <p >{{tittle}} </p>
           <button type="button" class="modal__close" @click="closeModal()">
             <img src="@/assets/imgs/close.svg" alt="" />
           </button>
@@ -31,8 +30,8 @@ export default {
     return {
       show: false,
     };
-    props['tittle']
-  },
+    },
+  
   methods: {
     closeModal() {
       this.show = false;

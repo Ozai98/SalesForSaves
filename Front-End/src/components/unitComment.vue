@@ -38,7 +38,8 @@ export default {
     float: left;
 }
 .textCOM{
-    margin:  0vw  0vw  0vw 2vw;
-    
+    margin:  0vw  1vw  0vw 2vw;
+    width: auto;
+    align-self: center;
 }
 </style>

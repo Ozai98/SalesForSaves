@@ -41,7 +41,7 @@ public class ProductController {
 	public static Product normalize(Product product) {
 		try {
 			RepositoryController.Provider().refresh(product.getProvider());
-			RepositoryController.Ubication().refresh(product.getProvider().getUbication());
+			//RepositoryController.Ubication().refresh(product.getProvider().getUbication());
 
 		} catch (Exception ex) {
 			Services.handleError(ex);
