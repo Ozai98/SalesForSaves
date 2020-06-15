@@ -51,7 +51,7 @@ public class HistoricControllerTest {
         defaultProvider.setName("defaultProvider Name");
         defaultProvider.setMail("defaultProvider@Test.Email");        
         defaultProvider.setPassword("defaultProvider password");
-        defaultProvider.setUbication("defaultProvider ubicacion");
+        //defaultProvider.setUbication("defaultProvider ubicacion");
         Product defaultProduct = new Product();
         defaultProduct = new Product();
         defaultProduct.setName("defaultProduct Name");

@@ -27,24 +27,25 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/product")
 public class ProductController {
 
-	
 	public static final String DEFAULT_CATEGORY = "NO CATEGORY";
-	
+
 	private ProductRepository productRepository;
 	private ClientRepository<Provider> providerRepository;
 
-	public ProductController(){
-		productRepository = RepositoryController.Product();        
+	public ProductController() {
+		productRepository = RepositoryController.Product();
 		providerRepository = RepositoryController.Provider();
 
 	}
 
-	public static Product normalize(Product product){
-		try{
+	public static Product normalize(Product product) {
+		try {
 			RepositoryController.Provider().refresh(product.getProvider());
-		}catch(Exception ex){
+			RepositoryController.Ubication().refresh(product.getProvider().getUbication());
+
+		} catch (Exception ex) {
 			Services.handleError(ex);
-		}            
+		}
 		ProviderController.normalize(product.getProvider());
 		product.setImage(product.getImage());
 		return product;

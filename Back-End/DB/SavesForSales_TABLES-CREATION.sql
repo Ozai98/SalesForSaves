@@ -33,8 +33,13 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Provider` (
   `mail` VARCHAR(45) NOT NULL UNIQUE,
   `password` VARCHAR(45) NOT NULL,
   `avatar` MEDIUMBLOB DEFAULT NULL,
-  `ubication` varchar(100) DEFAULT NULL, 
-  PRIMARY KEY (`id`))
+  `ubication` INT NULL, 
+  PRIMARY KEY (`id`),
+  INDEX `ubicationfk_idx` (`ubication` ASC),
+  CONSTRAINT `ubicationfk`
+    FOREIGN KEY (`ubication`)
+    REFERENCES `SavesForSales`.`Ubication` (`id`)
+    ON DELETE CASCADE)
 ENGINE = InnoDB;
 
 
@@ -57,7 +62,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `SavesForSales`.`Product` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `price` DOUBLE NOT NULL,
-  'saved' DOUBLE NOT NULL,
+  `saved` DOUBLE NOT NULL,
   `name` VARCHAR(45) NOT NULL,
   `provider` INT NULL DEFAULT NULL,
   `image` MEDIUMBLOB NULL,
@@ -124,16 +129,28 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Coments` (
   `provider` INT NULL,
   `comment` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `userfk_idx` (`user` ASC),
-  INDEX `providerfk_idx` (`provider` ASC),
-  CONSTRAINT `userfk`
+  INDEX `userfk1_idx` (`user` ASC),
+  INDEX `providerfk1_idx` (`provider` ASC),
+  CONSTRAINT `userfk1`
     FOREIGN KEY (`user`)
     REFERENCES `SavesForSales`.`User` (`id`)
-    ON DELETE CASCADE
-  CONSTRAINT `providerfk`
+    ON DELETE CASCADE,
+  CONSTRAINT `providerfk1`
     FOREIGN KEY (`provider`)
     REFERENCES `SavesForSales`.`Provider` (`id`)
     ON DELETE CASCADE)
+ENGINE = InnoDB;
+
+-- -----------------------------------------------------
+-- Table `SavesForSales`.`Ubication`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `SavesForSales`.`Ubication` ;
+
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Ubication` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `lat` DOUBLE NOT NULL,
+  `long` DOUBLE NOT NULL,
+  PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
 
