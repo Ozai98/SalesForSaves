@@ -4,7 +4,6 @@
       <h1>SALES FOR SAVES</h1>
     </div>
     <SearchBar @search="jumpScreen('SearchProduct')"></SearchBar>
-    <CategorySearch @search2="jumpScreen('SearchProduct')"></CategorySearch>
   </div>
 </template>
 

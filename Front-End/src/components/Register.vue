@@ -47,7 +47,6 @@
           id="picInput"
           src="@/assets/imgs/photo-camera.svg"
           alt="profile pic"
-          
         />
       </label>
       <input type="file" id="fileInput" @change="onFileSelected" />
@@ -166,6 +165,7 @@ export default {
   margin-right: 10px;
   margin-left: 10px;
   min-width: 6vw;
+  text-align: right;
 }
 
 .regField {
