@@ -30,8 +30,7 @@ public class CommentController {
 	private ClientRepository<Provider> providerRepository;
 	private CommentsRepository commentRepository;
 
-	@PostConstruct
-	public void init() {
+	public CommentController() {
 		userRepository = RepositoryController.User();
 		providerRepository = RepositoryController.Provider();
 		commentRepository = RepositoryController.Comment();
@@ -63,13 +62,14 @@ public class CommentController {
 		List<Comments> comments;
 		try {
 			comments = commentRepository.searchByProvider(id);
-			Comments[] respoComments = new Comments[comments.size()-1];
+			System.out.println(comments.size());
+			Comments[] respoComments = new Comments[comments.size()];
 			int i = 0;
 			for(Comments comments2: comments) respoComments[i++] = normalize(comments2);
 		
 			return new Response<>(true, respoComments, "comentarios");
 		} catch (Exception e) {
-			return new Response<>(false, null, "no hay na(?)");
+			return new Response<>(false, null, e);
 		}
 		
 	}
