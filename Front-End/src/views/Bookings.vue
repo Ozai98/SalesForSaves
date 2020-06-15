@@ -15,6 +15,8 @@
         <p class="quantityR">{{ preview.quantity }} UNIDADES</p>
         <p class="const4R">AHORRO EN EL PRODUCTO :</p>
         <p class="saveR">${{ preview.save}}/kg</p>
+        <p class="const5R">CALIFICACION DEL PROVEEDOR :</p>
+        <span class="calification" v-html="this.showStarts(3)"></span>
       </div>
     </div>
     <div class="contenedorR">
@@ -25,8 +27,9 @@
         </center>
       </div>
       <div class="calculatorR">
+        <p class="tittleCalculatorR"> COTIZA Y RESERVA !</p>
         <label class="inputR">CANTIDAD:</label>
-        <input v-model="to_buy" type="number" class="inputR" />
+        <input v-model="to_buy" type="number" class="inputR" min="0"  />
         <div>
           <label class="inputR">PRECIO FINAL:</label>
           <label class="inputR">${{preview.price * to_buy}}</label>
@@ -41,8 +44,8 @@
             </button>
          </div>   
         </div>
-        
     </div>
+    
   </div>
 
 </template>
@@ -58,6 +61,7 @@ export default {
   name: "SellProduct",
   data() {
     return {
+      h:this.showStarts(2),
       to_buy:0 ,
       preview: {
         quantity: 0,
@@ -129,6 +133,18 @@ export default {
     getImage() {
       return 'data:image/jpeg;base64,' + this.preview.image;
     },
+    showStarts(rate){
+      this.HtmlText='';
+        for (let index = 0; index < rate; index++) {
+          this.HtmlText+='<label style="color:#ff8e43">★</label>'
+        }
+        for (let index = 0; index < 5-rate; index++) {
+          this.HtmlText+='<label style="color: grey">★</label>'
+          
+        }
+        console.log(this.HtmlText);
+        return this.HtmlText;
+    }
   },
   mounted() {
     this.bringFromBackR();
@@ -250,6 +266,21 @@ export default {
   text-align: left;
   margin: 1vw;
 }
+.const5R {
+  grid-row: 6;
+  font-weight: lighter;
+  font-size: 1.8vw;
+  text-align: left;
+  margin: 1vw;
+}
+.calification {
+    grid-row: 6;
+  grid-column: 2;
+  font-size: 2.5vw;
+  font-weight: bold;
+  text-align: right;
+  margin: 1vw;
+}
 .inputR {
   font-size: 2vw;
   margin: 2vw;
@@ -260,14 +291,14 @@ export default {
   float: right;
 }
 button {
-  background-color: #ffffff;
+  background-color: #a1ffca;
   color: #ff8e43;
-  width: 20vw;
-  height: 10vw;
+  width: 15vw;
+  height: 5vw;
   border-radius: 16px;
   padding: 0 0.2vw;
   cursor: pointer;
-  font-size: 1.2vw;
+  font-size: 3vw;
   font-family: "Oswald", sans-serif;
   margin: 3vw 0 0.5vw 0;
   font-weight: bold;
@@ -276,6 +307,11 @@ button {
   width:100%;
   height: 40%;
   display: flex;
+}
+.tittleCalculatorR{
+    font-size: 3vw;
+    color: #ff8e43;
+    font-family: "Oswald", sans-serif;
 }
 .seeMap{
     height: 40vw;
