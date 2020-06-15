@@ -36,9 +36,10 @@ components:{
     },
     send(){
         request.setComment(this.idProvider,this.$store.getters.returnUser.id,this.Text,(data) => {
+            console.log(this.idProvider+"    "+this.$store.getters.returnUser.id+"    "+this.Text);
             if (data.ok){
                 console.log("si sirve");
-                
+
             }
         })
     }

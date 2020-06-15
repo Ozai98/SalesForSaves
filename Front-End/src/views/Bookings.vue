@@ -50,9 +50,9 @@
          </div>   
         </div>
     </div>
-    <ModalComponent ref="modalComments">
+    <ModalComponent ref="modalComments" :title="'COMMENTS'">
       <template v-slot:body>
-        <Comments :images="preview.image" :idProvider="preview.provider"/>
+        <Comments :images="preview.image" :idProvider="idProvider"/>
       </template>
     </ModalComponent>
   </div>
@@ -74,6 +74,7 @@ export default {
     return {
       rate:0,
       to_buy:0 ,
+      idProvider:0,
       preview: {
         quantity: 0,
         price: 0,
@@ -100,6 +101,7 @@ export default {
           this.preview.price = data.classX.price;
           this.preview.name = data.classX.name;
           this.preview.provider = data.classX.provider.name;
+          this.idProvider=data.classX.provider.id;
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
