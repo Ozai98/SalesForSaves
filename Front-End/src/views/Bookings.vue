@@ -52,7 +52,12 @@
     </div>
     <ModalComponent ref="modalComments">
       <template v-slot:body>
-        <Comments :images="preview.image" :idProvider="idProvider"/>
+        <Comments ref="comm" class="comments" :images="preview.image" :idProvider="idProvider"/>
+      </template>
+      <template v-slot:footer>
+        <button class="button-commR" type="button" v-on:click="comments2()">
+              ENVIAR
+        </button>
       </template>
     </ModalComponent>
   </div>
@@ -167,6 +172,10 @@ export default {
     },
     comments(){
       this.$refs.modalComments.openModal();
+    },
+    comments2(){
+      this.$refs.comm.send();
+      this.$refs.modalComments.closeModal();
     }
   },
   mounted() {
@@ -326,6 +335,19 @@ export default {
   margin: 3vw 0 0.5vw 0;
   font-weight: bold;
 }  
+.button-commR{
+    background-color: white;
+  color: #ff8e43;
+  width: 6vw;
+  height: 2vw;
+  border-radius: 16px;
+  padding: 0 0.2vw;
+  cursor: pointer;
+  font-size: 1vw;
+  font-family: "Oswald", sans-serif;
+  margin: 0.5vw 0 0.5vw 0;
+  font-weight: bold;
+}
 .contenedorR{
   width:100%;
   height: 40%;
@@ -352,5 +374,8 @@ export default {
     border: solid 0.3vw;
     border-color: black;
     border-radius: 0.2vw;
+  }
+  .comments {
+    height: 450px;
   }
 </style>

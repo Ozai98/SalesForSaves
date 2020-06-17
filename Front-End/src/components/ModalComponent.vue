@@ -72,9 +72,9 @@ export default {
     background-color: #ffffff;
     position: relative;
     width: 600px;
-    margin: 9vw auto;
+    margin: 8vw auto;
     display: grid;
-
+    //max-height: 560px;
     border-radius: 1vw;
     z-index: 2;
     @media screen and (max-width: 992px) {
@@ -96,12 +96,16 @@ export default {
     justify-self: end;
     padding: 20px 20px 10px;
   }
+  
   &__body {
     grid-row: 2;
     padding: 10px 20px 10px;
+    overflow-y: scroll;
+    overflow-x: hidden;
   }
   &__footer {
     padding: 10px 20px 20px;
+    //height: 5vw;
   }
 }
 

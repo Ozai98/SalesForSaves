@@ -2,7 +2,7 @@
 <div>
     COMENTARIOS
     <div class="comment" v-for="data in dataCOM" :key="data.id">
-        <unitComment  :images="data.imag" :usuario="data.user" :comentario="data.comm"></unitComment> 
+        <unitComment  :images="data.img" :usuario="data.user" :comentario="data.comm"></unitComment> 
 
     </div>
     <div >
@@ -38,6 +38,7 @@ export default {
         return 'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
         },
         getComents(){
+            console.log(Number(this.idProvider));
             request.getComments(Number(this.idProvider),(data)=>{
                 if(data.ok){
                     this.dataCOM=[];
@@ -61,12 +62,16 @@ export default {
 
 <style scoped>
 .comment{
-    border: 0.5vw solid black;
+    border: 0.2vw solid grey;
+    border-radius: 0.2vw;
+    margin: 0.5vw;
+    
 }
 #show{
     margin: 0.5vw;
     border: 0.2vw solid grey;
-    height: 5.5vw;
+    border-radius: 0.1vw;
+    height: 7.5vw;
       display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -78,8 +83,9 @@ export default {
     margin: 0 1vw;
 }
 .pictureCOM{
-    width: 5vw;
-    height: 5vw;
+    width: 4vw;
+    height: 4vw;
     float: left;
+    margin: 1vw 0 1vw  1vw;
 }
 </style>

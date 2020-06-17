@@ -30,16 +30,22 @@ export default {
 <style scoped>
 #show{
     display: flex;
-    height: 5.5vw;
+    height: 6.5vw;
 }
 .pictureCOM{
     width: 5vw;
     height: 5vw;
     float: left;
+    margin: 0vw 1vw ;
 }
 .textCOM{
-    margin:  0vw  1vw  0vw 2vw;
-    width: auto;
+    margin:  0vw  1vw  0vw 1vw;
+    width: 50vw;
+    height: 3vw;
     align-self: center;
+    align-content: center;
+    align-items: center;
+    border: 0.1vw gray solid;
+    border-radius: 0.1vw;
 }
 </style>
