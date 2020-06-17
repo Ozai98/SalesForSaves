@@ -16,7 +16,6 @@ public class ClientController<T extends Client> {
 	}
 
 	public static <T extends Client> T normalize(T instance) {
-		instance.setAvatar(instance.getAvatar());
 		instance.setPassword("");
 		return instance;
 	}

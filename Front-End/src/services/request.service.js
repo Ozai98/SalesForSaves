@@ -188,7 +188,16 @@ function createProduct(
 ) {
   generalRequest(
     "/product/create",
-    { name, price, quantity, idProvider, image, timeLimit, category,originalPrice },
+    {
+      name,
+      price,
+      quantity,
+      idProvider,
+      image,
+      timeLimit,
+      category,
+      originalPrice,
+    },
     REQUEST_TYPES.POST,
     true,
     callback
@@ -342,16 +351,16 @@ function getCategories(callback) {
   callback({
     ok: true,
     classX: [
-      "FRUTAS",
-      "VERDURAS",
-      "RES",
-      "POLLO",
-      "CERDO",
-      "PESCADO",
-      "GRANOS",
-      "POSTRES",
-      "BEBIDAS",
-      "HARINAS",
+      "Frutas",
+      "Verduras",
+      "Res",
+      "Pollo",
+      "Cerdo",
+      "Pescado",
+      "Granos",
+      "Postres",
+      "Bebidas",
+      "Harinas",
     ],
     msg: "Ok",
   });

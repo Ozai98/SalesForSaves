@@ -1,7 +1,5 @@
 <template>
   <div id="container">
-    <div id="sDiv"></div>
-    <SearchBar id="s-el" @search="bringFromBack()"></SearchBar>
     <CategorySearch @search2="bringFromBackCat()"></CategorySearch>
     <div id="products">
       <div v-for="prod in dataProd" :key="prod.name">
@@ -14,7 +12,6 @@
 <script>
 import Product from "@/components/Product.vue";
 import request from "@/services/request.service.js";
-import SearchBar from "@/components/SearchBar.vue";
 import CategorySearch from "@/components/CategorySearch.vue";
 export default {
   data() {
@@ -25,7 +22,6 @@ export default {
   name: "SearchView",
   components: {
     Product,
-    SearchBar,
     CategorySearch,
   },
   methods: {
@@ -66,9 +62,11 @@ export default {
       });
     },
   },
-  mounted() {
-    this.bringFromBack();
-    this.bringFromBackCat();
+  updated() {
+    this.$root.$on("search", () => {
+      this.bringFromBack();
+      console.log("buscó");
+    });
   },
 };
 </script>
@@ -77,10 +75,6 @@ export default {
 #container {
   height: 90%;
   background-color: white;
-}
-#sDiv {
-  height: 2vw;
-  width: 100%;
 }
 #s-el {
   margin: auto;

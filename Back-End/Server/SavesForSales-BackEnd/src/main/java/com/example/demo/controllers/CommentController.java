@@ -37,7 +37,14 @@ public class CommentController {
 	}
 
 	private Comments normalize(Comments comment) {
-		comment.setProvider(UserController.normalize(comment.getProvider()));
+		try {
+			userRepository.refresh(comment.getUser());
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		comment.setProvider(ProviderController.normalize(comment.getProvider()));
 		comment.setUser(UserController.normalize(comment.getUser()));
 		return comment;
 	}
@@ -62,7 +69,6 @@ public class CommentController {
 		List<Comments> comments;
 		try {
 			comments = commentRepository.searchByProvider(id);
-			System.out.println(comments.size());
 			Comments[] respoComments = new Comments[comments.size()];
 			int i = 0;
 			for(Comments comments2: comments) respoComments[i++] = normalize(comments2);

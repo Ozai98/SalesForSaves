@@ -10,38 +10,22 @@
     <div id="nav1" v-if="idPage == 'Home'">
       <UserIcon @login="openLogin()"></UserIcon>
     </div>
-    <div class="center-content" id="nav2" v-else-if="idPage == 'SearchProduct'">
-      <UserIcon @openLogin="openLogin()"></UserIcon>
+    <div v-else id="nav2">
+      <UserIcon @login="openLogin()"></UserIcon>
       <img
         class="logo"
         src="@/assets/imgs/pageIcon.svg"
         alt="logo"
         @click="jumpScreen('Home')"
       />
-    </div>
-    <div id="nav3" v-else-if="idPage == 'Login' || idPage == 'Register'">
-      <img
-        class="logo"
-        src="@/assets/imgs/pageIcon.svg"
-        alt="logo"
-        @click="jumpScreen('Home')"
-      />
-    </div>
-    <div v-else id="nav4">
-      <UserIcon @login="login()"></UserIcon>
-      <img
-        class="logo"
-        src="@/assets/imgs/pageIcon.svg"
-        alt="logo"
-        @click="jumpScreen('Home')"
-      />
+      <SearchBar id="searchBar" @search="search2()"></SearchBar>
     </div>
   </div>
 </template>
 
 <script>
 import UserIcon from "@/components/UserIcon.vue";
-
+import SearchBar from "@/components/SearchBar.vue";
 export default {
   name: "NavBar",
   props: {
@@ -49,6 +33,7 @@ export default {
   },
   components: {
     UserIcon,
+    SearchBar,
   },
   methods: {
     openLogin() {
@@ -62,17 +47,7 @@ export default {
 #navBar {
   height: 10%;
   width: 100%;
-}
-#nav1 {
-  background-color: #a1ffca;
-}
-#nav2 {
-  background-color: #a1ffca;
-}
-#nav3 {
-  background-color: #ff8e43;
-  width: 100%;
-  height: 100%;
+  max-height: 10%;
 }
 #sellLink {
   position: absolute;
@@ -85,6 +60,10 @@ export default {
 #sellLink:hover {
   cursor: pointer;
 }
+#searchBar {
+  position: absolute;
+  margin: 1.4vw 28.5vw;
+}
 
 #nav4 h1 {
   position: absolute;
@@ -92,7 +71,7 @@ export default {
   left: 50px;
   font-size: 40px;
 }
-#nav4 h1:hover {
+#nav2 h1:hover {
   cursor: pointer;
 }
 </style>

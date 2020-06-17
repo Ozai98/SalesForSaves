@@ -11,23 +11,17 @@
 </template>
 
 <script>
-import request from "@/services/request.service.js";
-import ModalComponent from "@/components/ModalComponent.vue";
 export default {
   name: "UserIcon",
   props: {
     isLogged: Boolean,
-  },
-  computed: {},
-  components: {
-    ModalComponent,
   },
   methods: {
     open() {
       this.$emit("login");
     },
     getImage() {
-      return 'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
+      return "data:image/jpeg;base64," + this.$store.getters.returnUser.imgURL;
     },
   },
 };
