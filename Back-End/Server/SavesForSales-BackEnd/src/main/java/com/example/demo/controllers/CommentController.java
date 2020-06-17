@@ -58,7 +58,7 @@ public class CommentController {
 	}
 
 	@GetMapping("/search/{id}")
-	public Response<Comments[]> searchByProvider(@PathVariable int id) {
+	public Response<Comments[]> searchByProvider(@PathVariable Integer id) {
 		List<Comments> comments;
 		try {
 			comments = commentRepository.searchByProvider(id);

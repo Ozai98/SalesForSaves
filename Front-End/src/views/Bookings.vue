@@ -101,7 +101,6 @@ export default {
           this.preview.price = data.classX.price;
           this.preview.name = data.classX.name;
           this.preview.provider = data.classX.provider.name;
-          console.log(data.classX.provider);
           this.idProvider=data.classX.provider.id;
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;

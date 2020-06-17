@@ -1,9 +1,9 @@
 <template>
     <div id="allCOM">
-        <p id="tittle">PEDRO EL VERGAS</p>
+        <p id="tittle">{{usuario}}</p>
         <div id="show">
             <img :src="getImage()" class="pictureCOM" />
-            <label class="textCOM" >COMENTARIO PERRON</label>
+            <label class="textCOM" >{{comentario}}</label>
         </div>
     </div>
 </template>
@@ -15,7 +15,7 @@ export default {
 
      }
  },
- props:['images'],
+ props:['images','comentario','usuario'],
         
  
  methods:{

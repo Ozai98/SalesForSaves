@@ -312,14 +312,16 @@ function getRate(idProvider, callback) {
 //----------------------COMENTARIOS----------------------------------
 //-------------------------------------------------------------------
 
-function getComments(idProvider,callback){
+function getComments(id,callback){
+ 
   generalRequest(
-    "/Comment/search/{id}",
-    { idProvider },
+    "/Comment/search/"+ id,
+    undefined,
     REQUEST_TYPES.GET,
     undefined,
     callback
   );
+  
 }
 
 function setComment(idProvider,idUser,comment,callback){

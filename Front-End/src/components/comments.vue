@@ -1,8 +1,8 @@
 <template>
 <div>
     COMENTARIOS
-    <div>
-        <unitComment class="comment" :images="images"></unitComment> 
+    <div class="comment" v-for="data in dataCOM" :key="data.id">
+        <unitComment  :images="data.imag" :usuario="data.user" :comentario="data.comm"></unitComment> 
 
     </div>
     <div >
@@ -20,32 +20,43 @@
 import unitComment from "./unitComment.vue";
 import request from "../services/request.service.js";
 export default {
-data(){
-    return{
-    Text:'',
-    }
-},
-     props:['images','idProvider'],            
-components:{
-    unitComment
-},
- 
- methods:{
-     getImage() {
-      return 'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
+    data(){
+        return{
+        Text:'',
+        dataCOM:Object
+        }
     },
-    send(){
-        request.setComment(this.idProvider,this.$store.getters.returnUser.id,this.Text,(data) => {
-            console.log(this.idProvider+"    "+this.$store.getters.returnUser.id+"    "+this.Text);
-            if (data.ok){
-                console.log("si sirve");
-
-            }
-        })
+         props:['images','idProvider'],            
+    components:{
+        unitComment
+    },
+    mounted(){
+        this.getComents();
+    },
+    methods:{
+         getImage() {
+        return 'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
+        },
+        getComents(){
+            request.getComments(Number(this.idProvider),(data)=>{
+                if(data.ok){
+                    this.dataCOM=[];
+                    for (const datos of data.classX){
+                        this.dataCOM.push({
+                            id:datos.id,
+                            user:datos.user.name,
+                            img:datos.user.avatar,
+                            comm:datos.comment                        
+                        });
+                    }
+                }
+            });
+        },
+        send(){
+            request.setComment(this.idProvider,this.$store.getters.returnUser.id,this.Text,(data) => {});
+        }
     }
- }
 }
-
 </script>
 
 <style scoped>
