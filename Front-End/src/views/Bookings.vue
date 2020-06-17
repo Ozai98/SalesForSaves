@@ -50,7 +50,12 @@
          </div>   
         </div>
     </div>
-    <ModalComponent ref="modalComments">
+
+
+    <ModalComponent ref="modalComments" >
+      <template v-slot:header>
+        <div class="tittleModal " >COMENTARIOS</div>
+      </template>
       <template v-slot:body>
         <Comments ref="comm" class="comments" :images="preview.image" :idProvider="idProvider"/>
       </template>
@@ -376,6 +381,13 @@ export default {
     border-radius: 0.2vw;
   }
   .comments {
-    height: 450px;
+    max-height: 450px;
+  }
+  .tittleModal{
+
+  text-align: center;
+  font-weight: lighter;
+  font-size: 2vw;
+  margin-top: 2vw;
   }
 </style>
