@@ -48,7 +48,6 @@ import NavBar from "@/components/NavBar.vue";
 import ModalComponent from "@/components/ModalComponent.vue";
 import Login from "@/components/Login.vue";
 import Register from "@/components/Register.vue";
-import Vue from "vue";
 export default {
   name: "App",
   data() {

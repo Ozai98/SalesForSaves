@@ -31,7 +31,8 @@ export default {
   methods: {
     search() {
       this.$store.dispatch("updateSearch", this.sVal);
-      this.$emit("search");
+      this.$root.$emit("search");
+      this.jumpScreen("SearchProduct");
     },
   },
 };
@@ -44,9 +45,10 @@ export default {
 
 #SearchBtn {
   background-color: white;
-  max-width: 2vw;
-  max-height: 2vw;
+  max-width: 1.9vw;
+  max-height: 1.9vw;
   border-radius: 20%;
+  margin: 0.2vw 0.5vw;
 }
 
 #SearchBtn:hover {
@@ -54,6 +56,6 @@ export default {
 }
 
 .search-bar {
-  width: 40vw;
+  width: 42vw;
 }
 </style>
