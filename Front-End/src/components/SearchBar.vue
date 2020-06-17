@@ -30,9 +30,8 @@ export default {
   },
   methods: {
     search() {
-      this.$store.dispatch("updateSearch", this.sVal);
-      this.$root.$emit("search");
-      this.jumpScreen("SearchProduct");
+      this.$router.replace("/SearchProduct/" + this.sVal);
+      this.$store.dispatch("changeViewState", "SearchProduct");
     },
   },
 };

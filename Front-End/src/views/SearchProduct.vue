@@ -2,7 +2,7 @@
   <div id="container">
     <CategorySearch @search2="bringFromBackCat()"></CategorySearch>
     <div id="products">
-      <div v-for="prod in dataProd" :key="prod.name">
+      <div v-for="prod in dataProd" :key="prod.id">
         <Product :product="prod"></Product>
       </div>
     </div>
@@ -16,7 +16,7 @@ import CategorySearch from "@/components/CategorySearch.vue";
 export default {
   data() {
     return {
-      dataProd: Object,
+      dataProd: [],
     };
   },
   name: "SearchView",
@@ -25,11 +25,10 @@ export default {
     CategorySearch,
   },
   methods: {
-    bringFromBack() {
+    bringFromBack(query) {
       this.dataProd = [];
-      request.searchProduct(this.$store.getters.returnSearchedValue, (data) => {
+      request.searchProduct(query, (data) => {
         if (data.ok) {
-          console.log(data.classX);
           for (const prod of data.classX) {
             this.dataProd.push({
               time: new Date(prod.publicationDate),
@@ -47,7 +46,6 @@ export default {
       this.dataProd = [];
       request.getByCategory(this.$store.getters.returnSearchedValue, (data) => {
         if (data.ok) {
-          console.log(data.classX);
           for (const prod of data.classX) {
             this.dataProd.push({
               time: new Date(prod.publicationDate),
@@ -62,11 +60,8 @@ export default {
       });
     },
   },
-  updated() {
-    this.$root.$on("search", () => {
-      this.bringFromBack();
-      console.log("buscó");
-    });
+  mounted() {
+    this.bringFromBack(this.$route.params.q);
   },
 };
 </script>
@@ -80,6 +75,7 @@ export default {
   margin: auto;
 }
 #products {
+  margin-left: 22vw;
   padding: 2vw;
   display: grid;
   grid-gap: 2vw;

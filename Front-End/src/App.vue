@@ -52,7 +52,7 @@ export default {
   name: "App",
   data() {
     return {
-      idPage: "MainHome",
+      idPage: this.$store.getters.returnView,
     };
   },
   components: {

@@ -26,7 +26,7 @@ const router = new VueRouter({
       component: () => import("@/views/EditProfile.vue"),
     },
     {
-      path: "/SearchProduct",
+      path: "/SearchProduct/:q",
       name: "SearchProduct",
       component: () => import("@/views/SearchProduct.vue"),
       props: {
@@ -43,7 +43,6 @@ const router = new VueRouter({
       name: "SellProduct",
       component: () => import("@/views/SellProduct.vue"),
     },
-    
   ],
 });
 

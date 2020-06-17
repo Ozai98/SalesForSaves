@@ -1,5 +1,5 @@
 <template>
-  <div id="navBar">
+  <div id="navBar" @search="search()">
     <p
       v-if="this.$store.getters.returnUser.isProvider"
       id="sellLink"
@@ -18,7 +18,7 @@
         alt="logo"
         @click="jumpScreen('Home')"
       />
-      <SearchBar id="searchBar" @search="search2()"></SearchBar>
+      <SearchBar id="searchBar"></SearchBar>
     </div>
   </div>
 </template>

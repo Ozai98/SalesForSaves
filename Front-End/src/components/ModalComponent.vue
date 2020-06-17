@@ -30,8 +30,8 @@ export default {
     return {
       show: false,
     };
-    },
-  
+    props['tittle']
+  },
   methods: {
     closeModal() {
       this.show = false;

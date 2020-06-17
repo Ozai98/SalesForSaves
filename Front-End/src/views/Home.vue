@@ -3,7 +3,7 @@
     <div class="title">
       <h1>SALES FOR SAVES</h1>
     </div>
-    <SearchBar @search="jumpScreen('SearchProduct')"></SearchBar>
+    <SearchBar></SearchBar>
   </div>
 </template>
 
