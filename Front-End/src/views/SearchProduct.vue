@@ -43,9 +43,9 @@ export default {
         }
       });
     },
-    bringFromBackCat() {
+    bringFromBackCat(query) {
       this.dataProd = [];
-      request.getByCategory(this.$store.getters.returnSearchedValue, (data) => {
+      request.getByCategory(query, (data) => {
         if (data.ok) {
           for (const prod of data.classX) {
             this.dataProd.push({
@@ -62,6 +62,14 @@ export default {
     },
   },
   mounted() {
+    this.$root.$on("search", (query) => {
+      console.log(query);
+      this.bringFromBack(query);
+    });
+    this.$root.$on("searchCat", (query) => {
+      console.log(query);
+      this.bringFromBackCat(query);
+    });
     this.bringFromBack(this.$route.params.q);
   },
 };

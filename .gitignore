@@ -23,3 +23,4 @@ yarn-error.log*
 
 **/uploads/*
 ! **/uploads/.gitkeep
+*.lst
