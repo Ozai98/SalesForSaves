@@ -18,6 +18,11 @@ export default {
     SearchBar,
     CategorySearch,
   },
+  methods: {
+    mounted() {
+      this.$router.dispatch();
+    },
+  },
 };
 </script>
 

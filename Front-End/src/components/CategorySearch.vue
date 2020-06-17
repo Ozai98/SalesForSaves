@@ -11,7 +11,12 @@
       />
     </svg>
     <ul>
-      <li v-for="category in categories" :key="category" class="listItem desc">
+      <li
+        v-for="category in categories"
+        :key="category"
+        class="listItem desc"
+        v-on:click="search(category)"
+      >
         {{ category }}
       </li>
     </ul>
@@ -36,10 +41,8 @@ export default {
         if (data.ok) this.categories = data.classX;
       });
     },
-    search() {
-      this.$store.dispatch("updateSearch", this.sVal);
-      console.log(this.sVal);
-      this.$root.$emit("search");
+    search(query) {
+      this.$root.$emit("searchCat", query);
     },
   },
 };

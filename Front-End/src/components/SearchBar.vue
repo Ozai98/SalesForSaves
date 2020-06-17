@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import SP from "../views/SearchProduct.vue";
+import SP from "@/views/SearchProduct.vue";
 export default {
   name: "SearchBar",
   data() {
@@ -31,19 +31,14 @@ export default {
   },
   methods: {
     search() {
-      ;
-      if(this.$store.getters.returnView != "SearchProduct"){
-        this.$router.replace("/SearchProduct/" + this.sVal)
+      if (this.$store.getters.returnView != "SearchProduct") {
+        this.$router.replace("/SearchProduct/" + this.sVal);
         this.$store.dispatch("changeViewState", "SearchProduct");
-
-      }
-      else{
-        history.pushState({}, null, '/SearchProduct/'+ this.sVal);
-        SP.bringFromBack(this.$route.params.q);
+      } else {
+        this.$root.$emit("search", this.sVal);
       }
     },
   },
-  
 };
 </script>
 
