@@ -65,7 +65,7 @@ function loginClient(mail, password, callback) {
   );
 }
 
-function createClient(name, mail, password, avatar, callback) {
+function createClient(name, mail, password,ubication, avatar, callback) {
   generalRequest(
     "/user/create",
     { name, mail, password, avatar },
@@ -119,10 +119,12 @@ function loginProvider(mail, password, callback) {
   );
 }
 
-function createProvider(name, mail, password, avatar, callback) {
+function createProvider(name, mail, password,ubication, avatar, callback) {
+  l=ubication.lat;
+  ln=ubication.lng;
   generalRequest(
     "/provider/create",
-    { name, mail, password, avatar },
+    { name, mail, password, avatar, l, ln },
     REQUEST_TYPES.POST,
     true,
     callback
@@ -145,7 +147,7 @@ function updateProvider(id, name, password, ubication, avatar, callback) {
   if (name) body.name = name;
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
-  if (ubication) body.ubication = ubication;
+  if (ubication) body.lat = ubication.lat; body.longitud=ubication.lng
   generalRequest("/provider/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
@@ -343,6 +345,7 @@ function setComment(idProvider,idUser,comment,callback){
   );
 
 }
+
 
 //-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------

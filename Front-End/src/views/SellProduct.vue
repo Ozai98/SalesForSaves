@@ -62,7 +62,6 @@
       <select v-model="product.category" name="categories" id="categories">
         <option v-for="category in categories" :key="category">{{ category }}</option>
       </select>
-
       <button
         type="button"
         class="editBtn button-base accessBtn"
@@ -76,6 +75,7 @@
 
 <script>
 import request from "@/services/request.service.js";
+import Map from "../components/maps/Mapa";
 import alert from "vue-simple-alert";
 import Vue from "vue";
 Vue.use(alert);
@@ -94,6 +94,9 @@ export default {
         category: "",
       },
     };
+  },
+  components:{
+    Map
   },
   mounted() {
     this.getCategories();
@@ -173,4 +176,6 @@ export default {
 .inputIMG > input {
   display: none;
 }
+
+
 </style>

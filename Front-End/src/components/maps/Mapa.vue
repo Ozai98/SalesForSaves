@@ -2,15 +2,17 @@
   <CargarMapa
     :configMapa="configMapa"
     apiKey="AIzaSyCx2ZmmyniRQkOvJeFWMFAxguLTkauTrMU"
+    v-bind:id="id"
   >
  
-    <template slot-scope="{ google, map }">
+    <template slot-scope="{ google, map }" v-if="id==0">
       <Marcadores
         v-for="marker in markers"
         :key="marker.id"
         :marker="marker"
         :google="google"
         :map="map"
+        
       />
     </template>
  
@@ -32,21 +34,20 @@
  
     data() {
       return {
+        
         markers: [
           {
             id: "0",
             position: { lat: 4.6412, lng: -74 },
             title: "Bogota-Colombia"
           },
-          {
-            id: "1",
-            position: { lat: -12.025827, lng: -77.2679817 },
-            title: "Lima - Perú"
-          }
+         
         ]
       };
     },
- 
+    props:{
+      id:Number
+    },
     computed: {
       configMapa() {
         return {
@@ -57,6 +58,7 @@
  
       mapCenter() {
         return this.markers[0].position;
+        
       }
     }
   };

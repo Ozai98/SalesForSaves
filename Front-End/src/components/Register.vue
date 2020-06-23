@@ -78,9 +78,26 @@ export default {
         avatar: Object,
       },
       isProvider: false,
+      ubc:Object,
     };
   },
   methods: {
+    mapa(){
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+            var pos = {
+              lat: position.coords.latitude,
+              lng: position.coords.longitude
+            };
+            this.ubc=pos;
+          }, function() {
+            handleLocationError(true, infoWindow, map.getCenter());
+          });
+        } else {
+          // Browser doesn't support Geolocation
+          handleLocationError(false, infoWindow, map.getCenter());
+        }
+    },
     onFileSelected(event) {
       this.newUser.avatar = event.target.files[0];
     },
@@ -102,6 +119,7 @@ export default {
           fun_request(
             this.newUser.name,
             this.newUser.mail,
+            this.ubc,
             this.newUser.password,
             this.newUser.avatar,
             (data) => {
@@ -139,6 +157,9 @@ export default {
       }
     },
   },
+  mounted(){
+    this.mapa()
+  }
 };
 </script>
 

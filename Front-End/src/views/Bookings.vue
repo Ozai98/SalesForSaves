@@ -23,7 +23,7 @@
       <div class="seeMap">
         <center>
         UBICA EL NEGOCIO !
-        <Map/>
+        <Map class="mapa2" v-bind:id="0"/>
         </center>
       </div>
       <div class="calculatorR">
@@ -372,7 +372,7 @@ export default {
     align-content: center;
     align-items: center;
 }
-.mapa {
+.mapa2 {
     height: 30vw;
     width: 46vw;
     margin: 1.5vw 1.5vw 1.5vw 1.5vw;
