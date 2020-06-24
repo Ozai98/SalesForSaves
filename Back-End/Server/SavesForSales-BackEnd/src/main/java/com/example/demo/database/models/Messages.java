@@ -11,9 +11,9 @@ public class Messages {
 	
 	@DatabaseField(generatedId = true)
 	private int id;
-	@DatabaseField(columnName = "user")
+	@DatabaseField(foreign = true, columnName = "user")
 	private User user;
-	@DatabaseField(columnName = "provider")
+	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
 	@DatabaseField(dataType = DataType.DATE_TIME)
 	private Date timeSend;
