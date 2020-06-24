@@ -66,10 +66,11 @@ public class ProviderController extends ClientController<Provider> {
 		if(id == null) return new Response<>(false, null, "Missing ID");
 		try {
 			Provider provider = providerRepository.getById(id);
-			Ubication ubication = new Ubication();
+			ubicationRepository.refresh(provider.getUbication());
+			Ubication ubication = provider.getUbication();
 			ubication.setLat(lat);
 			ubication.setLongitud(longitud);
-			ubicationRepository.create(ubication);
+			ubicationRepository.update(ubication);
 			provider.setUbication(ubication);
 			return super.update(name, password, avatar, provider);
 		} catch (Exception ex) {
