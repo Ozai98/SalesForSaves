@@ -120,11 +120,11 @@ function loginProvider(mail, password, callback) {
 }
 
 function createProvider(name, mail, password,ubication, avatar, callback) {
-  l=ubication.lat;
-  ln=ubication.lng;
+  lat=ubication.lat;
+  longitud=ubication.lng;
   generalRequest(
     "/provider/create",
-    { name, mail, password, avatar, l, ln },
+    { name, mail, password, avatar, lat, longitud },
     REQUEST_TYPES.POST,
     true,
     callback

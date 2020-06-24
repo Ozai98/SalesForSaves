@@ -1,8 +1,9 @@
 <template>
-  <CargarMapa
+  <CargarMapa @cambio="cambiarPos($event)"
     :configMapa="configMapa"
     apiKey="AIzaSyCx2ZmmyniRQkOvJeFWMFAxguLTkauTrMU"
     v-bind:id="id"
+    v-bind:pos="pos"
   >
  
     <template slot-scope="{ google, map }" v-if="id==0">
@@ -38,7 +39,7 @@
         markers: [
           {
             id: "0",
-            position: { lat: 4.6412, lng: -74 },
+            position: this.pos,
             title: "Bogota-Colombia"
           },
          
@@ -46,8 +47,15 @@
       };
     },
     props:{
-      id:Number
+      id:Number,
+      pos:Object
     },
+    methods:{
+      cambiarPos(item){
+        this.$emit('cambio2',item);
+      }
+    }
+    ,
     computed: {
       configMapa() {
         return {

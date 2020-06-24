@@ -42,7 +42,6 @@ public class ProductController {
 		try {
 			RepositoryController.Provider().refresh(product.getProvider());
 			RepositoryController.Ubication().refresh(product.getProvider().getUbication());
-			//RepositoryController.Ubication().refresh(product.getProvider().getUbication());
 
 		} catch (Exception ex) {
 			Services.handleError(ex);
