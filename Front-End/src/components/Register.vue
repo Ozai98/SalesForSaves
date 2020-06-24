@@ -78,25 +78,21 @@ export default {
         avatar: Object,
       },
       isProvider: false,
-      ubc:Object,
+      ubc:{
+        lat:4,
+        lng:-72
+      },
     };
   },
   methods: {
     mapa(){
       const that=this;
       if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var pos = {
-              lat: position.coords.latitude,
-              lng: position.coords.longitude
-            };
-            that.ubc=pos;
-          }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
-          });
-        } else {
-          // Browser doesn't support Geolocation
-          handleLocationError(false, infoWindow, map.getCenter());
+          navigator.geolocation.getCurrentPosition(function(position) {  
+              that.ubc.lat= position.coords.latitude,
+              that.ubc.lng= position.coords.longitude         
+          }
+          );
         }
     },
     onFileSelected(event) {
@@ -110,6 +106,7 @@ export default {
         this.newUser.name != ""
       ) {
         console.log(this.newUser);
+        console.log(this.ubc);
         if (this.newUser.password == this.newUser.password2) {
           let fun_request;
           if (this.isProvider) {
@@ -120,8 +117,8 @@ export default {
           fun_request(
             this.newUser.name,
             this.newUser.mail,
-            this.ubc,
             this.newUser.password,
+            this.ubc,
             this.newUser.avatar,
             (data) => {
               if (data.ok) {

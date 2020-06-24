@@ -21,7 +21,8 @@
     props: {
       configMapa: Object,
       apiKey: String,
-      id:Number
+      id:Number,
+      pos:Object
     },
  
     data() {
@@ -50,7 +51,7 @@
       },
       coords(){
       var infoWindow = new google.maps.Marker(
-            { position: { lat: 4.6412, lng: -74 }});
+            { position: this.pos});
         infoWindow.setMap(this.map);
       const that= this
         // Configure the click listener.
@@ -61,7 +62,8 @@
           // Create a new InfoWindow.
           infoWindow = new google.maps.Marker({position: mapsMouseEvent.latLng});
           infoWindow.setMap(that.map);
-          console.log(mapsMouseEvent.latLng.lat() +' '+ mapsMouseEvent.latLng.lng())
+          var item ={lat:mapsMouseEvent.latLng.lat(),lng:mapsMouseEvent.latLng.lng()};
+          that.$emit('cambio',item)
         });
       }
     }

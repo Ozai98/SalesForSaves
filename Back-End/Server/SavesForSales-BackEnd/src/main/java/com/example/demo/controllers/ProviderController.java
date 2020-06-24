@@ -37,18 +37,18 @@ public class ProviderController extends ClientController<Provider> {
 	}
 
 	@PostMapping(value = "/create")
-	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar, double lat, double longitud) {
+	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar, Double lat, Double longitud) {
+		Provider provider = new Provider();
 		try {
 			Ubication ubication = new Ubication();
 			ubication.setLat(lat);
 			ubication.setLongitud(longitud);
 			ubicationRepository.create(ubication);
-			Provider provider = new Provider();
 			provider.setUbication(ubication);
 		} catch (Exception e) {
 			//TODO: handle exception
 		}
-		return super.create(name, mail, password, avatar, new Provider());
+		return super.create(name, mail, password, avatar, provider);
 	}
 
 	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
@@ -62,7 +62,7 @@ public class ProviderController extends ClientController<Provider> {
 	}
 
 	@PostMapping(value = "/update")
-	public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, double lat, double longitud) {
+	public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, Double lat, Double longitud) {
 		if(id == null) return new Response<>(false, null, "Missing ID");
 		try {
 			Provider provider = providerRepository.getById(id);

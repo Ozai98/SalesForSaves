@@ -23,7 +23,7 @@
       <div class="seeMap">
         <center>
         UBICA EL NEGOCIO !
-        <Map class="mapa2" v-bind:id="0"/>
+        <Map class="mapa2" v-bind:id="0" v-bind:pos="pos"/>
         </center>
       </div>
       <div class="calculatorR">
@@ -83,6 +83,7 @@ export default {
   data() {
     return {
       rate:0,
+      pos:{lat:Number ,lng: Number},
       to_buy:0 ,
       idProvider:0,
       preview: {
@@ -115,6 +116,12 @@ export default {
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
+          console.log(data.classX.provider.ubication.lat+' '+data.classX.provider.ubication.longitud);
+          console.log(this.pos.lat+''+this.pos.lng)
+          this.pos.lat=data.classX.provider.ubication.lat;
+          this.pos.lng=data.classX.provider.ubication.longitud;
+          console.log(this.pos.lat+''+this.pos.lng)
+          this.$forceUpdate();
           request.getRate(data.classX.provider.id,(data) => {
           
            if(data.ok){

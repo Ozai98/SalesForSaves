@@ -9,9 +9,9 @@ public class Ubication {
 	@DatabaseField(generatedId = true)
 	private int id;
 	@DatabaseField
-	private double lat;
+	private Double lat;
 	@DatabaseField(columnName = "long")
-	private double longitud;
+	private Double longitud;
 
 	public Ubication() {
 	}
@@ -24,20 +24,20 @@ public class Ubication {
 	public int getId() {
 		return id;
 	}
-	public double getLat() {
+	public Double getLat() {
 		return lat;
 	}
-	public double getLongitud() {
+	public Double getLongitud() {
 		return longitud;
 	}
 
 	public void setId(int id) {
 		this.id = id;
 	}
-	public void setLat(double lat) {
+	public void setLat(Double lat) {
 		this.lat = lat;
 	}
-	public void setLongitud(double longitud) {
+	public void setLongitud(Double longitud) {
 		this.longitud = longitud;
 	}
 
