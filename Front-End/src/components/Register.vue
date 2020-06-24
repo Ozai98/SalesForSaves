@@ -83,13 +83,14 @@ export default {
   },
   methods: {
     mapa(){
+      const that=this;
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(function(position) {
             var pos = {
               lat: position.coords.latitude,
               lng: position.coords.longitude
             };
-            this.ubc=pos;
+            that.ubc=pos;
           }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
           });
