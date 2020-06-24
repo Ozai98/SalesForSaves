@@ -7,6 +7,8 @@ package com.example.demo.database;
 
 import com.example.demo.database.models.Comments;
 import com.example.demo.database.models.Historic;
+import com.example.demo.database.models.Messages;
+
 import java.sql.SQLException;
 
 import com.j256.ormlite.dao.Dao;
@@ -40,6 +42,7 @@ public class DaoController {
     private final Dao<Rate, Integer> rateDao;
     private final Dao<Comments, Integer> commentDao;
     private final Dao<Ubication, Integer> ubicationDao;
+    private final Dao<Messages, Integer> messagesDao;
 
     private DaoController(String dbConnection) throws SQLException {
         connection = new JdbcConnectionSource(dbConnection);
@@ -50,6 +53,7 @@ public class DaoController {
         rateDao = DaoManager.createDao(connection, Rate.class);
         commentDao = DaoManager.createDao(connection, Comments.class);
         ubicationDao = DaoManager.createDao(connection, Ubication.class);
+        messagesDao = DaoManager.createDao(connection, Messages.class);
     }
 
     public static DaoController getInstance(){
@@ -87,5 +91,8 @@ public class DaoController {
     }
     public Dao<Ubication, Integer> ubicationDao(){
         return ubicationDao;
+    }
+    public Dao<Messages, Integer> messagesDao(){
+        return messagesDao;
     }
 }
