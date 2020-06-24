@@ -1,20 +1,19 @@
 package com.example.demo.controllers;
 
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.example.demo.database.models.Provider;
-import com.example.demo.database.models.Ubication;
 import com.example.demo.database.Repository;
 import com.example.demo.database.RepositoryController;
-
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.example.demo.database.models.Provider;
+import com.example.demo.database.models.Ubication;
 import com.example.demo.services.Services;
+
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -46,7 +45,8 @@ public class ProviderController extends ClientController<Provider> {
 			ubicationRepository.create(ubication);
 			provider.setUbication(ubication);
 		} catch (Exception e) {
-			//TODO: handle exception
+			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return super.create(name, mail, password, avatar, provider);
 	}
@@ -58,7 +58,13 @@ public class ProviderController extends ClientController<Provider> {
 
 	@GetMapping("/get-by-id/{id}")
 	public Response<Provider> getById(@PathVariable Integer id) {
-		return super.getById(id);
+		Response<Provider> ubicationlessResponse = super.getById(id);
+		try {
+			ubicationRepository.refresh(ubicationlessResponse.classX.getUbication());
+			return ubicationlessResponse;
+		} catch (Exception e) {
+			return ubicationlessResponse;
+		}
 	}
 
 	@PostMapping(value = "/update")
@@ -66,10 +72,11 @@ public class ProviderController extends ClientController<Provider> {
 		if(id == null) return new Response<>(false, null, "Missing ID");
 		try {
 			Provider provider = providerRepository.getById(id);
-			Ubication ubication = new Ubication();
+			ubicationRepository.refresh(provider.getUbication());
+			Ubication ubication = provider.getUbication();
 			ubication.setLat(lat);
 			ubication.setLongitud(longitud);
-			ubicationRepository.create(ubication);
+			ubicationRepository.update(ubication);
 			provider.setUbication(ubication);
 			return super.update(name, password, avatar, provider);
 		} catch (Exception ex) {
