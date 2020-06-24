@@ -47,6 +47,7 @@ public class ProviderController extends ClientController<Provider> {
 			provider.setUbication(ubication);
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return super.create(name, mail, password, avatar, new Provider());
 	}
