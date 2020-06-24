@@ -30,7 +30,7 @@ public class ProviderControllerTest {
     @Before
     public void before() throws Exception{
         controller = new ProviderController();
-        Response<Provider> res = controller.create("defaultProvider Name", "defaultProvider@Test.Email", "defaultProvider password", null);
+        Response<Provider> res = controller.create("defaultProvider Name", "defaultProvider@Test.Email", "defaultProvider password", null, 0.0,0.0);
         if(!res.ok) Assert.fail("Fail default proveedor creation");
         defaultProvider.setId(res.classX.getId());
     }
@@ -43,7 +43,7 @@ public class ProviderControllerTest {
         other.setMail("Name1@mail.com");
         other.setPassword("0000");
         
-        Response<Provider> res = controller.create(other.getName(), other.getMail(), other.getPassword(), null);
+        Response<Provider> res = controller.create(other.getName(), other.getMail(), other.getPassword(), null, 0.0, 0.0);
         
         Assert.assertTrue(res.msg, res.ok);
         Assert.assertEquals(res.classX.getName(), defaultProvider.getName());

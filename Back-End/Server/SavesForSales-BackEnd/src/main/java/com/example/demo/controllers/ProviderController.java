@@ -37,7 +37,17 @@ public class ProviderController extends ClientController<Provider> {
 	}
 
 	@PostMapping(value = "/create")
-	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar) {
+	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar, double lat, double longitud) {
+		try {
+			Ubication ubication = new Ubication();
+			ubication.setLat(lat);
+			ubication.setLongitud(longitud);
+			ubicationRepository.create(ubication);
+			Provider provider = new Provider();
+			provider.setUbication(ubication);
+		} catch (Exception e) {
+			//TODO: handle exception
+		}
 		return super.create(name, mail, password, avatar, new Provider());
 	}
 
