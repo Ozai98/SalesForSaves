@@ -39,7 +39,7 @@ public class ProductControllerTest {
         defaultProduct.setSaved(23);
 
         ProviderController provController = new ProviderController();
-        int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", null).classX.getId();
+        int id = provController.create("Tst prov", "TestMailProv@test.com", "0000", null, 0.0,0.0).classX.getId();
 
         Response<Product> res = controller.create(defaultProduct.getName(), defaultProduct.getPrice(), id,
                 null, defaultProduct.getQuantity(), defaultProduct.getTimeLimit(), null, defaultProduct.getSaved());
