@@ -2,6 +2,7 @@ C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEn
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Client.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\services\FileSystem.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\User.java
+C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Messages.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\services\upload.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\ClientController.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\ProviderController.java
@@ -21,8 +22,10 @@ C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEn
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Historic.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\GeneralController.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Provider.java
+C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\MessagesRepository.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Product.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\RateController.java
+C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\MessagesController.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\services\Services.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\RateRepositoryDao.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\Response.java
@@ -33,4 +36,5 @@ C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEn
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Comments.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\CommentController.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\controllers\UserController.java
+C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\MessagesRepositoryDao.java
 C:\Users\alvad\CodingProjects\salesforsaves\Back-End\Server\SavesForSales-BackEnd\src\main\java\com\example\demo\database\models\Ubication.java

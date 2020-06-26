@@ -5,7 +5,7 @@ Costillas
 Costillasimg.jpg
 9
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 CERDO
 Pechuga
 6000
@@ -14,7 +14,7 @@ Pechuga
 Pechugaimg.jpg
 10
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 POLLO
 Lentejas
 2000
@@ -23,7 +23,7 @@ Lentejas
 Lentejasimg.jpg
 7
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 GRANOS
 Frijoles
 1500
@@ -32,7 +32,7 @@ Frijoles
 Frijolesimg.jpg
 17
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 GRANOS
 Banano
 200
@@ -41,7 +41,7 @@ Banano
 Bananoimg.jpg
 3
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 FRUTAS
 Papaya
 500
@@ -50,7 +50,7 @@ Papaya
 Papayaimg.jpg
 9
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 FRUTAS
 Fresa
 200
@@ -59,7 +59,7 @@ Fresa
 Fresaimg.jpg
 16
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 FRUTAS
 Caldo de pescado
 500
@@ -68,7 +68,7 @@ Caldo de pescado
 Caldo de pescadoimg.jpg
 7
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 PESCADO
 Trucha frita
 2000
@@ -77,7 +77,7 @@ Trucha frita
 Trucha fritaimg.jpg
 14
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 PESCADO
 Cebolla
 300
@@ -86,7 +86,7 @@ Cebolla
 Cebollaimg.jpg
 12
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 VERDURAS
 Arveja
 300
@@ -95,7 +95,7 @@ Arveja
 Arvejaimg.jpg
 19
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 VERDURAS
 Pan Frances
 500
@@ -104,7 +104,7 @@ Pan Frances
 Pan Francesimg.jpg
 19
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 HARINAS
 Brazo de Reina
 2000
@@ -113,7 +113,7 @@ Brazo de Reina
 Brazo de Reinaimg.jpg
 0
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 POSTRES
 CAFE CAFETERITO
 500
@@ -122,5 +122,5 @@ CAFE CAFETERITO
 CAFE CAFETERITOimg.jpg
 9
 2020-05-22 22:32:00
-2020-06-22 00:00:00
+2020-07-22 00:00:00
 BEBIDAS

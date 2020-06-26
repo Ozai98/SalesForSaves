@@ -29,8 +29,8 @@ export default {
       this.dataProd = [];
       request.searchProduct(query, (data) => {
         if (data.ok) {
-          console.log(data.classX);
           for (const prod of data.classX) {
+            console.log("hace for");
             this.dataProd.push({
               time: new Date(prod.publicationDate),
               price: prod.price,

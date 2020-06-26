@@ -65,7 +65,7 @@ function loginClient(mail, password, callback) {
   );
 }
 
-function createClient(name, mail, password,ubication, avatar, callback) {
+function createClient(name, mail, password, ubication, avatar, callback) {
   generalRequest(
     "/user/create",
     { name, mail, password, avatar },
@@ -119,9 +119,9 @@ function loginProvider(mail, password, callback) {
   );
 }
 
-function createProvider(name, mail, password,ubication, avatar, callback) {
-  lat=ubication.lat;
-  longitud=ubication.lng;
+function createProvider(name, mail, password, ubication, avatar, callback) {
+  lat = ubication.lat;
+  longitud = ubication.lng;
   generalRequest(
     "/provider/create",
     { name, mail, password, avatar, lat, longitud },
@@ -142,12 +142,16 @@ function getProviderById(id, callback) {
 }
 
 // Los parametros que recive son opcionales. Solo envien los valores a actualizar
-function updateProvider(id, name, password, ubication, avatar, callback) {
+function updateProvider(id, name, password, avatar, ubication, callback) {
+  console.log(id, name, password, ubication, avatar);
   var body = { id };
   if (name) body.name = name;
   if (password) body.password = password;
   if (avatar) body.avatar = avatar;
-  if (ubication) body.lat = ubication.lat; body.longitud=ubication.lng
+  if (ubication) {
+    body.lat = ubication.lat;
+    body.longitud = ubication.lng;
+  }
   generalRequest("/provider/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
@@ -323,29 +327,25 @@ function getRate(idProvider, callback) {
 //----------------------COMENTARIOS----------------------------------
 //-------------------------------------------------------------------
 
-function getComments(id,callback){
- 
+function getComments(id, callback) {
   generalRequest(
-    "/Comment/search/"+ id,
+    "/Comment/search/" + id,
     undefined,
     REQUEST_TYPES.GET,
     undefined,
     callback
   );
-  
 }
 
-function setComment(idProvider,idUser,comment,callback){
+function setComment(idProvider, idUser, comment, callback) {
   generalRequest(
     "/Comment/create",
-    {idUser,idProvider, comment},
+    { idUser, idProvider, comment },
     REQUEST_TYPES.POST,
     undefined,
     callback
   );
-
 }
-
 
 //-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------
@@ -397,5 +397,5 @@ module.exports = {
   addRate,
   getRate,
   getComments,
-  setComment
+  setComment,
 };
