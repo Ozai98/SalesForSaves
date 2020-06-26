@@ -13,6 +13,7 @@
 import Product from "@/components/Product.vue";
 import request from "@/services/request.service.js";
 import CategorySearch from "@/components/CategorySearch.vue";
+import { timeSince } from "@/services/dateServices.js";
 export default {
   data() {
     return {
@@ -32,7 +33,7 @@ export default {
           for (const prod of data.classX) {
             console.log("hace for");
             this.dataProd.push({
-              time: new Date(prod.publicationDate),
+              time: timeSince(prod.publicationDate),
               price: prod.price,
               name: prod.name,
               leftUnits: prod.quantity,

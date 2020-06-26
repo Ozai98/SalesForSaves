@@ -6,13 +6,11 @@
         <img :src="getImage()" class="pictureR" />
       </div>
       <div class="cardBodyR base-border">
-        <p class="priceR">$ {{ preview.price }}/kg</p>
-        <p class="nameR body-text desc">{{ preview.name }}</p>
-        <p class="quantityR">Quedan {{ preview.quantity }} unidades</p>
-        <p class="saveR">Ahorras $ {{ preview.save }}/kg</p>
+        <h1 class="nameR">{{ preview.name }}</h1>
+        <h1 class="priceR">$ {{ preview.price }}/kg</h1>
+        <h3 class="dates desc">{{ preview.publicationDate }}</h3>
+        <h3 class="dates desc">{{ preview.finishDate }}</h3>
       </div>
-    </div>
-    <div class="contenedorR">
       <div class="seeMap">
         <center>
           UBICA EL NEGOCIO !
@@ -24,30 +22,35 @@
           />
         </center>
       </div>
-      <div class="calculatorR">
+    </div>
+    <div class="contenedorR">
+      <div class="providerBox">
         <p class="storeR">{{ preview.provider }}</p>
         <span class="calification" v-html="this.showStarts(this.rate)"></span>
-        <p class="tittleCalculatorR">COTIZA Y RESERVA !</p>
-        <label class="inputR">CANTIDAD:</label>
+      </div>
+      <div class="calculatorR">
+        <div>
+          <label class="inputR">Ahorras ${{ preview.save * to_buy }}</label>
+        </div>
         <input v-model="to_buy" type="number" class="inputR" min="0" />
         <div>
-          <label class="inputR">PRECIO FINAL:</label>
-          <label class="inputR">${{ preview.price * to_buy }}</label>
+          <label class="inputR">Pagas ${{ preview.price * to_buy }}</label>
         </div>
+
         <div>
-          <label class="inputR">AHORRO FINAL:</label>
-          <label class="inputR">${{ preview.save * to_buy }}</label>
-        </div>
-        <div id="bot2">
-          <button class="button-baseR" type="button" v-on:click="book()">
+          <button
+            class="button-baseR soft-el"
+            type="button"
+            v-on:click="book()"
+          >
             RESERVAR
           </button>
         </div>
-        <div>
+        <!-- <div>
           <button class="button-baseR" type="button" v-on:click="comments()">
             COMENTAR
           </button>
-        </div>
+        </div> -->
       </div>
     </div>
 
@@ -80,6 +83,8 @@ import ModalComponent from "@/components/ModalComponent.vue";
 import Comments from "../components/comments";
 import Vue from "vue";
 import alert from "vue-simple-alert";
+import { timeSince, timeTil } from "@/services/dateServices.js";
+
 Vue.use(alert);
 export default {
   name: "SellProduct",
@@ -97,6 +102,8 @@ export default {
         id: null,
         image: "",
         save: 0,
+        publicationDate: "",
+        finishDate: "",
       },
     };
   },
@@ -119,6 +126,8 @@ export default {
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
+          this.preview.publicationDate = timeSince(data.classX.publicationDate);
+          this.preview.finishDate = timeTil(data.classX.timeLimit);
           console.log(
             data.classX.provider.ubication.lat +
               " " +
@@ -206,9 +215,8 @@ export default {
   background-color: white;
 }
 .summaryR {
+  position: relative;
   border-radius: 15px;
-  box-sizing: border-box;
-  display: block;
   max-height: 30vw;
   max-width: 100vw;
 }
@@ -223,53 +231,89 @@ export default {
   vertical-align: middle;
 }
 .cardBodyR {
-  display: inline-grid;
+  position: relative;
+  text-align: left;
   margin-top: 5vh;
   border-radius: 1vw 0 0 1vw;
   float: right;
-  width: 50vw;
-  height: 12vw;
+  width: 56.5vw;
+  height: 14.5vw;
   font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
+}
+.cardBodyR * {
+  margin-left: 1vw;
+}
+.nameR {
+  font-family: "Oswald", sans-serif;
+  font-size: 2.5vw;
+  font-weight: 700;
+  margin-left: 1vw;
+  margin-top: 0.4vw;
+  max-width: 50vw;
+}
+.priceR {
+  font-family: "Oswald", sans-serif;
+  font-size: 3.7vw;
+  font-weight: 700;
+  margin-left: 1vw;
+  color: #ff8e43;
 }
 .pictureR {
   height: 80vh;
   width: auto;
   margin-left: -20vw;
 }
+.dates {
+  font-size: 1vw;
+  font-weight: normal;
+}
+.seeMap {
+  position: absolute;
+  height: 21vw;
+  width: 18vw;
+  top: 18vw;
+  left: 42.8vw;
+  align-content: center;
+  align-items: center;
+}
+.mapa {
+  position: inherit;
+  height: 21vw;
+  width: 18vw;
+  border: solid 1px;
+  border-color: #ff8e43;
+  border-radius: 1vw;
+}
+.contenedorR {
+  width: 20vw;
+  height: 40%;
+  float: right;
+}
 
-.priceR {
-  grid-row: 1;
-  grid-column: 1;
-  font-size: 3vw;
-  font-family: "Oswald", sans-serif;
-  font-weight: 700;
-  color: #ff8e43;
-  text-align: left;
-  margin: 1vw;
+.providerBox {
+  border: 1px solid #ff8e43;
+  border-radius: 1vw 1vw 1vw 0;
+  position: absolute;
+  top: 22.9vw;
+  left: 63vw;
+  max-width: 18vw;
 }
+.calculatorR {
+  border: 1px solid #ff8e43;
+  position: absolute;
+  left: 63vw;
+  top: 32vw;
+  max-width: 18vw;
+  height: 12vw;
+  min-width: 16vw;
+  float: right;
+}
+
 .storeR {
-  grid-row: 3;
-  font-size: 2vw;
-  margin-top: 2vw;
-}
-.providerR {
-  grid-row: 3;
-  font-weight: lighter;
-  font-size: 2vw;
-  margin-top: 2vw;
-  text-align: right;
-}
-.nameR {
-  text-align: left;
-  grid-row: 1;
-  grid-column: 2;
-  margin: 1vw;
-  font-size: 2vw;
-  float: left;
+  font-size: 3vw;
+  font-weight: 700;
 }
 .quantityR {
-  grid-row: 2;
-  grid-column: 2;
   text-align: right;
   font-size: 0.8vw;
 }
@@ -284,22 +328,16 @@ export default {
   margin: 1vw;
 }
 .calification {
-  grid-row: 6;
-  grid-column: 2;
   font-size: 2.5vw;
   font-weight: bold;
-  text-align: right;
   margin: 1vw;
 }
 .inputR {
-  font-size: 2vw;
-  margin: 2vw;
+  font-size: 1vw;
+  margin: 1vw;
+  border: 1px;
 }
-.calculatorR {
-  width: 55vw;
-  height: auto;
-  float: right;
-}
+
 .button-baseR {
   background-color: #a1ffca;
   color: #ff8e43;
@@ -310,7 +348,6 @@ export default {
   cursor: pointer;
   font-size: 3vw;
   font-family: "Oswald", sans-serif;
-  margin: 3vw 0 0.5vw 0;
   font-weight: bold;
 }
 .button-commR {

@@ -2,7 +2,7 @@
   <div class="card" @click="jumpBookings(product.id)">
     <img :src="getImage()" class="picture" />
     <div class="card-body">
-      <p id="time">Hace {{ getSinceDate() }} días</p>
+      <p id="time">{{ product.time }}</p>
       <h5 class="price">${{ product.price }}/kg</h5>
       <h5 id="name">{{ product.name }}</h5>
       <h6>Quedan {{ product.leftUnits }} unidades</h6>
@@ -12,10 +12,11 @@
 
 <script>
 import request from "@/services/request.service.js";
+import { timeSince } from "@/services/dateServices.js";
 export default {
   props: {
     product: {
-      time: Date,
+      time: "",
       price: Number,
       name: String,
       leftUnits: Number,
@@ -29,13 +30,11 @@ export default {
       this.$router.push({ name: "Bookings", params: { id: id2 } });
     },
     getSinceDate() {
-      let current = new Date();
-      let diff = current - this.product.time;
-      let days = diff / (1000 * 3600 * 24);
-      return Math.floor(days);
+      since = dateSince(this.product.time);
+      return since;
     },
     getImage() {
-      return 'data:image/jpeg;base64,' + this.product.image;
+      return "data:image/jpeg;base64," + this.product.image;
     },
   },
 };
