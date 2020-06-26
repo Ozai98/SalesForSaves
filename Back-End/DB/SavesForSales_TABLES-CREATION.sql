@@ -154,6 +154,28 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Ubication` (
 ENGINE = InnoDB;
 
 
+
+-- -----------------------------------------------------
+-- Table `SavesForSales`.`Messages`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `SavesForSales`.`Messages` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `user` INT NOT NULL,
+  `provider` INT NOT NULL,
+  `timeSend` DATETIME NOT NULL,
+  `content` VARCHAR(120) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `usrMessfk1`
+    FOREIGN KEY (`user`)
+    REFERENCES `SavesForSales`.`User` (`id`)
+    ON DELETE CASCADE,
+  CONSTRAINT `prvMessfk1`
+    FOREIGN KEY (`provider`)
+    REFERENCES `SavesForSales`.`Provider` (`id`)
+    ON DELETE CASCADE)
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

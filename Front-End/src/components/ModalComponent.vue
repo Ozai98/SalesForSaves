@@ -1,14 +1,17 @@
 <template>
   <transition name="fade">
     <div class="modal" v-if="show">
+      
       <div class="modal__backdrop" @click="closeModal()" />
-
+          
       <div class="modal__dialog">
         <div class="modal__header">
-          <slot name="header" />
+          
           <button type="button" class="modal__close" @click="closeModal()">
             <img src="@/assets/imgs/close.svg" alt="" />
           </button>
+
+          <slot name="header" />
         </div>
 
         <div class="modal__body">
@@ -29,8 +32,9 @@ export default {
   data() {
     return {
       show: false,
+      tittle:''
     };
-    props['tittle']
+    
   },
   methods: {
     closeModal() {
@@ -72,7 +76,7 @@ export default {
     background-color: #ffffff;
     position: relative;
     width: 600px;
-    margin: 8vw auto;
+    margin: 6vw auto;
     display: grid;
     //max-height: 560px;
     border-radius: 1vw;
@@ -90,11 +94,13 @@ export default {
     justify-self: center;
     cursor: pointer;
     background-color: white;
+    float:right;
   }
   &__header {
     grid-row: 1;
     justify-self: end;
     padding: 20px 20px 10px;
+    width: 560px;
   }
   
   &__body {
@@ -105,7 +111,6 @@ export default {
   }
   &__footer {
     padding: 10px 20px 20px;
-    //height: 5vw;
   }
 }
 

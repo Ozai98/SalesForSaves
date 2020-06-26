@@ -5,8 +5,8 @@ const configMapa = {
     gestureHandling: "cooperative",
     mapTypeControl: false,
     zoom: 7,
-    minZoom: 3,
-    maxZoom: 16
+    minZoom: 1,
+    maxZoom: 20
   };
    
   export { configMapa};

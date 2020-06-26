@@ -78,9 +78,23 @@ export default {
         avatar: Object,
       },
       isProvider: false,
+      ubc:{
+        lat:4,
+        lng:-72
+      },
     };
   },
   methods: {
+    mapa(){
+      const that=this;
+      if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {  
+              that.ubc.lat= position.coords.latitude,
+              that.ubc.lng= position.coords.longitude         
+          }
+          );
+        }
+    },
     onFileSelected(event) {
       this.newUser.avatar = event.target.files[0];
     },
@@ -92,6 +106,7 @@ export default {
         this.newUser.name != ""
       ) {
         console.log(this.newUser);
+        console.log(this.ubc);
         if (this.newUser.password == this.newUser.password2) {
           let fun_request;
           if (this.isProvider) {
@@ -103,6 +118,7 @@ export default {
             this.newUser.name,
             this.newUser.mail,
             this.newUser.password,
+            this.ubc,
             this.newUser.avatar,
             (data) => {
               if (data.ok) {
@@ -139,6 +155,9 @@ export default {
       }
     },
   },
+  mounted(){
+    this.mapa()
+  }
 };
 </script>
 

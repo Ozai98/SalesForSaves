@@ -15,8 +15,8 @@
     <div class="contenedorR">
       <div class="seeMap">
         <center>
-          UBICA EL NEGOCIO !
-          <Map />
+        UBICA EL NEGOCIO !
+        <Map class="mapa2" v-bind:id="0" v-bind:pos="pos" v-if="pos.lat!=null"/>
         </center>
       </div>
       <div class="calculatorR">
@@ -45,7 +45,12 @@
         </div>
       </div>
     </div>
-    <ModalComponent ref="modalComments">
+
+
+    <ModalComponent ref="modalComments" >
+      <template v-slot:header>
+        <div class="tittleModal " >COMENTARIOS</div>
+      </template>
       <template v-slot:body>
         <Comments
           ref="comm"
@@ -76,9 +81,10 @@ export default {
   name: "SellProduct",
   data() {
     return {
-      rate: 0,
-      to_buy: 0,
-      idProvider: 0,
+      rate:0,
+      pos:{lat:null ,lng: null},
+      to_buy:0 ,
+      idProvider:0,
       preview: {
         quantity: 0,
         price: 0,
@@ -109,9 +115,15 @@ export default {
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
-          request.getRate(data.classX.provider.id, (data) => {
-            if (data.ok) {
-              this.rate = Math.floor(data.classX.rate);
+          console.log(data.classX.provider.ubication.lat+' '+data.classX.provider.ubication.longitud);
+          console.log(this.pos.lat+''+this.pos.lng)
+          this.pos.lat=data.classX.provider.ubication.lat;
+          this.pos.lng=data.classX.provider.ubication.longitud;
+          console.log(this.pos.lat+''+this.pos.lng)
+          request.getRate(data.classX.provider.id,(data) => {
+          
+           if(data.ok){
+              this.rate=Math.floor(data.classX.rate);
             }
           });
         }
@@ -326,15 +338,22 @@ export default {
   align-content: center;
   align-items: center;
 }
-.mapa {
-  height: 30vw;
-  width: 46vw;
-  margin: 1.5vw 1.5vw 1.5vw 1.5vw;
-  border: solid 0.3vw;
-  border-color: black;
-  border-radius: 0.2vw;
-}
-.comments {
-  height: 450px;
-}
+.mapa2 {
+    height: 30vw;
+    width: 46vw;
+    margin: 1.5vw 1.5vw 1.5vw 1.5vw;
+    border: solid 0.3vw;
+    border-color: black;
+    border-radius: 0.2vw;
+  }
+  .comments {
+    max-height: 450px;
+  }
+  .tittleModal{
+
+  text-align: center;
+  font-weight: lighter;
+  font-size: 2vw;
+  margin-top: 2vw;
+  }
 </style>

@@ -2,8 +2,6 @@ package com.example.demo.controllers;
 
 import java.util.List;
 
-import javax.annotation.PostConstruct;
-
 import com.example.demo.database.ClientRepository;
 import com.example.demo.database.CommentsRepository;
 import com.example.demo.database.RepositoryController;

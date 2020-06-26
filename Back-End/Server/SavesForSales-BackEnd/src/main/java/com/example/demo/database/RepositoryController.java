@@ -9,6 +9,7 @@ import com.example.demo.database.models.Provider;
 import com.example.demo.database.models.Ubication;
 import com.example.demo.database.models.User;
 
+
 /**
  *
  * @author German le yo
@@ -21,6 +22,7 @@ public final class RepositoryController {
     private static HistoricRepository Historic;
     private static CommentsRepository Comments;
     private static Repository<Ubication> Ubication;
+    private static MessagesRepository Messages;
     
     public static void setDaoClases(){
         setUser(new UserRepositoryDao());
@@ -29,6 +31,7 @@ public final class RepositoryController {
         setHistoric(new HistoricRepositoryDao());
         setUbication(new UbicationRepositoryDao());
         setComments(new CommentRepositoryDao());
+        setMessages(new MessagesRepositoryDao());
     }
     
     public static ClientRepository<User> User(){
@@ -49,7 +52,13 @@ public final class RepositoryController {
     public static Repository<Ubication> Ubication(){
         return Ubication;
     }
+    public static MessagesRepository Messages(){
+        return Messages;
+    }
 
+    public static void setMessages(MessagesRepository messagesRepository) {
+        Messages = messagesRepository;
+    }
     public static void setUbication(Repository<Ubication> repository){
         Ubication = repository;
     }

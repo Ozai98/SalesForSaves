@@ -34,6 +34,7 @@
         v-model="newUserInfo.password2"
         class="input-el field base-border body-text soft-el2"
       />
+        <Map @cambio2="actualizar($event)" class="mapa2" v-bind:id="1" v-bind:pos="{lat: 4.665713941327049,lng: -74.08367224701064}"/>
 
       <button
         id="saveBtn"
@@ -48,6 +49,7 @@
 
 <script>
 import request from "@/services/request.service.js";
+import Map from "../components/maps/Mapa";
 export default {
   name: "ProfileView",
   props: {
@@ -62,10 +64,18 @@ export default {
         password: "",
         password2: "",
         avatar: null,
+        ubc:null
       },
     };
   },
+  components:{
+    Map
+  },
   methods: {
+    actualizar(item){
+      this.ubc=item;
+      console.log(this.ubc);
+    },
     updateUser() {
       let isProvider = this.$store.getters.returnUser.isProvider;
       let new_name = null,
@@ -97,7 +107,7 @@ export default {
           this.$store.getters.returnUser.id,
           new_name,
           new_pass,
-          null,
+          this.ubc,
           new_avatar,
           callback
         );
@@ -162,4 +172,12 @@ export default {
   background-color: white;
   width: 60%;
 }
+.mapa2 {
+    height: 15vw;
+    width: 25vw;
+    margin: 1.5vw 1.5vw 1.5vw 1.5vw;
+    border: solid 0.3vw;
+    border-color: black;
+    border-radius: 0.2vw;
+  }
 </style>
