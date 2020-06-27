@@ -1,77 +1,78 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <div id="container">
-    <div class="summaryR">
+  <div id="containerB">
+    <div class="productCard">
       <div class="pictureFr base-border">
         <img :src="getImage()" class="pictureR" />
       </div>
-      <div class="cardBodyR base-border">
+      <div class="productInfo">
         <h1 class="nameR">{{ preview.name }}</h1>
         <h1 class="priceR">$ {{ preview.price }}/kg</h1>
         <h3 class="dates desc">{{ preview.publicationDate }}</h3>
         <h3 class="dates desc">{{ preview.finishDate }}</h3>
       </div>
-      <div class="seeMap">
-        <center>
-          UBICA EL NEGOCIO !
-          <Map
-            class="mapa2"
-            v-bind:id="0"
-            v-bind:pos="pos"
-            v-if="pos.lat != null"
-          />
-        </center>
-      </div>
-    </div>
-    <div class="contenedorR">
-      <div class="providerBox">
-        <p class="storeR">{{ preview.provider }}</p>
-        <span class="calification" v-html="this.showStarts(this.rate)"></span>
-      </div>
-      <div class="calculatorR">
-        <div>
-          <label class="inputR">Ahorras ${{ preview.save * to_buy }}</label>
-        </div>
-        <input v-model="to_buy" type="number" class="inputR" min="0" />
-        <div>
-          <label class="inputR">Pagas ${{ preview.price * to_buy }}</label>
-        </div>
-
-        <div>
-          <button
-            class="button-baseR soft-el"
-            type="button"
-            v-on:click="book()"
-          >
-            RESERVAR
-          </button>
-        </div>
-        <!-- <div>
-          <button class="button-baseR" type="button" v-on:click="comments()">
-            COMENTAR
-          </button>
-        </div> -->
-      </div>
-    </div>
-
-    <ModalComponent ref="modalComments">
-      <template v-slot:header>
-        <div class="tittleModal">COMENTARIOS</div>
-      </template>
-      <template v-slot:body>
-        <Comments
-          ref="comm"
-          class="comments"
-          :images="preview.image"
-          :idProvider="idProvider"
+      <div class="mapAndBook">
+        <Map
+          class="mapI"
+          v-bind:id="0"
+          v-bind:pos="pos"
+          v-if="pos.lat != null"
         />
-      </template>
-      <template v-slot:footer>
-        <button class="button-commR" type="button" v-on:click="comments2()">
-          ENVIAR
-        </button>
-      </template>
-    </ModalComponent>
+        <div class="infoBook">
+          <div class="providerBox">
+            <p class="storeR">{{ preview.provider }}</p>
+            <div class="dialogArrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1.5vw"
+                height="1.5vw"
+                viewBox="0 0 50 50"
+              >
+                <path d="M 45 1 L 0 50" stroke="#ff8e43" stroke-width="2" />
+              </svg>
+            </div>
+            <span
+              class="calification"
+              v-html="this.showStarts(this.rate)"
+            ></span>
+          </div>
+          <div class="calculatorR">
+            <div>
+              <label class="saving">AHORRAS ${{ preview.save * to_buy }}</label>
+            </div>
+            <div>
+              <label class="pricing">PAGAS ${{ preview.price * to_buy }}</label>
+            </div>
+            <p class="quantityBuy">
+              Cantidad:
+              <input
+                v-model="to_buy"
+                type="number"
+                class="inputR"
+                min="0"
+                :max="preview.quantity"
+              />
+              ({{ preview.quantity }})
+            </p>
+            <button
+              class="button-baseR soft-el"
+              type="button"
+              v-on:click="book()"
+            >
+              RESERVAR
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="commentsFrame">
+      <Comments
+        ref="comm"
+        class="comments"
+        :images="preview.image"
+        :idProvider="idProvider"
+      />
+    </div>
   </div>
 </template>
 
@@ -191,16 +192,9 @@ export default {
         this.HtmlText += '<label style="color:#ff8e43">★</label>';
       }
       for (let index = 0; index < 5 - rate; index++) {
-        this.HtmlText += '<label style="color: grey">★</label>';
+        this.HtmlText += '<label style="color: #BFBFBF">★</label>';
       }
       return this.HtmlText;
-    },
-    comments() {
-      this.$refs.modalComments.openModal();
-    },
-    comments2() {
-      this.$refs.comm.send();
-      this.$refs.modalComments.closeModal();
     },
   },
   mounted() {
@@ -210,37 +204,43 @@ export default {
 </script>
 
 <style>
-#container {
-  height: 90%;
+#containerB {
+  height: 150vh;
+  display: block;
   background-color: white;
 }
-.summaryR {
-  position: relative;
-  border-radius: 15px;
-  max-height: 30vw;
-  max-width: 100vw;
+.productCard {
+  width: 100%;
+  height: 100vh;
 }
 .pictureFr {
-  margin-top: 10vh;
+  position: absolute;
   margin-left: 10vw;
   overflow: hidden;
-  height: 70vh;
+  height: 80vh;
   float: left;
   border-radius: 1vw;
   max-width: 30vw;
-  vertical-align: middle;
+  bottom: 0;
 }
-.cardBodyR {
-  position: relative;
+.pictureR {
+  height: 80vh;
+  width: auto;
+  margin-left: -20vw;
+}
+.productInfo {
+  position: absolute;
   text-align: left;
   margin-top: 5vh;
   border-radius: 1vw 0 0 1vw;
-  float: right;
+  border: 1px solid #ff8e43;
+  border-right: none;
+  right: 0;
   width: 56.5vw;
   height: 14.5vw;
   font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
 }
-.cardBodyR * {
+.productInfo * {
   margin-left: 1vw;
 }
 .nameR {
@@ -258,97 +258,126 @@ export default {
   margin-left: 1vw;
   color: #ff8e43;
 }
-.pictureR {
-  height: 80vh;
-  width: auto;
-  margin-left: -20vw;
-}
 .dates {
   font-size: 1vw;
   font-weight: normal;
 }
-.seeMap {
+.mapAndBook {
   position: absolute;
-  height: 21vw;
-  width: 18vw;
-  top: 18vw;
-  left: 42.8vw;
-  align-content: center;
-  align-items: center;
+  width: 54%;
+  height: 52%;
+  bottom: 0;
+  right: 0;
 }
-.mapa {
-  position: inherit;
-  height: 21vw;
-  width: 18vw;
+.mapI {
+  overflow: hidden;
+  position: absolute;
+  height: 100%;
+  width: 35%;
   border: solid 1px;
   border-color: #ff8e43;
   border-radius: 1vw;
+  bottom: 0;
 }
-.contenedorR {
-  width: 20vw;
-  height: 40%;
-  float: right;
+.infoBook {
+  position: absolute;
+  left: 38%;
+  top: 0;
+  width: 40%;
+  height: 100%;
 }
-
 .providerBox {
   border: 1px solid #ff8e43;
   border-radius: 1vw 1vw 1vw 0;
   position: absolute;
-  top: 22.9vw;
-  left: 63vw;
-  max-width: 18vw;
+  top: 0;
+  left: 5%;
+  z-index: 1;
 }
-.calculatorR {
-  border: 1px solid #ff8e43;
-  position: absolute;
-  left: 63vw;
-  top: 32vw;
-  max-width: 18vw;
-  height: 12vw;
-  min-width: 16vw;
-  float: right;
-}
-
 .storeR {
-  font-size: 3vw;
+  font-size: 2.5vw;
+  padding: 0 0.5vw 0 0.5vw;
   font-weight: 700;
+  max-width: 30vw;
+  overflow: auto;
 }
-.quantityR {
-  text-align: right;
-  font-size: 0.8vw;
-}
-.saveR {
-  float: left;
-  font-family: "Oswald", sans-serif;
-  font-size: 2vw;
-  font-weight: bold;
-  color: #ff8e43;
-  text-align: left;
-  position: relative;
-  margin: 1vw;
+.dialogArrow {
+  position: absolute;
+  width: 1.5vw;
+  height: 1.5vw;
+  border-bottom: 1px solid #ff8e43;
+  border-right: 1px solid #ffffff;
+  background-color: #ffffff;
+  bottom: -1px;
+  left: -1.4vw;
+  z-index: 10;
 }
 .calification {
   font-size: 2.5vw;
   font-weight: bold;
   margin: 1vw;
 }
+.calculatorR {
+  position: absolute;
+  bottom: 15%;
+  width: auto;
+  max-width: 40vw;
+  height: 50%;
+  min-width: 16vw;
+  bottom: 1vw;
+  margin-left: 1vw;
+}
+.saving {
+  font-size: 2vw;
+  font-weight: 700;
+  color: #bfbfbf;
+  padding: 0 1vw;
+}
+.pricing {
+  font-size: 2vw;
+  font-weight: 700;
+  color: #ff8e43;
+  padding: 0 1vw;
+}
+.quantityBuy {
+  padding: 1vw;
+  font-family: "Verdana", sans-serif;
+  color: #888;
+}
 .inputR {
   font-size: 1vw;
-  margin: 1vw;
-  border: 1px;
+  width: 5vw;
+  border-radius: 0.5vw;
+  border: 3px solid #bfbfbf;
+  outline: none;
+  color: #bfbfbf;
 }
-
 .button-baseR {
   background-color: #a1ffca;
   color: #ff8e43;
-  width: 15vw;
-  height: 5vw;
-  border-radius: 16px;
+  width: 100%;
+  height: 30%;
+  border-radius: 0.5vw;
   padding: 0 0.2vw;
   cursor: pointer;
-  font-size: 3vw;
+  font-size: 2.5vw;
   font-family: "Oswald", sans-serif;
   font-weight: bold;
+}
+
+.commentsFrame {
+  margin: auto;
+  width: 80vw;
+  height: 20vw;
+  background-color: #a1ffca;
+}
+.tittleModal {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 2vw;
+  margin-top: 2vw;
+}
+.comments {
 }
 .button-commR {
   background-color: white;
@@ -362,41 +391,5 @@ export default {
   font-family: "Oswald", sans-serif;
   margin: 0.5vw 0 0.5vw 0;
   font-weight: bold;
-}
-.contenedorR {
-  width: 100%;
-  height: 40%;
-  display: flex;
-}
-.tittleCalculatorR {
-  font-size: 3vw;
-  color: #ff8e43;
-  font-family: "Oswald", sans-serif;
-}
-.seeMap {
-  height: 40vw;
-  width: 50vw;
-  font-size: 3vw;
-  color: #ff8e43;
-  font-family: "Oswald", sans-serif;
-  align-content: center;
-  align-items: center;
-}
-.mapa2 {
-  height: 30vw;
-  width: 46vw;
-  margin: 1.5vw 1.5vw 1.5vw 1.5vw;
-  border: solid 0.3vw;
-  border-color: black;
-  border-radius: 0.2vw;
-}
-.comments {
-  max-height: 450px;
-}
-.tittleModal {
-  text-align: center;
-  font-weight: lighter;
-  font-size: 2vw;
-  margin-top: 2vw;
 }
 </style>
