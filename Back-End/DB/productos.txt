@@ -4,123 +4,267 @@ Costillas
 1
 Costillasimg.jpg
 9
-2020-05-22 22:32:00
-2020-07-22 00:00:00
+2020-06-12 20:00:00
+2020-08-12 12:00:00
 CERDO
-Pechuga
-6000
-20
-1
-Pechugaimg.jpg
+Arroz
+3940
+100
+5
+Arrozimg.jpg
 10
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-POLLO
-Lentejas
-2000
-20
-2
-Lentejasimg.jpg
-7
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-GRANOS
-Frijoles
-1500
-20
-2
-Frijolesimg.jpg
-17
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-GRANOS
-Banano
-200
-20
-3
-Bananoimg.jpg
-3
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-FRUTAS
-Papaya
-500
-20
-3
-Papayaimg.jpg
-9
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-FRUTAS
-Fresa
-200
-20
-3
-Fresaimg.jpg
-16
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-FRUTAS
-Caldo de pescado
-500
-20
-4
-Caldo de pescadoimg.jpg
-7
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-PESCADO
-Trucha frita
-2000
-20
-4
-Trucha fritaimg.jpg
-14
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-PESCADO
-Cebolla
-300
-20
+2020-06-25 20:00:00
+2020-08-12 12:00:00
+Granos
+Pasta para sopa
+6000
+100
 5
-Cebollaimg.jpg
-12
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-VERDURAS
-Arveja
-300
-20
+pastasopaimg.jpg
+1
+2020-06-25 20:00:00
+2020-09-12 12:00:00
+Harinas
+Pasta para seco
+5960
+100
 5
-Arvejaimg.jpg
-19
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-VERDURAS
-Pan Frances
-500
-20
-6
-Pan Francesimg.jpg
-19
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-HARINAS
-Brazo de Reina
-2000
-20
-6
-Brazo de Reinaimg.jpg
+pastasecoimg.jpg
+3
+2020-06-25 20:00:00
+2020-09-12 12:00:00
+Harinas
+Avena hojuelas
+9000
+50
+5
+avenahojuelasimg.jpg
+1
+2020-06-25 20:00:00
+2020-09-12 12:00:00
+Bebidas
+Harina de trigo
+1800
+150
+5
+harinatrigoimg.jpg
+4
+2020-06-25 20:00:00
+2020-09-12 12:00:00
+Harinas
+Harina de maíz
+2900
+100
+5
+harinamaizimg.jpg
+4
+2020-06-25 20:00:00
+2020-09-12 12:00:00
+Harinas
+Harina precocida
+5600
 0
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-POSTRES
-CAFE CAFETERITO
-500
-20
+5
+harinaprecocidaimg.jpg
+4
+2020-06-25 20:00:00
+2020-09-12 12:00:00
+Harinas
+Pan corriente
+6666
+40
 6
-CAFE CAFETERITOimg.jpg
-9
-2020-05-22 22:32:00
-2020-07-22 00:00:00
-BEBIDAS
+pancorrienteimg.jpg
+3
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Harinas
+Galletas dulces
+17291
+100
+6
+galletadulceimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Postres
+Brownie para llevar a casa
+28000
+3000
+6
+brownieimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Postres
+Carne de res sin hueso
+19000
+1000
+1
+carnesinhuesoimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Res
+Carne molida de res
+8600
+1000
+1
+carnemolidaimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Res
+Carne de res con hueso
+2850
+1000
+1
+carneconhueso.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Res
+Carne de cerdo sin hueso
+13800
+200
+1
+carnecerdo.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Cerdo
+Tocino
+22333
+200
+1
+tocinoimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Cerdo
+Pollo entero
+19000
+200
+1
+polloimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Pollo
+Pescado de río
+9000
+200
+4
+pescadorioimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Pescado
+Pescado de mar
+7000
+200
+4
+pescadomarimg.jpg
+6
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Pescado
+Pescado en lata
+26250
+200
+4
+pescadolataimg.jpg
+6
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Pescado
+Yogurt
+9285
+1000
+6
+yogurtimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Bebidas
+Naranjas
+1050
+100
+3
+naranjasimg.jpg
+20
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Frutas
+bananos
+2000
+100
+3
+bananosimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Frutas
+limones
+1857
+100
+3
+limonesimg.jpg
+70
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Frutas
+Fríjol seco
+6800
+300
+5
+frijolseco.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Granos
+Lentejas
+4000
+300
+5
+Lentejasimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Granos
+Garbanzo
+4900
+300
+5
+garabanzoimg.jpg
+1
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Granos
+Cebolla larga
+2333
+300
+5
+cebollalargaimg.jpg
+30
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Verduras
+zanahoria
+2666
+300
+5
+zanahoriaimg.jpg
+60
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Verduras
+Ajo
+11000
+100
+5
+ajoimg.jpg
+5
+2020-06-12 20:00:00
+2020-08-12 12:00:00
+Verduras

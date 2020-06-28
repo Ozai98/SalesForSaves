@@ -42,12 +42,13 @@ public class MessagesController {
 		messagesRepository = RepositoryController.Messages();
 	}
 
-	@GetMapping(value = "/getAll/{id}")
+	@GetMapping(value = "/getAll/{id}/{idReciber}")
 	public Response<Messages[]> getMessages(
-		@PathVariable Integer id
+		@PathVariable Integer id,
+		@PathVariable Integer idReciber
 	){
 		try {
-			List<Messages> listMessages = messagesRepository.searchByInvolved(id);
+			List<Messages> listMessages = messagesRepository.searchByInvolved(id, idReciber);
 			Messages[] getMessages = new Messages[listMessages.size()];
 			int i = 0;
 			for (Messages message : listMessages) {
