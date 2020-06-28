@@ -1,12 +1,17 @@
 <template>
-  <div id="iconFrame" class="base-border circular-frame center-content">
+  <div
+    id="iconFrame"
+    :style="style"
+    class="base-border circular-frame"
+    @click="jump()"
+  >
     <img
       v-if="this.$store.getters.returnLogState"
       id="userIcon"
       :src="getImage()"
-      @click="jumpScreen('ProfileView')"
+      :style="style"
     />
-    <img v-else id="userIcon" src="@/assets/imgs/user.svg" @click="open()" />
+    <img v-else id="userIcon" :style="style" src="@/assets/imgs/user.svg" />
   </div>
 </template>
 
@@ -15,13 +20,33 @@ export default {
   name: "UserIcon",
   props: {
     isLogged: Boolean,
+    frameSize: "",
   },
   methods: {
     open() {
-      this.$emit("login");
+      this.$root.$emit("login");
     },
     getImage() {
       return "data:image/jpeg;base64," + this.$store.getters.returnUser.imgURL;
+    },
+    jump() {
+      if (this.$store.getters.returnLogState) {
+        this.jumpScreen("ProfileView");
+      } else {
+        open();
+      }
+    },
+  },
+  computed: {
+    style() {
+      return (
+        "width: " +
+        Number(this.frameSize) +
+        "vw\n" +
+        "height: " +
+        Number(this.frameSize) +
+        "vw"
+      );
     },
   },
 };
@@ -29,17 +54,13 @@ export default {
 <style scoped>
 #iconFrame {
   background-color: white;
-  position: absolute;
-  width: 2vw;
-  height: 2vw;
-  top: 0.5vw;
-  right: 0.5vw;
+  overflow: hidden;
 }
 #iconFrame:hover {
   cursor: pointer;
 }
 #userIcon {
-  width: 1.2vw;
-  height: 1.2vw;
+  position: relative;
+  top: 3px;
 }
 </style>

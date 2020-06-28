@@ -96,7 +96,7 @@ export default {
         if (data.ok) {
           data.classX.isProvider = isProvider;
           this.$store.dispatch("storeUser", data.classX);
-          this.jumpScreen("ProfileView");
+          this.jumpScreen("Profile");
         } else {
           this.$fire({
             text: "Ocurrió un error al editar el usuario",

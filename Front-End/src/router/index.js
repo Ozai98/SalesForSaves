@@ -12,9 +12,9 @@ const router = new VueRouter({
       component: () => import("@/views/Home.vue"),
     },
     {
-      path: "/History",
-      name: "History",
-      component: () => import("@/views/History.vue"),
+      path: "/Profile",
+      name: "Profile",
+      component: () => import("@/views/ProfileOverview.vue"),
     },
     {
       path: "/ProfileView",

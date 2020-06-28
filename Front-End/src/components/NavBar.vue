@@ -8,10 +8,10 @@
       VENDER
     </p>
     <div id="nav1" v-if="idPage == 'Home'">
-      <UserIcon @login="openLogin()"></UserIcon>
+      <UserIcon class="icon" frameSize="2"></UserIcon>
     </div>
     <div v-else id="nav2">
-      <UserIcon @login="openLogin()"></UserIcon>
+      <UserIcon class="icon" frameSize="2"></UserIcon>
       <img
         class="logo"
         src="@/assets/imgs/pageIcon.svg"
@@ -65,12 +65,12 @@ export default {
   position: absolute;
   margin: 1.4vw 28.5vw;
 }
-
-#nav4 h1 {
+.icon {
   position: absolute;
-  top: 20px;
-  left: 50px;
-  font-size: 40px;
+  top: 0.5vw;
+  right: 0.5vw;
+  width: 2vw;
+  height: 2vw;
 }
 #nav2 h1:hover {
   cursor: pointer;
