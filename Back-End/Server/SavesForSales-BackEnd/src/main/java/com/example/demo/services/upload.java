@@ -16,7 +16,7 @@ public class upload {
 	 */
 	private static final String Images = "\\Test Images\\";
 
-	public static void fillDb(final String[] args) throws Exception {
+	public static void dillDb(final String[] args) throws Exception {
 		// Registering the Driver
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();

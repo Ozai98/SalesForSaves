@@ -34,7 +34,12 @@
         v-model="newUserInfo.password2"
         class="input-el field base-border body-text soft-el2"
       />
-        <Map @cambio2="actualizar($event)" class="mapa2" v-bind:id="1" v-bind:pos="{lat: 4.665713941327049,lng: -74.08367224701064}"/>
+      <Map
+        @cambio2="actualizar($event)"
+        class="mapa2"
+        v-bind:id="1"
+        v-bind:pos="{ lat: 4.665713941327049, lng: -74.08367224701064 }"
+      />
 
       <button
         id="saveBtn"
@@ -64,16 +69,16 @@ export default {
         password: "",
         password2: "",
         avatar: null,
-        ubc:null
+        ubc: null,
       },
     };
   },
-  components:{
-    Map
+  components: {
+    Map,
   },
   methods: {
-    actualizar(item){
-      this.ubc=item;
+    actualizar(item) {
+      this.ubc = item;
       console.log(this.ubc);
     },
     updateUser() {
@@ -122,8 +127,8 @@ export default {
       }
     },
     getImage() {
-      return 'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
-    }, 
+      return "data:image/jpeg;base64," + this.$store.getters.returnUser.imgURL;
+    },
     updateImg(event) {
       this.newUserInfo.avatar = event.target.files[0];
     },
@@ -173,11 +178,11 @@ export default {
   width: 60%;
 }
 .mapa2 {
-    height: 15vw;
-    width: 25vw;
-    margin: 1.5vw 1.5vw 1.5vw 1.5vw;
-    border: solid 0.3vw;
-    border-color: black;
-    border-radius: 0.2vw;
-  }
+  height: 15vw;
+  width: 25vw;
+  margin: 1.5vw 1.5vw 1.5vw 1.5vw;
+  border: solid 0.3vw;
+  border-color: black;
+  border-radius: 0.2vw;
+}
 </style>

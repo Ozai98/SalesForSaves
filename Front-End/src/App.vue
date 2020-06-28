@@ -1,45 +1,38 @@
 <template>
-  <div>
-    <div class="container">
-      <head>
-        <link
-          href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+  <div id="app">
+    <head>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap"
+        rel="stylesheet"
+      />
       <meta
         name="viewport"
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
       />
-      <NavBar
-        :idPage="page"
-        @openLogin2="$refs.modalLogin.openModal()"
-      ></NavBar>
-      <ModalComponent ref="modalLogin">
-        <template v-slot:body>
-          <Login
-            @goToRegister="
-              $refs.modalLogin.closeModal();
-              $refs.modalRegister.openModal();
-            "
-            @closeLogin="$refs.modalLogin.closeModal()"
-          ></Login>
-        </template>
-      </ModalComponent>
-      <ModalComponent ref="modalRegister">
-        <template v-slot:body>
-          <Register
-            @goToLogin="
-              $refs.modalRegister.closeModal();
-              $refs.modalLogin.openModal();
-            "
-          ></Register>
-        </template>
-      </ModalComponent>
-      <div id="app">
-        <router-view />
-      </div>
-    </div>
+    </head>
+    <NavBar :idPage="page" @openLogin2="$refs.modalLogin.openModal()"></NavBar>
+    <router-view />
+    <ModalComponent ref="modalLogin">
+      <template v-slot:body>
+        <Login
+          @goToRegister="
+            $refs.modalLogin.closeModal();
+            $refs.modalRegister.openModal();
+          "
+          @closeLogin="$refs.modalLogin.closeModal()"
+        ></Login>
+      </template>
+    </ModalComponent>
+    <ModalComponent ref="modalRegister">
+      <template v-slot:body>
+        <Register
+          @goToLogin="
+            $refs.modalRegister.closeModal();
+            $refs.modalLogin.openModal();
+          "
+        ></Register>
+      </template>
+    </ModalComponent>
   </div>
 </template>
 
@@ -76,27 +69,20 @@ export default {
   margin: 0;
   padding: 0;
 }
-.container {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background-color: #a1ffca;
-}
 #app {
+  position: absolute;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   font-family: "Oswald", sans-serif;
   height: 100%;
+  width: 100%;
+  bottom: 0;
+  overflow: auto;
   margin: auto;
+  background-color: #a1ffca;
 }
 
-#navBar {
-  top: 0%;
-  left: 0%;
-  height: 5%;
-  width: 5%;
-}
 /*Fuente secundaria*/
 .body-text {
   font-family: Verdana, sans-serif;
@@ -111,6 +97,9 @@ export default {
 /*Hacer circular un elemento*/
 .circular-frame {
   border-radius: 50%;
+}
+NavBar {
+  z-index: 10;
 }
 /*Centrar el contenido del contenedor*/
 .center-content {
@@ -198,7 +187,6 @@ export default {
   margin: 0.5vw 0 0.5vw 0;
   font-weight: bold;
 }
-
 .picFrame {
   border-color: #ff8e43;
   border-width: 1px;
