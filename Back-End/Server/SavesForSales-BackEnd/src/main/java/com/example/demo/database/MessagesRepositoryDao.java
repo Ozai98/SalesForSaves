@@ -36,8 +36,11 @@ public class MessagesRepositoryDao implements MessagesRepository {
 	}
 
 	@Override
-	public List<Messages> searchByInvolved(Integer id) throws SQLException {
-		return messagesDao.queryBuilder().where().eq("user", id).or().eq("provider", id).query();
+	public List<Messages> searchByInvolved(
+		Integer id,
+		Integer idReciber) throws SQLException
+	{
+		return messagesDao.queryBuilder().where().eq("user", id).and().eq("provider", idReciber).or().eq("user", idReciber).and().eq("provider", id).query();
 	}
 	
 }
