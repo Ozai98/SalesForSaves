@@ -50,7 +50,8 @@ export default {
 #navBar {
   height: 10%;
   width: 100%;
-  max-height: 10%;
+  max-height: 100%;
+  background-color: #a1ffca;
 }
 #sellLink {
   position: absolute;

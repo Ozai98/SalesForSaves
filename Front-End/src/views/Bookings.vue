@@ -1,72 +1,79 @@
 /* eslint-disable prettier/prettier */
 <template>
-  <div id="container">
-    <p class="titleR">RESERVA YA!</p>
-    <div class="summaryR">
-      <img :src="getImage()" class="pictureR" />
-      <div class="cardBodyR">
-        <p class="timeR"></p>
-        <p class="nameR">{{ preview.name }}</p>
-        <p class="const1R">PRECIO :</p>
-        <p class="priceR">${{ preview.price }}/kg</p>
-        <p class="const2R">PROVEEDOR :</p>
-        <p class="storeR">{{ preview.provider }}</p>
-        <p class="const3R">CANTIDAD DISPONIBLE :</p>
-        <p class="quantityR">{{ preview.quantity }} UNIDADES</p>
-        <p class="const4R">AHORRO EN EL PRODUCTO :</p>
-        <p class="saveR">${{ preview.save}}/kg</p>
-        <p class="const5R">CALIFICACION DEL PROVEEDOR :</p>
-        <span class="calification" v-html="this.showStarts(this.rate)"></span>
+  <div id="containerB">
+    <div class="productCard">
+      <div class="pictureFr base-border">
+        <img :src="getImage()" class="pictureR" />
       </div>
-    </div>
-    <div class="contenedorR">
-      <div class="seeMap">
-        <center>
-        UBICA EL NEGOCIO !
-        <Map class="mapa2" v-bind:id="0" v-bind:pos="pos" v-if="pos.lat!=null"/>
-        </center>
+      <div class="productInfo">
+        <h1 class="nameR">{{ preview.name }}</h1>
+        <h1 class="priceR">$ {{ preview.price }}/kg</h1>
+        <h3 class="dates desc">{{ preview.publicationDate }}</h3>
+        <h3 class="dates desc">{{ preview.finishDate }}</h3>
       </div>
-      <div class="calculatorR">
-        <p class="tittleCalculatorR"> COTIZA Y RESERVA !</p>
-        <label class="inputR">CANTIDAD:</label>
-        <input v-model="to_buy" type="number" class="inputR" min="0"  />
-        <div>
-          <label class="inputR">PRECIO FINAL:</label>
-          <label class="inputR">${{preview.price * to_buy}}</label>
-        </div>
-        <div>
-          <label class="inputR">AHORRO FINAL:</label>
-          <label class="inputR">${{preview.save * to_buy}}</label>
-        </div>
-        <div id="bot2">
-          <button class="button-baseR" type="button" v-on:click="book()">
+      <div class="mapAndBook">
+        <Map
+          class="mapI"
+          v-bind:id="0"
+          v-bind:pos="pos"
+          v-if="pos.lat != null"
+        />
+        <div class="infoBook">
+          <div class="providerBox">
+            <p class="storeR">{{ preview.provider }}</p>
+            <div class="dialogArrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="1.5vw"
+                height="1.5vw"
+                viewBox="0 0 50 50"
+              >
+                <path d="M 45 1 L 0 50" stroke="#ff8e43" stroke-width="2" />
+              </svg>
+            </div>
+            <span
+              class="calification"
+              v-html="this.showStarts(this.rate)"
+            ></span>
+          </div>
+          <div class="calculatorR">
+            <div>
+              <label class="saving">AHORRAS ${{ preview.save * to_buy }}</label>
+            </div>
+            <div>
+              <label class="pricing">PAGAS ${{ preview.price * to_buy }}</label>
+            </div>
+            <p class="quantityBuy">
+              Cantidad:
+              <input
+                v-model="to_buy"
+                type="number"
+                class="inputR"
+                min="0"
+                :max="preview.quantity"
+              />
+              ({{ preview.quantity }})
+            </p>
+            <button
+              class="button-baseR soft-el"
+              type="button"
+              v-on:click="book()"
+            >
               RESERVAR
             </button>
+          </div>
         </div>
-          <div>
-            <button class="button-baseR" type="button" v-on:click="comments()">
-              COMENTAR
-            </button>
-         </div>   
-        </div>
+      </div>
     </div>
-
-
-    <ModalComponent ref="modalComments" >
-      <template v-slot:header>
-        <div class="tittleModal " >COMENTARIOS</div>
-      </template>
-      <template v-slot:body>
-        <Comments ref="comm" class="comments" :images="preview.image" :idProvider="idProvider"/>
-      </template>
-      <template v-slot:footer>
-        <button class="button-commR" type="button" v-on:click="comments2()">
-              ENVIAR
-        </button>
-      </template>
-    </ModalComponent>
+    <div class="commentsFrame">
+      <Comments
+        ref="comm"
+        class="comments"
+        :images="preview.image"
+        :idProvider="idProvider"
+      />
+    </div>
   </div>
-
 </template>
 
 <script>
@@ -77,15 +84,17 @@ import ModalComponent from "@/components/ModalComponent.vue";
 import Comments from "../components/comments";
 import Vue from "vue";
 import alert from "vue-simple-alert";
+import { timeSince, timeTil } from "@/services/dateServices.js";
+
 Vue.use(alert);
 export default {
   name: "SellProduct",
   data() {
     return {
-      rate:0,
-      pos:{lat:null ,lng: null},
-      to_buy:0 ,
-      idProvider:0,
+      rate: 0,
+      pos: { lat: 4, lng: -72 },
+      to_buy: 0,
+      idProvider: 0,
       preview: {
         quantity: 0,
         price: 0,
@@ -93,38 +102,45 @@ export default {
         provider: "",
         id: null,
         image: "",
-        save:0
+        save: 0,
+        publicationDate: "",
+        finishDate: "",
       },
-
     };
   },
   components: {
     Product,
     Map,
     Comments,
-    ModalComponent 
+    ModalComponent,
   },
   methods: {
     bringFromBackR() {
       request.getProductById(this.$route.params.id, (data) => {
         if (data.ok) {
+          console.log(data.classX);
           this.preview.quantity = data.classX.quantity;
           this.preview.price = data.classX.price;
           this.preview.name = data.classX.name;
           this.preview.provider = data.classX.provider.name;
-          this.idProvider=data.classX.provider.id;
+          this.idProvider = data.classX.provider.id;
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
-          console.log(data.classX.provider.ubication.lat+' '+data.classX.provider.ubication.longitud);
-          console.log(this.pos.lat+''+this.pos.lng)
-          this.pos.lat=data.classX.provider.ubication.lat;
-          this.pos.lng=data.classX.provider.ubication.longitud;
-          console.log(this.pos.lat+''+this.pos.lng)
-          request.getRate(data.classX.provider.id,(data) => {
-          
-           if(data.ok){
-              this.rate=Math.floor(data.classX.rate);
+          this.preview.publicationDate = timeSince(data.classX.publicationDate);
+          this.preview.finishDate = timeTil(data.classX.timeLimit);
+          console.log(
+            data.classX.provider.ubication.lat +
+              " " +
+              data.classX.provider.ubication.longitud
+          );
+          console.log(this.pos.lat + "" + this.pos.lng);
+          this.pos.lat = data.classX.provider.ubication.lat;
+          this.pos.lng = data.classX.provider.ubication.longitud;
+          console.log(this.pos.lat + "" + this.pos.lng);
+          request.getRate(data.classX.provider.id, (data) => {
+            if (data.ok) {
+              this.rate = Math.floor(data.classX.rate);
             }
           });
         }
@@ -168,26 +184,18 @@ export default {
       }
     },
     getImage() {
-      return 'data:image/jpeg;base64,' + this.preview.image;
+      return "data:image/jpeg;base64," + this.preview.image;
     },
-    showStarts(rate){
-      this.HtmlText='';
-        for (let index = 0; index < rate; index++) {
-          this.HtmlText+='<label style="color:#ff8e43">★</label>'
-        }
-        for (let index = 0; index < 5-rate; index++) {
-          this.HtmlText+='<label style="color: grey">★</label>'
-          
-        }
-        return this.HtmlText;
+    showStarts(rate) {
+      this.HtmlText = "";
+      for (let index = 0; index < rate; index++) {
+        this.HtmlText += '<label style="color:#ff8e43">★</label>';
+      }
+      for (let index = 0; index < 5 - rate; index++) {
+        this.HtmlText += '<label style="color: #BFBFBF">★</label>';
+      }
+      return this.HtmlText;
     },
-    comments(){
-      this.$refs.modalComments.openModal();
-    },
-    comments2(){
-      this.$refs.comm.send();
-      this.$refs.modalComments.closeModal();
-    }
   },
   mounted() {
     this.bringFromBackR();
@@ -196,158 +204,183 @@ export default {
 </script>
 
 <style>
-#container {
-  height: 90%;
+#containerB {
+  height: 150vh;
+  display: block;
   background-color: white;
 }
-.titleR {
-  font-family: Oswald;
-  font-size: 70px;
-  margin: 0%;
-  text-align: center;
+.productCard {
+  width: 100%;
+  height: 100vh;
 }
-.summaryR {
-  border: 1px solid #ff8e43;
+.pictureFr {
+  position: absolute;
+  margin-left: 10vw;
   overflow: hidden;
-  border-radius: 15px;
-  box-sizing: border-box;
-  display: block;
-  max-height: 30vw;
-  max-width: 100vw;
-}
-.cardBodyR {
+  height: 80vh;
   float: left;
-  display: grid;
-  padding-left: 1vw;
-  width: 50vw;
-  font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
+  border-radius: 1vw;
+  max-width: 30vw;
+  bottom: 0;
 }
 .pictureR {
-  height: 30vw;
-  float: left;
-  border-top-left-radius: 1vw;
-  border-bottom-left-radius: 1vw;
-  max-width: 100%;
+  height: 80vh;
   width: auto;
-  vertical-align: middle;
-  border-style: none;
+  margin-left: -20vw;
 }
-
-.priceR {
-  grid-row: 2;
-  grid-column: 2;
-  font-size: 3vw;
-  font-weight: bold;
-  color: #ff8e43;
-  text-align: right;
-  margin: 1vw;
+.productInfo {
+  position: absolute;
+  text-align: left;
+  margin-top: 5vh;
+  border-radius: 1vw 0 0 1vw;
+  border: 1px solid #ff8e43;
+  border-right: none;
+  right: 0;
+  width: 56.5vw;
+  height: 14.5vw;
+  font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
 }
-.storeR{
-  grid-row:3 ;
-  font-size: 2vw;
-  margin-top: 2vw;
-}
-.providerR {
-  grid-row: 3;
-  font-weight: lighter;
-  font-size: 2vw;
-  margin-top: 2vw;
-  text-align: right;
+.productInfo * {
+  margin-left: 1vw;
 }
 .nameR {
-  margin: 1vw;
-  grid-column: 1/3;
-  font-weight: lighter;
-  font-size: 3vw;
-  text-align: center;
-  grid-row: 1;
+  font-family: "Oswald", sans-serif;
+  font-size: 2.5vw;
+  font-weight: 700;
+  margin-left: 1vw;
+  margin-top: 0.4vw;
+  max-width: 50vw;
 }
-.quantityR {
-  grid-row: 4;
-  text-align: right;
-  font-weight: lighter;
-  font-size: 2vw;
-  margin-top: 2vw;
-}
-.saveR {
-  grid-row: 5;
-  grid-column: 2;
-  font-size: 2vw;
-  font-weight: bold;
+.priceR {
+  font-family: "Oswald", sans-serif;
+  font-size: 3.7vw;
+  font-weight: 700;
+  margin-left: 1vw;
   color: #ff8e43;
-  text-align: right;
-  margin: 1vw;
 }
-.const1R {
-  grid-row: 2;
-  grid-column: 1;
-  font-size: 3vw;
-  font-weight: bold;
-  color: #ff8e43;
-  text-align: left;
-  margin: 1vw;
+.dates {
+  font-size: 1vw;
+  font-weight: normal;
 }
-.const2R {
-  grid-row: 3;
-  font-weight: lighter;
-  font-size: 2vw;
-  margin-top: 2vw;
-  text-align: left;
-  margin: 1vw;
+.mapAndBook {
+  position: absolute;
+  width: 54%;
+  height: 52%;
+  bottom: 0;
+  right: 0;
 }
-.const3R {
-  grid-row: 4;
-  font-weight: lighter;
-  font-size: 2vw;
-  text-align: left;
-  margin: 1vw;
+.mapI {
+  overflow: hidden;
+  position: absolute;
+  height: 100%;
+  width: 35%;
+  border: solid 1px;
+  border-color: #ff8e43;
+  border-radius: 1vw;
+  bottom: 0;
 }
-.const4R {
-  grid-row: 5;
-  font-weight: lighter;
-  font-size: 1.8vw;
-  text-align: left;
-  margin: 1vw;
+.infoBook {
+  position: absolute;
+  left: 38%;
+  top: 0;
+  width: 40%;
+  height: 100%;
 }
-.const5R {
-  grid-row: 6;
-  font-weight: lighter;
-  font-size: 1.8vw;
-  text-align: left;
-  margin: 1vw;
+.providerBox {
+  border: 1px solid #ff8e43;
+  border-radius: 1vw 1vw 1vw 0;
+  position: absolute;
+  top: 0;
+  left: 5%;
+  z-index: 1;
+}
+.storeR {
+  font-size: 2.5vw;
+  padding: 0 0.5vw 0 0.5vw;
+  font-weight: 700;
+  max-width: 30vw;
+  overflow: auto;
+}
+.dialogArrow {
+  position: absolute;
+  width: 1.5vw;
+  height: 1.5vw;
+  border-bottom: 1px solid #ff8e43;
+  border-right: 1px solid #ffffff;
+  background-color: #ffffff;
+  bottom: -1px;
+  left: -1.4vw;
+  z-index: 10;
 }
 .calification {
-    grid-row: 6;
-  grid-column: 2;
   font-size: 2.5vw;
   font-weight: bold;
-  text-align: right;
   margin: 1vw;
 }
-.inputR {
-  font-size: 2vw;
-  margin: 2vw;
-}
 .calculatorR {
-  width: 55vw;
-  height: auto;
-  float: right;
+  position: absolute;
+  bottom: 15%;
+  width: auto;
+  max-width: 40vw;
+  height: 50%;
+  min-width: 16vw;
+  bottom: 1vw;
+  margin-left: 1vw;
+}
+.saving {
+  font-size: 2vw;
+  font-weight: 700;
+  color: #bfbfbf;
+  padding: 0 1vw;
+}
+.pricing {
+  font-size: 2vw;
+  font-weight: 700;
+  color: #ff8e43;
+  padding: 0 1vw;
+}
+.quantityBuy {
+  padding: 1vw;
+  font-family: "Verdana", sans-serif;
+  color: #888;
+}
+.inputR {
+  font-size: 1vw;
+  width: 5vw;
+  border-radius: 0.5vw;
+  border: 3px solid #bfbfbf;
+  outline: none;
+  color: #bfbfbf;
 }
 .button-baseR {
   background-color: #a1ffca;
   color: #ff8e43;
-  width: 15vw;
-  height: 5vw;
-  border-radius: 16px;
+  width: 100%;
+  height: 30%;
+  border-radius: 0.5vw;
   padding: 0 0.2vw;
   cursor: pointer;
-  font-size: 3vw;
+  font-size: 2.5vw;
   font-family: "Oswald", sans-serif;
-  margin: 3vw 0 0.5vw 0;
   font-weight: bold;
-}  
-.button-commR{
-    background-color: white;
+}
+
+.commentsFrame {
+  margin: auto;
+  width: 80vw;
+  height: 20vw;
+  background-color: #a1ffca;
+}
+.tittleModal {
+  text-align: center;
+  font-weight: lighter;
+  font-size: 2vw;
+  margin-top: 2vw;
+}
+.comments {
+}
+.button-commR {
+  background-color: white;
   color: #ff8e43;
   width: 6vw;
   height: 2vw;
@@ -359,41 +392,4 @@ export default {
   margin: 0.5vw 0 0.5vw 0;
   font-weight: bold;
 }
-.contenedorR{
-  width:100%;
-  height: 40%;
-  display: flex;
-}
-.tittleCalculatorR{
-    font-size: 3vw;
-    color: #ff8e43;
-    font-family: "Oswald", sans-serif;
-}
-.seeMap{
-    height: 40vw;
-    width: 50vw;
-    font-size: 3vw;
-    color: #ff8e43;
-    font-family: "Oswald", sans-serif;
-    align-content: center;
-    align-items: center;
-}
-.mapa2 {
-    height: 30vw;
-    width: 46vw;
-    margin: 1.5vw 1.5vw 1.5vw 1.5vw;
-    border: solid 0.3vw;
-    border-color: black;
-    border-radius: 0.2vw;
-  }
-  .comments {
-    max-height: 450px;
-  }
-  .tittleModal{
-
-  text-align: center;
-  font-weight: lighter;
-  font-size: 2vw;
-  margin-top: 2vw;
-  }
 </style>
