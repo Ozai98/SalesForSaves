@@ -346,7 +346,21 @@ function setComment(idProvider,idUser,comment,callback){
 
 }
 
+//-------------------------------------------------------------------
+//----------------------COMENTARIOS----------------------------------
+//-------------------------------------------------------------------
 
+function getMsg(id,callback){
+ 
+  generalRequest(
+    "/Comment/search/"+ id,
+    undefined,
+    REQUEST_TYPES.GET,
+    undefined,
+    callback
+  );
+  
+}
 //-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------
 //-------------------------------------------------------------------
@@ -397,5 +411,6 @@ module.exports = {
   addRate,
   getRate,
   getComments,
-  setComment
+  setComment,
+  getMsg
 };

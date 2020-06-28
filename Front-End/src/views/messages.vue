@@ -4,8 +4,8 @@
                 QUE ONDAAAAAAA
         </div>
         <div id="contacts">
-                <div id="SubContacts" v-for="i in 20" :key="i">
-                    <img class="imagen" src="@/assets/imgs/user.svg">
+                <div id="SubContacts" v-for="i in dataH" :key="i.name">
+                    <img class="imagen" :src="getImage(i.image)">
                 </div>
         </div>
         <div id=chat>
@@ -17,18 +17,58 @@
                      <label id="mensaje">Hola soy un mensaje</label>  
                 </div>
                 <div class="contenedor" v-if="j%2==1">
-                     <img id="imagen3" src="../assets/imgs/user.svg" >
-                     <p id="user2">USER</p>
+                     <img class="imagen3" src="../assets/imgs/user.svg" >
+                     <p class="user2">USER</p>
                      <p id="hora2">ayer</p>
                      <label id="mensaje2">Hola soy un mensaje</label> 
                 </div>
+                
+            </div>
+            <div class="contenedor" >
+                     <img class="imagen3" src="../assets/imgs/user.svg" >
+                     <p class="user2">USER</p>
+                     <input id="entrada"></input> 
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import request from "@/services/request.service.js";
 export default {
+    data(){
+        return{
+            dataH:Object,
+            id: this.$store.getters.returnUser.id,
+            other:-1
+        }
+    },
+    methods:{
+        Backbb() {
+      this.dataH = [];
+      
+      request.getHistoricbyId(this.id, (data) => {
+        if (data.ok) {
+          for (const hist of data.classX) {
+            this.dataH.push({
+              time: hist.time,
+              price: hist.product.price,
+              name: hist.product.name,
+              provider: hist.product.provider,
+              quantity: hist.quantity,
+              image: hist.product.provider.avatar,
+            });
+          }
+        }
+      });
+    },
+    getImage(image) {
+      return 'data:image/jpeg;base64,' + image;
+    }
+    },
+    mounted(){
+        this.Backbb();
+    }
     
 }
 </script>
@@ -43,10 +83,11 @@ export default {
     font-size: 5vw;
 }
 .imagen{
-    width: 6vw;
-    height: 6vw;
+    width: 7vw;
+    height:7vw;
     border-radius: 3vw;
     margin: 2vw;
+    border: 0.4vw solid #a1ffca;
 }
 #contacts{
     display: flex;
@@ -90,7 +131,7 @@ export default {
     font-size: 3vw;
     vertical-align: center;
 }
-#imagen3{
+.imagen3{
     grid-row: 2;
     grid-column: 3;
     width: 4vw;
@@ -98,7 +139,7 @@ export default {
     justify-self: center;
     margin: 0 0 1vw;
 }
-#user2{
+.user2{
     grid-row: 1;
     grid-column: 3;
     margin: 0 0 1vw;
@@ -119,5 +160,11 @@ export default {
     font-size: 3vw;
     vertical-align: center;
     color: white;
+}
+#entrada{
+    grid-row: 1/3;
+    grid-column: 1/3;
+    margin: 1vw;
+    border-radius: 4vw;
 }
 </style>
