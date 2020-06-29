@@ -20,7 +20,9 @@ public class Messages {
 	@DatabaseField
 	private String content;
 
-	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public void setContent(String content) {
 		this.content = content;
 	}

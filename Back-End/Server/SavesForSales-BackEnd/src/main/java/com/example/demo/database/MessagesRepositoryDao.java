@@ -11,7 +11,7 @@ public class MessagesRepositoryDao implements MessagesRepository {
 	private final Dao<Messages, Integer> messagesDao;
 
 	public MessagesRepositoryDao(){
-		messagesDao = DaoController.getInstance().messagesDao();
+		this.messagesDao = DaoController.getInstance().messagesDao();
 	}
 
 	@Override
@@ -21,7 +21,6 @@ public class MessagesRepositoryDao implements MessagesRepository {
 
 	@Override
 	public Messages getById(int id) throws Exception {
-		
 		return messagesDao.queryForId(id);
 	}
 
