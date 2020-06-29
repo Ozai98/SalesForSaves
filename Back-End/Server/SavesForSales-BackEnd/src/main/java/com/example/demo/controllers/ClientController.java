@@ -116,7 +116,7 @@ public class ClientController<T extends Client> {
             Client response = tryUserLogin(mail, password);
             if(response != null){
                 HashMap exit = new HashMap();
-                exit.put("type", "User");
+                exit.put("isProvider", false);
                 exit.put("client", response);
                 return new Response(true, exit, "Ok");
             }
@@ -124,7 +124,7 @@ public class ClientController<T extends Client> {
             response = tryProviderLogin(mail, password);
             if(response != null){
                 HashMap exit = new HashMap();
-                exit.put("type", "Provider");
+                exit.put("isProvider", true);
                 exit.put("client", response);
                 return new Response(true, exit, "Ok");
             }
