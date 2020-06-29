@@ -11,13 +11,13 @@
         <div id=chat>
             <div id="msg" v-for="j in msg" :key="j.idU.mail" >
                 <div class="contenedor" v-if="j.idU.id==other">
-                     <img id="imagen2" :src="getImage(j.idProv.avatar)" >
-                     <p id="user">{{j.idProv.name}}</p>
+                     <img id="imagen2" :src="getImage(j.idU.avatar)" > 
+                     <p id="user">{{j.idU.name}}</p>
                      <p id="hora">ayer</p>
                      <label id="mensaje">{{j.idm}}</label>  
                 </div>
                 <div class="contenedor" v-if="j.idU.id==id">
-                     <img class="imagen3" :src="getImage(j.idU.avatar)" >
+                     <img class="imagen3" :src="getImage(j.idU.avatar)" > 
                      <p class="user2">{{j.idU.name}}</p>
                      <p id="hora2">ayer</p>
                      <label id="mensaje2">{{j.idm}}</label> 
@@ -41,6 +41,7 @@ export default {
             dataH:Object,
             msg:Object,
             id: this.$store.getters.returnUser.id,
+            state: this.$store.getters.returnUser.isProvider ,
             other:-1,
             m:''
         }
@@ -63,6 +64,24 @@ export default {
           }
         }
       });
+    },
+    BackbbP(){
+        this.dataH=[];
+        request.getbyProv(this.id, (data)=>{
+            if(data.ok){
+                console.log(data.class);
+               for (const hist of data.classX) {
+                 this.dataH.push({
+                  time: hist.time,
+                  price: hist.product.price,
+                  name: hist.product.name,
+                  provider: hist.user.id,
+                  quantity: hist.quantity,
+                  image: hist.user.avatar,
+            }); 
+            }
+            }
+        });
     },
     getmsg(){
         this.msg=[]
@@ -88,8 +107,17 @@ export default {
     },
     setMsg(){
         if(this.other!=-1){
+            var USER,PROV;
+             if(this.state){
+                USER=this.other;
+                PROV=this.id;
+            }
+            else{
+                USER=this.id;
+                PROV=this.other;
+            }
             console.log(this.id+' '+this.other+' '+this.m)
-        request.setMsg(this.id,this.other,this.m, (data)=>{
+        request.setMsg(USER,PROV,this.m, (data)=>{
             if(data.ok){
                 this.getmsg();
                 this.$forceUpdate();
@@ -108,7 +136,12 @@ export default {
     }
     },
     mounted(){
+        if(this.state){
+            this.BackbbP();
+        }
+        else{
         this.Backbb();
+        }
     }
     
 }

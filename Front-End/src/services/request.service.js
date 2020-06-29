@@ -302,9 +302,9 @@ function getReservedProv(idProv, callback) {
   );
 }
 
-function getPurchasedProv(idProv, callback) {
+function getbyProv(idProv, callback) {
   generalRequest(
-    "/historic/get-provider-historic",
+    "/historic/get-provider-reserved",
     { idProv },
     REQUEST_TYPES.POST,
     undefined,
@@ -438,7 +438,8 @@ module.exports = {
   setComment,
   getMsg,
   setMsg,
-  generalLogin
+  generalLogin,
+  getbyProv
 
   }
 
