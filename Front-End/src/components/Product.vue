@@ -29,10 +29,6 @@ export default {
       //this.jumpScreen('Reservas');
       this.$router.push({ name: "Bookings", params: { id: id2 } });
     },
-    getSinceDate() {
-      since = dateSince(this.product.time);
-      return since;
-    },
     getImage() {
       return "data:image/jpeg;base64," + this.product.image;
     },

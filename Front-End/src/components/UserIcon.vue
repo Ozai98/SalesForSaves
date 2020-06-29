@@ -1,12 +1,15 @@
 <template>
-  <div id="iconFrame" class="base-border circular-frame center-content">
+  <div
+    id="iconFrame"
+    class="base-border circular-frame center-content"
+    @click="open()"
+  >
     <img
       v-if="this.$store.getters.returnLogState"
       id="userIcon"
       :src="getImage()"
-      @click="jumpScreen('ProfileView')"
     />
-    <img v-else id="userIcon" src="@/assets/imgs/user.svg" @click="open()" />
+    <img v-else id="userIcon" src="@/assets/imgs/user.svg" />
   </div>
 </template>
 
@@ -18,7 +21,11 @@ export default {
   },
   methods: {
     open() {
-      this.$emit("login");
+      if (this.$store.getters.returnUser.returnLogState) {
+        jumpScreen("ProfileView");
+      } else {
+        this.$root.$emit("login");
+      }
     },
     getImage() {
       return "data:image/jpeg;base64," + this.$store.getters.returnUser.imgURL;
@@ -34,12 +41,13 @@ export default {
   height: 2vw;
   top: 0.5vw;
   right: 0.5vw;
+  overflow: hidden;
 }
 #iconFrame:hover {
   cursor: pointer;
 }
 #userIcon {
-  width: 1.2vw;
-  height: 1.2vw;
+  width: 3vw;
+  height: 3vw;
 }
 </style>

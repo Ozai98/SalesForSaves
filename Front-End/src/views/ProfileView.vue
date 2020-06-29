@@ -45,7 +45,7 @@ export default {
       this.$store.dispatch("resetUser");
     },
     getImage() {
-      return'data:image/jpeg;base64,' + this.$store.getters.returnUser.imgURL;
+      return "data:image/jpeg;base64," + this.$store.getters.returnUser.imgURL;
     },
   },
 };
@@ -58,7 +58,7 @@ export default {
   max-height: 80vh;
   width: 60%;
 }
-.picFrame img { 
+.picFrame img {
   width: auto;
   height: 100%;
 }

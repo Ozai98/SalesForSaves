@@ -1,10 +1,14 @@
 package com.example.demo.controllers;
 
 import com.example.demo.database.ClientRepository;
+import com.example.demo.database.RepositoryController;
 import java.util.List;
 
 import com.example.demo.database.models.Client;
+import com.example.demo.database.models.Provider;
+import com.example.demo.database.models.User;
 import com.example.demo.services.Services;
+import java.util.HashMap;
 import org.springframework.web.multipart.MultipartFile;
 
 public class ClientController<T extends Client> {
@@ -76,6 +80,57 @@ public class ClientController<T extends Client> {
 			return new Response<>(false, null, ex);
 		}
 	}
+        
+        private Client tryUserLogin(String mail, String password){
+            try {
+                List<User> clients = RepositoryController.User().getByEmail(mail);
+                if (clients.isEmpty()) return null;
+
+                User instance = clients.get(0);
+                if (instance.getPassword().compareTo(Services.cryptPassword(password)) != 0)  return null;
+
+                return normalize(instance);
+            } catch (Exception ex) {
+                Services.handleError(ex);
+                return null;
+            }
+        }
+
+        private Client tryProviderLogin(String mail, String password){
+            try {
+                List<Provider> clients = RepositoryController.Provider().getByEmail(mail);
+                if (clients.isEmpty()) return null;
+
+                Provider instance = clients.get(0);
+                if (instance.getPassword().compareTo(Services.cryptPassword(password)) != 0)  return null;
+
+                return normalize(instance);
+            } catch (Exception ex) {
+                Services.handleError(ex);
+                return null;
+            }
+        }
+
+        public Response<HashMap> generalLogin(String mail, String password){
+
+            Client response = tryUserLogin(mail, password);
+            if(response != null){
+                HashMap exit = new HashMap();
+                exit.put("isProvider", false);
+                exit.put("client", response);
+                return new Response(true, exit, "Ok");
+            }
+
+            response = tryProviderLogin(mail, password);
+            if(response != null){
+                HashMap exit = new HashMap();
+                exit.put("isProvider", true);
+                exit.put("client", response);
+                return new Response(true, exit, "Ok");
+            }
+
+            return new Response(false, null, "Client not found");
+        }
 
 	public Response<T> update(String name, String password, MultipartFile avatar, T instance) throws Exception {
 		if (instance == null)

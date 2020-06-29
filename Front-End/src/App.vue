@@ -10,7 +10,7 @@
         content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height"
       />
     </head>
-    <NavBar :idPage="page" @openLogin2="$refs.modalLogin.openModal()"></NavBar>
+    <NavBar :idPage="page"></NavBar>
     <router-view />
     <ModalComponent ref="modalLogin">
       <template v-slot:body>
@@ -60,7 +60,10 @@ export default {
     },
   },
   mounted() {
-    this.$router.replace("home");
+    this.$router.replace("Home");
+    this.$root.$on("login", (query) => {
+      this.$refs.modalLogin.openModal();
+    });
   },
 };
 </script>
@@ -100,6 +103,16 @@ export default {
 }
 NavBar {
   z-index: 10;
+}
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ff8e43;
 }
 /*Centrar el contenido del contenedor*/
 .center-content {

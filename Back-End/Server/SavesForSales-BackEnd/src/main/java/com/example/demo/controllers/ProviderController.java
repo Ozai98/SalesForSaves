@@ -36,7 +36,8 @@ public class ProviderController extends ClientController<Provider> {
 	}
 
 	@PostMapping(value = "/create")
-	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar, Double lat, Double longitud) {
+	public Response<Provider> create(String name, String mail, String password, MultipartFile avatar, Double lat,
+			Double longitud) {
 		Provider provider = new Provider();
 		try {
 			Ubication ubication = new Ubication();
@@ -68,9 +69,12 @@ public class ProviderController extends ClientController<Provider> {
 	}
 
 	@PostMapping(value = "/update")
-	public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, Double lat, Double longitud) {
-		if(id == null) return new Response<>(false, null, "Missing ID");
+	public Response<Provider> updateProvider(Integer id, String name, String password, MultipartFile avatar, Double lat,
+			Double longitud) {
+		if (id == null)
+			return new Response<>(false, null, "Missing ID");
 		try {
+			System.out.println(lat.toString() + longitud.toString());
 			Provider provider = providerRepository.getById(id);
 			ubicationRepository.refresh(provider.getUbication());
 			Ubication ubication = provider.getUbication();

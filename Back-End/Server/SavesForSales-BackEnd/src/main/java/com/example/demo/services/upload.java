@@ -16,7 +16,7 @@ public class upload {
 	 */
 	private static final String Images = "\\Test Images\\";
 
-	public static void dillDb(final String[] args) throws Exception {
+	public static void fillDB(final String[] args) throws Exception {
 		// Registering the Driver
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -52,11 +52,26 @@ public class upload {
 		System.out.println("hi");
 		reader.close();
 
+		//insertar ubicaciones
+		reader = new BufferedReader(new FileReader(directory.concat("\\ubicaciones.txt")));
+		linea = reader.readLine();
+		query = "INSERT INTO Ubication(lat, `long`) VALUES (?, ?)";
+		pstmt = con.prepareStatement(query);
+		while(!(linea == null)) {
+			pstmt.setDouble(1, Double.parseDouble(linea));
+			linea = reader.readLine();
+			pstmt.setDouble(2, Double.parseDouble(linea));
+			linea = reader.readLine();
+			pstmt.execute();
+		}
+		System.out.println("insertado ubicaciones");
+		reader.close();
+
 		// Insert Providers
 		reader = new BufferedReader(new FileReader(directory.concat("\\proveedor.txt")));
 
 		linea = reader.readLine();
-		query = "INSERT INTO Provider(name, mail, password, avatar) VALUES (?, ?, ?, ?)";
+		query = "INSERT INTO Provider(name, mail, password, avatar, ubication) VALUES (?, ?, ?, ?, ?)";
 		pstmt = con.prepareStatement(query);
 		while (!(linea == null)) {
 
@@ -67,6 +82,8 @@ public class upload {
 			pstmt.setString(3, linea);
 			linea = reader.readLine();
 			pstmt.setBinaryStream(4, new FileInputStream(directory.concat(Images.concat(linea))));
+			linea = reader.readLine();
+			pstmt.setInt(5, Integer.parseInt(linea));
 			linea = reader.readLine();
 			pstmt.execute();
 		}
@@ -99,6 +116,10 @@ public class upload {
 			linea = reader.readLine();
 			pstmt.execute();
 		}
+		reader.close();
+
+		
+
 		System.out.println("productos insertados");
 		System.out.println("Records inserted......");
 	}
