@@ -19,7 +19,7 @@
       <button
         id="editBtnH"
         class="button-base accessBtn"
-        @click="jumpScreen('Profile')"
+        @click="jumpScreen('History')"
       >
         HISTORIAL
       </button>

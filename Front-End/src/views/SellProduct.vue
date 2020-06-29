@@ -60,7 +60,9 @@
         id="dateUntil"
       />
       <select v-model="product.category" name="categories" id="categories">
-        <option v-for="category in categories" :key="category">{{ category }}</option>
+        <option v-for="category in categories" :key="category">{{
+          category
+        }}</option>
       </select>
       <button
         type="button"
@@ -95,11 +97,14 @@ export default {
       },
     };
   },
-  components:{
-    Map
+  components: {
+    Map,
   },
   mounted() {
     this.getCategories();
+    document
+      .getElementById("fileInputProd")
+      .addEventListener("change", handleFileSelect, false);
   },
   methods: {
     getCategories() {
@@ -176,6 +181,4 @@ export default {
 .inputIMG > input {
   display: none;
 }
-
-
 </style>

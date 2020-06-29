@@ -69,7 +69,10 @@ export default {
         password: "",
         password2: "",
         avatar: null,
-        ubc: null,
+        ubc: {
+          lat: "",
+          lng: "",
+        },
       },
     };
   },
@@ -78,8 +81,9 @@ export default {
   },
   methods: {
     actualizar(item) {
-      this.ubc = item;
-      console.log(this.ubc);
+      this.newUserInfo.ubc.lat = item.lat;
+      this.newUserInfo.ubc.lng = item.lng;
+      console.log(this.newUserInfo.ubc, "ubicación nueva");
     },
     updateUser() {
       let isProvider = this.$store.getters.returnUser.isProvider;
@@ -96,7 +100,7 @@ export default {
         if (data.ok) {
           data.classX.isProvider = isProvider;
           this.$store.dispatch("storeUser", data.classX);
-          this.jumpScreen("Profile");
+          this.jumpScreen("ProfileView");
         } else {
           this.$fire({
             text: "Ocurrió un error al editar el usuario",
@@ -112,8 +116,8 @@ export default {
           this.$store.getters.returnUser.id,
           new_name,
           new_pass,
-          this.ubc,
           new_avatar,
+          this.newUserInfo.ubc,
           callback
         );
       } else {

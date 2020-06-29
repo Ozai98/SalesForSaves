@@ -62,7 +62,8 @@ export default {
   border-radius: 100%;
 }
 .nombreCl {
-  font-family: verdana, Verdana, Geneva, Tahoma, sans-serif;
+  font-family: "Oswald", sans-serif;
+  padding: 2vw;
   font-size: 2vw;
 }
 </style>
