@@ -75,7 +75,7 @@
 import Map from "../components/maps/Mapa";
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
-import Comments from "../components/Comments.vue";
+import Comments from "@/components/Comments.vue";
 import Vue from "vue";
 import alert from "vue-simple-alert";
 import { timeSince, timeTil } from "@/services/dateServices.js";
@@ -86,7 +86,7 @@ export default {
   data() {
     return {
       rate: 0,
-      pos: { lat: 4, lng: -72 },
+      pos: { lat: null, lng: null },
       to_buy: 0,
       idProvider: 0,
       preview: {
@@ -122,15 +122,8 @@ export default {
           this.preview.save = data.classX.saved;
           this.preview.publicationDate = timeSince(data.classX.publicationDate);
           this.preview.finishDate = timeTil(data.classX.timeLimit);
-          // console.log(
-          //   data.classX.provider.ubication.lat +
-          //     " " +
-          //     data.classX.provider.ubication.longitud
-          // );
-          // console.log(this.pos.lat + "" + this.pos.lng);
           this.pos.lat = data.classX.provider.ubication.lat;
           this.pos.lng = data.classX.provider.ubication.longitud;
-          // console.log(this.pos.lat + "" + this.pos.lng);
           request.getRate(data.classX.provider.id, (data) => {
             if (data.ok) {
               this.rate = Math.floor(data.classX.rate);

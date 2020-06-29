@@ -22,14 +22,7 @@
           class="soft-el body-text input"
         />
       </div>
-      <label for="ProviderCheck" class="body-text desc"
-        >Si eres proveedor dale a la cajita</label
-      >
-      <input
-        type="checkBox"
-        id="providerCheck"
-        @change="userLog.isProvider = !userLog.isProvider"
-      />
+
       <div>
         <button
           type="button"
@@ -77,34 +70,34 @@ export default {
   methods: {
     get_data() {
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
-      let fun_request;
-      if (this.userLog.isProvider) {
-        fun_request = request.loginProvider;
-      } else {
-        fun_request = request.loginClient;
-      }
-      fun_request(this.userLog.username, this.userLog.password, (data) => {
-        if (data.ok) {
-          let builder = {
-            id: data.classX.id,
-            name: data.classX.name,
-            mail: data.classX.mail,
-            avatar: data.classX.avatar,
-            isProvider: this.userLog.isProvider,
-          };
-          this.$store.dispatch("storeUser", builder);
-          this.$store.dispatch("changeLogState");
-          this.$emit("closeLogin");
-        } else {
-          this.$fire({
-            text: "no se reconoce el usuario o la contraseña",
-            titleText: "ERROR LOGUEANDO USUARIO",
-            icon: "error",
-            confirmButtonColor: "#ff8e43",
-            customClass: "swal2-error",
-          });
+      request.generalLogin(
+        this.userLog.username,
+        this.userLog.password,
+        (data) => {
+          if (data.ok) {
+            console.log(data.classX);
+            let builder = {
+              id: data.classX.client.id,
+              name: data.classX.client.name,
+              mail: data.classX.client.mail,
+              avatar: data.classX.client.avatar,
+              isProvider: data.classX.isProvider,
+            };
+            this.$store.dispatch("storeUser", builder);
+            this.$store.dispatch("changeLogState");
+            this.$emit("closeLogin");
+          } else {
+            console.log(data.msg);
+            this.$fire({
+              text: "no se reconoce el usuario o la contraseña",
+              titleText: "ERROR LOGUEANDO USUARIO",
+              icon: "error",
+              confirmButtonColor: "#ff8e43",
+              customClass: "swal2-error",
+            });
+          }
         }
-      });
+      );
     },
     login() {
       if (this.userLog.username != "" && this.userLog.password != "") {
