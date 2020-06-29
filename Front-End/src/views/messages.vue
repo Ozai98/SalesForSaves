@@ -14,21 +14,16 @@
             />
           </div>
         </div>
-        <div id=chat>
-            <div id="msg" v-for="j in msg" :key="j.idU.mail" >
-                <div class="contenedor" v-if="j.idU.id==other">
-                     <img id="imagen2" :src="getImage(j.idU.avatar)" > 
-                     <p id="user">{{j.idU.name}}</p>
-                     <p id="hora">ayer</p>
-                     <label id="mensaje">{{j.idm}}</label>  
-                </div>
-                <div class="contenedor" v-if="j.idU.id==id">
-                     <img class="imagen3" :src="getImage(j.idU.avatar)" > 
-                     <p class="user2">{{j.idU.name}}</p>
-                     <p id="hora2">ayer</p>
-                     <label id="mensaje2">{{j.idm}}</label> 
-                </div>
-                
+      </div>
+
+      <div id="chat">
+        <div id="chatBubble">
+          <div id="msg" v-for="j in msg" :key="j.idU.mail">
+            <div class="contenedor" v-if="j.idU.id == other">
+              <img id="imagen2" :src="getImage(j.idProv.avatar)" />
+              <p id="user">{{ j.idProv.name }}</p>
+              <p id="hora">ayer</p>
+              <label id="mensaje">{{ j.idm }}</label>
             </div>
             <div class="contenedor" v-if="j.idU.id == id">
               <img class="imagen3" :src="getImage(j.idU.avatar)" />
@@ -43,6 +38,7 @@
           <input id="entrada" v-model="m" v-on:keyup.enter="setMsg()" />
         </div>
       </div>
+    </div>
   </div>
 </template>
 
@@ -95,6 +91,7 @@ export default {
             }
             }
         });
+        
     },
     getmsg(){
         this.msg=[]
@@ -169,12 +166,11 @@ export default {
         this.Backbb();
         }
     }
-    }
+}
 }
 </script>
 
 <style scoped>
-
 #all {
   background-color: white;
   font-family: "Oswald", sans-serif;
@@ -308,5 +304,4 @@ export default {
   width: 70%;
   border: none;
 }
-
 </style>

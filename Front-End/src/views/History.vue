@@ -28,7 +28,7 @@
 <script>
 import HistoryProduct from "../components/HistoryProduct.vue";
 import request from "@/services/request.service.js";
-import clf from "../components/Calification.vue";
+import clf from "../components/calification.vue";
 export default {
   data() {
     return {
