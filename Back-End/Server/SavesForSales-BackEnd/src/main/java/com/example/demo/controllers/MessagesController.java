@@ -64,7 +64,8 @@ public class MessagesController {
 	public Response<Messages> createMessages(
 		Integer idUser,
 		Integer idProvider,
-		String content
+		String content,
+		Boolean isProviderBoolean
 	){
 		try {
 			Messages message = new Messages();
@@ -72,6 +73,7 @@ public class MessagesController {
 			message.setProvider(providerRepository.getById(idProvider));
 			message.setContent(content);
 			message.setTimeSend(new Date());
+			message.setSenderProvider(isProviderBoolean);
 			messagesRepository.create(message);
 			return new Response<Messages>(true, message, "el mensaje se creo");
 		} catch (Exception e) {

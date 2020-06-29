@@ -19,6 +19,8 @@ public class Messages {
 	private Date timeSend;
 	@DatabaseField
 	private String content;
+	@DatabaseField
+	private Boolean senderProvider;
 
 	public void setId(int id) {
 		this.id = id;
@@ -35,7 +37,13 @@ public class Messages {
 	public void setTimeSend(java.util.Date date) {
 		this.timeSend = date;
 	}
+	public void setSenderProvider(Boolean senderProvider) {
+		this.senderProvider = senderProvider;
+	}
 
+	public Boolean getSenderProvider() {
+		return senderProvider;
+	}
 	public String getContent() {
 		return content;
 	}

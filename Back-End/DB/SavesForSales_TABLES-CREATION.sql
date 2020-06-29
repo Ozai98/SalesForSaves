@@ -164,6 +164,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Messages` (
   `provider` INT NOT NULL,
   `timeSend` DATETIME NOT NULL,
   `content` VARCHAR(120) NOT NULL,
+  `senderProvider` BOOLEAN NOT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `usrMessfk1`
     FOREIGN KEY (`user`)
