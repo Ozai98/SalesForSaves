@@ -1,6 +1,6 @@
 package com.example.demo.controllers;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import com.example.demo.database.ClientRepository;
