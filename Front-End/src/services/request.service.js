@@ -374,10 +374,10 @@ function getMsg(id,idReciber,callback){
   );
   
 }
-function setMsg( idUser,idProvider, content, callback) {
+function setMsg( idUser,idProvider, content,isProviderBoolean, callback) {
   generalRequest(
     "/messages/create",
-    { idUser,idProvider,content },
+    { idUser,idProvider,content,isProviderBoolean },
     REQUEST_TYPES.POST,
     undefined,
     callback
