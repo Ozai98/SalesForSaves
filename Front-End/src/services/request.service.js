@@ -348,13 +348,13 @@ function setComment(idProvider, idUser, comment, callback) {
 }
 
 //-------------------------------------------------------------------
-//----------------------COMENTARIOS----------------------------------
+//----------------------mensajes----------------------------------
 //-------------------------------------------------------------------
 
-function getMsg(id,callback){
+function getMsg(id,idReciber,callback){
  
   generalRequest(
-    "/Comment/search/"+ id,
+    "/messages/getAll/"+id+'/'+idReciber,
     undefined,
     REQUEST_TYPES.GET,
     undefined,
@@ -362,6 +362,17 @@ function getMsg(id,callback){
   );
   
 }
+function setMsg( idUser,idProvider, content, callback) {
+  generalRequest(
+    "/messages/create",
+    { idUser,idProvider,content },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+
 //-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------
 //-------------------------------------------------------------------
@@ -413,8 +424,6 @@ module.exports = {
   getRate,
   getComments,
   setComment,
-<<<<<<< HEAD
-  getMsg
-=======
->>>>>>> db3fbb1b40568190c55565ddda3c3ea08956c6ea
+  getMsg,
+  setMsg
 };

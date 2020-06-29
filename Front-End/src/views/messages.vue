@@ -5,18 +5,18 @@
         </div>
         <div id="contacts">
                 <div id="SubContacts" v-for="i in dataH" :key="i.name">
-                    <img class="imagen" :src="getImage(i.image)">
+                    <img class="imagen" :src="getImage(i.image)" @click="getProv(i.provider)">
                 </div>
         </div>
         <div id=chat>
-            <div id="msg" v-for="j in 10" :key="j" >
-                <div class="contenedor" v-if="j%2==0">
+            <div id="msg" v-for="j in msg" :key="j.idP" >
+                <div class="contenedor" v-if="j.idU==other">
                      <img id="imagen2" src="../assets/imgs/user.svg" >
                      <p id="user">USER</p>
                      <p id="hora">ayer</p>
                      <label id="mensaje">Hola soy un mensaje</label>  
                 </div>
-                <div class="contenedor" v-if="j%2==1">
+                <div class="contenedor" v-if="j.idU==id">
                      <img class="imagen3" src="../assets/imgs/user.svg" >
                      <p class="user2">USER</p>
                      <p id="hora2">ayer</p>
@@ -27,7 +27,7 @@
             <div class="contenedor" >
                      <img class="imagen3" src="../assets/imgs/user.svg" >
                      <p class="user2">USER</p>
-                     <input id="entrada"></input> 
+                     <input id="entrada" v-model="m" v-on:keyup.enter="setMsg()"/> 
             </div>
         </div>
     </div>
@@ -39,8 +39,10 @@ export default {
     data(){
         return{
             dataH:Object,
+            msg:Object,
             id: this.$store.getters.returnUser.id,
-            other:-1
+            other:-1,
+            m:''
         }
     },
     methods:{
@@ -54,13 +56,45 @@ export default {
               time: hist.time,
               price: hist.product.price,
               name: hist.product.name,
-              provider: hist.product.provider,
+              provider: hist.product.provider.id,
               quantity: hist.quantity,
               image: hist.product.provider.avatar,
             });
           }
         }
       });
+    },
+    getmsg(){
+        this.msg=[]
+        if(this.other!=-1){
+            request.getMsg(this.id,this.other,(data)=>{
+            if (data.ok){
+                for( const M of data.classX){
+                    this.msg.push(
+                        {
+                            idU: M.idUser,
+                            idP: M.idProvider,
+                            idm: M.content
+                        }
+                        )
+                    }
+                }
+            });
+        }
+    },
+    setMsg(){
+        if(this.other!=-1){
+        setMsg(this.id,this.other,this.m, (data)=>{
+            if(data.ok){
+                console.log("pos si")
+            }
+        });
+        }
+    },
+    getProv(provider){
+        this.other=provider;
+        this.getmsg();
+        this.$forceUpdate();
     },
     getImage(image) {
       return 'data:image/jpeg;base64,' + image;
