@@ -439,5 +439,6 @@ module.exports = {
   getMsg,
   setMsg,
   generalLogin
+  
   }
 

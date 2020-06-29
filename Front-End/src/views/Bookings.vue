@@ -75,7 +75,7 @@
 import Map from "../components/maps/Mapa";
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
-import Comments from "@/components/Comments.vue";
+import Comments from "../components/comments";
 import Vue from "vue";
 import alert from "vue-simple-alert";
 import { timeSince, timeTil } from "@/services/dateServices.js";
