@@ -4,49 +4,41 @@
       <h1 id="hTitle" class="highText">¿QUÉ QUIERES VENDER?</h1>
       <div id="productPicFrame" class="base-border center-content inputIMG">
         <label for="fileInputProd">
-          <img src="@/assets/imgs/photo-camera.svg" alt="profile pic" />
+          <img v-if="isUploaded" :src="url" alt="profile pic" />
+          <img v-else src="@/assets/imgs/photo-camera.svg" alt="" />
         </label>
-        <input type="file" id="fileInputProd" @change="onFileSelected" />
+        <input type="file" id="fileInputProd" @change="onFileChange" />
       </div>
       <label class="body-text desc">Nombre</label>
       <div class="input-el prodField base-border body-text">
         <input
           v-model="product.name"
           type="text"
-          class="soft-el spacer input-center"
+          class="inSell soft-el spacer"
         />
       </div>
-      <label class="body-text desc">Cantidad</label>
+      <label class="body-text desc">Cantidad(en kg)</label>
       <div class="input-el prodField base-border body-text">
         <input
           v-model="product.quantity"
           type="number"
-          class="soft-el spacer input-center"
+          class="inSell soft-el spacer"
         />
-        <div class="space"></div>
-        <p class="center-content">kg</p>
       </div>
       <label class="body-text desc">Precio normal en el mercado</label>
       <div class="input-el prodField base-border body-text">
         <input
           v-model="product.NormalPrice"
           type="number"
-          class="soft-el spacer input-center"
+          class="inSell soft-el spacer"
         />
-        <div class="space"></div>
-        <p class="center-content">kg</p>
       </div>
       <label class="body-text desc">Precio por kg</label>
-      <div class="input-el prodField base-border body-text center-content">
-        <p class="center-content">$</p>
-        <div
-          class="space center-content"
-          style="margin: 0 0.5vw 0 0.5vw;"
-        ></div>
+      <div class="input-el prodField base-border body-text">
         <input
+          class="inSell soft-el spacer"
           v-model="product.price"
           type="number"
-          class="soft-el spacer input-center"
         />
       </div>
 
@@ -59,12 +51,16 @@
         class="soft-el input-center desc"
         id="dateUntil"
       />
+      <label class="body-text desc" for="dateUntil"
+        >Selecciona una categoría</label
+      >
       <select v-model="product.category" name="categories" id="categories">
         <option v-for="category in categories" :key="category">{{
           category
         }}</option>
       </select>
       <button
+        id="sellButton"
         type="button"
         class="editBtn button-base accessBtn"
         @click="sellProduct()"
@@ -84,6 +80,8 @@ Vue.use(alert);
 export default {
   data() {
     return {
+      isUploaded: false,
+      url: "",
       categories: [],
       product: {
         name: "",
@@ -102,15 +100,18 @@ export default {
   },
   mounted() {
     this.getCategories();
-    document
-      .getElementById("fileInputProd")
-      .addEventListener("change", handleFileSelect, false);
   },
   methods: {
     getCategories() {
       request.getCategories((data) => {
         if (data.ok) this.categories = data.classX;
       });
+    },
+    onFileChange(e) {
+      this.isUploaded = true;
+      const file = e.target.files[0];
+      this.url = URL.createObjectURL(file);
+      this.product.imgProduct = file;
     },
     sellProduct() {
       request.createProduct(
@@ -127,7 +128,7 @@ export default {
             this.$fire({
               text: "Producto creado",
               titleText: "SE CREO EL PRODUCTO",
-              icon: "success",
+              type: "success",
               confirmButtonColor: "#ff8e43",
               customClass: "swal2-error",
             });
@@ -135,7 +136,7 @@ export default {
             this.$fire({
               text: "No se pudo crear el producto, intenta nuevamente",
               titleText: "ERROR AL CREAR PRODUCTO",
-              icon: "error",
+              type: "error",
               confirmButtonColor: "#ff8e43",
               customClass: "swal2-error",
             });
@@ -151,25 +152,52 @@ export default {
 </script>
 
 <style scoped>
+.inSell {
+  width: 85%;
+  color: #888;
+  font-size: 1vw;
+  font-family: "Verdana", sans-serif;
+}
+#categories {
+  border: 1px solid #ff8e43;
+  outline: none;
+  font-size: 1vw;
+  color: #888;
+  border-radius: 1vw;
+}
+#dateUntil {
+  font-family: "Verdana", sans-serif;
+  border: 1px solid #ff8e43;
+  border-radius: 1vw;
+  font-size: 1vw;
+  padding: 0.4vw;
+}
 #sellProduct {
   background-color: white;
-  border-radius: 25px 25px 25px 25px;
+  border-radius: 1vw;
   width: 50%;
-  overflow: hidden;
+  height: 120%;
 }
 #productPicFrame {
   width: 30vw;
   height: 20vw;
   overflow: hidden;
   margin: auto;
+  border-radius: 1vw;
 }
 #productPicFrame img {
-  width: 70%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
 }
 #hTitle {
   margin: 2vw 0;
   font-size: 3vw;
+  color: #ff8e43;
+}
+#sellButton {
+  color: #ff8e43;
+  padding: 0.3vw;
+  border-radius: 1vw;
 }
 
 .spacer {

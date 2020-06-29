@@ -11,7 +11,7 @@ public class MessagesRepositoryDao implements MessagesRepository {
 	private final Dao<Messages, Integer> messagesDao;
 
 	public MessagesRepositoryDao(){
-		messagesDao = DaoController.getInstance().messagesDao();
+		this.messagesDao = DaoController.getInstance().messagesDao();
 	}
 
 	@Override
@@ -21,7 +21,6 @@ public class MessagesRepositoryDao implements MessagesRepository {
 
 	@Override
 	public Messages getById(int id) throws Exception {
-		
 		return messagesDao.queryForId(id);
 	}
 
@@ -40,7 +39,10 @@ public class MessagesRepositoryDao implements MessagesRepository {
 		Integer id,
 		Integer idReciber) throws SQLException
 	{
-		return messagesDao.queryBuilder().where().eq("user", id).and().eq("provider", idReciber).or().eq("user", idReciber).and().eq("provider", id).query();
+		List<Messages> mList;
+		mList = messagesDao.queryBuilder().where().eq("user", id).and().eq("provider", idReciber).query();
+		mList.addAll(messagesDao.queryBuilder().where().eq("user", idReciber).and().eq("provider", id).query());
+		return mList;
 	}
 	
 }

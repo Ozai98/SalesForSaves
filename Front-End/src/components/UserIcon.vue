@@ -9,7 +9,7 @@
       id="userIcon"
       :src="getImage()"
     />
-    <img v-else id="userIcon" src="@/assets/imgs/user.svg" />
+    <img v-else id="userIcon2" src="@/assets/imgs/user.svg" />
   </div>
 </template>
 
@@ -21,8 +21,8 @@ export default {
   },
   methods: {
     open() {
-      if (this.$store.getters.returnUser.returnLogState) {
-        jumpScreen("ProfileView");
+      if (this.$store.getters.returnLogState) {
+        this.jumpScreen("ProfileView");
       } else {
         this.$root.$emit("login");
       }
@@ -47,7 +47,11 @@ export default {
   cursor: pointer;
 }
 #userIcon {
-  width: 3vw;
-  height: 3vw;
+  width: 2vw;
+  height: 2vw;
+}
+#userIcon2 {
+  width: 1vw;
+  height: 1vw;
 }
 </style>

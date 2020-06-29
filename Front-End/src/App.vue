@@ -189,6 +189,10 @@ NavBar {
   margin: 0.5vw 0 0.5vw 0;
   justify-self: center;
 }
+.field2 {
+  color: #888;
+  padding: 0.5vw;
+}
 /*Estilado de los botones de acceso de login y register*/
 .accessBtn {
   border-radius: 16px;

@@ -31,8 +31,15 @@ export default {
   },
   methods: {
     search() {
+      console.log("trigger");
       if (this.$store.getters.returnView != "SearchProduct") {
-        this.$router.replace("/SearchProduct/" + this.sVal);
+        if (this.sVal == "") {
+          console.log("triggerempty");
+          this.$router.replace("/SearchProduct/" + "&empty");
+        } else {
+          console.log("triggerurl");
+          this.$router.replace("/SearchProduct/" + this.sVal);
+        }
         this.$store.dispatch("changeViewState", "SearchProduct");
       } else {
         this.$root.$emit("search", this.sVal);

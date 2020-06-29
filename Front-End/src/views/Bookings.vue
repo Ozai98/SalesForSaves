@@ -75,7 +75,7 @@
 import Map from "../components/maps/Mapa";
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
-import Comments from "@/components/Comments.vue";
+import Comments from "../components/comments";
 import Vue from "vue";
 import alert from "vue-simple-alert";
 import { timeSince, timeTil } from "@/services/dateServices.js";
@@ -143,7 +143,7 @@ export default {
               this.$fire({
                 text: "Reserva creada con éxito",
                 titleText: "RESERVA CREADA",
-                icon: "success",
+                type: "success",
                 confirmButtonColor: "#ff8e43",
                 customClass: "swal2-error",
               });
@@ -152,7 +152,7 @@ export default {
               this.$fire({
                 text: "Ocurrió un error al crear la reserva",
                 titleText: "NO SE PUDO CREAR RESERVA",
-                icon: "error",
+                type: "error",
                 confirmButtonColor: "#ff8e43",
                 customClass: "swal2-error",
               });
@@ -163,7 +163,7 @@ export default {
         this.$fire({
           text: "Estás pidiendo más unidades de las que hay disponibles",
           titleText: "NO SE PUDO CREAR RESERVA",
-          icon: "error",
+          type: "error",
           confirmButtonColor: "#ff8e43",
           customClass: "swal2-error",
         });

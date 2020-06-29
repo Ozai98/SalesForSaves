@@ -15,12 +15,14 @@ public class Messages {
 	private User user;
 	@DatabaseField(foreign = true, columnName = "provider")
 	private Provider provider;
-	@DatabaseField(dataType = DataType.DATE_TIME)
+	@DatabaseField
 	private Date timeSend;
 	@DatabaseField
 	private String content;
 
-	
+	public void setId(int id) {
+		this.id = id;
+	}
 	public void setContent(String content) {
 		this.content = content;
 	}

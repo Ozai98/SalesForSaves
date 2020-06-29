@@ -44,6 +44,11 @@ const router = new VueRouter({
       name: "SellProduct",
       component: () => import("@/views/SellProduct.vue"),
     },
+    {
+      path: "/messages",
+      name: "messages",
+      component: () => import("@/views/messages.vue"),
+    },
   ],
 });
 

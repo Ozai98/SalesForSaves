@@ -75,7 +75,6 @@ export default {
         this.userLog.password,
         (data) => {
           if (data.ok) {
-            console.log(data.classX);
             let builder = {
               id: data.classX.client.id,
               name: data.classX.client.name,
@@ -87,11 +86,10 @@ export default {
             this.$store.dispatch("changeLogState");
             this.$emit("closeLogin");
           } else {
-            console.log(data.msg);
             this.$fire({
               text: "no se reconoce el usuario o la contraseña",
               titleText: "ERROR LOGUEANDO USUARIO",
-              icon: "error",
+              type: "error",
               confirmButtonColor: "#ff8e43",
               customClass: "swal2-error",
             });
@@ -106,7 +104,7 @@ export default {
         this.$fire({
           text: "Un nombre de usuario y contraseña deben ser presentados",
           titleText: "ERROR LOGUEANDO USUARIO",
-          icon: "error",
+          type: "error",
           confirmButtonColor: "#ff8e43",
           customClass: "swal2-error",
         });

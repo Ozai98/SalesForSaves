@@ -360,6 +360,32 @@ function setComment(idProvider, idUser, comment, callback) {
 }
 
 //-------------------------------------------------------------------
+//----------------------mensajes----------------------------------
+//-------------------------------------------------------------------
+
+function getMsg(id,idReciber,callback){
+ 
+  generalRequest(
+    "/messages/getAll/"+id+"/"+idReciber,
+    undefined,
+    REQUEST_TYPES.GET,
+    undefined,
+    callback
+  );
+  
+}
+function setMsg( idUser,idProvider, content, callback) {
+  generalRequest(
+    "/messages/create",
+    { idUser,idProvider,content },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
+
+//-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------
 //-------------------------------------------------------------------
 function getCategories(callback) {
@@ -410,5 +436,9 @@ module.exports = {
   getRate,
   getComments,
   setComment,
-  generalLogin,
-};
+  getMsg,
+  setMsg,
+  generalLogin
+
+  }
+

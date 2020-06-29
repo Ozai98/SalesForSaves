@@ -1,5 +1,7 @@
 <template>
   <div id="navBar" @search="search()">
+    <p @click="jumpScreen('messages')" id="msg"
+    v-if="this.$store.getters.returnLogState"> MENSAJES </p>
     <p
       v-if="this.$store.getters.returnUser.isProvider"
       id="sellLink"
@@ -30,6 +32,7 @@ export default {
   name: "NavBar",
   props: {
     idPage: String,
+    log:Boolean
   },
   components: {
     UserIcon,
@@ -39,7 +42,7 @@ export default {
     openLogin() {
       this.$emit("openLogin2");
     },
-  },
+  }
 };
 </script>
 
@@ -57,6 +60,15 @@ export default {
   font-family: "Oswald", sans-serif;
   font-weight: bold;
   font-size: 1.5vw;
+}
+#msg {
+  position: absolute;
+  top: 0.3vw;
+  right: 12vw;
+  font-family: "Oswald", sans-serif;
+  font-weight: bold;
+  font-size: 1.5vw;
+  cursor: pointer;
 }
 #sellLink:hover {
   cursor: pointer;

@@ -70,11 +70,12 @@ public class MessagesController {
 			Messages message = new Messages();
 			message.setUser(userRepository.getById(idUser));
 			message.setProvider(providerRepository.getById(idProvider));
-			message.setContent(content.substring(0, 119));
+			message.setContent(content);
 			message.setTimeSend(new Date());
 			messagesRepository.create(message);
 			return new Response<Messages>(true, message, "el mensaje se creo");
 		} catch (Exception e) {
+			e.printStackTrace();
 			return new Response<>(false, null, "no se logro enviar el mensaje");
 		}
 	}
