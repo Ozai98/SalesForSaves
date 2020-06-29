@@ -26,8 +26,8 @@ export default {
   },
   methods: {
     jumpBookings(id2) {
-      //this.jumpScreen('Reservas');
       this.$router.push({ name: "Bookings", params: { id: id2 } });
+      this.$store.dispatch("changeViewState", "Bookings");
     },
     getImage() {
       return "data:image/jpeg;base64," + this.product.image;
@@ -39,7 +39,7 @@ export default {
 <style>
 .card {
   border: 1px solid #ff8e43;
-  border-radius: 15px;
+  border-radius: 1vw;
   width: 100%;
   box-sizing: border-box;
   display: block;
@@ -55,6 +55,7 @@ export default {
   border-top-right-radius: 1vw;
   max-width: 100%;
   height: auto;
+  max-height: 10vw;
   vertical-align: middle;
   border-style: none;
 }
@@ -71,5 +72,9 @@ export default {
 #name {
   font-weight: lighter;
   font-size: 2vw;
+}
+h6 {
+  font-family: "Verdana", sans-serif;
+  font-weight: normal;
 }
 </style>
