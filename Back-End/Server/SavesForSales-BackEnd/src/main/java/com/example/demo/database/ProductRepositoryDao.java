@@ -46,6 +46,9 @@ public class ProductRepositoryDao implements ProductRepository{
 
     @Override
     public List<Product> searchValid(String param) throws Exception {
+        
+        if(param == null || param.isEmpty()) return productDao.queryForAll();
+        
         return productDao.queryBuilder().where().like("name", "%" + param + "%")
                 .and().gt("quantity", 0).and().ge("timeLimit", new Date()).query();
     }
