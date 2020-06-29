@@ -1,30 +1,28 @@
 <template>
   <div class="container center-content">
     <div id="profile" class="center-content">
-      <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
+      <h1 class="highText1">INFORMACIÓN DE PERFIL</h1>
       <div class="picFrame">
         <img :src="getImage()" alt="profile pic" />
       </div>
       <label class="body-text desc" for="unField">Nombre</label>
-      <p id="unField" class="highText">{{ name }}</p>
+      <p id="unField" class="highText2">{{ name }}</p>
       <label class="body-text desc" for="mailField">Correo</label>
-      <p id="mailField" class="highText">{{ mail }}</p>
+      <p id="mailField" class="highText2">{{ mail }}</p>
       <button
-        id="editBtn"
-        class="button-base accessBtn"
+        class="button-base accessBtn editBtn"
         @click="jumpScreen('EditProfile')"
       >
         EDITAR
       </button>
       <button
-        id="editBtnH"
-        class="button-base accessBtn"
+        class="button-base accessBtn editBtn"
         @click="jumpScreen('History')"
       >
         HISTORIAL
       </button>
-      <button id="" class="button-base accessBtn" @click="logout()">
-        Cerrar Sesión
+      <button class="button-base accessBtn editBtn" @click="logout()">
+        SALIR
       </button>
     </div>
   </div>
@@ -54,8 +52,7 @@ export default {
 <style scoped>
 #profile {
   background-color: white;
-  border-radius: 25px 25px 25px 25px;
-  max-height: 80vh;
+  border-radius: 1vw;
   width: 60%;
 }
 .picFrame img {
@@ -63,18 +60,17 @@ export default {
   height: 100%;
 }
 
-.highText {
-  font-size: 4vw;
+.highText1 {
+  font-size: 3vw;
+  color: #ff8e43;
 }
-#editBtn {
+.highText2 {
+  font-size: 3vw;
+}
+.editBtn {
   min-width: 120px;
   min-height: 40px;
   color: #ff8e43;
-}
-#editBtnH {
-  min-width: 120px;
-  min-height: 40px;
-
-  color: #ff8e43;
+  width: 8vw;
 }
 </style>

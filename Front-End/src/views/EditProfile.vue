@@ -14,7 +14,7 @@
         type="text"
         id="unField"
         v-model="newUserInfo.name"
-        class="input-el field base-border body-text soft-el2"
+        class="input-el field2 base-border body-text soft-el2"
       />
 
       <label class="desc body-text" for="pass">Contraseña</label>
@@ -23,7 +23,7 @@
         type="password"
         id="pass"
         v-model="newUserInfo.password"
-        class="input-el field base-border body-text soft-el2"
+        class="input-el field2 base-border body-text soft-el2"
       />
 
       <label class="desc body-text" for="passX2">Confirmar contraseña</label>
@@ -32,7 +32,7 @@
         id="passX2"
         type="password"
         v-model="newUserInfo.password2"
-        class="input-el field base-border body-text soft-el2"
+        class="input-el field2 base-border body-text soft-el2"
       />
       <Map
         @cambio2="actualizar($event)"
@@ -101,6 +101,13 @@ export default {
           data.classX.isProvider = isProvider;
           this.$store.dispatch("storeUser", data.classX);
           this.jumpScreen("ProfileView");
+          this.$fire({
+            text: "Los cambios se han guardado con éxito",
+            titleText: "¡BIEN!",
+            icon: "error",
+            confirmButtonColor: "#ff8e43",
+            customClass: "swal2-error",
+          });
         } else {
           this.$fire({
             text: "Ocurrió un error al editar el usuario",
@@ -144,49 +151,42 @@ export default {
 #profile {
   background-color: white;
   border-radius: 25px 25px 25px 25px;
-  height: 85vh;
   width: 60%;
 }
 .profilePicFrame {
-  border-color: #ff8e43;
-  border-width: 1px;
+  border: 1px solid #ff8e43;
   display: inline-block;
   width: 10vw;
   height: 10vw;
   overflow: hidden;
-  border-radius: 50%;
+  border-radius: 100%;
   margin: auto;
 }
 .profilePicFrame img {
-  width: auto;
+  width: 100%;
   height: 100%;
-  margin-left: -15%;
+  cursor: pointer;
 }
 .profilePicFrame > input {
   display: none;
 }
 
 .highText {
-  font-size: 4vw;
+  font-size: 3vw;
+  color: #ff8e43;
 }
 #saveBtn {
-  min-width: 120px;
-  min-height: 40px;
   font-size: 2vw;
   color: #ff8e43;
   width: 12vw;
   height: 3vw;
 }
-#profile {
-  background-color: white;
-  width: 60%;
-}
 .mapa2 {
-  height: 15vw;
+  height: 20vw;
   width: 25vw;
   margin: 1.5vw 1.5vw 1.5vw 1.5vw;
-  border: solid 0.3vw;
-  border-color: black;
-  border-radius: 0.2vw;
+  border: solid 1px #ff8e43;
+  border-radius: 1vw;
+  overflow: hidden;
 }
 </style>

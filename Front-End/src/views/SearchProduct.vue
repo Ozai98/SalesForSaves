@@ -70,15 +70,20 @@ export default {
       console.log(query);
       this.bringFromBackCat(query);
     });
-    this.bringFromBack(this.$route.params.q);
+    console.log(this.$route.params.q);
+    if (this.$route.params.q == "&empty") {
+      this.bringFromBack("");
+    } else {
+      this.bringFromBack(this.$route.params.q);
+    }
   },
 };
 </script>
 
-<style>
+<style scoped>
 #container {
-  height: 90%;
   background-color: white;
+  min-height: 100vh;
 }
 #s-el {
   margin: auto;
@@ -88,6 +93,6 @@ export default {
   padding: 2vw;
   display: grid;
   grid-gap: 2vw;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
 }
 </style>

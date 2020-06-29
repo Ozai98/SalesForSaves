@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import starts from "./stars.vue";
+import starts from "./Stars.vue";
 import request from "../services/request.service.js";
 export default {
   props: {

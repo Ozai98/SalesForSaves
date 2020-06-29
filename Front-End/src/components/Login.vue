@@ -75,7 +75,6 @@ export default {
         this.userLog.password,
         (data) => {
           if (data.ok) {
-            console.log(data.classX);
             let builder = {
               id: data.classX.client.id,
               name: data.classX.client.name,
@@ -87,7 +86,6 @@ export default {
             this.$store.dispatch("changeLogState");
             this.$emit("closeLogin");
           } else {
-            console.log(data.msg);
             this.$fire({
               text: "no se reconoce el usuario o la contraseña",
               titleText: "ERROR LOGUEANDO USUARIO",
