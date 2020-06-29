@@ -56,7 +56,7 @@ public class upload {
 		reader = new BufferedReader(new FileReader(directory.concat("\\proveedor.txt")));
 
 		linea = reader.readLine();
-		query = "INSERT INTO Provider(name, mail, password, avatar) VALUES (?, ?, ?, ?)";
+		query = "INSERT INTO Provider(name, mail, password, avatar, lat, long) VALUES (?, ?, ?, ?, ?, ?)";
 		pstmt = con.prepareStatement(query);
 		while (!(linea == null)) {
 
@@ -67,6 +67,10 @@ public class upload {
 			pstmt.setString(3, linea);
 			linea = reader.readLine();
 			pstmt.setBinaryStream(4, new FileInputStream(directory.concat(Images.concat(linea))));
+			linea = reader.readLine();
+			pstmt.setString(5, linea);
+			linea = reader.readLine();
+			pstmt.setString(6, linea);
 			linea = reader.readLine();
 			pstmt.execute();
 		}
