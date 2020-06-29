@@ -4,23 +4,23 @@
                 QUE ONDAAAAAAA
         </div>
         <div id="contacts">
-                <div id="SubContacts" v-for="i in dataH" :key="i.name">
+                <div id="SubContacts" v-for="i in dataH" :key="i.id">
                     <img class="imagen" :src="getImage(i.image)" @click="getProv(i.provider)">
                 </div>
         </div>
         <div id=chat>
-            <div id="msg" v-for="j in msg" :key="j.idP" >
-                <div class="contenedor" v-if="j.idU==other">
-                     <img id="imagen2" src="../assets/imgs/user.svg" >
-                     <p id="user">USER</p>
+            <div id="msg" v-for="j in msg" :key="j.idU.mail" >
+                <div class="contenedor" v-if="j.idU.id==other">
+                     <img id="imagen2" :src="getImage(j.idProv.avatar)" >
+                     <p id="user">{{j.idProv.name}}</p>
                      <p id="hora">ayer</p>
-                     <label id="mensaje">Hola soy un mensaje</label>  
+                     <label id="mensaje">{{j.idm}}</label>  
                 </div>
-                <div class="contenedor" v-if="j.idU==id">
-                     <img class="imagen3" src="../assets/imgs/user.svg" >
-                     <p class="user2">USER</p>
+                <div class="contenedor" v-if="j.idU.id==id">
+                     <img class="imagen3" :src="getImage(j.idU.avatar)" >
+                     <p class="user2">{{j.idU.name}}</p>
                      <p id="hora2">ayer</p>
-                     <label id="mensaje2">Hola soy un mensaje</label> 
+                     <label id="mensaje2">{{j.idm}}</label> 
                 </div>
                 
             </div>
@@ -67,26 +67,33 @@ export default {
     getmsg(){
         this.msg=[]
         if(this.other!=-1){
+            console.log(this.id+' '+this.other+' obtene')
             request.getMsg(this.id,this.other,(data)=>{
             if (data.ok){
+                console.log("si entro")
                 for( const M of data.classX){
                     this.msg.push(
                         {
-                            idU: M.idUser,
-                            idP: M.idProvider,
+                            idU: M.user,
+                            idP: M.provider,
                             idm: M.content
                         }
                         )
                     }
                 }
             });
+            
         }
+        console.log(this.msg)
     },
     setMsg(){
         if(this.other!=-1){
-        setMsg(this.id,this.other,this.m, (data)=>{
+            console.log(this.id+' '+this.other+' '+this.m)
+        request.setMsg(this.id,this.other,this.m, (data)=>{
             if(data.ok){
-                console.log("pos si")
+                this.getmsg();
+                this.$forceUpdate();
+                this.m='';
             }
         });
         }

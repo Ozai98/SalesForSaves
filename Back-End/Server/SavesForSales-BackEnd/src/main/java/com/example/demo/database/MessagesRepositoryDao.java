@@ -39,7 +39,10 @@ public class MessagesRepositoryDao implements MessagesRepository {
 		Integer id,
 		Integer idReciber) throws SQLException
 	{
-		return messagesDao.queryBuilder().where().eq("user", id).and().eq("provider", idReciber).or().eq("user", idReciber).and().eq("provider", id).query();
+		List<Messages> mList;
+		mList = messagesDao.queryBuilder().where().eq("user", id).and().eq("provider", idReciber).query();
+		mList.addAll(messagesDao.queryBuilder().where().eq("user", idReciber).and().eq("provider", id).query());
+		return mList;
 	}
 	
 }

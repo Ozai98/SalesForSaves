@@ -366,7 +366,7 @@ function setComment(idProvider, idUser, comment, callback) {
 function getMsg(id,idReciber,callback){
  
   generalRequest(
-    "/messages/getAll/"+id+'/'+idReciber,
+    "/messages/getAll/"+id+"/"+idReciber,
     undefined,
     REQUEST_TYPES.GET,
     undefined,
@@ -439,6 +439,6 @@ module.exports = {
   getMsg,
   setMsg,
   generalLogin
-  
+
   }
 
