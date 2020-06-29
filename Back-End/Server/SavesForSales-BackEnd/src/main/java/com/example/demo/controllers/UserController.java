@@ -10,6 +10,7 @@ import com.example.demo.database.RepositoryController;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.services.Services;
+import java.util.HashMap;
 import java.util.List;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +41,11 @@ public class UserController extends ClientController<User> {
         return super.login(mail, password);
     }
 
+    @PostMapping(value = "/generalLogin", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public Response<HashMap> userProvLogin(String mail, String password) {
+        return super.generalLogin(mail, password);
+    }
+    
     @PostMapping(value = "/get-by-email", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public Response<User> getByEmail(String mail) {
         try {

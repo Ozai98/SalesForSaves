@@ -105,6 +105,18 @@ function updateClient(id, name, password, avatar, callback) {
   generalRequest("/user/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
+
+// Permite hacer login si es un prveedor o es un usuario
+function generalLogin(mail, password, callback) {
+  generalRequest(
+    "/user/generalLogin",
+    { mail, password },
+    REQUEST_TYPES.POST,
+    undefined,
+    callback
+  );
+}
+
 //-------------------------------------------------------------------
 //----------------------PROVEEDOR------------------------------------
 //-------------------------------------------------------------------
@@ -398,4 +410,5 @@ module.exports = {
   getRate,
   getComments,
   setComment,
+  generalLogin,
 };
