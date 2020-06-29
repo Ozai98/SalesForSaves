@@ -127,7 +127,7 @@ CREATE TABLE IF NOT EXISTS `SavesForSales`.`Coments` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `user` INT NULL,
   `provider` INT NULL,
-  `comment` VARCHAR(255) NOT NULL,
+  `comment` VARCHAR(8000) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `userfk1_idx` (`user` ASC),
   INDEX `providerfk1_idx` (`provider` ASC),

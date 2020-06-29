@@ -66,12 +66,7 @@
       </div>
     </div>
     <div class="commentsFrame">
-      <Comments
-        ref="comm"
-        class="comments"
-        :images="preview.image"
-        :idProvider="idProvider"
-      />
+      <Comments ref="commEl" class="comments" :idProvider="idProvider" />
     </div>
   </div>
 </template>
@@ -80,8 +75,7 @@
 import Map from "../components/maps/Mapa";
 import request from "@/services/request.service.js";
 import Product from "@/components/Product.vue";
-import ModalComponent from "@/components/ModalComponent.vue";
-import Comments from "../components/comments";
+import Comments from "../components/Comments.vue";
 import Vue from "vue";
 import alert from "vue-simple-alert";
 import { timeSince, timeTil } from "@/services/dateServices.js";
@@ -112,32 +106,31 @@ export default {
     Product,
     Map,
     Comments,
-    ModalComponent,
   },
   methods: {
     bringFromBackR() {
       request.getProductById(this.$route.params.id, (data) => {
         if (data.ok) {
-          console.log(data.classX);
           this.preview.quantity = data.classX.quantity;
           this.preview.price = data.classX.price;
           this.preview.name = data.classX.name;
           this.preview.provider = data.classX.provider.name;
           this.idProvider = data.classX.provider.id;
+          this.getComments();
           this.preview.id = data.classX.id;
           this.preview.image = data.classX.image;
           this.preview.save = data.classX.saved;
           this.preview.publicationDate = timeSince(data.classX.publicationDate);
           this.preview.finishDate = timeTil(data.classX.timeLimit);
-          console.log(
-            data.classX.provider.ubication.lat +
-              " " +
-              data.classX.provider.ubication.longitud
-          );
-          console.log(this.pos.lat + "" + this.pos.lng);
+          // console.log(
+          //   data.classX.provider.ubication.lat +
+          //     " " +
+          //     data.classX.provider.ubication.longitud
+          // );
+          // console.log(this.pos.lat + "" + this.pos.lng);
           this.pos.lat = data.classX.provider.ubication.lat;
           this.pos.lng = data.classX.provider.ubication.longitud;
-          console.log(this.pos.lat + "" + this.pos.lng);
+          // console.log(this.pos.lat + "" + this.pos.lng);
           request.getRate(data.classX.provider.id, (data) => {
             if (data.ok) {
               this.rate = Math.floor(data.classX.rate);
@@ -186,6 +179,9 @@ export default {
     getImage() {
       return "data:image/jpeg;base64," + this.preview.image;
     },
+    getComments() {
+      this.$refs.commEl.getComents(this.idProvider);
+    },
     showStarts(rate) {
       this.HtmlText = "";
       for (let index = 0; index < rate; index++) {
@@ -205,7 +201,7 @@ export default {
 
 <style>
 #containerB {
-  height: 150vh;
+  height: 160vh;
   display: block;
   background-color: white;
 }
@@ -368,16 +364,16 @@ export default {
 .commentsFrame {
   margin: auto;
   width: 80vw;
-  height: 20vw;
+  height: 25vw;
   background-color: #a1ffca;
+  border-radius: 1vw;
+  border: 1px solid #ff8e43;
 }
 .tittleModal {
   text-align: center;
   font-weight: lighter;
   font-size: 2vw;
   margin-top: 2vw;
-}
-.comments {
 }
 .button-commR {
   background-color: white;
