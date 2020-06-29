@@ -1,14 +1,17 @@
 <template>
   <div id="navBar" @search="search()">
-    <p @click="jumpScreen('messages')" id="msg"
-    v-if="this.$store.getters.returnLogState"> MENSAJES </p>
-    <p
+    <img
+      @click="jumpScreen('messages')"
+      id="msg"
+      v-if="this.$store.getters.returnLogState"
+      src="@/assets/imgs/chat2.svg"
+    />
+    <img
       v-if="this.$store.getters.returnUser.isProvider"
       id="sellLink"
       @click="jumpScreen('SellProduct')"
-    >
-      VENDER
-    </p>
+      src="@/assets/imgs/paperBag1.svg"
+    />
     <div id="nav1" v-if="idPage == 'Home'">
       <UserIcon class="icon" frameSize="2"></UserIcon>
     </div>
@@ -32,7 +35,7 @@ export default {
   name: "NavBar",
   props: {
     idPage: String,
-    log:Boolean
+    log: Boolean,
   },
   components: {
     UserIcon,
@@ -42,7 +45,7 @@ export default {
     openLogin() {
       this.$emit("openLogin2");
     },
-  }
+  },
 };
 </script>
 
@@ -55,18 +58,18 @@ export default {
 }
 #sellLink {
   position: absolute;
-  top: 0.3vw;
+  top: 0.5vw;
   right: 4vw;
-  font-family: "Oswald", sans-serif;
-  font-weight: bold;
-  font-size: 1.5vw;
+  width: 2vw;
+  height: 2vw;
+  cursor: pointer;
 }
 #msg {
   position: absolute;
-  top: 0.3vw;
-  right: 12vw;
-  font-family: "Oswald", sans-serif;
-  font-weight: bold;
+  top: 0.5vw;
+  right: 7vw;
+  width: 2vw;
+  height: 2vw;
   font-size: 1.5vw;
   cursor: pointer;
 }

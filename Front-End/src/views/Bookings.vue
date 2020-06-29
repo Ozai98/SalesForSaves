@@ -215,7 +215,7 @@ export default {
 .pictureR {
   height: 80vh;
   width: auto;
-  margin-left: -20vw;
+  margin-left: -25%;
 }
 .productInfo {
   position: absolute;
@@ -346,6 +346,7 @@ export default {
   color: #ff8e43;
   width: 100%;
   height: 30%;
+  outline: none;
   border-radius: 0.5vw;
   padding: 0 0.2vw;
   cursor: pointer;

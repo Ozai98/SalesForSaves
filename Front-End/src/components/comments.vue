@@ -212,5 +212,6 @@ export default {
   font-family: "Oswald", sans-serif;
   font-size: 2vw;
   border: 1px solid #ff8e43;
+  outline: none;
 }
 </style>
