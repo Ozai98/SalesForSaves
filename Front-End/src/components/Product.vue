@@ -73,4 +73,8 @@ export default {
   font-weight: lighter;
   font-size: 2vw;
 }
+h6 {
+  font-family: "Verdana", sans-serif;
+  font-weight: normal;
+}
 </style>

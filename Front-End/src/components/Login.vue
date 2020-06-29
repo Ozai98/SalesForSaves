@@ -89,7 +89,7 @@ export default {
             this.$fire({
               text: "no se reconoce el usuario o la contraseña",
               titleText: "ERROR LOGUEANDO USUARIO",
-              icon: "error",
+              type: "error",
               confirmButtonColor: "#ff8e43",
               customClass: "swal2-error",
             });
@@ -104,7 +104,7 @@ export default {
         this.$fire({
           text: "Un nombre de usuario y contraseña deben ser presentados",
           titleText: "ERROR LOGUEANDO USUARIO",
-          icon: "error",
+          type: "error",
           confirmButtonColor: "#ff8e43",
           customClass: "swal2-error",
         });

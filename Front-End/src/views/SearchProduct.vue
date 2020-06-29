@@ -49,7 +49,7 @@ export default {
         if (data.ok) {
           for (const prod of data.classX) {
             this.dataProd.push({
-              time: new Date(prod.publicationDate),
+              time: timeSince(prod.publicationDate),
               price: prod.price,
               name: prod.name,
               leftUnits: prod.quantity,

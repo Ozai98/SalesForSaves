@@ -56,7 +56,9 @@
       </div>
       <div class="base-border center-content inputIMG">
         <label for="fileInput">
+          <img id="picInput" :src="url" alt="profile pic" v-if="isUploaded" />
           <img
+            v-else
             id="picInput"
             src="@/assets/imgs/photo-camera.svg"
             alt="profile pic"
@@ -80,6 +82,8 @@ export default {
   name: "Register",
   data() {
     return {
+      isUploaded: false,
+      url: "",
       first: true,
       isProvider: false,
       newUser: {
@@ -107,7 +111,11 @@ export default {
       }
     },
     onFileSelected(event) {
-      this.newUser.avatar = event.target.files[0];
+      console.log("hey");
+      this.isUploaded = true;
+      const file = event.target.files[0];
+      this.newUser.avatar = file;
+      this.url = URL.createObjectURL(file);
     },
     register() {
       if (
@@ -134,12 +142,19 @@ export default {
             (data) => {
               if (data.ok) {
                 this.$store.dispatch("storeUser", data.classX);
+                this.$fire({
+                  text: "Usuario creado exitosamente",
+                  titleText: "¡BIEN!",
+                  type: "success",
+                  confirmButtonColor: "#ff8e43",
+                  customClass: "swal2-error",
+                });
                 this.$emit("goToLogin");
               } else {
                 this.$fire({
                   text: "No se pudo crear usuario",
                   titleText: "ERROR CREANDO USUARIO",
-                  icon: "error",
+                  type: "error",
                   confirmButtonColor: "#ff8e43",
                   customClass: "swal2-error",
                 });
@@ -150,7 +165,7 @@ export default {
           this.$fire({
             text: "Contraseña incorrecta",
             titleText: "ERROR CREANDO USUARIO",
-            icon: "error",
+            type: "error",
             confirmButtonColor: "#ff8e43",
             customClass: "swal2-error",
           });
@@ -159,7 +174,7 @@ export default {
         this.$fire({
           text: "Hacen falta datos",
           titleText: "ERROR CREANDO USUARIO",
-          icon: "error",
+          type: "error",
           confirmButtonColor: "#ff8e43",
           customClass: "swal2-error",
         });

@@ -21,7 +21,6 @@ export default {
   },
   methods: {
     open() {
-      console.log(this.$store.getters.returnUser.returnLogState);
       if (this.$store.getters.returnLogState) {
         this.jumpScreen("ProfileView");
       } else {

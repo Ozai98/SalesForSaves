@@ -4,7 +4,8 @@
       <h1 class="highText">INFORMACIÓN DE PERFIL</h1>
       <div class="profilePicFrame">
         <label for="editProfilePic">
-          <img :src="getImage()" alt="profile pic" />
+          <img :src="url" alt="profile pic" v-if="isUploaded" />
+          <img :src="getImage()" alt="profile pic" v-else />
         </label>
         <input type="file" id="editProfilePic" @change="updateImg" />
       </div>
@@ -64,6 +65,8 @@ export default {
   },
   data() {
     return {
+      url: "",
+      isUploaded: false,
       newUserInfo: {
         name: "",
         password: "",
@@ -104,7 +107,7 @@ export default {
           this.$fire({
             text: "Los cambios se han guardado con éxito",
             titleText: "¡BIEN!",
-            icon: "error",
+            type: "success",
             confirmButtonColor: "#ff8e43",
             customClass: "swal2-error",
           });
@@ -112,7 +115,7 @@ export default {
           this.$fire({
             text: "Ocurrió un error al editar el usuario",
             titleText: "ERROR EDITANDO USUARIO",
-            icon: "error",
+            type: "error",
             confirmButtonColor: "#ff8e43",
             customClass: "swal2-error",
           });
@@ -141,7 +144,10 @@ export default {
       return "data:image/jpeg;base64," + this.$store.getters.returnUser.imgURL;
     },
     updateImg(event) {
-      this.newUserInfo.avatar = event.target.files[0];
+      this.isUploaded = true;
+      const file = event.target.files[0];
+      this.newUserInfo.avatar = file;
+      this.url = URL.createObjectURL(file);
     },
   },
 };
