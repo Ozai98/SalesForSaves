@@ -54,7 +54,7 @@
 </template>
 
 <script>
-import UnitComment from "./UnitComment.vue";
+import UnitComment from "@/components/UnitComment.vue";
 import request from "../services/request.service.js";
 export default {
   data() {

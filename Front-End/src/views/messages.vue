@@ -252,5 +252,6 @@ export default {
   height: 2vw;
   width: 70%;
   border: none;
+  outline: none;
 }
 </style>
