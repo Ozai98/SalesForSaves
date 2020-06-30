@@ -16,7 +16,7 @@ public class upload {
 	 */
 	private static final String Images = "\\Test Images\\";
 
-	public static void fillDB(final String[] args) throws Exception {
+	public static void fillDb(final String[] args) throws Exception {
 		// Registering the Driver
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
@@ -52,12 +52,12 @@ public class upload {
 		System.out.println("hi");
 		reader.close();
 
-		//insertar ubicaciones
+		// insertar ubicaciones
 		reader = new BufferedReader(new FileReader(directory.concat("\\ubicaciones.txt")));
 		linea = reader.readLine();
 		query = "INSERT INTO Ubication(lat, `long`) VALUES (?, ?)";
 		pstmt = con.prepareStatement(query);
-		while(!(linea == null)) {
+		while (!(linea == null)) {
 			pstmt.setDouble(1, Double.parseDouble(linea));
 			linea = reader.readLine();
 			pstmt.setDouble(2, Double.parseDouble(linea));
@@ -117,8 +117,6 @@ public class upload {
 			pstmt.execute();
 		}
 		reader.close();
-
-		
 
 		System.out.println("productos insertados");
 		System.out.println("Records inserted......");
