@@ -12,7 +12,13 @@
         </div>
       </div>
     </div>
-    <div v-if="this.$store.getters.returnLogState" class="commentBox">
+    <div
+      v-if="
+        this.$store.getters.returnLogState &&
+        !this.$store.getters.returnUser.isProvider
+      "
+      class="commentBox"
+    >
       <div class="commentDialog">
         <div class="imgFrame">
           <img :src="getImage()" class="pictureCOM" />
@@ -41,7 +47,14 @@
       </button>
     </div>
     <div v-else class="commentBox">
-      <div class="commentDialog">
+      <div v-if="this.$store.getters.returnUser.isProvider">
+        <div class="commentDialog">
+          <p class="loginWarning">
+            Lo sentimos, los proveedores no pueden hacer comentarios :(
+          </p>
+        </div>
+      </div>
+      <div v-else class="commentDialog">
         <p class="loginWarning">
           ¡Inicia sesión para comentar!
         </p>
