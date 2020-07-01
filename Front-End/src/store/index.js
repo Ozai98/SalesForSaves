@@ -7,10 +7,17 @@ export default new Vuex.Store({
   state: {
     currentView: "Home",
     isLogged: false,
-    user: { id: -1, name: null, imgURL: null, mail: null, isProvider: false },
+    user: {
+      id: -1,
+      name: null,
+      imgURL: null,
+      mail: null,
+      isProvider: false,
+      ubc: { lat: null, longitud: null },
+    },
     searchedValue: "",
     stateH: true,
-    ProvH:Object
+    ProvH: Object,
   },
   mutations: {
     CHANGE_VIEW_DISPLAYING(state, newView) {
@@ -31,6 +38,7 @@ export default new Vuex.Store({
       state.user.imgURL = user.avatar;
       state.user.mail = user.mail;
       state.user.isProvider = user.isProvider;
+      state.user.ubc = user.ubc;
     },
     RESTART_LOGIN(state) {
       state.isLogged = false;
@@ -38,10 +46,10 @@ export default new Vuex.Store({
     UPDATE_SEARCH(state, newVal) {
       state.searchedValue = newVal;
     },
-    CHANGE_STATE_H(state,prov){
-      state.stateH=!state.stateH;
-      state.ProvH=prov;
-    }
+    CHANGE_STATE_H(state, prov) {
+      state.stateH = !state.stateH;
+      state.ProvH = prov;
+    },
   },
   actions: {
     changeViewState({ commit }, newView) {
@@ -60,9 +68,9 @@ export default new Vuex.Store({
     updateSearch({ commit }, val) {
       commit("UPDATE_SEARCH", val);
     },
-    updateStateH({commit,state},prov){
-      commit("CHANGE_STATE_H",(state,prov));
-    }
+    updateStateH({ commit, state }, prov) {
+      commit("CHANGE_STATE_H", (state, prov));
+    },
   },
   getters: {
     returnLogState: (state) => {

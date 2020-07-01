@@ -69,22 +69,45 @@ export default {
   },
   methods: {
     get_data() {
+      let pos = { lat: null, longitud: null };
       /*AQUI OBTENGO LOS DATOS PARA EL LOGIN*/
       request.generalLogin(
         this.userLog.username,
         this.userLog.password,
         (data) => {
           if (data.ok) {
-            let builder = {
-              id: data.classX.client.id,
-              name: data.classX.client.name,
-              mail: data.classX.client.mail,
-              avatar: data.classX.client.avatar,
-              isProvider: data.classX.isProvider,
-            };
-            this.$store.dispatch("storeUser", builder);
-            this.$store.dispatch("changeLogState");
-            this.$emit("closeLogin");
+            if (data.classX.isProvider) {
+              request.getProviderById(data.classX.client.id, (dataD) => {
+                if (dataD.ok) {
+                  pos.lat = dataD.classX.ubication.lat;
+                  pos.longitud = dataD.classX.ubication.longitud;
+                  console.log(pos, "cambio");
+                  let builder = {
+                    id: data.classX.client.id,
+                    name: data.classX.client.name,
+                    mail: data.classX.client.mail,
+                    avatar: data.classX.client.avatar,
+                    isProvider: data.classX.isProvider,
+                    ubc: pos,
+                  };
+                  this.$store.dispatch("storeUser", builder);
+                  this.$store.dispatch("changeLogState");
+                  this.$emit("closeLogin");
+                }
+              });
+            } else {
+              let builder = {
+                id: data.classX.client.id,
+                name: data.classX.client.name,
+                mail: data.classX.client.mail,
+                avatar: data.classX.client.avatar,
+                isProvider: data.classX.isProvider,
+                ubc: null,
+              };
+              this.$store.dispatch("storeUser", builder);
+              this.$store.dispatch("changeLogState");
+              this.$emit("closeLogin");
+            }
           } else {
             this.$fire({
               text: "no se reconoce el usuario o la contraseña",

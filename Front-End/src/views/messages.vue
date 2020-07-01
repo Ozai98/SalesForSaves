@@ -18,25 +18,51 @@
 
       <div id="chat">
         <div id="chatBubble">
-          <div id="msg" v-for="j in msg" :key="j.idU.mail">
-            <div class="singleMsgFrame left" v-if="j.idA != state">
-              <div class="imgMsgCont right">
-                <img class="msgImg" :src="getImage(j.idU.avatar)" />
+          <div v-if="!$store.getters.returnUser.isProvider">
+            <div v-for="j in msg" :key="j.idU.mail">
+              <div class="singleMsgFrame left" v-if="j.idA != state">
+                <div class="imgMsgCont right">
+                  <img class="msgImg" :src="getImage(j.idP.avatar)" />
+                </div>
+                <div class="msgContent right">
+                  <p class="userName">{{ j.idP.name }}</p>
+                  <p class="hora">{{ j.time }}</p>
+                  <label class="mensaje">{{ j.idm }}</label>
+                </div>
               </div>
-              <div class="msgContent right">
-                <p class="userName">{{ j.idU.name }}</p>
-                <p class="hora">ayer</p>
-                <label class="mensaje">{{ j.idm }}</label>
+              <div class="singleMsgFrame right" v-if="j.idA == state">
+                <div class="imgMsgCont left">
+                  <img class="msgImg" :src="getImage(j.idU.avatar)" />
+                </div>
+                <div class="msgContent left">
+                  <p class="userName">{{ j.idU.name }}</p>
+                  <p class="hora">{{ j.time }}</p>
+                  <label class="mensaje">{{ j.idm }}</label>
+                </div>
               </div>
             </div>
-            <div class="singleMsgFrame right" v-if="j.idU.id == id">
-              <div class="imgMsgCont left">
-                <img class="msgImg" :src="getImage(j.idU.avatar)" />
+          </div>
+          <div v-else>
+            <div v-for="j in msg" :key="j.idU.mail">
+              <div class="singleMsgFrame left" v-if="j.idA != state">
+                <div class="imgMsgCont right">
+                  <img class="msgImg" :src="getImage(j.idU.avatar)" />
+                </div>
+                <div class="msgContent right">
+                  <p class="userName">{{ j.idU.name }}</p>
+                  <p class="hora">{{ j.time }}</p>
+                  <label class="mensaje">{{ j.idm }}</label>
+                </div>
               </div>
-              <div class="msgContent left">
-                <p class="userName">{{ j.idU.name }}</p>
-                <p class="hora">ayer</p>
-                <label class="mensaje">{{ j.idm }}</label>
+              <div class="singleMsgFrame right" v-if="j.idA == state">
+                <div class="imgMsgCont left">
+                  <img class="msgImg" :src="getImage(j.idP.avatar)" />
+                </div>
+                <div class="msgContent left">
+                  <p class="userName">{{ j.idP.name }}</p>
+                  <p class="hora">{{ j.time }}</p>
+                  <label class="mensaje">{{ j.idm }}</label>
+                </div>
               </div>
             </div>
           </div>
@@ -52,7 +78,7 @@
           <textarea
             class="entrada"
             cols="95"
-            rows="2"
+            rows="1"
             v-model="m"
             v-on:keyup.enter="setMsg()"
           ></textarea>
@@ -63,6 +89,7 @@
 </template>
 <script>
 import request from "@/services/request.service.js";
+import { timeSince } from "@/services/dateServices.js";
 export default {
   data() {
     return {
@@ -118,11 +145,13 @@ export default {
           if (data.ok) {
             console.log("si entro");
             for (const M of data.classX) {
+              console.log(data.classX);
               this.msg.push({
                 idU: M.user,
                 idP: M.provider,
                 idm: M.content,
                 idA: M.senderProvider,
+                time: timeSince(M.timeSend),
               });
             }
           }
@@ -238,12 +267,14 @@ export default {
 }
 .imgMsgCont {
   width: 4vw;
+  margin: 0.5vw 1vw;
 }
 .msgImg {
   width: 4vw;
   height: 4vw;
   border-radius: 100%;
   overflow: hidden;
+  border: 1px solid #ff8e43;
 }
 .msgContent {
   position: relative;
@@ -279,7 +310,7 @@ export default {
 .inputBar {
   position: relative;
   width: 96%;
-  height: 10%;
+  height: auto;
   display: grid;
   margin: 1vw;
   border: 1px solid #ff8e43;
@@ -287,12 +318,13 @@ export default {
   background-color: white;
   overflow: hidden;
   max-height: 100%;
+  padding: 1vw 0;
 }
 .entrada {
   border: none;
   outline: none;
   width: 80%;
-  padding: 1vw;
+  padding: 0 1vw;
   font-family: "Verdana", sans-serif;
   font-weight: lighter;
   color: #888;
@@ -300,11 +332,11 @@ export default {
   font-size: 1vw;
 }
 #send {
-  width: 4vw;
-  height: 4vh;
+  width: 3vw;
+  height: 3vh;
   position: absolute;
-  top: 1vw;
-  right: 5%;
+  top: 25%;
+  right: 0;
   cursor: pointer;
 }
 </style>

@@ -47,7 +47,7 @@ export default {
   cursor: pointer;
 }
 #userIcon {
-  width: 2vw;
+  width: auto;
   height: 2vw;
 }
 #userIcon2 {

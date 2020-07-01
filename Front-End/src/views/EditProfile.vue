@@ -39,7 +39,8 @@
         @cambio2="actualizar($event)"
         class="mapa2"
         v-bind:id="1"
-        v-bind:pos="{ lat: 4.665713941327049, lng: -74.08367224701064 }"
+        v-bind:pos="newUserInfo.ubc"
+        v-if="this.$store.getters.returnUser.isProvider"
       />
 
       <button
@@ -63,6 +64,7 @@ export default {
     Mail: String,
     Alt: Boolean,
   },
+  mounted() {},
   data() {
     return {
       url: "",
@@ -73,8 +75,8 @@ export default {
         password2: "",
         avatar: null,
         ubc: {
-          lat: "",
-          lng: "",
+          lat: this.$store.getters.returnUser.ubc.lat,
+          lng: this.$store.getters.returnUser.ubc.longitud,
         },
       },
     };
@@ -86,24 +88,46 @@ export default {
     actualizar(item) {
       this.newUserInfo.ubc.lat = item.lat;
       this.newUserInfo.ubc.lng = item.lng;
-      console.log(this.newUserInfo.ubc, "ubicación nueva");
     },
     updateUser() {
       let isProvider = this.$store.getters.returnUser.isProvider;
       let new_name = null,
         new_pass = null,
-        new_avatar = null;
+        new_avatar = null,
+        builderName = null,
+        builderAvatar = null;
       if (this.newUserInfo.name != "") new_name = this.newUserInfo.name;
       if (this.newUserInfo.password != "") {
         if (this.newUserInfo.password == this.newUserInfo.password2)
           new_pass = this.newUserInfo.password;
       }
       if (this.newUserInfo.avatar != null) new_avatar = this.newUserInfo.avatar;
+      if (new_name == null) builderName = this.$store.getters.returnUser.name;
+      else builderName = new_name;
+      if (new_avatar == null)
+        builderAvatar = this.$store.getters.returnUser.imgURL;
       const callback = (data) => {
         if (data.ok) {
-          data.classX.isProvider = isProvider;
-          this.$store.dispatch("storeUser", data.classX);
-          this.jumpScreen("ProfileView");
+          request.getProviderById(this.$store.getters.returnUser.id, (data) => {
+            if (data.ok) {
+              console.log(data);
+              let builder = {
+                id: this.$store.getters.returnUser.id,
+                name: builderName,
+                mail: this.$store.getters.returnUser.mail,
+                avatar: data.classX.avatar,
+                isProvider: this.$store.getters.returnUser.isProvider,
+                ubc: {
+                  lat: Number(data.classX.ubication.lat),
+                  longitud: Number(data.classX.ubication.longitud),
+                },
+              };
+              this.$store.dispatch("storeUser", builder);
+              this.ubc = this.$store.getters.returnUser.ubc;
+              console.log(this.ubc);
+              this.jumpScreen("ProfileView");
+            }
+          });
           this.$fire({
             text: "Los cambios se han guardado con éxito",
             titleText: "¡BIEN!",
@@ -169,7 +193,7 @@ export default {
   margin: auto;
 }
 .profilePicFrame img {
-  width: 100%;
+  width: auto;
   height: 100%;
   cursor: pointer;
 }

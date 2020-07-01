@@ -105,7 +105,6 @@ function updateClient(id, name, password, avatar, callback) {
   generalRequest("/user/update", body, REQUEST_TYPES.POST, true, callback);
 }
 
-
 // Permite hacer login si es un prveedor o es un usuario
 function generalLogin(mail, password, callback) {
   generalRequest(
@@ -145,7 +144,7 @@ function createProvider(name, mail, password, ubication, avatar, callback) {
 
 function getProviderById(id, callback) {
   generalRequest(
-    "/provider/get-by-id" + id,
+    "/provider/get-by-id/" + id,
     undefined,
     REQUEST_TYPES.GET,
     undefined,
@@ -363,27 +362,24 @@ function setComment(idProvider, idUser, comment, callback) {
 //----------------------mensajes----------------------------------
 //-------------------------------------------------------------------
 
-function getMsg(id,idReciber,callback){
- 
+function getMsg(id, idReciber, callback) {
   generalRequest(
-    "/messages/getAll/"+id+"/"+idReciber,
+    "/messages/getAll/" + id + "/" + idReciber,
     undefined,
     REQUEST_TYPES.GET,
     undefined,
     callback
   );
-  
 }
-function setMsg( idUser,idProvider, content,isProviderBoolean, callback) {
+function setMsg(idUser, idProvider, content, isProviderBoolean, callback) {
   generalRequest(
     "/messages/create",
-    { idUser,idProvider,content,isProviderBoolean },
+    { idUser, idProvider, content, isProviderBoolean },
     REQUEST_TYPES.POST,
     undefined,
     callback
   );
 }
-
 
 //-------------------------------------------------------------------
 //----------------------GENERAL--------------------------------------
@@ -439,7 +435,5 @@ module.exports = {
   getMsg,
   setMsg,
   generalLogin,
-  getbyProv
-
-  }
-
+  getbyProv,
+};
