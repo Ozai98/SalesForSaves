@@ -104,6 +104,8 @@ public class ClientController<T extends Client> {
                 Provider instance = clients.get(0);
                 if (instance.getPassword().compareTo(Services.cryptPassword(password)) != 0)  return null;
 
+                RepositoryController.Ubication().refresh(instance.getUbication());
+                
                 return normalize(instance);
             } catch (Exception ex) {
                 Services.handleError(ex);
